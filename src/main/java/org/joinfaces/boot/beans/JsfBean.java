@@ -7,13 +7,13 @@ import javax.inject.Named;
 @RequestScoped
 public class JsfBean {
 
-	private String text;
+    private String text;
 
-	public String getText() {
-		return text;
-	}
+    public String getText() {
+	return text;
+    }
 
-	public void setText(String text) {
-		this.text = text;
-	}
+    public void setText(String text) {
+	this.text = text;
+    }
 }

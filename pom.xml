@@ -14,12 +14,11 @@
 	<version>2.3.6-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>JoinFaces Example</name>
-	<description>Example project for Jsf Spring Boot Starter</description>
+	<name>JoinFaces Spring Boot with CDI</name>
+	<description>Project with JoinFaces Spring Boot and CDI</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
 		<!-- Uncomment this if you want to use tomcat7 <tomcat.version>7.0.72</tomcat.version> -->
 		<!-- Uncomment this if you want to use with java6 <jackson.version>2.7.6</jackson.version> -->
 		<all-themes.version>1.0.10</all-themes.version>
@@ -46,12 +45,14 @@
 			<groupId>org.joinfaces</groupId>
 			<artifactId>jsf-jetty-spring-boot-starter</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId> 
-			</dependency> -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>all-themes</artifactId>
