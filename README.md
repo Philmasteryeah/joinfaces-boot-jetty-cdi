@@ -20,7 +20,7 @@ $ git push heroku master
 $ heroku ps:scale web=1
 $ heroku open
 ```
-- example link https://shrouded-headland-83856.herokuapp.com/index.xhtml
+- example link https://peaceful-mountain-96881.herokuapp.com/
 
 
 # TODO
