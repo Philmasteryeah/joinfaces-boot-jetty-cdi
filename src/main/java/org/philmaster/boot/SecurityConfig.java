@@ -21,12 +21,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 	http.csrf().disable();
 	http.authorizeRequests()
-		.antMatchers("/").permitAll()
-		.antMatchers("/index.xhtml").permitAll()
-		.antMatchers("/javax.faces.resource/**").permitAll().anyRequest().authenticated().and().formLogin()
-		.loginPage("/login.xhtml").permitAll()
-		.failureUrl("/login.xhtml?error=true")
-		.defaultSuccessUrl("/index.xhtml").and().logout().logoutSuccessUrl("/login.xhtml");
+	.antMatchers("resources/**").fullyAuthenticated().and().formLogin()
+	.loginPage("/login.xhtml")
+	.loginProcessingUrl("/appLogin")
+	.usernameParameter("username")
+	.passwordParameter("password")
+	.defaultSuccessUrl("/index.xhtml").and().logout()
+	.logoutUrl("/appLogout").logoutSuccessUrl("/login.xhtml");
+
     }
 
 }

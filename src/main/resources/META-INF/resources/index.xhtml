@@ -9,7 +9,7 @@
 <f:view contentType="text/html">
 
 	<h:head>
-		<title>.:: JoinFaces Example ::.</title>
+		<title>.:: Primefaces Menu ::.</title>
 		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
 		<link href="#{resource['images/favicon.ico']}" rel="shortcut icon" />
 		<h:outputStylesheet name="main.css" />
@@ -17,29 +17,33 @@
 
 	<h:body>
 		<p:layout fullPage="true">
-			<p:layoutUnit position="center">
-				<h:form id="contentForm" prependId="false"
-					enctype="multipart/form-data">
-					<p:ajaxStatus onstart="PF('statusDialog').show();"
-						onsuccess="PF('statusDialog').hide();" />
-					<p:dialog widgetVar="statusDialog" position="right top"
-						draggable="false" resizable="false" closable="false"
-						showHeader="false" modal="false">
-						<center>
-							<p:graphicImage value="#{resource['images/ajaxloading.gif']}" />
-						</center>
-					</p:dialog>
-					<div id="starterDiv" class="ui-fluid">
-						<center>
-							<p:menubar>
-								<p:menuitem value="Starter" ajax="true" update="@form"
-									action="starter" />
-							</p:menubar>
-						</center>
-					</div>
-				</h:form>
+
+			<p:layoutUnit position="north" size="100" header="Top"
+				resizable="true" closable="true" collapsible="true">
+				<h:outputText value="North unit content." />
 			</p:layoutUnit>
+
+			<p:layoutUnit position="south" size="100" header="Bottom"
+				resizable="true" closable="true" collapsible="true">
+				<h:outputText value="South unit content." />
+			</p:layoutUnit>
+
+			<p:layoutUnit position="west" size="200" header="Left"
+				resizable="true" closable="true" collapsible="true">
+				<h:outputText value="West unit content." />
+			</p:layoutUnit>
+
+			<p:layoutUnit position="east" size="200" header="Right"
+				resizable="true" closable="true" collapsible="true" effect="drop">
+				<h:outputText value="Right unit content." />
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+        //page code
+    </p:layoutUnit>
+
 		</p:layout>
+
 	</h:body>
 </f:view>
 </html>
