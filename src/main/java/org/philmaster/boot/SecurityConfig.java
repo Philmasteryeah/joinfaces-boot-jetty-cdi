@@ -1,4 +1,4 @@
-package org.joinfaces.boot;
+package org.philmaster.boot;
 
 import javax.inject.Inject;
 

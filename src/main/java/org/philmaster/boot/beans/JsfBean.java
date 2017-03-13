@@ -1,4 +1,4 @@
-package org.joinfaces.boot.beans;
+package org.philmaster.boot.beans;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
