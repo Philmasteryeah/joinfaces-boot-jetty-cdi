@@ -7,24 +7,33 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <f:view contentType="text/html">
 	<h:head>
-		<title>.:: Login Page ::.</title>
+		<title>.:: Login JoinFaces Example ::.</title>
 		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
 		<link href="#{resource['images/favicon.ico']}" rel="shortcut icon" />
 		<h:outputStylesheet name="main.css" />
 	</h:head>
 	<h:body>
-		<h3>Login</h3>
-		<font color="red"> <h:outputLabel
-				value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
-		</font>
-		<form action="${request.contextPath}/appLogin" method="POST">
-			<h:outputLabel value="Enter UserName:" />
-			<input type="text" name="username" /><br />
-			<br />
-			<h:outputLabel value="Enter Password:" />
-			<input type="password" name="password" /> <br />
-			<br /> <input type="submit" value="Login" />
-		</form>
+		<pe:layout fullPage="true">
+			<pe:layoutPane position="center">
+				<h:form prependId="false">
+					<div id="starterDiv" class="ui-fluid">
+						<center>
+							<p:outputLabel
+								value="Connection failed: user and/or password are wrong."
+								rendered="${!empty param['error']}" />
+							<p:focus />
+							<p:panelGrid columns="2" layout="grid">
+								<h:outputText value="username" />
+								<p:inputText id="username" />
+								<h:outputText value="password" />
+								<p:password id="password" />
+							</p:panelGrid>
+							<p:commandButton id="submit" value="Login" ajax="false" />
+						</center>
+					</div>
+				</h:form>
+			</pe:layoutPane>
+		</pe:layout>
 	</h:body>
 </f:view>
 </html>

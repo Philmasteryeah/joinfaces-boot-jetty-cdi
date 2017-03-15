@@ -1,1 +1,4 @@
 /target/
+/.springBeans
+/.project
+/.classpath
