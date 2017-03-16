@@ -1,49 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
 <f:view contentType="text/html">
-
 	<h:head>
-		<title>.:: Primefaces Menu ::.</title>
+		<title>.:: Login JoinFaces Example ::.</title>
 		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
 		<link href="#{resource['images/favicon.ico']}" rel="shortcut icon" />
 		<h:outputStylesheet name="styles/main.css" />
 	</h:head>
-
 	<h:body>
-		<p:layout fullPage="true">
-
-			<p:layoutUnit position="north" size="100" header="Top"
-				resizable="true" closable="true" collapsible="true">
-				<h:outputText value="North unit content." />
-			</p:layoutUnit>
-
-			<p:layoutUnit position="south" size="100" header="Bottom"
-				resizable="true" closable="true" collapsible="true">
-				<h:outputText value="South unit content." />
-			</p:layoutUnit>
-
-			<p:layoutUnit position="west" size="200" header="Left"
-				resizable="true" closable="true" collapsible="true">
-				<h:outputText value="West unit content." />
-			</p:layoutUnit>
-
-			<p:layoutUnit position="east" size="200" header="Right"
-				resizable="true" closable="true" collapsible="true" effect="drop">
-				<h:outputText value="Right unit content." />
-			</p:layoutUnit>
-
-			<p:layoutUnit position="center">
-        //page code
-    </p:layoutUnit>
-
-		</p:layout>
-
+		<h:form>
+			<p:growl id="growl" life="2000" />
+			<p:growl id="messages" showDetail="false" />
+			<p:commandButton value="Hallo" id="ajax" update="growl" actionListener="#{buttonBean.buttonAction}"
+				styleClass="ui-priority-primary" />
+			<h3>Titel</h3>
+			<div class="ui-g">
+				<div class="ui-g-12 ui-md-2">
+					<h3>Menu</h3>
+					<p:menu toggleable="true">
+						<p:submenu label="Ajax">
+							<p:menuitem value="Save" update="messages" icon="ui-icon-disk" />
+							<p:menuitem value="Update" update="messages" icon="ui-icon-arrowrefresh-1-w" />
+						</p:submenu>
+						<p:submenu label="Non-Ajax">
+							<p:menuitem value="Delete" update="messages" ajax="false" icon="ui-icon-close" />
+						</p:submenu>
+						<p:submenu label="Navigations">
+							<p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home" />
+						</p:submenu>
+					</p:menu>
+				</div>
+				<div class="ui-g-12 ui-md-10 ui-g-nopad">
+					<div class="ui-g-12">Bar</div>
+					<div class="ui-g-12 ui-g-nopad">
+						<div class="ui-g">
+							<div class="ui-g-12 ui-md-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet, orci nec
+								dictum convallis, ligula mauris vestibulum turpis, nec varius tortor quam at diam. Nullam a viverra nibh. In
+								tincidunt tempor lectus quis vulputate. Pellentesque nec dui aliquam, lobortis est in, lobortis ante</div>
+							<div class="ui-g-12 ui-md-4">Maecenas vel nisi aliquet, vulputate tortor id, laoreet massa. Maecenas mattis
+								tristique bibendum. Suspendisse vel mi dictum, vestibulum lacus quis, pulvinar quam. Proin vulputate, nibh at finibus
+								varius, leo eros lacinia elit, nec blandit odio tellus a justo. Donec nec ex auctor, tristique nulla nec, rutrum
+								sapien.</div>
+							<div class="ui-g-12 ui-md-4">Proin efficitur in leo eget ornare. Nam vestibulum neque sed velit sagittis
+								sodales. Sed scelerisque hendrerit magna a hendrerit. Cras tempor sem at justo pharetra convallis. Curabitur vel
+								sodales purus. Vestibulum interdum facilisis nulla imperdiet suscipit. Quisque lectus felis, condimentum eget
+								hendrerit sit amet.</div>
+						</div>
+						<div class="ui-g">
+							<div class="ui-g-6 ui-md-3">Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien
+								facilisis, commodo dui non, fringilla tellus. Quisque tempus facilisis nisi sodales finibus. Pellentesque neque orci,
+								ullamcorper vitae ligula quis, dignissim euismod augue.</div>
+							<div class="ui-g-6 ui-md-3">Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien
+								facilisis, commodo dui non, fringilla tellus. Quisque tempus facilisis nisi sodales finibus. Pellentesque neque orci,
+								ullamcorper vitae ligula quis, dignissim euismod augue.</div>
+							<div class="ui-g-6 ui-md-3">Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien
+								facilisis, commodo dui non, fringilla tellus. Quisque tempus facilisis nisi sodales finibus. Pellentesque neque orci,
+								ullamcorper vitae ligula quis, dignissim euismod augue.</div>
+							<div class="ui-g-6 ui-md-3">Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien
+								facilisis, commodo dui non, fringilla tellus. Quisque tempus facilisis nisi sodales finibus. Pellentesque neque orci,
+								ullamcorper vitae ligula quis, dignissim euismod augue.</div>
+						</div>
+						<div class="ui-g">
+							<div class="ui-g-12 ui-md-6">Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien
+								facilisis, commodo dui non, fringilla tellus. Quisque tempus facilisis nisi sodales finibus. Pellentesque neque orci,
+								ullamcorper vitae ligula quis, dignissim euismod augue.</div>
+							<div class="ui-g-12 ui-md-6">Fusce ullamcorper congue massa, eget ullamcorper nunc lobortis egestas. Lorem ipsum
+								dolor sit amet, consectetur adipiscing elit. Quisque ultrices dui eget dolor feugiat dapibus. Aliquam pretium leo et
+								egestas luctus. Nunc facilisis gravida tellus.</div>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-12">Footer</div>
+			</div>
+		</h:form>
 	</h:body>
 </f:view>
 </html>
