@@ -24,4 +24,9 @@ $ heroku open
 
 
 # TODO
+- there is a problem with the first login after a fresh deployment
+- its only working after the second login, but then for every user
+- this is probably a problem with the spring security config and the .css file on the index
+
+#THX
 - inspired by: https://github.com/joinfaces/joinfaces-example
