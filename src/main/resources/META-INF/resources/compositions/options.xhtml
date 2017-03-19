@@ -4,7 +4,15 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<p:panelGrid columns="1" layout="grid">
-		<p:growl id="fileUploadGrowl" showDetail="true" sticky="true" />
-		<p:commandButton value="Save" actionListener="#{buttonBean.buttonAction}"  update="fileUploadGrowl" />
+			<div class="ui-g">
+			<div class="ui-g-12 ui-md-4">Content</div>
+			<div class="ui-g-12 ui-md-4"></div>
+			<div class="ui-g-12 ui-md-4"></div>
+		</div>
+		<div class="ui-g">
+			<div class="ui-g-6 ui-md-3">Welcome </div>
+		</div>
+		<p:growl id="optionsGrowl" showDetail="true" sticky="true" />
+		<p:commandButton value="Save" actionListener="#{buttonBean.buttonAction}" update="optionsGrowl" />
 	</p:panelGrid>
 </ui:composition>

@@ -2,6 +2,7 @@ package org.philmaster.boot.beans;
 
 import javax.inject.Named;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.context.annotation.SessionScope;
 
 /**
@@ -26,6 +27,10 @@ public class PagerBean {
 
     public void setPage(String page) {
 	this.page = page;
+    }
+
+    public String getPagePrettyPrinted() {
+	return StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(StringUtils.capitalize(page)), ' ');
     }
 
 }

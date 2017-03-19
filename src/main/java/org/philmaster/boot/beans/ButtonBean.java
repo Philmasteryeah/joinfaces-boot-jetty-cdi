@@ -26,9 +26,9 @@ public class ButtonBean {
     }
 
     public void addMessage(String message) {
-	FacesContext context = FacesContext.getCurrentInstance();
-
-	context.addMessage(null,
-		new FacesMessage("Successful", "Your Page: " + bean.getPage() + " Your message: " + message));
+	FacesContext ctx = FacesContext.getCurrentInstance();
+	String user = ctx.getExternalContext().getRemoteUser();
+	String page = bean.getPagePrettyPrinted();
+	ctx.addMessage(null, new FacesMessage("Successful", "Welcome " + user + " on page: " + page + " : " + message));
     }
 }

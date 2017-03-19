@@ -11,7 +11,7 @@
 		<h:outputStylesheet name="styles/main.css" />
 	</h:head>
 	<h:body>
-		<h:form>
+		<h:form enctype="multipart/form-data">
 			<div class="ui-g">
 				<div class="ui-g-12 ui-md-2">
 					<p:growl id="globalGrowl" showDetail="true" sticky="true" />
@@ -20,11 +20,13 @@
 				</div>
 				<div class="ui-g-12 ui-md-10 ui-g-nopad">
 					<div class="ui-g-12">
-						<p>Header</p>
+						<p>
+							<h:outputText value="#{pagerBean.getPagePrettyPrinted()}" />
+						</p>
 					</div>
 					<div class="ui-g-12 ui-g-nopad">
 						<ui:insert>
-							<ui:include src="content/#{pagerBean.page}.xhtml" />
+							<ui:include src="compositions/#{pagerBean.page}.xhtml" />
 						</ui:insert>
 					</div>
 					<div class="ui-g-12">
