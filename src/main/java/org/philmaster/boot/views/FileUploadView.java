@@ -1,6 +1,9 @@
 package org.philmaster.boot.views;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -8,7 +11,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.io.IOUtils;
 import org.primefaces.model.UploadedFile;
 
 @Named
@@ -38,8 +40,8 @@ public class FileUploadView {
 	message = new FacesMessage("Succesful", file.getFileName() + " was uploaded.");
 	FacesContext.getCurrentInstance().addMessage(null, message);
 
-	try {
-	    editor.setText(IOUtils.toString(file.getInputstream()));
+	try (BufferedReader buffer = new BufferedReader(new InputStreamReader(file.getInputstream()))) {
+	    editor.setText(buffer.lines().collect(Collectors.joining("\n")));
 	} catch (IOException e) {
 	    // TODO
 	    e.printStackTrace();
