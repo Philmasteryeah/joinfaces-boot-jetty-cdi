@@ -24,9 +24,10 @@ $ heroku open
 - sa // 1
 
 
-# TODO
-- programamtic menu from property
-- 
+# Tasks completed
+- login and redirect with pure spring security without beans 
+- programmatic Prime Faces menu and submenu with dynamic <ui:include src="..."/> components 
+- some growl messages
 
 # THX
 - inspired by: https://github.com/joinfaces/joinfaces-example

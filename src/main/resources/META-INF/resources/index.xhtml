@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <f:view contentType="text/html">
 	<h:head>
 		<title>.:: Login JoinFaces Example ::.</title>
@@ -11,50 +12,25 @@
 	</h:head>
 	<h:body>
 		<h:form>
-			<p:growl id="growl" life="2000" />
-			<p:growl id="messages" showDetail="false" />
-			<p:commandButton value="Hallo" id="ajax" update="growl" actionListener="#{buttonBean.buttonAction}"
-				styleClass="ui-priority-primary" />
-				
-			<h3>Dokumenten Manager</h3>
 			<div class="ui-g">
 				<div class="ui-g-12 ui-md-2">
-					<h3>Menu</h3>
+					<p:growl id="globalGrowl" showDetail="true" sticky="true" />
+					<h3>Document Manager</h3>
 					<p:menu model="#{menuView.model}" />
 				</div>
 				<div class="ui-g-12 ui-md-10 ui-g-nopad">
-					<div class="ui-g-12">Bar</div>
+					<div class="ui-g-12">
+						<p>Header</p>
+					</div>
 					<div class="ui-g-12 ui-g-nopad">
-						<div class="ui-g">
-							<div class="ui-g-12 ui-md-4">Content</div>
-							<div class="ui-g-12 ui-md-4"></div>
-							<div class="ui-g-12 ui-md-4"></div>
-						</div>
-						<div class="ui-g">
-							<div class="ui-g-6 ui-md-3">Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien
-								facilisis, commodo dui non, fringilla tellus. Quisque tempus facilisis nisi sodales finibus. Pellentesque neque orci,
-								ullamcorper vitae ligula quis, dignissim euismod augue.</div>
-							<div class="ui-g-6 ui-md-3">Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien
-								facilisis, commodo dui non, fringilla tellus. Quisque tempus facilisis nisi sodales finibus. Pellentesque neque orci,
-								ullamcorper vitae ligula quis, dignissim euismod augue.</div>
-							<div class="ui-g-6 ui-md-3">Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien
-								facilisis, commodo dui non, fringilla tellus. Quisque tempus facilisis nisi sodales finibus. Pellentesque neque orci,
-								ullamcorper vitae ligula quis, dignissim euismod augue.</div>
-							<div class="ui-g-6 ui-md-3">Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien
-								facilisis, commodo dui non, fringilla tellus. Quisque tempus facilisis nisi sodales finibus. Pellentesque neque orci,
-								ullamcorper vitae ligula quis, dignissim euismod augue.</div>
-						</div>
-						<div class="ui-g">
-							<div class="ui-g-12 ui-md-6">Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien
-								facilisis, commodo dui non, fringilla tellus. Quisque tempus facilisis nisi sodales finibus. Pellentesque neque orci,
-								ullamcorper vitae ligula quis, dignissim euismod augue.</div>
-							<div class="ui-g-12 ui-md-6">Fusce ullamcorper congue massa, eget ullamcorper nunc lobortis egestas. Lorem ipsum
-								dolor sit amet, consectetur adipiscing elit. Quisque ultrices dui eget dolor feugiat dapibus. Aliquam pretium leo et
-								egestas luctus. Nunc facilisis gravida tellus.</div>
-						</div>
+						<ui:insert>
+							<ui:include src="content/#{pagerBean.page}.xhtml" />
+						</ui:insert>
+					</div>
+					<div class="ui-g-12">
+						<p>Footer</p>
 					</div>
 				</div>
-				<div class="ui-g-12"></div>
 			</div>
 		</h:form>
 	</h:body>
