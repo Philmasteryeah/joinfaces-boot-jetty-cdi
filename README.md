@@ -31,3 +31,4 @@ $ heroku open
 
 # THX
 - inspired by: https://github.com/joinfaces/joinfaces-example
+- nice Heroku tricks: https://github.com/heroku/heroku-buildpack-java
