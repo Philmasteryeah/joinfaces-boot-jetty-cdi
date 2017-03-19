@@ -39,13 +39,21 @@ public class FileUploadView {
 	}
 	message = new FacesMessage("Succesful", file.getFileName() + " was uploaded.");
 	FacesContext.getCurrentInstance().addMessage(null, message);
-
-	try (BufferedReader buffer = new BufferedReader(new InputStreamReader(file.getInputstream()))) {
+	// Java 7 for Heroku -.-
+	try {
+	    BufferedReader buffer = new BufferedReader(new InputStreamReader(file.getInputstream()));
 	    editor.setText(buffer.lines().collect(Collectors.joining("\n")));
 	} catch (IOException e) {
-	    // TODO
 	    e.printStackTrace();
 	}
+	// Java 8
+	// try (BufferedReader buffer = new BufferedReader(new
+	// InputStreamReader(file.getInputstream()))) {
+	// editor.setText(buffer.lines().collect(Collectors.joining("\n")));
+	// } catch (IOException e) {
+	// // TODO
+	// e.printStackTrace();
+	// }
 
     }
 }
