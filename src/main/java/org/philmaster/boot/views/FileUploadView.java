@@ -43,6 +43,7 @@ public class FileUploadView {
 	try {
 	    BufferedReader buffer = new BufferedReader(new InputStreamReader(file.getInputstream()));
 	    editor.setText(buffer.lines().collect(Collectors.joining("\n")));
+	    buffer.close();
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
