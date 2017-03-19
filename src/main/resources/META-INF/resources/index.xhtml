@@ -15,38 +15,20 @@
 			<p:growl id="messages" showDetail="false" />
 			<p:commandButton value="Hallo" id="ajax" update="growl" actionListener="#{buttonBean.buttonAction}"
 				styleClass="ui-priority-primary" />
-			<h3>Titel</h3>
+				
+			<h3>Dokumenten Manager</h3>
 			<div class="ui-g">
 				<div class="ui-g-12 ui-md-2">
 					<h3>Menu</h3>
-					<p:menu toggleable="true">
-						<p:submenu label="Ajax">
-							<p:menuitem value="Save" update="messages" icon="ui-icon-disk" />
-							<p:menuitem value="Update" update="messages" icon="ui-icon-arrowrefresh-1-w" />
-						</p:submenu>
-						<p:submenu label="Non-Ajax">
-							<p:menuitem value="Delete" update="messages" ajax="false" icon="ui-icon-close" />
-						</p:submenu>
-						<p:submenu label="Navigations">
-							<p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home" />
-						</p:submenu>
-					</p:menu>
+					<p:menu model="#{menuView.model}" />
 				</div>
 				<div class="ui-g-12 ui-md-10 ui-g-nopad">
 					<div class="ui-g-12">Bar</div>
 					<div class="ui-g-12 ui-g-nopad">
 						<div class="ui-g">
-							<div class="ui-g-12 ui-md-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet, orci nec
-								dictum convallis, ligula mauris vestibulum turpis, nec varius tortor quam at diam. Nullam a viverra nibh. In
-								tincidunt tempor lectus quis vulputate. Pellentesque nec dui aliquam, lobortis est in, lobortis ante</div>
-							<div class="ui-g-12 ui-md-4">Maecenas vel nisi aliquet, vulputate tortor id, laoreet massa. Maecenas mattis
-								tristique bibendum. Suspendisse vel mi dictum, vestibulum lacus quis, pulvinar quam. Proin vulputate, nibh at finibus
-								varius, leo eros lacinia elit, nec blandit odio tellus a justo. Donec nec ex auctor, tristique nulla nec, rutrum
-								sapien.</div>
-							<div class="ui-g-12 ui-md-4">Proin efficitur in leo eget ornare. Nam vestibulum neque sed velit sagittis
-								sodales. Sed scelerisque hendrerit magna a hendrerit. Cras tempor sem at justo pharetra convallis. Curabitur vel
-								sodales purus. Vestibulum interdum facilisis nulla imperdiet suscipit. Quisque lectus felis, condimentum eget
-								hendrerit sit amet.</div>
+							<div class="ui-g-12 ui-md-4">Content</div>
+							<div class="ui-g-12 ui-md-4"></div>
+							<div class="ui-g-12 ui-md-4"></div>
 						</div>
 						<div class="ui-g">
 							<div class="ui-g-6 ui-md-3">Phasellus faucibus purus volutpat mauris lacinia sodales. Ut sit amet sapien
@@ -72,7 +54,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="ui-g-12">Footer</div>
+				<div class="ui-g-12"></div>
 			</div>
 		</h:form>
 	</h:body>
