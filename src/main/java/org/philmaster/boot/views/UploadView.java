@@ -15,7 +15,7 @@ import org.primefaces.model.UploadedFile;
 
 @Named
 @ViewScoped
-public class FileUploadView {
+public class UploadView {
 
     @Inject
     private EditorView editor;
@@ -47,14 +47,5 @@ public class FileUploadView {
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
-	// Java 8
-	// try (BufferedReader buffer = new BufferedReader(new
-	// InputStreamReader(file.getInputstream()))) {
-	// editor.setText(buffer.lines().collect(Collectors.joining("\n")));
-	// } catch (IOException e) {
-	// // TODO
-	// e.printStackTrace();
-	// }
-
     }
 }

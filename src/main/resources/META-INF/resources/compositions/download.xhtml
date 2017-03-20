@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<p:panelGrid columns="1" layout="grid">
+		<div class="ui-g">
+			<div class="ui-g-12 ui-md-4">
+				<p:dataTable id="tbl" var="car" value="#{dataExporterView.cars}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+					paginator="true" rows="10" style="margin-bottom:20px">
+					<f:facet name="{Exporters}">
+						<h:commandLink>
+							<p:graphicImage name="/images/excel.png" width="24" />
+							<p:dataExporter type="xls" target="tbl" fileName="cars" />
+						</h:commandLink>
+						<h:commandLink>
+							<p:graphicImage name="/images/pdf.png" width="24" />
+							<p:dataExporter type="pdf" target="tbl" fileName="cars" />
+						</h:commandLink>
+						<h:commandLink>
+							<p:graphicImage name="/images/csv.png" width="24" />
+							<p:dataExporter type="csv" target="tbl" fileName="cars" />
+						</h:commandLink>
+						<h:commandLink>
+							<p:graphicImage name="/images/xml.png" width="24" />
+							<p:dataExporter type="xml" target="tbl" fileName="cars" />
+						</h:commandLink>
+					</f:facet>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Id" />
+						</f:facet>
+						<h:outputText value="#{car.id}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Year" />
+						</f:facet>
+						<h:outputText value="#{car.year}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Brand" />
+						</f:facet>
+						<h:outputText value="#{car.brand}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Color" />
+						</f:facet>
+						<h:outputText value="#{car.color}" />
+					</p:column>
+				</p:dataTable>
+			</div>
+			<div class="ui-g-12 ui-md-4"></div>
+			<div class="ui-g-12 ui-md-4"></div>
+		</div>
+		<div class="ui-g">
+			<div class="ui-g-6 ui-md-3"></div>
+		</div>
+		<p:growl id="fileUploadGrowl" showDetail="true" sticky="true" />
+		<p:commandButton value="Test" actionListener="#{buttonBean.buttonAction}" update="fileUploadGrowl" />
+	</p:panelGrid>
+</ui:composition>

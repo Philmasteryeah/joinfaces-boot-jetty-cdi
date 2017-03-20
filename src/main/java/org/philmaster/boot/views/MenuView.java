@@ -27,50 +27,24 @@ public class MenuView {
     @PostConstruct
     public void init() {
 	model = new DefaultMenuModel();
-
 	DefaultSubMenu firstSubmenu = new DefaultSubMenu("Administration");
-
-	DefaultMenuItem item = new DefaultMenuItem("Options");
-	item.setIcon("ui-icon-wrench");
-	item.setAjax(true);
-	item.setUpdate("@form");
-	item.setCommand("#{pagerBean.setPage('options')}");
-	firstSubmenu.addElement(item);
-
-	item = new DefaultMenuItem("Roles and Rights");
-	item.setIcon("ui-icon-key");
-	item.setAjax(true);
-	item.setUpdate("@form");
-	item.setCommand("#{pagerBean.setPage('rolesAndRights')}");
-	firstSubmenu.addElement(item);
-
-	item = new DefaultMenuItem("Users");
-	item.setIcon("ui-icon-person");
-	item.setAjax(true);
-	item.setUpdate("@form");
-	item.setCommand("#{pagerBean.setPage('users')}");
-	firstSubmenu.addElement(item);
-
+	firstSubmenu.addElement(createPageItem("ui-icon-wrench", "Options", "options"));
+	firstSubmenu.addElement(createPageItem("ui-icon-person", "Users", "users"));
+	firstSubmenu.addElement(createPageItem("ui-icon-key", "Roles and Rights", "rolesAndRights"));
 	model.addElement(firstSubmenu);
-
 	DefaultSubMenu secondSubmenu = new DefaultSubMenu("Documents");
-
-	item = new DefaultMenuItem("Upload");
-	item.setIcon("ui-icon-circle-arrow-n");
-	item.setAjax(true);
-	item.setUpdate("@form");
-	item.setCommand("#{pagerBean.setPage('fileUpload')}");
-	secondSubmenu.addElement(item);
-
-	item = new DefaultMenuItem("Download");
-	item.setIcon("ui-icon-circle-arrow-s");
-	item.setAjax(true);
-	item.setUpdate("@form");
-	item.setCommand("#{pagerBean.setPage('users')}");
-	secondSubmenu.addElement(item);
-
+	secondSubmenu.addElement(createPageItem("ui-icon-circle-arrow-n", "Upload", "upload"));
+	secondSubmenu.addElement(createPageItem("ui-icon-circle-arrow-s", "Download", "download"));
 	model.addElement(secondSubmenu);
+    }
 
+    private DefaultMenuItem createPageItem(String icon, String name, String page) {
+	DefaultMenuItem item = new DefaultMenuItem(name);
+	item.setIcon(icon);
+	item.setAjax(true);
+	item.setUpdate("@form");
+	item.setCommand("#{pagerBean.setPage('" + page + "')}");
+	return item;
     }
 
     // dont needed
