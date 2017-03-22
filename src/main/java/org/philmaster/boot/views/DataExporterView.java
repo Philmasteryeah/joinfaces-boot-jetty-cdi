@@ -13,6 +13,7 @@ import org.philmaster.boot.service.CarService;
 @Named
 @ViewScoped
 public class DataExporterView {
+
     private List<Car> cars;
 
     @Inject

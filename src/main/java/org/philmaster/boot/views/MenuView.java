@@ -24,6 +24,10 @@ public class MenuView {
 
     private MenuModel model;
 
+    public MenuModel getModel() {
+	return model;
+    }
+
     @PostConstruct
     public void init() {
 	model = new DefaultMenuModel();
@@ -48,10 +52,6 @@ public class MenuView {
     }
 
     // dont needed
-
-    public MenuModel getModel() {
-	return model;
-    }
 
     public void save() {
 	addMessage("Success", "Data saved");
