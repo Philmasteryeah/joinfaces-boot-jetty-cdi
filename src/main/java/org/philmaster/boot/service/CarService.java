@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.philmaster.boot.model.Car;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 @Named
 @ApplicationScoped
@@ -44,7 +46,13 @@ public class CarService {
 	brands[9] = "Ford";
     }
 
+    @Inject
+    private JdbcTemplate jdbcTemplate;
+
     public List<Car> createCars(int size) {
+	//TODO Testing
+	System.err.println(jdbcTemplate.update("INSERT INTO car(brand) VALUES(?)", "Honda"));
+	
 	List<Car> list = new ArrayList<Car>();
 	for (int i = 0; i < size; i++) {
 	    list.add(new Car(getRandomId(), getRandomBrand(), getRandomYear(), getRandomColor(), getRandomPrice(),
