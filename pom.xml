@@ -26,10 +26,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
@@ -50,14 +46,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> </dependency> -->
 		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>jsf-jetty-spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
@@ -81,6 +81,12 @@
 			<artifactId>cayenne-server</artifactId>
 			<version>4.0.M5</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.cayenne.modeler</groupId>
+			<artifactId>cayenne-modeler</artifactId>
+			<version>4.0.M5</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
@@ -113,6 +119,7 @@
 				<groupId>org.apache.cayenne.plugins</groupId>
 				<artifactId>maven-cayenne-modeler-plugin</artifactId>
 				<version>4.0.M4</version>
+				<!-- <configuration> <modelFile>src/main/resources/cayenne.xml</modelFile> </configuration> -->
 			</plugin>
 		</plugins>
 	</build>

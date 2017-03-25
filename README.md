@@ -30,7 +30,6 @@ $ heroku open
 - press run
 
 # Tasks TODO
-- add JDBC PostgeSQL
 - more Primefaces Examples working with CDI -> send me a pull request
 - model a simple account rights roles db sheme
 - get the menu working with the menu.yml file for crating and easy manipulating the menu structure
@@ -42,7 +41,22 @@ $ heroku open
 - programmatic Prime Faces menu and submenu with dynamic <ui:include src="..."/> components 
 - some growl messages
 - Apache Cayenne Modeler integrated
+- Postgres JDBC with Spring works -> JDBC Tempate
+- Cayenne Integration completed with orm class using
+
+# Postgresql Test shema
+- install postgrs and run this query
+```
+CREATE TABLE cars (id integer NOT NULL, name varchar(255) NULL, PRIMARY KEY (id));
+CREATE SEQUENCE pk_cars INCREMENT 20 START 200;
+
+````
+- you can generate the query for other databaes too
+- mvn: cayenne-modeler:run
+- Tool -> Generate Database Schema
+- choose your adapter
 
 # THX
 - inspired by: https://github.com/joinfaces/joinfaces-example
 - nice Heroku tricks: https://github.com/heroku/heroku-buildpack-java
+- Cayenne Docs https://cayenne.apache.org/docs/4.0/cayenne-guide/starting-cayenne.html 

@@ -9,8 +9,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.cayenne.ObjectContext;
+import org.example.cayenne.persistent.Cars;
+import org.philmaster.boot.beans.DatabaseBean;
 import org.philmaster.boot.model.Car;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 @Named
 @ApplicationScoped
@@ -46,12 +48,21 @@ public class CarService {
 	brands[9] = "Ford";
     }
 
+
+    
     @Inject
-    private JdbcTemplate jdbcTemplate;
+    private DatabaseBean dbBean;
 
     public List<Car> createCars(int size) {
-	//TODO Testing
-	System.err.println(jdbcTemplate.update("INSERT INTO car(brand) VALUES(?)", "Honda"));
+	// TODO Testing cayenne
+
+	ObjectContext ctx = dbBean.getContext();
+	Cars b = ctx.newObject(Cars.class);
+	b.setName("test car");
+	System.err.println(b);
+	ctx.commitChanges();
+
+	//
 	
 	List<Car> list = new ArrayList<Car>();
 	for (int i = 0; i < size; i++) {
