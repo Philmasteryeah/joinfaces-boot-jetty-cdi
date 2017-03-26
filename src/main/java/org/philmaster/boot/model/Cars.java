@@ -1,6 +1,6 @@
-package org.example.cayenne.persistent;
+package org.philmaster.boot.model;
 
-import org.example.cayenne.persistent.auto._Cars;
+import org.philmaster.boot.model.car._Cars;
 
 public class Cars extends _Cars {
 

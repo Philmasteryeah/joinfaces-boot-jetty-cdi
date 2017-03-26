@@ -3,12 +3,12 @@
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xsi:schemaLocation="http://cayenne.apache.org/schema/9/modelMap http://cayenne.apache.org/schema/9/modelMap.xsd"
 	 project-version="9">
-	<property name="defaultPackage" value="org.example.cayenne.persistent"/>
+	<property name="defaultPackage" value="org.philmaster.boot.model"/>
 	<db-entity name="cars">
 		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
 		<db-attribute name="name" type="VARCHAR" length="255"/>
 	</db-entity>
-	<obj-entity name="Cars" className="org.example.cayenne.persistent.Cars" dbEntityName="cars">
+	<obj-entity name="Cars" className="org.philmaster.boot.model.Cars" dbEntityName="cars">
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
 </data-map>

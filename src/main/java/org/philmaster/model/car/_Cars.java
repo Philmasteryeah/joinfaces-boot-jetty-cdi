@@ -1,4 +1,4 @@
-package org.example.cayenne.persistent.auto;
+package org.philmaster.model.car;
 
 import org.apache.cayenne.CayenneDataObject;
 import org.apache.cayenne.exp.Property;
