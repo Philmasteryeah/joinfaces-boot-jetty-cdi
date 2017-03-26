@@ -48,8 +48,6 @@ public class CarService {
 	brands[9] = "Ford";
     }
 
-
-    
     @Inject
     private DatabaseBean dbBean;
 
@@ -63,7 +61,7 @@ public class CarService {
 	ctx.commitChanges();
 
 	//
-	
+
 	List<Car> list = new ArrayList<Car>();
 	for (int i = 0; i < size; i++) {
 	    list.add(new Car(getRandomId(), getRandomBrand(), getRandomYear(), getRandomColor(), getRandomPrice(),

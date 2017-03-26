@@ -10,25 +10,22 @@ import javax.inject.Named;
 import org.philmaster.boot.model.Car;
 import org.philmaster.boot.service.CarService;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Named
 @ViewScoped
-public class DataExporterView {
+public class DownloadView {
 
+    @Getter
     private List<Car> cars;
 
+    @Setter
     @Inject
     private CarService service;
 
     @PostConstruct
     public void init() {
 	cars = service.createCars(100);
-    }
-
-    public List<Car> getCars() {
-	return cars;
-    }
-
-    public void setService(CarService service) {
-	this.service = service;
     }
 }

@@ -16,7 +16,7 @@
 				<div class="ui-g-12 ui-md-2">
 					<p:growl id="globalGrowl" showDetail="true" sticky="true" />
 					<h3>Document Manager</h3>
-					<p:menu model="#{menuView.model}" />
+					<p:menu model="#{indexView.model}" />
 				</div>
 				<div class="ui-g-12 ui-md-10 ui-g-nopad">
 					<div class="ui-g-12">
@@ -26,7 +26,7 @@
 					</div>
 					<div class="ui-g-12 ui-g-nopad">
 						<ui:insert>
-							<ui:include src="compositions/#{pagerBean.page}.xhtml" />
+							<ui:include src="views/#{pagerBean.page}.xhtml" />
 						</ui:insert>
 					</div>
 					<div class="ui-g-12">

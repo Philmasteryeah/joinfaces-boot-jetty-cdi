@@ -11,22 +11,20 @@ import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 
+import lombok.Getter;
+
 /**
  * @author Philmasteryeah
  * 
  *         add new menu items here
  *
  */
-
+@Getter
 @Named
 @ViewScoped
-public class MenuView {
+public class IndexView {
 
     private MenuModel model;
-
-    public MenuModel getModel() {
-	return model;
-    }
 
     @PostConstruct
     public void init() {

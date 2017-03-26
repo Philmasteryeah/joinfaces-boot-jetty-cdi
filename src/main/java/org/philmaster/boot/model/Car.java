@@ -2,6 +2,12 @@ package org.philmaster.boot.model;
 
 import java.io.Serializable;
 
+/**
+ * @author Philmasteryeah
+ * 
+ * old Model for testing
+ *
+ */
 public class Car implements Serializable {
 
     private static final long serialVersionUID = 1L;

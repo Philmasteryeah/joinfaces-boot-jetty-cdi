@@ -8,27 +8,22 @@ import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.model.UploadedFile;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Named
 @ViewScoped
 public class UploadView {
 
-    @Inject
-    private EditorView editor;
-
     private UploadedFile file;
-
-    public UploadedFile getFile() {
-	return file;
-    }
-
-    public void setFile(UploadedFile file) {
-	this.file = file;
-    }
+    
+    private String editorText;
 
     public void upload() {
 	FacesMessage message;
@@ -42,7 +37,7 @@ public class UploadView {
 	// Java 7 for Heroku -.-
 	try {
 	    BufferedReader buffer = new BufferedReader(new InputStreamReader(file.getInputstream()));
-	    editor.setText(buffer.lines().collect(Collectors.joining("\n")));
+	    setEditorText(buffer.lines().collect(Collectors.joining("\n")));
 	    buffer.close();
 	} catch (IOException e) {
 	    e.printStackTrace();

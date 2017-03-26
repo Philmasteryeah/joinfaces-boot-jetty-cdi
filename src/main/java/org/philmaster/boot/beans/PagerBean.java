@@ -5,6 +5,9 @@ import javax.inject.Named;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.context.annotation.SessionScope;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author Philmasteryeah
  * 
@@ -15,19 +18,13 @@ import org.springframework.web.context.annotation.SessionScope;
  *
  */
 
+@Getter
+@Setter
 @Named
 @SessionScope
 public class PagerBean {
 
     private String page = "main";
-
-    public String getPage() {
-	return page;
-    }
-
-    public void setPage(String page) {
-	this.page = page;
-    }
 
     public String getPagePrettyPrinted() {
 	return StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(StringUtils.capitalize(page)), ' ');

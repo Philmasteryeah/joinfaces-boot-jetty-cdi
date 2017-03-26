@@ -6,7 +6,7 @@
 	<p:panelGrid columns="1" layout="grid">
 		<div class="ui-g">
 			<div class="ui-g-12 ui-md-4">
-				<p:dataTable id="tbl" var="car" value="#{dataExporterView.cars}"
+				<p:dataTable id="tbl" var="car" value="#{downloadView.cars}"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
 					paginator="true" rows="10" style="margin-bottom:20px">
 					<f:facet name="{Exporters}">
