@@ -1,6 +1,6 @@
 package org.philmaster.boot.model;
 
-import org.philmaster.boot.model.car._Cars;
+import org.philmaster.boot.model.cars._Cars;
 
 public class Cars extends _Cars {
 
