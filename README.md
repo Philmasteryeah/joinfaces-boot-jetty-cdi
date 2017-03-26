@@ -50,9 +50,7 @@ CREATE SEQUENCE pk_cars INCREMENT 20 START 200;
 # Tasks TODO
 - more Primefaces Examples working with CDI -> send me a pull request
 - model a simple account rights roles db sheme
-- get the menu working with the menu.yml file for crating and easy manipulating the menu structure
 - add a english german translation
-- add a Class for easy reading properties from the property file
 
 # Tasks completed
 - login and redirect with pure spring security without beans 
@@ -62,6 +60,7 @@ CREATE SEQUENCE pk_cars INCREMENT 20 START 200;
 - Postgres JDBC with Spring works -> JDBC Tempate
 - Cayenne Integration completed with orm class using
 - lombok integation complete
+- menu from menu.property is working
 
 # THX
 - inspired by: https://github.com/joinfaces/joinfaces-example
