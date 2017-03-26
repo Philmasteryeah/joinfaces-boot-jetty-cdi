@@ -1,4 +1,4 @@
-package org.philmaster.boot.model.car;
+package org.philmaster.boot.model.cars;
 
 import org.apache.cayenne.CayenneDataObject;
 import org.apache.cayenne.exp.Property;
