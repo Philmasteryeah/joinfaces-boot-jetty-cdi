@@ -1,11 +1,11 @@
 # joinfaces-boot-jetty-cdi
 
-- Spring Boot 1.5.1
-- Mojarra 2.2.14
-- PrimeFaces 6.0
-- Jetty 9.4.1.
+- Spring Boot v2.0.0.M5
+- PrimeFaces 6.1
+- Jetty 9.4.7.v20170914 
 - CDI 1.2 (weld)
-- Omnifaces	1.14
+- Postgres 42.1.4
+- Cayenne 4.0.M5
 
 
 # Deployment Heroku
