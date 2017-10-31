@@ -8,7 +8,7 @@ import java.io.Serializable;
  *         old Model for testing
  *
  */
-
+ @Deprecated
 public class Car implements Serializable {
 
     private static final long serialVersionUID = 1L;
