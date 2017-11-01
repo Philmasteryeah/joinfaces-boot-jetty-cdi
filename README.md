@@ -3,7 +3,7 @@
 - Spring Boot v2.0.0.M5
 - PrimeFaces 6.1
 - Jetty 9.4.7.v20170914 
-- CDI 1.2 (weld)
+- CDI 2.0 (weld)
 - Postgres 42.1.4
 - Cayenne 4.0.M5
 
