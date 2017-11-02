@@ -1,10 +1,9 @@
 package org.philmaster.boot.views;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -38,8 +37,8 @@ public class UploadView {
 	FacesContext.getCurrentInstance().addMessage(null, message);
 
 	try {
-	    File tmpFile = Util.writeStreamToTempFile(file.getInputstream(), file.getFileName());
-	    String text = new String(Files.readAllBytes(Paths.get(tmpFile.toURI())), StandardCharsets.UTF_8);
+	    Path tmpFile = Util.writeBytesToTempFile(file.getFileName(), file.getContents());
+	    String text = new String(Files.readAllBytes(tmpFile), StandardCharsets.UTF_8);
 	    setEditorText(text);
 	} catch (IOException e) {
 	    e.printStackTrace();
