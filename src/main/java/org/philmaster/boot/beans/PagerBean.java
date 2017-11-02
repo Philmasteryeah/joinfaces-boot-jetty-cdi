@@ -2,7 +2,7 @@ package org.philmaster.boot.beans;
 
 import javax.inject.Named;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.context.annotation.SessionScope;
 
 import lombok.Getter;

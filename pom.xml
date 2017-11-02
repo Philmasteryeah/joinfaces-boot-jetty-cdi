@@ -18,20 +18,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<all-themes.version>1.0.10</all-themes.version>
-
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		<!-- Joinfaces -->
 		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>spring-security-jsf-taglib</artifactId>
@@ -52,6 +43,7 @@
 			<groupId>org.joinfaces</groupId>
 			<artifactId>joinfaces-autoconfigure</artifactId>
 		</dependency>
+		<!-- Misc -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -61,19 +53,22 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
+		<!-- Spring -->
 		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>all-themes</artifactId>
-			<version>${all-themes.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.5</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
-
-		<!-- Data Exporter -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Data Export -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
@@ -83,16 +78,6 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.7</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cayenne</groupId>
-			<artifactId>cayenne-server</artifactId>
-			<version>4.0.M5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cayenne.modeler</groupId>
-			<artifactId>cayenne-modeler</artifactId>
-			<version>4.0.M5</version>
 		</dependency>
 		<dependency>
 			<groupId>com.lowagie</groupId>
@@ -112,6 +97,17 @@
 					<artifactId>bctsp-jdk14</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<!-- Cayenne -->
+		<dependency>
+			<groupId>org.apache.cayenne</groupId>
+			<artifactId>cayenne-server</artifactId>
+			<version>4.0.M5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cayenne.modeler</groupId>
+			<artifactId>cayenne-modeler</artifactId>
+			<version>4.0.M5</version>
 		</dependency>
 	</dependencies>
 
@@ -174,6 +170,7 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
