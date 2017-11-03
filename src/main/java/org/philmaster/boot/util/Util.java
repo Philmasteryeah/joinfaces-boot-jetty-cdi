@@ -16,7 +16,7 @@ import lombok.NonNull;
 public class Util {
 
     // file
-    
+
     public static String textFromFile(@NonNull UploadedFile file) {
 	try {
 	    Path tmpFile = Util.writeBytesToTempFile(file.getFileName(), file.getContents());
@@ -41,7 +41,7 @@ public class Util {
     }
 
     // status message
-    
+
     public static void statusMessageInfo(@NonNull String title, @NonNull String text) {
 	statusMessage(FacesMessage.SEVERITY_INFO, title, text);
     }

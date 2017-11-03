@@ -20,7 +20,7 @@ public class UploadView {
     private String editorText;
 
     public void upload() {
-	if (file == null || file.getFileName().isEmpty()) {
+	if (file == null) {
 	    Util.statusMessageError("Error", "File could not be uploaded.");
 	    return;
 	}

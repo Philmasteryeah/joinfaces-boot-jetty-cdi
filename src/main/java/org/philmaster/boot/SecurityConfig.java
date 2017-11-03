@@ -21,9 +21,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 	http.csrf().disable();
 
-	http.authorizeRequests().antMatchers("/login.xhtml").permitAll().antMatchers("/javax.faces.resource/**")
-		.permitAll().anyRequest().fullyAuthenticated().and().formLogin().loginPage("/login.xhtml")
-		.defaultSuccessUrl("/index.xhtml").failureUrl("/login.xhtml?error=true").and().logout()
+	http.authorizeRequests()
+		.antMatchers("/login.xhtml")
+		.permitAll()
+		.antMatchers("/javax.faces.resource/**")
+		.permitAll()
+		.anyRequest()
+		.fullyAuthenticated()
+		.and()
+		.formLogin()
+		.loginPage("/login.xhtml")
+		.defaultSuccessUrl("/index.xhtml")
+		.failureUrl("/login.xhtml?error=true")
+		.and()
+		.logout()
 		.logoutSuccessUrl("/login.xhtml");
 
     }

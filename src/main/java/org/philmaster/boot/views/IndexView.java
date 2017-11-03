@@ -88,5 +88,4 @@ public class IndexView {
 	Util.statusMessageInfo("Success", "Data deleted");
     }
 
-
 }
