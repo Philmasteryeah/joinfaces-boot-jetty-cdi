@@ -28,6 +28,7 @@ public class UploadView {
 	    FacesContext.getCurrentInstance().addMessage(null, message);
 	    return;
 	}
+	
 	message = new FacesMessage("Succesful", file.getFileName() + " was uploaded.");
 	FacesContext.getCurrentInstance().addMessage(null, message);
 

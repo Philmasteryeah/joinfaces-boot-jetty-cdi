@@ -7,11 +7,11 @@ import java.nio.file.Path;
 
 import org.primefaces.model.UploadedFile;
 
+import lombok.NonNull;
+
 public class Util {
 
-    public static String textFromFile(UploadedFile file) {
-	if (file == null)
-	    return null;
+    public static String textFromFile(@NonNull UploadedFile file) {
 	try {
 	    Path tmpFile = Util.writeBytesToTempFile(file.getFileName(), file.getContents());
 	    String text = new String(Files.readAllBytes(tmpFile), StandardCharsets.UTF_8);
@@ -22,16 +22,13 @@ public class Util {
 	return null;
     }
 
-    private static Path writeBytesToTempFile(String filename, byte[] bytes) throws IOException {
-	if (filename == null || bytes == null)
-	    return null;
+    private static Path writeBytesToTempFile(@NonNull String filename, @NonNull byte[] bytes) throws IOException {
 	final String[] filenameParts = filename.split("\\.");
 	return createTempFile(filenameParts[0], filenameParts[1], bytes);
     }
 
-    private static Path createTempFile(String prefix, String suffix, byte[] bytes) throws IOException {
-	if (prefix == null || suffix == null || bytes == null)
-	    return null;
+    private static Path createTempFile(@NonNull String prefix, @NonNull String suffix, @NonNull byte[] bytes)
+	    throws IOException {
 	Path path = Files.createTempFile(prefix, "." + suffix);
 	Files.write(path, bytes);
 	return path;
