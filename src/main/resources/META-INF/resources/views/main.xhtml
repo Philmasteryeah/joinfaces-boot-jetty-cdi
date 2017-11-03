@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
 	<p:panelGrid columns="1" layout="grid">
 		<div class="ui-g">
 			<div class="ui-g-12 ui-md-4">Content</div>
@@ -10,8 +12,10 @@
 			<div class="ui-g-12 ui-md-4"></div>
 		</div>
 		<div class="ui-g">
-			<div class="ui-g-6 ui-md-3">Welcome </div>
+			<div class="ui-g-6 ui-md-3">Welcome</div>
 		</div>
-		<p:commandButton value="Save" actionListener="#{buttonBean.buttonAction}" update="globalGrowl" />
+		<p:commandButton value="Save"
+			actionListener="#{buttonBean.buttonAction}" update="globalGrowl" />
 	</p:panelGrid>
+	
 </ui:composition>

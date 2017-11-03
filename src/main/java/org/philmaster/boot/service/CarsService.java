@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.cayenne.ObjectContext;
-import org.philmaster.boot.beans.DatabaseBean;
 import org.philmaster.boot.model.Cars;
 
 @Named
@@ -13,10 +12,10 @@ import org.philmaster.boot.model.Cars;
 public class CarsService {
 
     @Inject
-    private DatabaseBean dbBean;
+    private DatabaseService db;
 
     public void test() {
-	ObjectContext ctx = dbBean.getContext();
+	ObjectContext ctx = db.getContext();
 	Cars b = ctx.newObject(Cars.class);
 	b.setName("test car");
 	System.err.println(b);

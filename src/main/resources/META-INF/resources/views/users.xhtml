@@ -1,31 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+
 	<p:panelGrid columns="1" layout="grid">
 		<div class="ui-g">
 			<div class="ui-g-12 ui-md-4">
 				<!-- use this growl on login page -->
 				<p:growl autoUpdate="true" />
-				<p:signature style="width:400px;height:200px" widgetVar="sig" value="#{usersView.signatureValue}" required="false"
+				<p:signature style="width:400px; height:300px" widgetVar="sig"
+					value="#{usersView.signatureValue}" required="false"
 					label="Signature" guideline="true" />
 				<p:commandButton value="Submit" icon="ui-icon-check" update="output" />
-				<p:commandButton value="Clear" icon="ui-icon-close" type="button" onclick="PF('sig').clear()" />
+				<p:commandButton value="Clear" icon="ui-icon-close" type="button"
+					onclick="PF('sig').clear()" />
 				<p:outputPanel id="output">
-					<h:outputText rendered="#{not empty usersView.signatureValue}" style="font-size:24px;display:block"
-						value="Your Signature" />
-					<p:signature style="width:400px;height:200px;" value="#{usersView.signatureValue}" readonly="true"
-						rendered="#{not empty usersView.signatureValue}" backgroundColor="#eaeaea" color="#03a9f4" />
+					<h:outputText rendered="#{not empty usersView.signatureValue}"
+						style="font-size:24px;display:block" value="Your Signature" />
+					<p:signature style="width:400px; height:300px;"
+						value="#{usersView.signatureValue}" readonly="true"
+						rendered="#{not empty usersView.signatureValue}"
+						backgroundColor="#eaeaea" color="#03a9f4" />
 				</p:outputPanel>
 			</div>
 			<div class="ui-g-12 ui-md-4"></div>
 			<div class="ui-g-12 ui-md-4"></div>
 		</div>
 		<div class="ui-g">
-			<div class="ui-g-6 ui-md-3">Welcome</div>
+			<div class="ui-g-6 ui-md-3">Text</div>
 		</div>
 		<p:growl id="optionsGrowl" showDetail="true" sticky="true" />
-		<p:commandButton value="Save" actionListener="#{buttonBean.buttonAction}" update="optionsGrowl" />
+		<p:commandButton value="Save"
+			actionListener="#{buttonBean.buttonAction}" update="optionsGrowl" />
 	</p:panelGrid>
+
 </ui:composition>

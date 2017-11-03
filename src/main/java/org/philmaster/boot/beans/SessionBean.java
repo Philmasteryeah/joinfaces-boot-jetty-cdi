@@ -25,7 +25,7 @@ import lombok.Setter;
 @Setter
 @Named
 @SessionScope
-public class PagerBean {
+public class SessionBean {
 
     private String page = "main";
 

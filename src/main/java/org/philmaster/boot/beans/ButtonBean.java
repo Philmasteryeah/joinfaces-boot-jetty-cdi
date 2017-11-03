@@ -19,7 +19,7 @@ import javax.inject.Named;
 public class ButtonBean {
 
     @Inject
-    private PagerBean bean;
+    private SessionBean session;
 
     public void buttonAction(ActionEvent actionEvent) {
 	addMessage("Welcome to Primefaces!!");
@@ -28,7 +28,7 @@ public class ButtonBean {
     private void addMessage(String message) {
 	FacesContext ctx = FacesContext.getCurrentInstance();
 	String user = ctx.getExternalContext().getRemoteUser();
-	String page = bean.getPagePrettyPrinted();
+	String page = session.getPagePrettyPrinted();
 	ctx.addMessage(null, new FacesMessage("Successful", "Welcome " + user + " on page: " + page + " : " + message));
     }
 }

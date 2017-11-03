@@ -1,4 +1,4 @@
-package org.philmaster.boot.beans;
+package org.philmaster.boot.service;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -29,7 +29,7 @@ import lombok.Setter;
 @Setter
 @Named
 @ApplicationScoped
-public class DatabaseBean {
+public class DatabaseService {
 
     private static final String CAYENNE_CONFIG = "cayenne-project.xml";
 

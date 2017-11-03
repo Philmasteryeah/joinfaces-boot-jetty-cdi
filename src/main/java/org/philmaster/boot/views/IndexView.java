@@ -70,7 +70,7 @@ public class IndexView {
 	item.setIcon(menuItem.getIcon());
 	item.setAjax(true);
 	item.setUpdate("@form");
-	item.setCommand("#{pagerBean.setPage('" + menuItem.getPageName() + "')}");
+	item.setCommand("#{sessionBean.setPage('" + menuItem.getPageName() + "')}");
 	return item;
     }
 
