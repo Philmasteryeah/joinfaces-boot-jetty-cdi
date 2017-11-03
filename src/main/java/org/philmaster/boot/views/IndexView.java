@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.philmaster.boot.util.Util;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -63,7 +65,7 @@ public class IndexView {
 	    model.addElement(sub);
     }
 
-    private DefaultMenuItem createPageItem(MenuItem menuItem) {
+    private DefaultMenuItem createPageItem(@NonNull MenuItem menuItem) {
 	DefaultMenuItem item = new DefaultMenuItem(menuItem.getTitle());
 	item.setIcon(menuItem.getIcon());
 	item.setAjax(true);
@@ -75,19 +77,16 @@ public class IndexView {
     // dont needed
 
     public void save() {
-	addMessage("Success", "Data saved");
+	Util.statusMessageInfo("Success", "Data saved");
     }
 
     public void update() {
-	addMessage("Success", "Data updated");
+	Util.statusMessageInfo("Success", "Data updated");
     }
 
     public void delete() {
-	addMessage("Success", "Data deleted");
+	Util.statusMessageInfo("Success", "Data deleted");
     }
 
-    public void addMessage(String summary, String detail) {
-	FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-	FacesContext.getCurrentInstance().addMessage(null, message);
-    }
+
 }

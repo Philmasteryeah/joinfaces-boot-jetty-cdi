@@ -5,12 +5,18 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
+import javax.faces.context.FacesContext;
+
 import org.primefaces.model.UploadedFile;
 
 import lombok.NonNull;
 
 public class Util {
 
+    // file
+    
     public static String textFromFile(@NonNull UploadedFile file) {
 	try {
 	    Path tmpFile = Util.writeBytesToTempFile(file.getFileName(), file.getContents());
@@ -33,4 +39,24 @@ public class Util {
 	Files.write(path, bytes);
 	return path;
     }
+
+    // status message
+    
+    public static void statusMessageInfo(@NonNull String title, @NonNull String text) {
+	statusMessage(FacesMessage.SEVERITY_INFO, title, text);
+    }
+
+    public static void statusMessageWarn(@NonNull String title, @NonNull String text) {
+	statusMessage(FacesMessage.SEVERITY_WARN, title, text);
+    }
+
+    public static void statusMessageError(@NonNull String title, @NonNull String text) {
+	statusMessage(FacesMessage.SEVERITY_ERROR, title, text);
+    }
+
+    private static void statusMessage(@NonNull Severity errorType, @NonNull String title, @NonNull String text) {
+	FacesMessage message = new FacesMessage(errorType, title, text);
+	FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
 }

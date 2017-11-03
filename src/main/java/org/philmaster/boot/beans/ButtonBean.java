@@ -25,7 +25,7 @@ public class ButtonBean {
 	addMessage("Welcome to Primefaces!!");
     }
 
-    public void addMessage(String message) {
+    private void addMessage(String message) {
 	FacesContext ctx = FacesContext.getCurrentInstance();
 	String user = ctx.getExternalContext().getRemoteUser();
 	String page = bean.getPagePrettyPrinted();

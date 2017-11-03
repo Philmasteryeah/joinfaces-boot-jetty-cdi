@@ -1,7 +1,5 @@
 package org.philmaster.boot.views;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -22,15 +20,12 @@ public class UploadView {
     private String editorText;
 
     public void upload() {
-	FacesMessage message;
 	if (file == null || file.getFileName().isEmpty()) {
-	    message = new FacesMessage("Error", "File could not be uploaded.");
-	    FacesContext.getCurrentInstance().addMessage(null, message);
+	    Util.statusMessageError("Error", "File could not be uploaded.");
 	    return;
 	}
-	
-	message = new FacesMessage("Succesful", file.getFileName() + " was uploaded.");
-	FacesContext.getCurrentInstance().addMessage(null, message);
+
+	Util.statusMessageInfo("Succesful", file.getFileName() + " was uploaded.");
 
 	setEditorText(Util.textFromFile(file));
 

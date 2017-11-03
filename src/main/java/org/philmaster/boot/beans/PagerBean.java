@@ -15,6 +15,9 @@ import lombok.Setter;
  * 
  *         its very important to use SessionScope here otherwise its will be
  *         reset to 'main 'after menu click
+ * 
+ *         getPage() will return the name of the current page
+ *         getPagePrettyPrinted() user readable printed for info messages
  *
  */
 
