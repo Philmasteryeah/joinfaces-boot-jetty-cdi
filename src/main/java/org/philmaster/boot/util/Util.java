@@ -20,6 +20,8 @@ public class Util {
     public static String textFromFile(@NonNull UploadedFile file) {
 	try {
 	    Path tmpFile = Util.writeBytesToTempFile(file.getFileName(), file.getContents());
+	    if (tmpFile == null)
+		return null;
 	    String text = new String(Files.readAllBytes(tmpFile), StandardCharsets.UTF_8);
 	    return text;
 	} catch (IOException e) {
@@ -29,6 +31,8 @@ public class Util {
     }
 
     private static Path writeBytesToTempFile(@NonNull String filename, @NonNull byte[] bytes) throws IOException {
+	if (filename.isEmpty() || !filename.contains("."))
+	    return null;
 	final String[] filenameParts = filename.split("\\.");
 	return createTempFile(filenameParts[0], filenameParts[1], bytes);
     }

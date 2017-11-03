@@ -24,10 +24,13 @@ public class UploadView {
 	    Util.statusMessageError("Error", "File could not be uploaded.");
 	    return;
 	}
-
+	String text = Util.textFromFile(file);
+	if (text == null) {
+	    Util.statusMessageError("Error", "File could not be read.");
+	    return;
+	}
 	Util.statusMessageInfo("Succesful", file.getFileName() + " was uploaded.");
 
-	setEditorText(Util.textFromFile(file));
-
+	setEditorText(text);
     }
 }
