@@ -36,56 +36,56 @@ import lombok.Setter;
 @ConfigurationProperties(prefix = "menu")
 public class IndexView {
 
-    @Getter
-    @Setter
-    public static class MenuItem {
-	private String title;
-	private String pageName;
-	private String icon;
-    }
-
-    private List<MenuItem> items = new ArrayList<>();
-
-    private MenuModel model;
-
-    @PostConstruct
-    public void init() {
-	model = new DefaultMenuModel();
-
-	DefaultSubMenu sub = null;
-	for (MenuItem menuItem : items) {
-	    if (menuItem.getPageName() == null) {
-		if (sub != null)
-		    model.addElement(sub);
-		sub = new DefaultSubMenu(menuItem.getTitle());
-	    } else if (sub != null)
-		sub.addElement(createPageItem(menuItem));
+	@Getter
+	@Setter
+	public static class MenuItem {
+		private String title;
+		private String pageName;
+		private String icon;
 	}
-	if (sub != null)
-	    model.addElement(sub);
-    }
 
-    private DefaultMenuItem createPageItem(@NonNull MenuItem menuItem) {
-	DefaultMenuItem item = new DefaultMenuItem(menuItem.getTitle());
-	item.setIcon(menuItem.getIcon());
-	item.setAjax(true);
-	item.setUpdate("@form");
-	item.setCommand("#{sessionBean.setPage('" + menuItem.getPageName() + "')}");
-	return item;
-    }
+	private List<MenuItem> items = new ArrayList<>();
 
-    // dont needed
+	private MenuModel model;
 
-    public void save() {
-	Util.statusMessageInfo("Success", "Data saved");
-    }
+	@PostConstruct
+	public void init() {
+		model = new DefaultMenuModel();
 
-    public void update() {
-	Util.statusMessageInfo("Success", "Data updated");
-    }
+		DefaultSubMenu sub = null;
+		for (MenuItem menuItem : items) {
+			if (menuItem.getPageName() == null) {
+				if (sub != null)
+					model.addElement(sub);
+				sub = new DefaultSubMenu(menuItem.getTitle());
+			} else if (sub != null)
+				sub.addElement(createPageItem(menuItem));
+		}
+		if (sub != null)
+			model.addElement(sub);
+	}
 
-    public void delete() {
-	Util.statusMessageInfo("Success", "Data deleted");
-    }
+	private DefaultMenuItem createPageItem(@NonNull MenuItem menuItem) {
+		DefaultMenuItem item = new DefaultMenuItem(menuItem.getTitle());
+		item.setIcon(menuItem.getIcon());
+		item.setAjax(true);
+		item.setUpdate("@form");
+		item.setCommand("#{sessionBean.setPage('" + menuItem.getPageName() + "')}");
+		return item;
+	}
+
+	// dont needed
+
+	public void save() {
+		Util.statusMessageInfo("Success", "Data saved");
+	}
+
+	public void update() {
+		Util.statusMessageInfo("Success", "Data updated");
+	}
+
+	public void delete() {
+		Util.statusMessageInfo("Success", "Data deleted");
+	}
 
 }

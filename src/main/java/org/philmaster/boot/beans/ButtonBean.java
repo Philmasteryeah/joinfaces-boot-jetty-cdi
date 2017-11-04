@@ -18,17 +18,17 @@ import javax.inject.Named;
 @RequestScoped
 public class ButtonBean {
 
-    @Inject
-    private SessionBean session;
+	@Inject
+	private SessionBean session;
 
-    public void buttonAction(ActionEvent actionEvent) {
-	addMessage("Welcome to Primefaces!!");
-    }
+	public void buttonAction(ActionEvent actionEvent) {
+		addMessage("Welcome to Primefaces!!");
+	}
 
-    private void addMessage(String message) {
-	FacesContext ctx = FacesContext.getCurrentInstance();
-	String user = ctx.getExternalContext().getRemoteUser();
-	String page = session.getPagePrettyPrinted();
-	ctx.addMessage(null, new FacesMessage("Successful", "Welcome " + user + " on page: " + page + " : " + message));
-    }
+	private void addMessage(String message) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		String user = ctx.getExternalContext().getRemoteUser();
+		String page = session.getPagePrettyPrinted();
+		ctx.addMessage(null, new FacesMessage("Successful", "Welcome " + user + " on page: " + page + " : " + message));
+	}
 }

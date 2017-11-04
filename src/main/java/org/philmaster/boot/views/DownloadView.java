@@ -17,15 +17,15 @@ import lombok.Setter;
 @ViewScoped
 public class DownloadView {
 
-    @Getter
-    private List<Car> cars;
+	@Getter
+	private List<Car> cars;
 
-    @Setter
-    @Inject
-    private CarService service;
+	@Setter
+	@Inject
+	private CarService service;
 
-    @PostConstruct
-    public void init() {
-	cars = service.createCars(100);
-    }
+	@PostConstruct
+	public void init() {
+		cars = service.createCars(100);
+	}
 }

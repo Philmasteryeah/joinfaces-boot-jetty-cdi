@@ -12,30 +12,30 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Inject
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-	auth.inMemoryAuthentication().withUser("sa").password("1").roles("ADMIN");
-    }
+	@Inject
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication().withUser("sa").password("1").roles("ADMIN");
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-	http.csrf().disable();
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();
 
-	http.authorizeRequests()
-		.antMatchers("/login.xhtml")
-		.permitAll()
-		.antMatchers("/javax.faces.resource/**")
-		.permitAll()
-		.anyRequest()
-		.fullyAuthenticated()
-		.and()
-		.formLogin()
-		.loginPage("/login.xhtml")
-		.defaultSuccessUrl("/index.xhtml")
-		.failureUrl("/login.xhtml?error=true")
-		.and()
-		.logout()
-		.logoutSuccessUrl("/login.xhtml");
+		http.authorizeRequests()
+				.antMatchers("/login.xhtml")
+				.permitAll()
+				.antMatchers("/javax.faces.resource/**")
+				.permitAll()
+				.anyRequest()
+				.fullyAuthenticated()
+				.and()
+				.formLogin()
+				.loginPage("/login.xhtml")
+				.defaultSuccessUrl("/index.xhtml")
+				.failureUrl("/login.xhtml?error=true")
+				.and()
+				.logout()
+				.logoutSuccessUrl("/login.xhtml");
 
-    }
+	}
 }

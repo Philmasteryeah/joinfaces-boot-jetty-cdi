@@ -11,15 +11,15 @@ import org.philmaster.boot.model.Cars;
 @ApplicationScoped
 public class CarsService {
 
-    @Inject
-    private DatabaseService db;
+	@Inject
+	private DatabaseService db;
 
-    public void test() {
-	ObjectContext ctx = db.getContext();
-	Cars b = ctx.newObject(Cars.class);
-	b.setName("test car");
-	System.err.println(b);
-	ctx.commitChanges();
-    }
+	public void test() {
+		ObjectContext ctx = db.getContext();
+		Cars b = ctx.newObject(Cars.class);
+		b.setName("test car");
+		System.err.println(b);
+		ctx.commitChanges();
+	}
 
 }

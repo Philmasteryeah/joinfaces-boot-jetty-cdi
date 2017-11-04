@@ -27,10 +27,10 @@ import lombok.Setter;
 @SessionScope
 public class SessionBean {
 
-    private String page = "main";
+	private String page = "main";
 
-    public String getPagePrettyPrinted() {
-	return StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(StringUtils.capitalize(page)), ' ');
-    }
+	public String getPagePrettyPrinted() {
+		return StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(StringUtils.capitalize(page)), ' ');
+	}
 
 }

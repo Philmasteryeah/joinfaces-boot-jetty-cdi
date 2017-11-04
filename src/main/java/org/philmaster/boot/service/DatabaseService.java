@@ -31,13 +31,13 @@ import lombok.Setter;
 @ApplicationScoped
 public class DatabaseService {
 
-    private static final String CAYENNE_CONFIG = "cayenne-project.xml";
+	private static final String CAYENNE_CONFIG = "cayenne-project.xml";
 
-    private ObjectContext context;
+	private ObjectContext context;
 
-    @PostConstruct
-    void init() {
-	context = ServerRuntime.builder().addConfig(CAYENNE_CONFIG).build().newContext();
-    }
+	@PostConstruct
+	void init() {
+		context = ServerRuntime.builder().addConfig(CAYENNE_CONFIG).build().newContext();
+	}
 
 }

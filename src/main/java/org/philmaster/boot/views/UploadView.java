@@ -15,22 +15,22 @@ import lombok.Setter;
 @ViewScoped
 public class UploadView {
 
-    private UploadedFile file;
+	private UploadedFile file;
 
-    private String editorText;
+	private String editorText;
 
-    public void upload() {
-	if (file == null) {
-	    Util.statusMessageError("Error", "File could not be uploaded.");
-	    return;
+	public void upload() {
+		if (file == null) {
+			Util.statusMessageError("Error", "File could not be uploaded.");
+			return;
+		}
+		String text = Util.textFromFile(file);
+		if (text == null) {
+			Util.statusMessageError("Error", "File could not be read.");
+			return;
+		}
+		Util.statusMessageInfo("Succesful", file.getFileName() + " was uploaded.");
+
+		setEditorText(text);
 	}
-	String text = Util.textFromFile(file);
-	if (text == null) {
-	    Util.statusMessageError("Error", "File could not be read.");
-	    return;
-	}
-	Util.statusMessageInfo("Succesful", file.getFileName() + " was uploaded.");
-
-	setEditorText(text);
-    }
 }
