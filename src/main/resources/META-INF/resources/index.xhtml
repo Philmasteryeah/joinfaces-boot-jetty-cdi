@@ -13,8 +13,73 @@
 		<link href="#{resource['images/favicon.ico']}" rel="shortcut icon" />
 		<h:outputStylesheet name="styles/main.css" />
 	</h:head>
-	<h:body>
+	<h:body class="main-body">
 		<h:form enctype="multipart/form-data">
+			<div class="wrapper">
+
+				<div class="topbar clearfix">
+
+					<span class="topbar-title"><h:outputText
+							value="#{sessionBean.getPagePrettyPrinted()}" /></span>
+
+					<div id="topbar-icons" class="animated">
+						<span class="topbar-search"> Search <span
+							class="topbar-search-icon fa fa-search"></span></span> <a href="#">
+							<span class="topbar-item-text">Messages</span> <span
+							class="topbar-icon fa fa-envelope-o animated swing"></span> <span
+							class="topbar-badge animated rubberBand">5</span>
+						</a> <a href="#"> <span class="topbar-item-text">Settings</span> <span
+							class="topbar-icon fa fa-gear"></span>
+						</a> <a href="#"> <span class="topbar-item-text">User</span> <span
+							class="topbar-icon fa fa-user"></span>
+						</a>
+					</div>
+
+				</div>
+
+				<div class="sidebar">
+					<div class="nano has-scrollbar">
+						<div class="nano-content sidebar-scroll-content">
+							<div class="logo">LOGO</div>
+							<div class="profile">
+								<a id="profile-button" href="#"> <span class="username">Name</span>
+								</a>
+
+							</div>
+							<div class="menu">
+								<div class="menu-container">
+									<p:growl id="globalGrowl" showDetail="true" sticky="true" />
+									<p:menu model="#{indexView.model}" class="wrapper"
+										style="background-color: transparent; width: 96%; border: 0px;" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+				<div class="main">
+					<div class="ui-g">
+						<div class="ui-g-12">
+							<div class="card">
+								<ui:insert>
+									<ui:include src="views/#{sessionBean.page}.xhtml" />
+								</ui:insert>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="footer">
+					<span class="footer-text">Philmaster Inc.</span>
+				</div>
+
+
+			</div>
+
+
+			<!-- 
 			<div class="ui-g">
 				<div class="ui-g-12 ui-md-2">
 					<p:growl id="globalGrowl" showDetail="true" sticky="true" />
@@ -37,6 +102,7 @@
 					</div>
 				</div>
 			</div>
+ -->
 		</h:form>
 	</h:body>
 </f:view>

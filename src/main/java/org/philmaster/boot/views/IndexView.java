@@ -1,10 +1,10 @@
 package org.philmaster.boot.views;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.philmaster.boot.util.Util;
@@ -23,20 +23,25 @@ import lombok.Setter;
 /**
  * @author Philmasteryeah
  * 
- *         add new menu items here
+ *         programmatic menu generation
+ * 
  *
  */
 @Getter
 @Named
-@ViewScoped
 @Configuration
 @PropertySource("classpath:menu.properties")
 @ConfigurationProperties(prefix = "menu")
-public class IndexView {
+public class IndexView implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Setter
-	public static class MenuItem {
+	public static class MenuItem implements Serializable {
+
+		private static final long serialVersionUID = 1L;
+
 		private String title;
 		private String pageName;
 		private String icon;

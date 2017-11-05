@@ -1,5 +1,6 @@
 package org.philmaster.boot.views;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -15,7 +16,9 @@ import lombok.Setter;
 
 @Named
 @ViewScoped
-public class DownloadView {
+public class DownloadView implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Getter
 	private List<Car> cars;

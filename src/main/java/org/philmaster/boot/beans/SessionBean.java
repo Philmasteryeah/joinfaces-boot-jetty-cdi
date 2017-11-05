@@ -2,10 +2,12 @@ package org.philmaster.boot.beans;
 
 import java.io.Serializable;
 
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.web.context.annotation.SessionScope;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +28,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Named
-@SessionScope
+@SessionScoped
 public class SessionBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;

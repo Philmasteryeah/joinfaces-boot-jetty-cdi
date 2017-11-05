@@ -1,5 +1,7 @@
 package org.philmaster.boot.views;
 
+import java.io.Serializable;
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -13,7 +15,9 @@ import lombok.Setter;
 @Setter
 @Named
 @ViewScoped
-public class UploadView {
+public class UploadView implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private UploadedFile file;
 

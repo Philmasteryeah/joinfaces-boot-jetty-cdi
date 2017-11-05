@@ -35,6 +35,12 @@
 		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>jsf-spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.joinfaces</groupId>
+					<artifactId>tomcat-spring-boot-starter</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.joinfaces</groupId>
@@ -69,11 +75,13 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+		 
 		<!-- Data Export -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -184,6 +192,11 @@
 				<groupId>javax.enterprise</groupId>
 				<artifactId>cdi-api</artifactId>
 				<version>2.0</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.interceptor</groupId>
+				<artifactId>javax.interceptor-api</artifactId>
+				<version>3.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
