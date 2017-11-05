@@ -4,7 +4,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
-	
+
 <f:view contentType="text/html">
 	<h:head>
 		<title>.:: Login JoinFaces Application ::.</title>
@@ -12,32 +12,33 @@
 		<link href="#{resource['images/favicon.ico']}" rel="shortcut icon" />
 		<h:outputStylesheet name="styles/main.css" />
 	</h:head>
-	<h:body>
-		<pe:layout fullPage="true">
-			<pe:layoutPane position="center">
+	<h:body class="login-body">
+		<div id="login-wrapper">
+			<div id="login-container">
 				<h:form prependId="false">
-					<div id="loginDiv" class="ui-fluid">
-						<center>
-							<p:tooltip id="toolTipGrow" for="username"
-								value="Connection failed: user and/or password are wrong."
-								position="top" widgetVar="tip1" showEffect="clip"
-								hideEffect="explode" rendered="${!empty param['error']}" />
-							<p:focus />
-							<h:panelGrid columns="2" cellpadding="5">
-								<h:outputText value="username" />
-								<p:inputText id="username" />
-								<h:outputText value="password" />
-								<p:password id="password" />
-								<f:facet name="footer">
-									<p:commandButton id="submit" value="Login" ajax="false" />
-								</f:facet>
-							</h:panelGrid>
-						</center>
+					<span class="title">JoinFaces Application</span>
+					<p:tooltip id="toolTipGrow" for="username"
+						value="Connection failed: user and/or password are wrong."
+						position="top" widgetVar="tip1" showEffect="clip"
+						hideEffect="explode" rendered="${!empty param['error']}" />
+					<p:focus />
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-12">
+							<p:inputText id="username" placeholder="Username" />
+						</div>
+						<div class="ui-g-12">
+							<p:password id="password" placeholder="Password" feedback="true" />
+						</div>
+						<div class="ui-g-12 ui-md-6"></div>
+						<div class="ui-g-12 ui-md-6"></div>
+						<div class="ui-g-12">
+							<span class="ui-button-text ui-c"> <p:commandButton
+									id="submit" value="Login" ajax="false" /></span>
+						</div>
 					</div>
 				</h:form>
-			</pe:layoutPane>
-		</pe:layout>
+			</div>
+		</div>
 	</h:body>
 </f:view>
-
 </html>

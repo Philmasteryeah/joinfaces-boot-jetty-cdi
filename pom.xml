@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -68,6 +69,11 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<!-- Data Export -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -121,7 +127,8 @@
 				<groupId>org.apache.cayenne.plugins</groupId>
 				<artifactId>maven-cayenne-modeler-plugin</artifactId>
 				<version>4.0.M4</version>
-				<!-- <configuration> <modelFile>src/main/resources/cayenne.xml</modelFile> </configuration> -->
+				<!-- <configuration> <modelFile>src/main/resources/cayenne.xml</modelFile> 
+					</configuration> -->
 			</plugin>
 		</plugins>
 	</build>

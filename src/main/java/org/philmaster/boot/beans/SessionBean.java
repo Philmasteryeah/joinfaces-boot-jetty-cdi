@@ -1,5 +1,7 @@
 package org.philmaster.boot.beans;
 
+import java.io.Serializable;
+
 import javax.inject.Named;
 
 import org.apache.commons.lang.StringUtils;
@@ -25,7 +27,9 @@ import lombok.Setter;
 @Setter
 @Named
 @SessionScope
-public class SessionBean {
+public class SessionBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private String page = "main";
 
