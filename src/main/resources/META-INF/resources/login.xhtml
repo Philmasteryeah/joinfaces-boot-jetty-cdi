@@ -14,6 +14,7 @@
 	</h:head>
 	<h:body class="login-body">
 		<div id="login-wrapper">
+			<div style="height: 130px;"></div>
 			<div id="login-container">
 				<h:form prependId="false">
 					<span class="title">JoinFaces Application</span>
@@ -30,14 +31,13 @@
 							<p:password id="password" placeholder="Password" feedback="true" />
 						</div>
 						<div class="ui-g-12 ui-md-6"></div>
-						<div class="ui-g-12 ui-md-6"></div>
 						<div class="ui-g-12">
-							<span class="ui-button-text ui-c"> <p:commandButton
-									id="submit" value="Login" ajax="false" /></span>
+							<p:commandButton id="submit" value="Login" ajax="false" />
 						</div>
 					</div>
 				</h:form>
 			</div>
+			<div class="login-footer">Philmaster Inc.</div>
 		</div>
 	</h:body>
 </f:view>

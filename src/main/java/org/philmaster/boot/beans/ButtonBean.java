@@ -31,4 +31,9 @@ public class ButtonBean {
 		String page = session.getPagePrettyPrinted();
 		ctx.addMessage(null, new FacesMessage("Successful", "Welcome " + user + " on page: " + page + " : " + message));
 	}
+	
+    public void submit() {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 }
