@@ -6,6 +6,7 @@
 - CDI 2.0 (weld)
 - Postgres 42.1.4
 - Cayenne 4.0.M5
+- faces 2.3.3
 
 
 # Deployment Heroku
