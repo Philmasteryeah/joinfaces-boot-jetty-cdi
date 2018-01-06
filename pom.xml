@@ -1,229 +1,231 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-
-	<parent>
-		<groupId>org.joinfaces</groupId>
-		<artifactId>joinfaces-parent</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
-	</parent>
-
-	<artifactId>joinfaces-application</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
-
-	<name>JoinFaces Spring Boot with CDI</name>
-	<description>Project with JoinFaces Spring Boot and CDI</description>
-
-	<properties>
-		<main.basedir>${basedir}</main.basedir>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-		<primefaces-theme.version>1.0.10</primefaces-theme.version>
-		<all-themes.version>1.0.10</all-themes.version>
-		<java.version>1.8</java.version>
-		<cdi.version>2.0</cdi.version>
-		<javax.faces.version>2.3.3</javax.faces.version>
-		<glassfish-el.version>3.0.1-b08</glassfish-el.version>
-		<interceptor.api.version>3.1</interceptor.api.version>
-		<omnifaces.version>1.14.1</omnifaces.version>
-		<javax.servlet-api.version>4.0.0</javax.servlet-api.version>
-		<spring-boot-maven-plugin.version>2.0.0.M7</spring-boot-maven-plugin.version>
-		<postgresql.version>42.1.4</postgresql.version>
-	</properties>
-
-	<dependencies>
-		<!-- Joinfaces -->
-		<dependency>
-			<groupId>org.joinfaces</groupId>
-			<artifactId>spring-security-jsf-taglib</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.joinfaces</groupId>
-			<artifactId>jetty-spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.joinfaces</groupId>
-			<artifactId>jsf-spring-boot-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.joinfaces</groupId>
-					<artifactId>tomcat-spring-boot-starter</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.hibernate.validator</groupId>
-					<artifactId>hibernate-validator</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.joinfaces</groupId>
-			<artifactId>primefaces-spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.joinfaces</groupId>
-			<artifactId>joinfaces-autoconfigure</artifactId>
-		</dependency>
-		<!-- Misc -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<!-- Spring -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
-			<optional>true</optional> </dependency> -->
-		<!-- Data Export -->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>3.17</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>3.17</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lowagie</groupId>
-			<artifactId>itext</artifactId>
-			<version>2.1.7</version>
-			<exclusions>
-				<exclusion>
-					<groupId>bouncycastle</groupId>
-					<artifactId>bcmail-jdk14</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>bouncycastle</groupId>
-					<artifactId>bcprov-jdk14</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.bouncycastle</groupId>
-					<artifactId>bctsp-jdk14</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<!-- Cayenne -->
-		<dependency>
-			<groupId>org.apache.cayenne</groupId>
-			<artifactId>cayenne-server</artifactId>
-			<version>4.1.M1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cayenne.modeler</groupId>
-			<artifactId>cayenne-modeler</artifactId>
-			<version>4.1.M1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-
-			</exclusions>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.cayenne.plugins</groupId>
-				<artifactId>maven-cayenne-modeler-plugin</artifactId>
-				<version>4.0.M4</version>
-				<!-- <configuration> <modelFile>src/main/resources/cayenne.xml</modelFile> 
-					</configuration> -->
-			</plugin>
-			<plugin>
-				<groupId>com.heroku.sdk</groupId>
-				<artifactId>heroku-maven-plugin</artifactId>
-				<version>2.0.0-RC1</version>
-				<configuration>
-					<appName>ancient-gorge-66249</appName>
-					<processTypes>
-						<web>java -Dserver.port=$PORT -jar
-							target/joinfaces-application-1.0.0-SNAPSHOT.jar</web>
-					</processTypes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
-	<repositories>
-		<repository>
-			<id>primefaces-maven-repository</id>
-			<name>PrimeFaces Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-		</repository>
-		<repository>
-			<id>spring-snapshots2</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>jboss</id>
-			<name>JBoss</name>
-			<url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/</url>
-		</repository>
-		<repository>
-			<id>spring-snapshots</id>
-			<url>http://repo.spring.io/libs-snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-snapshots</id>
-			<url>http://repo.spring.io/libs-snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.joinfaces</groupId>
+        <artifactId>joinfaces-parent</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>joinfaces-application</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>JoinFaces Spring Boot with CDI</name>
+    <description>Project with JoinFaces Spring Boot and CDI</description>
+    <properties>
+        <main.basedir>${basedir}</main.basedir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <primefaces-theme.version>1.0.10</primefaces-theme.version>
+        <all-themes.version>1.0.10</all-themes.version>
+        <java.version>1.8</java.version>
+        <cdi.version>2.0</cdi.version>
+        <javax.faces.version>2.3.3</javax.faces.version>
+        <glassfish-el.version>3.0.1-b09</glassfish-el.version>
+        <interceptor.api.version>3.1</interceptor.api.version>
+        <omnifaces.version>1.14.1</omnifaces.version>
+        <javax.servlet-api.version>4.0.0</javax.servlet-api.version>
+        <spring-boot-maven-plugin.version>2.0.0.M7</spring-boot-maven-plugin.version>
+        <postgresql.version>42.1.4</postgresql.version>
+    </properties>
+    <dependencies>
+<!-- Joinfaces -->
+        <dependency>
+            <groupId>org.joinfaces</groupId>
+            <artifactId>spring-security-jsf-taglib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.joinfaces</groupId>
+            <artifactId>jetty-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.annotation</groupId>
+                    <artifactId>javax.annotation-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+<!-- https://mvnrepository.com/artifact/org.glassfish/javax.annotation -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.annotation</artifactId>
+            <version>10.0-b28</version>
+        </dependency>
+        <dependency>
+            <groupId>org.joinfaces</groupId>
+            <artifactId>jsf-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.joinfaces</groupId>
+                    <artifactId>tomcat-spring-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hibernate.validator</groupId>
+                    <artifactId>hibernate-validator</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.joinfaces</groupId>
+            <artifactId>primefaces-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.joinfaces</groupId>
+            <artifactId>joinfaces-autoconfigure</artifactId>
+        </dependency>
+<!-- Misc -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+<!-- Spring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
+                        <optional>true</optional> </dependency> -->
+<!-- Data Export -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>bouncycastle</groupId>
+                    <artifactId>bcmail-jdk14</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>bouncycastle</groupId>
+                    <artifactId>bcprov-jdk14</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bctsp-jdk14</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+<!-- Cayenne -->
+        <dependency>
+            <groupId>org.apache.cayenne</groupId>
+            <artifactId>cayenne-server</artifactId>
+            <version>4.1.M1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cayenne.modeler</groupId>
+            <artifactId>cayenne-modeler</artifactId>
+            <version>4.1.M1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.cayenne.plugins</groupId>
+                <artifactId>maven-cayenne-modeler-plugin</artifactId>
+                <version>4.0.M4</version>
+<!-- <configuration> <modelFile>src/main/resources/cayenne.xml</modelFile> 
+                                        </configuration> -->
+            </plugin>
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>2.0.0-RC1</version>
+                <configuration>
+                    <appName>ancient-gorge-66249</appName>
+                    <processTypes>
+                        <web>java -Dserver.port=$PORT -jar target/joinfaces-application-1.0.0-SNAPSHOT.jar</web>
+                    </processTypes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <repositories>
+        <repository>
+            <id>primefaces-maven-repository</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+        </repository>
+        <repository>
+            <id>spring-snapshots2</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>jboss</id>
+            <name>JBoss</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/</url>
+        </repository>
+        <repository>
+            <id>spring-snapshots</id>
+            <url>http://repo.spring.io/libs-snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <url>http://repo.spring.io/libs-snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
