@@ -5,7 +5,6 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-
 <f:view contentType="text/html">
 	<h:head>
 		<title>.:: Login JoinFaces Example ::.</title>
@@ -18,14 +17,12 @@
 			<div class="wrapper">
 
 				<div class="topbar clearfix">
-
-					<span class="topbar-title"><h:outputText
+					<span class="topbar-title"> <h:outputText
 							value="#{sessionBean.getPagePrettyPrinted()}" /></span>
-
 					<div id="topbar-icons" class="animated">
 						<span class="topbar-search"> Search <span
-							class="topbar-search-icon fa fa-search"></span></span> <a href="#">
-							<span class="topbar-item-text">Messages</span> <span
+							class="topbar-search-icon fa fa-search"></span>
+						</span> <a href="#"> <span class="topbar-item-text">Messages</span> <span
 							class="topbar-icon fa fa-envelope-o animated swing"></span> <span
 							class="topbar-badge animated rubberBand">5</span>
 						</a> <a href="#"> <span class="topbar-item-text">Settings</span> <span
@@ -34,31 +31,26 @@
 							class="topbar-icon fa fa-user"></span>
 						</a>
 					</div>
-
 				</div>
 
 				<div class="sidebar">
 					<div class="nano has-scrollbar">
-						<div class="nano-content sidebar-scroll-content">
+						<div class="nano-content sidebar-scroll-content" tabindex="0"
+							style="margin-right: 5px;">
 							<div class="logo">LOGO</div>
 							<div class="profile">
 								<a id="profile-button" href="#"> <span class="username">Name</span>
 								</a>
-
 							</div>
 							<div class="menu">
 								<div class="menu-container">
-									<p:growl id="globalGrowl" showDetail="true" sticky="true" />
 									<p:menu model="#{indexView.model}" class="wrapper"
-										style="background-color: transparent; width: 96%; border: 0px;" />
+										style="background-color: transparent; width: 100%; border: 0px;" />
 								</div>
 							</div>
 						</div>
 					</div>
-
-
 				</div>
-
 				<div class="main">
 					<div class="ui-g">
 						<div class="ui-g-12">
@@ -70,15 +62,10 @@
 						</div>
 					</div>
 				</div>
-
 				<div class="footer">
 					<span class="footer-text">Philmaster Inc.</span>
 				</div>
-
-
 			</div>
-
-
 			<!-- 
 			<div class="ui-g">
 				<div class="ui-g-12 ui-md-2">
@@ -106,5 +93,4 @@
 		</h:form>
 	</h:body>
 </f:view>
-
 </html>

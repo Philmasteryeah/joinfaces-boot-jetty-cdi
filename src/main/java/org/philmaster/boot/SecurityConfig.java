@@ -14,7 +14,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Inject
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("sa").password("1").roles("ADMIN");
+		auth.inMemoryAuthentication().withUser("sa").password("{noop}1").roles("ADMIN");
 	}
 
 	@Override
@@ -34,6 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.logout()
 				.logoutSuccessUrl("/login.xhtml");
+
+		// allow to use ressource links like pdf
+		http.headers().frameOptions().sameOrigin();
 
 	}
 }

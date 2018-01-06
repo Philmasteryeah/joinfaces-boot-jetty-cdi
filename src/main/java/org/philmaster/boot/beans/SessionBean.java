@@ -15,7 +15,7 @@ import lombok.Setter;
  * 
  *         switch the content pages with this bean
  * 
- *         its very important to use SessionScope here otherwise its will be
+ *         its very important to use SessionScope here otherwise it will be
  *         reset to 'main 'after menu click
  * 
  *         getPage() will return the name of the current page

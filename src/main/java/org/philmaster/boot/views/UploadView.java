@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.philmaster.boot.util.MyFileUploadWrapper;
 import org.philmaster.boot.util.Util;
 import org.primefaces.model.UploadedFile;
 
@@ -28,7 +29,9 @@ public class UploadView implements Serializable {
 			Util.statusMessageError("Error", "File could not be uploaded.");
 			return;
 		}
-		String text = Util.textFromFile(file);
+		MyFileUploadWrapper wrapper = new MyFileUploadWrapper(file);
+
+		String text = wrapper.getTextFromFile();
 		if (text == null) {
 			Util.statusMessageError("Error", "File could not be read.");
 			return;

@@ -73,8 +73,17 @@ public class IndexView implements Serializable {
 		item.setIcon(menuItem.getIcon());
 		item.setAjax(true);
 		item.setUpdate("@form");
-		item.setCommand("#{sessionBean.setPage('" + menuItem.getPageName() + "')}");
+		item.setCommand(commandString(menuItem.getPageName()));
 		return item;
+	}
+
+	@SuppressWarnings("el-syntax")
+	private String commandString(String pageName) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("#{sessionBean.setPage('");
+		sb.append(pageName);
+		sb.append("')}");
+		return sb.toString();
 	}
 
 	// dont needed

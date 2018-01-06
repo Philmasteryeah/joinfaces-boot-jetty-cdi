@@ -30,7 +30,7 @@ public class Util {
 		return null;
 	}
 
-	private static Path writeBytesToTempFile(@NonNull String filename, @NonNull byte[] bytes) throws IOException {
+	public static Path writeBytesToTempFile(@NonNull String filename, @NonNull byte[] bytes) throws IOException {
 		if (filename.isEmpty() || !filename.contains("."))
 			return null;
 		final String[] filenameParts = filename.split("\\.");
