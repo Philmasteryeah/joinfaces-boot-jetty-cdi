@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -38,19 +39,14 @@ public class DownloadView implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		ObjectContext oc = db.getContext();
-		Cars car = Cars.createNewCar(oc);
-		car.setName("test car");
-		// System.err.println(car.getName() + " name");
-
-		// Cars caar = Cars.fetchCarByName(oc, "test car");
-		// System.err.println(caar+" caar");
-		carsList = Cars.fetchAllCars(oc);
-
-		// carsList.stream().forEach(carr -> System.out.println(carr.getName()));
-		// System.err.println(carsList.size());
+		refreshCarList();
 	}
 
+	public void refreshCarList() {
+		ObjectContext oc = db.getContext();
+		carsList = Cars.fetchAllCars(oc);
+	}
+	
 	public void onRowSelect(SelectEvent event) {
 		System.err.println(selectedCar);
 		Util.statusMessageInfo("Car Selected", selectedCar.getObjectId()+"");
@@ -58,6 +54,20 @@ public class DownloadView implements Serializable {
 
 	public void onRowUnselect(UnselectEvent event) {
 		//Util.statusMessageInfo("Car Unselected", ((Cars) event.getObject()).getName());
+	}
+	
+	public void actionAdd(ActionEvent actionEvent) {
+		ObjectContext oc = db.getContext();
+		Cars car = Cars.createNewCar(oc);
+		car.setName("test car");
+		Util.statusMessageInfo("Welcome", "test");
+		refreshCarList();
+	}
+	
+	public void actionSave(ActionEvent actionEvent) {
+		db.getContext().commitChanges();
+		Util.statusMessageInfo("Welcome", "saved");
+		refreshCarList();
 	}
 
 }
