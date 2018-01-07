@@ -6,24 +6,15 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<p:panelGrid columns="1" layout="grid">
-		<div class="ui-g">
-			<div class="ui-g-12 ui-md-4">
-				<f:event listener="#{pdfBean.onPrerender}"
-					type="preRenderView" />
-				<p:tabView>
-					<p:tab title="StreamedContent">
-						<pe:documentViewer height="500"
-							value="#{pdfBean.pdfViewerContent}"
-							download="extensions-rocks.pdf" />
-					</p:tab>
-				</p:tabView>
-			</div>
-			<div class="ui-g-12 ui-md-4"></div>
-			<div class="ui-g-12 ui-md-4"></div>
-		</div>
-		<div class="ui-g">
-			<div class="ui-g-6 ui-md-3">Welcome</div>
-		</div>
+
+		<f:event listener="#{pdfBean.onPrerender}" type="preRenderView" />
+		<p:tabView>
+			<p:tab title="StreamedContent">
+				<pe:documentViewer height="500" value="#{pdfBean.pdfViewerContent}"
+					download="extensions-rocks.pdf" />
+			</p:tab>
+		</p:tabView>
+
 		<p:growl id="optionsGrowl" showDetail="true" sticky="true" />
 		<p:commandButton value="Save"
 			actionListener="#{buttonBean.buttonAction}" update="optionsGrowl" />

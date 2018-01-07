@@ -23,30 +23,29 @@
 				</div>
 
 				<div class="sidebar">
-					<div class="nano has-scrollbar">
-						<div class="nano-content sidebar-scroll-content" tabindex="0"
-							style="margin-right: 5px;">
-							<div class="logo">LOGO</div>
-							<div class="profile">
-								<a id="profile-button" href="#"> <span class="username">Name</span>
-								</a>
-							</div>
-							<div class="menu">
-								<p:growl id="globalGrowl" showDetail="true" sticky="true" />
-								<div class="menu-container">
-									<p:menu model="#{indexView.model}" class="wrapper"
-										style="background-color: transparent; width: 100%; border: 0px;" />
-								</div>
-							</div>
+					<div class="logo">LOGO</div>
+					<div class="profile">
+						<a id="profile-button" href="#"> <span class="username">Name</span>
+						</a>
+					</div>
+					<div class="menu">
+						<p:growl id="globalGrowl" showDetail="true" sticky="true" />
+						<div class="menu-container">
+							<p:menu model="#{indexView.model}" class="wrapper"
+								style="background-color: transparent; width: 100%; border: 0px;" />
 						</div>
 					</div>
+
+
 				</div>
 				<div class="main">
-
-					<ui:insert>
-						<ui:include src="views/#{sessionBean.page}.xhtml" />
-					</ui:insert>
-
+					<div class="ui-g">
+						<div class="ui-g-12">
+							<ui:insert>
+								<ui:include src="views/#{sessionBean.page}.xhtml" />
+							</ui:insert>
+						</div>
+					</div>
 				</div>
 				<div class="footer">
 					<ui:insert name="footer">
