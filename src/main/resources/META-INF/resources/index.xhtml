@@ -30,14 +30,10 @@
 					</div>
 					<div class="menu">
 						<p:growl id="globalGrowl" showDetail="true" sticky="true" />
-						<div class="menu-container">
-							<p:menu model="#{indexView.model}" class="wrapper"
-								style="background-color: transparent; width: 100%; border: 0px;" />
-						</div>
+						<p:menu model="#{indexView.model}" styleClass="menu-container" />
 					</div>
-
-
 				</div>
+
 				<div class="main">
 					<div class="ui-g">
 						<div class="ui-g-12">
@@ -47,6 +43,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="footer">
 					<ui:insert name="footer">
 						<ui:include src="components/footer.xhtml" />

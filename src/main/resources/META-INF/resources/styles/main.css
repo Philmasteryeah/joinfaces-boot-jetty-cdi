@@ -151,6 +151,8 @@ html {
 	color: rgb(119, 199, 255);
 }
 
+/* main menu */
+
 .wrapper .sidebar {
 	position: fixed;
 	width: 250px;
@@ -161,7 +163,6 @@ html {
 	background-image: -webkit-linear-gradient(top, rgb(78, 81, 89), rgb(31, 32, 35));
 }
 
-/* main menu */
 .wrapper .sidebar .logo {
 	text-align: center;
 	height: 50px;
@@ -230,8 +231,11 @@ html {
 	position: relative;
 }
 
-.wrapper .sidebar .sidebar-scroll-content .menu-container {
+.wrapper .sidebar .menu-container {
 	padding-bottom: 80px;
+	background-color: transparent;
+    width: 100%;
+    border: 0px;
 }
 
 .wrapper .sidebar ul {
@@ -257,15 +261,6 @@ html {
 	margin-left: 0.3em;
 }
 
-.wrapper .sidebar ul li>a .menu-badge {
-	position: absolute;
-	right: 15px;
-	top: 14px;
-	color: rgb(255, 255, 255);
-	padding: 2px 6px;
-	background-color: rgb(0, 123, 229);
-	border-radius: 50%;
-}
 
 .wrapper .sidebar ul li>a:hover {
 	padding-left: 20px;
