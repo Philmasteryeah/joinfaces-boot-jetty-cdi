@@ -34,30 +34,7 @@ public class ButtonBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// ##########Test############
-	@Getter
-	@Setter
-	private StreamedContent pdfViewerContent;
 
-	public void onPrerender(ComponentSystemEvent event) {
-
-		try {
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-			Document document = new Document();
-			PdfWriter.getInstance(document, out);
-			document.open();
-
-			for (int i = 0; i < 50; i++) {
-				document.add(new Paragraph("All work and no play makes Jack a dull boy"));
-			}
-
-			document.close();
-			pdfViewerContent = new DefaultStreamedContent(new ByteArrayInputStream(out.toByteArray()),
-					"application/pdf");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	public void buttonAction(ActionEvent actionEvent) {
 		Util.statusMessageInfo("Welcome", "test");

@@ -8,12 +8,12 @@
 	<p:panelGrid columns="1" layout="grid">
 		<div class="ui-g">
 			<div class="ui-g-12 ui-md-4">
-				<f:event listener="#{buttonBean.onPrerender}"
+				<f:event listener="#{pdfBean.onPrerender}"
 					type="preRenderView" />
 				<p:tabView>
 					<p:tab title="StreamedContent">
 						<pe:documentViewer height="500"
-							value="#{buttonBean.pdfViewerContent}"
+							value="#{pdfBean.pdfViewerContent}"
 							download="extensions-rocks.pdf" />
 					</p:tab>
 				</p:tabView>

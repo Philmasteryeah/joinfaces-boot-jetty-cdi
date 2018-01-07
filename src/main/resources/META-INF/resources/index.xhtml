@@ -17,20 +17,9 @@
 			<div class="wrapper">
 
 				<div class="topbar clearfix">
-					<span class="topbar-title"> <h:outputText
-							value="#{sessionBean.getPagePrettyPrinted()}" /></span>
-					<div id="topbar-icons" class="animated">
-						<span class="topbar-search"> Search <span
-							class="topbar-search-icon fa fa-search"></span>
-						</span> <a href="#"> <span class="topbar-item-text">Messages</span> <span
-							class="topbar-icon fa fa-envelope-o animated swing"></span> <span
-							class="topbar-badge animated rubberBand">5</span>
-						</a> <a href="#"> <span class="topbar-item-text">Settings</span> <span
-							class="topbar-icon fa fa-gear"></span>
-						</a> <a href="#"> <span class="topbar-item-text">User</span> <span
-							class="topbar-icon fa fa-user"></span>
-						</a>
-					</div>
+					<ui:insert name="header">
+						<ui:include src="components/header.xhtml" />
+					</ui:insert>
 				</div>
 
 				<div class="sidebar">
@@ -53,18 +42,16 @@
 					</div>
 				</div>
 				<div class="main">
-					<div class="ui-g">
-						<div class="ui-g-12">
-							<div class="card">
-								<ui:insert>
-									<ui:include src="views/#{sessionBean.page}.xhtml" />
-								</ui:insert>
-							</div>
-						</div>
-					</div>
+
+					<ui:insert>
+						<ui:include src="views/#{sessionBean.page}.xhtml" />
+					</ui:insert>
+
 				</div>
 				<div class="footer">
-					<span class="footer-text">Philmaster Inc.</span>
+					<ui:insert name="footer">
+						<ui:include src="components/footer.xhtml" />
+					</ui:insert>
 				</div>
 			</div>
 			<!-- 
