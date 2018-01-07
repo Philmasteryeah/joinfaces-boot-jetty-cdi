@@ -100,7 +100,8 @@ html {
 	border-radius: 2px;
 }
 
-.wrapper .topbar #topbar-icons .topbar-search input::-webkit-input-placeholder {
+.wrapper .topbar #topbar-icons .topbar-search input::-webkit-input-placeholder
+	{
 	color: rgb(255, 255, 255);
 	opacity: 0.7;
 	transition: opacity 0.3s;
@@ -117,11 +118,13 @@ html {
 	border-bottom-color: rgb(119, 199, 255);
 }
 
-.wrapper .topbar #topbar-icons .topbar-search:hover input::-webkit-input-placeholder {
+.wrapper .topbar #topbar-icons .topbar-search:hover input::-webkit-input-placeholder
+	{
 	opacity: 1;
 }
 
-.wrapper .topbar #topbar-icons .topbar-search:hover .topbar-search-icon {
+.wrapper .topbar #topbar-icons .topbar-search:hover .topbar-search-icon
+	{
 	color: rgb(119, 199, 255);
 }
 
@@ -159,7 +162,8 @@ html {
 	z-index: 102;
 	transition: margin-left 0.3s;
 	background-color: rgb(78, 81, 89);
-	background-image: -webkit-linear-gradient(top, rgb(78, 81, 89), rgb(31, 32, 35));
+	background-image: -webkit-linear-gradient(top, rgb(78, 81, 89),
+		rgb(31, 32, 35));
 }
 
 .wrapper .sidebar .logo {
@@ -195,14 +199,14 @@ html {
 	margin-top: 8px;
 }
 
-.wrapper .sidebar .profile>a .username::before {
-	content: "";
-	display: block;
-}
-
 .wrapper .sidebar .profile>a i {
 	display: inline-block;
 	font-size: 16px;
+}
+
+/* inner main*/
+.main .ui-panelgrid .ui-panelgrid-cell {
+	padding: 10px;
 }
 
 .wrapper .sidebar .profile>a:hover {
@@ -220,10 +224,6 @@ html {
 	border: 0px none;
 }
 
-.wrapper .sidebar .profile>ul li:last-child>a {
-	border: 0px none;
-}
-
 .wrapper .sidebar .sidebar-scroll-content {
 	display: block;
 	height: 100%;
@@ -233,8 +233,8 @@ html {
 .wrapper .sidebar .menu-container {
 	padding-bottom: 80px;
 	background-color: transparent;
-    width: 100%;
-    border: 0px;
+	width: 100%;
+	border: 0px;
 }
 
 .wrapper .sidebar ul {
@@ -260,7 +260,6 @@ html {
 	margin-left: 0.3em;
 }
 
-
 .wrapper .sidebar ul li>a:hover {
 	padding-left: 20px;
 	color: rgb(35, 153, 229);
@@ -272,12 +271,18 @@ html {
 	color: rgb(35, 153, 229);
 }
 
+/* hovered menu item*/
 .wrapper .sidebar ul li>a {
+	width: 96.6%;
+}
+
+/* menu item header*/
+.wrapper .sidebar .ui-widget-header {
 	width: 96%;
 }
 
-.wrapper .sidebar .ui-widget-header{
-	width: 96% !important;
+.wrapper .sidebar .ui-menu .ui-menu-list .ui-widget-header {
+	width: 96%;
 }
 
 .wrapper .main {
@@ -286,7 +291,7 @@ html {
 	padding: 50px 16px 16px 0px;
 }
 
-/* main footer */ 
+/* main footer */
 .wrapper .footer {
 	margin-left: 250px;
 	height: 40px;
@@ -299,9 +304,9 @@ html {
 }
 
 h1 {
+	font-size: 24px;
 	font-weight: normal;
 	margin: 0px;
-	font-size: 24px;
 }
 
 h2 {

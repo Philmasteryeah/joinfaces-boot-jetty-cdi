@@ -6,64 +6,64 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<p:panelGrid columns="1" layout="grid">
-		<div class="ui-g">
-			<div class="ui-g-12 ui-md-4">
-				<p:dataTable id="tbl" var="car" value="#{downloadView.cars}"
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-					paginator="true" rows="10" style="margin-bottom:20px">
-					<f:facet name="{Exporters}">
-						<h:commandLink>
-							<p:graphicImage name="/images/excel.png" width="24" />
-							<p:dataExporter type="xls" target="tbl" fileName="cars" />
-						</h:commandLink>
-						<h:commandLink>
-							<p:graphicImage name="/images/pdf.png" width="24" />
-							<p:dataExporter type="pdf" target="tbl" fileName="cars" />
-						</h:commandLink>
-						<h:commandLink>
-							<p:graphicImage name="/images/csv.png" width="24" />
-							<p:dataExporter type="csv" target="tbl" fileName="cars" />
-						</h:commandLink>
-						<h:commandLink>
-							<p:graphicImage name="/images/xml.png" width="24" />
-							<p:dataExporter type="xml" target="tbl" fileName="cars" />
-						</h:commandLink>
-					</f:facet>
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Id" />
-						</f:facet>
-						<h:outputText value="#{car.id}" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Year" />
-						</f:facet>
-						<h:outputText value="#{car.year}" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Brand" />
-						</f:facet>
-						<h:outputText value="#{car.brand}" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Color" />
-						</f:facet>
-						<h:outputText value="#{car.color}" />
-					</p:column>
-				</p:dataTable>
-			</div>
-			<div class="ui-g-12 ui-md-4"></div>
-			<div class="ui-g-12 ui-md-4"></div>
-		</div>
-		<div class="ui-g">
-			<div class="ui-g-6 ui-md-3"></div>
-		</div>
-		<p:growl id="fileUploadGrowl" showDetail="true" sticky="true" />
+
+		<p:dataTable id="tbl" var="carItem" selectionMode="single"
+			value="#{downloadView.carsList}" rowKey="#{carItem.objectId}"
+			selection="#{downloadView.selectedCar}"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+			paginator="true" rows="10">
+			<f:facet name="{Exporters}">
+				<h:commandLink>
+					<p:graphicImage name="/images/excel.png" width="24" />
+					<p:dataExporter type="xls" target="tbl" fileName="cars" />
+				</h:commandLink>
+				<h:commandLink>
+					<p:graphicImage name="/images/pdf.png" width="24" />
+					<p:dataExporter type="pdf" target="tbl" fileName="cars" />
+				</h:commandLink>
+				<h:commandLink>
+					<p:graphicImage name="/images/csv.png" width="24" />
+					<p:dataExporter type="csv" target="tbl" fileName="cars" />
+				</h:commandLink>
+				<h:commandLink>
+					<p:graphicImage name="/images/xml.png" width="24" />
+					<p:dataExporter type="xml" target="tbl" fileName="cars" />
+				</h:commandLink>
+			</f:facet>
+			<p:ajax event="rowSelect" listener="#{downloadView.onRowSelect}"
+				update=":form:growl" />
+			<p:ajax event="rowUnselect" listener="#{downloadView.onRowUnselect}"
+				update=":form:growl" />
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{carItem.objectId}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Year" />
+				</f:facet>
+				<h:outputText value="#{carItem.name}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Brand" />
+				</f:facet>
+				<h:outputText value="#{carItem.name}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Color" />
+				</f:facet>
+				<h:outputText value="#{carItem.name}" />
+			</p:column>
+		</p:dataTable>
+
+
+
 		<p:commandButton value="Test"
-			actionListener="#{buttonBean.buttonAction}" update="fileUploadGrowl" />
+			actionListener="#{buttonBean.buttonAction}" update="growl" />
 	</p:panelGrid>
 
 </ui:composition>
