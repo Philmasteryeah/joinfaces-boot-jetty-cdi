@@ -43,8 +43,7 @@ public class DownloadView implements Serializable {
 	}
 
 	public void refreshCarList() {
-		ObjectContext oc = db.getContext();
-		carsList = Cars.fetchAllCars(oc);
+		carsList = db.fetchAll(Cars.class);
 	}
 	
 	public void onRowSelect(SelectEvent event) {
@@ -57,9 +56,9 @@ public class DownloadView implements Serializable {
 	}
 	
 	public void actionAdd(ActionEvent actionEvent) {
-		ObjectContext oc = db.getContext();
-		Cars car = Cars.createNewCar(oc);
+		Cars car = db.createNew(Cars.class);
 		car.setName("test car");
+		carsList.add(car);
 		Util.statusMessageInfo("Welcome", "test");
 		refreshCarList();
 	}
