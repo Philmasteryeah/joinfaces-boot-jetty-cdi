@@ -4,14 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Cars;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
@@ -45,16 +42,17 @@ public class DownloadView implements Serializable {
 	public void refreshCarList() {
 		carsList = db.fetchAll(Cars.class);
 	}
-	
+
 	public void onRowSelect(SelectEvent event) {
 		System.err.println(selectedCar);
-		Util.statusMessageInfo("Car Selected", selectedCar.getObjectId()+"");
+		Util.statusMessageInfo("Car Selected", selectedCar.getObjectId() + "");
 	}
 
 	public void onRowUnselect(UnselectEvent event) {
-		//Util.statusMessageInfo("Car Unselected", ((Cars) event.getObject()).getName());
+		// Util.statusMessageInfo("Car Unselected", ((Cars)
+		// event.getObject()).getName());
 	}
-	
+
 	public void actionAdd(ActionEvent actionEvent) {
 		Cars car = db.createNew(Cars.class);
 		car.setName("test car");
@@ -62,7 +60,7 @@ public class DownloadView implements Serializable {
 		Util.statusMessageInfo("Welcome", "test");
 		refreshCarList();
 	}
-	
+
 	public void actionSave(ActionEvent actionEvent) {
 		db.getContext().commitChanges();
 		Util.statusMessageInfo("Welcome", "saved");

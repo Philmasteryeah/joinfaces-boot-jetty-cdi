@@ -1,4 +1,4 @@
-package org.philmaster.boot.beans;
+package org.philmaster.boot.session;
 
 import java.io.Serializable;
 
