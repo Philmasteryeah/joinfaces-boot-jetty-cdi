@@ -57,7 +57,6 @@ CREATE SEQUENCE pk_cars INCREMENT 20 START 200;
 - choose your adapter
 
 # Configure Eclipse for using lombok
-- sorry for the 
 - run: java -jar C:\...\...\.m2\repository\org\projectlombok\lombok\1.16.16\lombok-1.16.16.jar
 - wait -> choose eclipse -> install -> quit
 - restart eclipse now complete and lombok should work
