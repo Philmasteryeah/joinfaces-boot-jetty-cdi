@@ -25,7 +25,8 @@
 		<omnifaces.version>1.14.1</omnifaces.version>
 		<javax.servlet-api.version>4.0.0</javax.servlet-api.version>
 		<spring-boot-maven-plugin.version>2.0.0.M7</spring-boot-maven-plugin.version>
-		<postgresql.version>42.1.4</postgresql.version>
+		<postgresql.version>42.2.0</postgresql.version>
+		<jsf.jetty.version>9.4.8.v20171121</jsf.jetty.version>
 	</properties>
 	<dependencies>
 		<!-- Joinfaces -->
@@ -55,7 +56,12 @@
 			<artifactId>font-awesome</artifactId>
 			<version>5.0.2</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>2.4.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>jsf-spring-boot-starter</artifactId>
@@ -197,7 +203,8 @@
 					<appName>ancient-gorge-66249</appName>
 					<jdkVersion>1.8</jdkVersion>
 					<processTypes>
-						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/joinfaces-application-1.0.0-SNAPSHOT.jar</web>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar
+							target/joinfaces-application-1.0.0-SNAPSHOT.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>
