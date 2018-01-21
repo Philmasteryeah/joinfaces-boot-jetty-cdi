@@ -4,11 +4,21 @@
 - PrimeFaces 6.1
 - Jetty 9.4.7.v20170914 
 - CDI 2.0 (weld)
-- Postgres 42.1.4
-- Cayenne 4.0.M5
-- faces 2.3.3
+- Postgres 42.2.0
+- Cayenne 4.1.M1
+- javax.faces 2.3.3
 
-
+# Install Joinfaces
+- the new joinfaces with spring boot 2.0.0 is not availabe on maven atm
+- to start the application you need do the following steps in the GIT bash in your GIT home dir:
+```
+$ git clone https://github.com/joinfaces/joinfaces.git
+$ cd joinfaces
+$ mvnw.cmd install
+```
+- this will install the brand new bloody edge joinfaces in your local maven directory
+- now it should start properly
+ 
 # Deployment Heroku
 - create a Heroku account
 - follow this instructions: https://devcenter.heroku.com/articles/getting-started-with-java#set-up
@@ -31,6 +41,9 @@ $ heroku open
 - press run
 - select the jdbc driver from maven folder: .m2\repository\org\postgresql\postgresql\...
 
+# Start Apache Cayenne Generate Easy Model
+- TOOD
+
 # Postgresql Test shema
 - install postgres and run this query
 ```
@@ -44,6 +57,7 @@ CREATE SEQUENCE pk_cars INCREMENT 20 START 200;
 - choose your adapter
 
 # Configure Eclipse for using lombok
+- sorry for the 
 - run: java -jar C:\...\...\.m2\repository\org\projectlombok\lombok\1.16.16\lombok-1.16.16.jar
 - wait -> choose eclipse -> install -> quit
 - restart eclipse now complete and lombok should work
@@ -64,6 +78,7 @@ CREATE SEQUENCE pk_cars INCREMENT 20 START 200;
 - menu from menu.property is working
 
 # THX
+- great project: https://github.com/joinfaces
 - inspired by: https://github.com/joinfaces/joinfaces-example
 - nice Heroku tricks: https://github.com/heroku/heroku-buildpack-java
 - Cayenne Docs https://cayenne.apache.org/docs/4.0/cayenne-guide/starting-cayenne.html 
