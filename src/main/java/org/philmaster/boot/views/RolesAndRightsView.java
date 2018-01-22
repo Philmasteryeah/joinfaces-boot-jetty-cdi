@@ -12,10 +12,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.philmaster.boot.model.Person;
 import org.philmaster.boot.request.SelectLevelListener;
+import org.philmaster.boot.session.SessionBean;
 
 import lombok.Getter;
 
@@ -27,13 +29,14 @@ public class RolesAndRightsView implements Serializable {
 
 	@Getter
 	private List<Person> persons;
-
 	private List<SelectItem> availableLanguageSkills = null;
 	private List<String> selectedLanguageSkills = new ArrayList<String>();
 	private String languageSkillToAdd;
 
 	@PostConstruct
 	void init() {
+	
+		//session.setPage("Test");
 		persons = new ArrayList<Person>();
 
 		Calendar calendar = Calendar.getInstance();

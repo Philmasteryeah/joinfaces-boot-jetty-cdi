@@ -2,6 +2,7 @@ package org.philmaster.boot.session;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -32,6 +33,12 @@ public class SessionBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String page = "main";
+
+	@PostConstruct
+	void init() {
+
+		System.err.print("session created");
+	}
 
 	public String getPagePrettyPrinted() {
 		return StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(StringUtils.capitalize(page)), ' ');

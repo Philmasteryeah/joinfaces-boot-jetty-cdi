@@ -22,18 +22,20 @@
             <pe:layout id="fullPage"
                 options="#{fullLayoutController.layoutOptions}"
                 stateCookie="true" widgetVar="fpLayoutWidget">
-                
+
                 <p:growl id="growl" showDetail="true" sticky="true" />
-                
+
                 <pe:layoutPane position="north">
                     <ui:insert name="header">
                         <ui:include src="/components/header.xhtml" />
                     </ui:insert>
                 </pe:layoutPane>
                 <pe:layoutPane position="west">
-                    <ui:insert name="menu">
-                        <ui:include src="/components/menu.xhtml" />
-                    </ui:insert>
+                    <div class="sidebar">
+                        <ui:insert name="menu">
+                            <ui:include src="/components/menu.xhtml" />
+                        </ui:insert>
+                    </div>
                 </pe:layoutPane>
                 <pe:layoutPane position="center">
                     <ui:insert name="content" />
@@ -41,7 +43,7 @@
                 <pe:layoutPane position="south">
                     <ui:insert name="footer" />
                 </pe:layoutPane>
-                
+
             </pe:layout>
         </h:form>
     </h:body>
