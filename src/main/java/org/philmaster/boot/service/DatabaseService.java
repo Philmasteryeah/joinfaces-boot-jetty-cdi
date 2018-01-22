@@ -12,9 +12,6 @@ import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.query.ObjectSelect;
 import org.apache.cayenne.query.SelectQuery;
-import org.philmaster.boot.model.Cars;
-
-import com.jayway.jsonpath.internal.function.text.Concatenate;
 
 import lombok.Getter;
 import lombok.Setter;

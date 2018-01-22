@@ -9,7 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.philmaster.boot.model.Cars;
+import org.philmaster.boot.model.Car;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
 import org.primefaces.event.SelectEvent;
@@ -25,11 +25,11 @@ public class DownloadView implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Getter
-	private List<Cars> carsList;
+	private List<Car> cars;
 
 	@Getter
 	@Setter
-	private Cars selectedCar;
+	private Car selectedCar;
 
 	@Inject
 	private DatabaseService db;
@@ -40,7 +40,7 @@ public class DownloadView implements Serializable {
 	}
 
 	public void refreshCarList() {
-		carsList = db.fetchAll(Cars.class);
+		cars = db.fetchAll(Car.class);
 	}
 
 	public void onRowSelect(SelectEvent event) {
@@ -54,9 +54,9 @@ public class DownloadView implements Serializable {
 	}
 
 	public void actionAdd(ActionEvent actionEvent) {
-		Cars car = db.createNew(Cars.class);
+		Car car = db.createNew(Car.class);
 		car.setName("test car");
-		carsList.add(car);
+		cars.add(car);
 		Util.statusMessageInfo("Welcome", "test");
 		refreshCarList();
 	}

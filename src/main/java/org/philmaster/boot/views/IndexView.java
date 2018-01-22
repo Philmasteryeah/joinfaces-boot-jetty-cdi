@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import org.philmaster.boot.util.Util;
@@ -46,6 +45,7 @@ public class IndexView implements Serializable {
 		private String title;
 		private String pageName;
 		private String icon;
+		private boolean isAjax = false;
 	}
 
 	private List<MenuItem> items = new ArrayList<>();
@@ -72,18 +72,29 @@ public class IndexView implements Serializable {
 	private DefaultMenuItem createPageItem(@NonNull MenuItem menuItem) {
 		DefaultMenuItem item = new DefaultMenuItem(menuItem.getTitle());
 		item.setIcon(menuItem.getIcon());
-		item.setAjax(true);
+		item.setAjax(menuItem.isAjax());
 		item.setUpdate("@form");
-		item.setCommand(commandString(menuItem.getPageName()));
+		// item.setCommand(commandString(menuItem.getPageName()));
+		// item.setHref("#");
+		item.setOutcome(outcomeString(menuItem.getPageName()));
 		return item;
 	}
 
-	@SuppressWarnings("el-syntax")
-	private String commandString(String pageName) {
+	// @SuppressWarnings("el-syntax")
+	// private String commandString(String pageName) {
+	// StringBuilder sb = new StringBuilder();
+	// sb.append("#{sessionBean.setPage('");
+	// sb.append(pageName);
+	// sb.append("')}");
+	// return sb.toString();
+	// }
+
+	private String outcomeString(String pageName) {
+		// "href="#{request.contextPath}/ui/ajax/validation.xhtml"
 		StringBuilder sb = new StringBuilder();
-		sb.append("#{sessionBean.setPage('");
+		sb.append("/views/");
 		sb.append(pageName);
-		sb.append("')}");
+
 		return sb.toString();
 	}
 

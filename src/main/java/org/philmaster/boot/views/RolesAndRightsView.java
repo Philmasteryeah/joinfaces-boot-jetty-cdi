@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.el.ELContext;
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
@@ -16,32 +17,35 @@ import javax.inject.Named;
 import org.philmaster.boot.model.Person;
 import org.philmaster.boot.request.SelectLevelListener;
 
+import lombok.Getter;
+
 @Named
 @ViewScoped
 public class RolesAndRightsView implements Serializable {
-	private static final long serialVersionUID = 20111120L;
 
+	private static final long serialVersionUID = 1L;
+
+	@Getter
 	private List<Person> persons;
+
 	private List<SelectItem> availableLanguageSkills = null;
 	private List<String> selectedLanguageSkills = new ArrayList<String>();
 	private String languageSkillToAdd;
 
-	public RolesAndRightsView() {
-		if (persons == null) {
-			persons = new ArrayList<Person>();
+	@PostConstruct
+	void init() {
+		persons = new ArrayList<Person>();
 
-			Calendar calendar = Calendar.getInstance();
-			calendar.set(1972, 5, 25);
-			persons.add(new Person("1", "Max Mustermann", 1, calendar.getTime()));
-			calendar.set(1981, 12, 10);
-			persons.add(new Person("2", "Sara Schmidt", 2, calendar.getTime()));
-			calendar.set(1968, 2, 13);
-			persons.add(new Person("3", "Jasper Morgan", 3, calendar.getTime()));
-		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(1972, 5, 25);
+		persons.add(new Person("1", "Max Mustermann", 1, calendar.getTime()));
+		calendar.set(1981, 12, 10);
+		persons.add(new Person("2", "Sara Schmidt", 2, calendar.getTime()));
+		calendar.set(1968, 2, 13);
+		persons.add(new Person("3", "Jasper Morgan", 3, calendar.getTime()));
 	}
 
-	public List<Person> getPersons() {
-		return persons;
+	public RolesAndRightsView() {
 	}
 
 	public List<SelectItem> getAvailableLanguageSkills() {
@@ -72,6 +76,8 @@ public class RolesAndRightsView implements Serializable {
 	}
 
 	public String saveSuccess(Person person) {
+		if(person == null)
+			return null;
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
 				"Person " + person.getName() + " has been saved", null);
 		FacesContext.getCurrentInstance().addMessage(null, message);
@@ -80,6 +86,8 @@ public class RolesAndRightsView implements Serializable {
 	}
 
 	public String saveFailure(Person person) {
+		if(person == null)
+			return null;
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ELContext elContext = fc.getELContext();
 
@@ -100,6 +108,8 @@ public class RolesAndRightsView implements Serializable {
 	}
 
 	public String delete(Person person) {
+		if(person == null)
+			return null;
 		for (Person pers : persons) {
 			if (pers.getId().equals(person.getId())) {
 				persons.remove(pers);
@@ -112,6 +122,8 @@ public class RolesAndRightsView implements Serializable {
 	}
 
 	public void addLanguageSkill(Person person) {
+		if(person == null)
+			return;
 		if (languageSkillToAdd != null) {
 			person.addLanguageSkill(languageSkillToAdd);
 		}

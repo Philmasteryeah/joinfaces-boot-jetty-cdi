@@ -15,6 +15,7 @@ public class SelectLevelListener implements Serializable {
 	private boolean errorOccured = false;
 
 	public int handleNavigation(SelectLevelEvent selectLevelEvent) {
+		System.err.println(selectLevelEvent + "------------------------------------" + errorOccured);
 		if (errorOccured) {
 			return 2;
 		} else {
@@ -24,5 +25,6 @@ public class SelectLevelListener implements Serializable {
 
 	public void setErrorOccured(boolean errorOccured) {
 		this.errorOccured = errorOccured;
+
 	}
 }
