@@ -17,56 +17,31 @@
         </f:facet>
         <h:outputStylesheet name="styles/main.css" />
     </pe:head>
-
-    <h:body>
-        <h:form id="form">
+    <h:body class="main-body">
+        <h:form id="form" enctype="multipart/form-data">
             <pe:layout id="fullPage"
                 options="#{fullLayoutController.layoutOptions}"
                 stateCookie="true" widgetVar="fpLayoutWidget">
-
-                <pe:layoutPane position="north">  
-            		North   <p:growl id="growl" showDetail="true"
-                        sticky="true" />
-                </pe:layoutPane>
-                <pe:layoutPane position="center">
-                    <pe:layoutPane position="north">
-                        <f:facet name="header">
-                            <h:outputText value="Center-North" />
-                        </f:facet>  
-                Refresh this page to see that the state of all panes is preserved  
-            		</pe:layoutPane>
-                    <pe:layoutPane position="center">
-                        <f:facet name="header">
-                            <h:outputText value="Center-Center" />
-                        </f:facet>
-                        <p:messages id="msg" showDetail="true"
-                            showSummary="true">
-                            <p:effect type="pulsate" event="load"
-                                delay="0">
-                                <f:param name="mode" value="'show'" />
-                                <f:param name="times" value="'1'" />
-                            </p:effect>
-                        </p:messages>
-                        <ui:insert name="content" />
-                    </pe:layoutPane>
+                
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                
+                <pe:layoutPane position="north">
+                    <ui:insert name="header">
+                        <ui:include src="/components/header.xhtml" />
+                    </ui:insert>
                 </pe:layoutPane>
                 <pe:layoutPane position="west">
-                    <pe:layoutPane position="north">  
-                West-North 
-           		 </pe:layoutPane>
-                    <pe:layoutPane position="center">
+                    <ui:insert name="menu">
                         <ui:include src="/components/menu.xhtml" />
-                    </pe:layoutPane>
-                    <pe:layoutPane position="south">  
-                West-South  
-         		   </pe:layoutPane>
+                    </ui:insert>
                 </pe:layoutPane>
-                <pe:layoutPane position="east">  
-            East  
-                  </pe:layoutPane>
-                <pe:layoutPane position="south">  
-            South  
-                    </pe:layoutPane>
+                <pe:layoutPane position="center">
+                    <ui:insert name="content" />
+                </pe:layoutPane>
+                <pe:layoutPane position="south">
+                    <ui:insert name="footer" />
+                </pe:layoutPane>
+                
             </pe:layout>
         </h:form>
     </h:body>
