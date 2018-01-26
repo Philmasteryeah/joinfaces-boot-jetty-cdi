@@ -23,8 +23,7 @@ import lombok.Setter;
 /**
  * @author Philmasteryeah
  * 
- *         programmatic menu generation
- * 
+ *         programmatic menu generation use menu.properties for configuration
  *
  */
 @Getter
@@ -32,7 +31,7 @@ import lombok.Setter;
 @Configuration
 @PropertySource("classpath:menu.properties")
 @ConfigurationProperties(prefix = "menu")
-public class IndexView implements Serializable {
+public class MenuView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -73,43 +72,16 @@ public class IndexView implements Serializable {
 		DefaultMenuItem item = new DefaultMenuItem(menuItem.getTitle());
 		item.setIcon(menuItem.getIcon());
 		item.setAjax(menuItem.isAjax());
-		item.setUpdate("@form");
-		// item.setCommand(commandString(menuItem.getPageName()));
-		// item.setHref("#");
+		//item.setUpdate("@form");
 		item.setOutcome(outcomeString(menuItem.getPageName()));
 		return item;
 	}
 
-	// @SuppressWarnings("el-syntax")
-	// private String commandString(String pageName) {
-	// StringBuilder sb = new StringBuilder();
-	// sb.append("#{sessionBean.setPage('");
-	// sb.append(pageName);
-	// sb.append("')}");
-	// return sb.toString();
-	// }
-
 	private String outcomeString(String pageName) {
-		// "href="#{request.contextPath}/ui/ajax/validation.xhtml"
 		StringBuilder sb = new StringBuilder();
 		sb.append("/views/");
 		sb.append(pageName);
-
 		return sb.toString();
-	}
-
-	// dont needed
-
-	public void save() {
-		Util.statusMessageInfo("Success", "Data saved");
-	}
-
-	public void update() {
-		Util.statusMessageInfo("Success", "Data updated");
-	}
-
-	public void delete() {
-		Util.statusMessageInfo("Success", "Data deleted");
 	}
 
 }

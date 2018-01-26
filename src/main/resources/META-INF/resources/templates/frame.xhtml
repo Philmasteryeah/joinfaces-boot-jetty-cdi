@@ -5,17 +5,20 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:pe="http://primefaces.org/ui/extensions"
     xmlns:ui="http://java.sun.com/jsf/facelets">
-<f:view contentType="text/html" locale="de">
+<f:view contentType="text/html" locale="#{sessionBean.locale}">
     <pe:head title="JoinFacesBootJetty"
         shortcutIcon="#{resource['images/favicon.ico']}">
         <f:facet name="first">
+            <meta http-equiv="Content-Type"
+                content="text/html; charset=UTF-8" />
             <meta http-equiv="Content-Type"
                 content="text/html; charset=UTF-8" />
             <meta http-equiv="pragma" content="no-cache" />
             <meta http-equiv="cache-control" content="no-cache" />
             <meta http-equiv="expires" content="0" />
         </f:facet>
-        <h:outputStylesheet name="styles/main.css" />
+        <h:outputStylesheet library="css" name="main.css" />
+        <h:outputScript library="js" name="common.js" target="body" />
     </pe:head>
     <h:body class="main-body">
         <h:form id="form" enctype="multipart/form-data">
@@ -31,12 +34,12 @@
                     </ui:insert>
                 </pe:layoutPane>
                 <pe:layoutPane position="west">
-                    <div class="sidebar">
-                        <ui:insert name="menu">
-                            <ui:include src="/components/menu.xhtml" />
-                        </ui:insert>
-                    </div>
+                    <ui:insert name="menu">
+                        <p:menu model="#{menuView.model}" id="menu"
+                            styleClass="menu-container" />
+                    </ui:insert>
                 </pe:layoutPane>
+
                 <pe:layoutPane position="center">
                     <ui:insert name="content" />
                 </pe:layoutPane>

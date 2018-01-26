@@ -44,7 +44,6 @@ public class DownloadView implements Serializable {
 	}
 
 	public void onRowSelect(SelectEvent event) {
-		System.err.println(selectedCar);
 		Util.statusMessageInfo("Car Selected", selectedCar.getObjectId() + "");
 	}
 

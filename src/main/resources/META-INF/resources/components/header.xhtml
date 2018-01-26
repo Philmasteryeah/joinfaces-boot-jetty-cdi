@@ -1,13 +1,16 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:pe="http://primefaces.org/ui/extensions"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<p:button icon="ui-icon-grip-diagonal-se" style="background: transparent;" />
-	
-	<span class="topbar-title"> <h:outputText
-			value="#{sessionBean.getPagePrettyPrinted()}" /></span>
+    <h:link outcome="/index.xhmtl">
+        <h:graphicImage
+            name="philmaster.svg"
+            library="images"
+            height="100"
+            width="160" />
+    </h:link>
 
 </ui:composition>

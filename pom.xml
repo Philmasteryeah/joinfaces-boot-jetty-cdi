@@ -114,11 +114,8 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-	<!--<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
-		</dependency> -->
+		<!--<dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
+			<optional>true</optional> </dependency> -->
 		<!-- Data Export -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -213,15 +210,16 @@
 		</plugins>
 	</build>
 	<repositories>
+
 		<repository>
 			<id>primefaces-maven-repository</id>
-			<name>PrimeFaces Maven Repository</name>
+			<name>PrimeFaces 
+			Maven Repository</name>
 			<url>http://repository.primefaces.org</url>
 		</repository>
 		<repository>
-			<id>spring-snapshots2</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
+			<id>spring-snapshots</id>
+			<url>http://repo.spring.io/libs-snapshot</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -235,17 +233,19 @@
 			</snapshots>
 		</repository>
 		<repository>
-			<id>jboss</id>
-			<name>JBoss</name>
-			<url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/</url>
-		</repository>
-		<repository>
-			<id>spring-snapshots</id>
-			<url>http://repo.spring.io/libs-snapshot</url>
+			<id>spring-snapshots2</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>jboss</id>
+			<name>JBoss</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/</url>
+		</repository>
+
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -256,4 +256,13 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>5.0.3.RELEASE</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

@@ -1,9 +1,11 @@
 package org.philmaster.boot.session;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.apache.commons.lang.StringUtils;
@@ -31,13 +33,12 @@ import lombok.Setter;
 public class SessionBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	private Locale locale;
 	private String page = "main";
 
 	@PostConstruct
 	void init() {
-
-		System.err.print("session created");
+		locale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
 	}
 
 	public String getPagePrettyPrinted() {
