@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <f:facet name="label">
+        <h:outputFormat value="#{msgs['detailsFor']}">
+            <f:param value="#{curRow.column1}"/>
+        </h:outputFormat>
+    </f:facet>
+
+    <h:panelGrid columns="2" columnClasses="formColumn1,formColumn2"
+                 cellpadding="0" cellspacing="0">
+        <h:outputText value="Column 1"/>
+        <p:calendar value="#{curRow.column1}" pattern="dd.MM.yyyy" showOn="button"
+                    timeZone="Europe/Berlin" label="Column 1"/>
+        
+        <h:outputText value="Column 2"/>
+        <p:spinner value="#{curRow.column2}" min="0" max="999999999" label="Column 2">
+            <p:keyFilter mask="num"/>
+        </p:spinner>
+        
+        <h:outputText value="Column 3"/>
+        <p:inputText value="#{curRow.column3}"/>
+        
+        <h:outputText value="Column 4"/>
+        <p:inputText value="#{curRow.column4}"/>
+        
+        <h:outputText value="Column 5"/>
+        <p:inputText value="#{curRow.column5}"/>
+    </h:panelGrid>
+
+    <p:commandButton value="#{msgs['save']}" onclick="PF('saveDlgWdgt').show(); return false;"
+                     styleClass="firstbtn" icon="ui-icon-disk"/>
+    <p:commandButton value="#{msgs['more']}" process="masterDetail"
+                     update=":form:masterDetail"
+                     action="#{tableController.navigateToMore}"
+                     styleClass="btn" icon="ui-icon-arrowthick-1-e">
+        <pe:selectDetailLevel step="1"/>
+    </p:commandButton>
+    <p:commandButton value="#{msgs['back']}" icon="ui-icon-arrowreturnthick-1-n"
+                     update=":form:masterDetail"
+                     immediate="true" styleClass="btn">
+        <pe:selectDetailLevel level="1"/>
+    </p:commandButton>
+    
+    <ui:include src="/compositions/dialogs.xhtml"/>
+</ui:composition>       

@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    template="/templates/frame.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="content">
+
+            <p:growl autoUpdate="true" />
+
+            <pe:masterDetail id="masterDetail"
+                level="#{currentLevelData.currentLevel}"
+                selectLevelListener="#{selectLevelListener.handleNavigation}">
+                <pe:masterDetailLevel level="1"
+                    levelLabel="#{msgs['list']}">
+                    <ui:include src="/compositions/list.xhtml" />
+                </pe:masterDetailLevel>
+
+                <pe:masterDetailLevel level="2"
+                    rendered="#{currentLevelData.currentLevel == 2}"
+                    levelLabel="#{msgs['moreDetails']}"
+                    contextVar="curRow">
+                    <ui:include src="/compositions/detail.xhtml" />
+                </pe:masterDetailLevel>
+
+                <pe:masterDetailLevel level="3"
+                    rendered="#{currentLevelData.currentLevel == 3}"
+                    levelLabel="#{msgs['moreDetails']}">
+                    <ui:include src="/compositions/more.xhtml" />
+                </pe:masterDetailLevel>
+            </pe:masterDetail>
+
+    </ui:define>
+</ui:composition>

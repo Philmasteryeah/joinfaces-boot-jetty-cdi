@@ -12,15 +12,11 @@ import org.primefaces.extensions.component.masterdetail.SelectLevelEvent;
 public class SelectLevelListener implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private boolean errorOccured = false;
 
+	private boolean errorOccured = false;
+	
 	public int handleNavigation(SelectLevelEvent selectLevelEvent) {
-		System.err.println(selectLevelEvent + "------------------------------------" + errorOccured);
-		if (errorOccured) {
-			return 2;
-		} else {
-			return selectLevelEvent.getNewLevel();
-		}
+		return !errorOccured ? selectLevelEvent.getNewLevel() : 1;
 	}
 
 	public void setErrorOccured(boolean errorOccured) {

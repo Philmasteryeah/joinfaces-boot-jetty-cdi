@@ -12,31 +12,30 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.philmaster.boot.model.Person;
 import org.philmaster.boot.request.SelectLevelListener;
-import org.philmaster.boot.session.SessionBean;
 
 import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Named
 @ViewScoped
 public class RolesAndRightsView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Getter
 	private List<Person> persons;
 	private List<SelectItem> availableLanguageSkills = null;
 	private List<String> selectedLanguageSkills = new ArrayList<String>();
 	private String languageSkillToAdd;
+	private int currentLevel = 1;
 
 	@PostConstruct
 	void init() {
-	
-		//session.setPage("Test");
 		persons = new ArrayList<Person>();
 
 		Calendar calendar = Calendar.getInstance();
@@ -66,20 +65,12 @@ public class RolesAndRightsView implements Serializable {
 		return availableLanguageSkills;
 	}
 
-	public List<String> getSelectedLanguageSkills() {
-		return selectedLanguageSkills;
-	}
-
-	public void setLanguageSkillToAdd(String languageSkillToAdd) {
-		this.languageSkillToAdd = languageSkillToAdd;
-	}
-
 	public String getLanguageSkillToAdd() {
 		return languageSkillToAdd;
 	}
 
 	public String saveSuccess(Person person) {
-		if(person == null)
+		if (person == null)
 			return null;
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
 				"Person " + person.getName() + " has been saved", null);
@@ -89,7 +80,7 @@ public class RolesAndRightsView implements Serializable {
 	}
 
 	public String saveFailure(Person person) {
-		if(person == null)
+		if (person == null)
 			return null;
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ELContext elContext = fc.getELContext();
@@ -111,7 +102,7 @@ public class RolesAndRightsView implements Serializable {
 	}
 
 	public String delete(Person person) {
-		if(person == null)
+		if (person == null)
 			return null;
 		for (Person pers : persons) {
 			if (pers.getId().equals(person.getId())) {
@@ -125,7 +116,7 @@ public class RolesAndRightsView implements Serializable {
 	}
 
 	public void addLanguageSkill(Person person) {
-		if(person == null)
+		if (person == null)
 			return;
 		if (languageSkillToAdd != null) {
 			person.addLanguageSkill(languageSkillToAdd);
