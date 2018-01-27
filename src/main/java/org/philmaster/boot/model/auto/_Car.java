@@ -14,7 +14,7 @@ public abstract class _Car extends CayenneDataObject {
     private static final long serialVersionUID = 1L; 
 
     public static final String ID_PK_COLUMN = "id";
-    
+
     public static final Property<String> NAME = new Property<String>("name");
 
     public void setName(String name) {

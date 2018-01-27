@@ -10,9 +10,7 @@
         <pe:masterDetail id="masterDetail"
             selectLevelListener="#{selectLevelListener.handleNavigation}"
             showAllBreadcrumbItems="true">
-            <f:facet name="header">
-                <p:messages showDetail="false" showSummary="true" />
-            </f:facet>
+
 
             <pe:masterDetailLevel level="1">
                 <f:facet name="label">
@@ -79,12 +77,14 @@
                 <p:commandButton value="Save with success"
                     process="masterDetail"
                     action="#{rolesAndRightsView.saveSuccess(person)}"
+                    update=":form:growl"
                     style="margin-top:10px;" icon="ui-icon-disk">
                     <pe:selectDetailLevel level="1" />
                 </p:commandButton>
                 <p:commandButton value="Save with failure"
                     process="masterDetail"
                     action="#{rolesAndRightsView.saveFailure(person)}"
+                    update=":form:growl"
                     style="margin-top:10px;" icon="ui-icon-disk">
                     <pe:selectDetailLevel level="1" />
                 </p:commandButton>

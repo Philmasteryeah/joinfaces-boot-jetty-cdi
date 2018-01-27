@@ -1,5 +1,6 @@
 package org.philmaster.boot.session;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Locale;
 
@@ -22,7 +23,7 @@ import lombok.Setter;
  *         reset to 'main 'after menu click
  * 
  *         getPage() will return the name of the current page
- *         getPagePrettyPrinted() user readable printed for info messages
+ *         pageNameReadable() user readable printed for info messages
  *
  */
 
@@ -34,14 +35,15 @@ public class SessionBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Locale locale;
-	private String page = "main";
+	private String page;
 
 	@PostConstruct
 	void init() {
 		locale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
+		page = "main";
 	}
 
-	public String getPagePrettyPrinted() {
+	public String pageNameReadable() {
 		return StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(StringUtils.capitalize(page)), ' ');
 	}
 
@@ -50,6 +52,11 @@ public class SessionBean implements Serializable {
 		FacesContext.getCurrentInstance().getViewRoot().setLocale(this.locale);
 		return locale;
 
+	}
+
+	public String logout() throws IOException {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "/index.xhtml?faces-redirect=true";
 	}
 
 }

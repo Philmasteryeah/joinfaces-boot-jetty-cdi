@@ -21,7 +21,7 @@
         <h:outputScript library="js" name="common.js" target="body" />
     </pe:head>
     <h:body class="main-body">
-        <f:loadBundle var="msg" basename="messages"/>
+        <f:loadBundle var="msg" basename="messages" />
         <h:form id="form" enctype="multipart/form-data">
             <pe:layout id="fullPage"
                 options="#{fullLayoutController.layoutOptions}"
@@ -38,6 +38,22 @@
                     <ui:insert name="menu">
                         <p:menu model="#{menuView.model}" id="menu"
                             styleClass="menu-container" />
+                            <!-- 
+                        <p:menu id="servicesList">
+                            <p:menuitem value="#{msgs['service.1']}"
+                                styleClass="#{navigationContext.getMenuitemStyleClass('/views/firstService.xhtml')}"
+                                icon="ui-icon-play"
+                                onclick="selectServiceLink(this)"
+                                ajax="false"
+                                url="/views/firstService.jsf" />
+                            <p:menuitem value="#{msgs['service.2']}"
+                                styleClass="#{navigationContext.getMenuitemStyleClass('/views/secondService.xhtml')}"
+                                icon="ui-icon-play"
+                                onclick="selectServiceLink(this)"
+                                ajax="false"
+                                url="/views/secondService.jsf" />
+                        </p:menu>
+                        -->
                     </ui:insert>
                 </pe:layoutPane>
 

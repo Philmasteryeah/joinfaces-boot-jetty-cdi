@@ -7,7 +7,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 
-import org.philmaster.boot.util.Util;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
@@ -72,7 +71,7 @@ public class MenuView implements Serializable {
 		DefaultMenuItem item = new DefaultMenuItem(menuItem.getTitle());
 		item.setIcon(menuItem.getIcon());
 		item.setAjax(menuItem.isAjax());
-		//item.setUpdate("@form");
+		// item.setUpdate("@form");
 		item.setOutcome(outcomeString(menuItem.getPageName()));
 		return item;
 	}

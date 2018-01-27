@@ -10,6 +10,11 @@ html {
 	background-color: rgb(237, 240, 245);
 }
 
+.btnLogout {
+	margin-top: 77px;
+    float: right;
+}
+
 .wrapper {
 	padding: 0px;
 }

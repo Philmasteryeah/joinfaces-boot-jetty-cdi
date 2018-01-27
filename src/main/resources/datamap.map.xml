@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<data-map xmlns="http://cayenne.apache.org/schema/9/modelMap"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://cayenne.apache.org/schema/9/modelMap http://cayenne.apache.org/schema/9/modelMap.xsd"
-	project-version="9">
-	<property name="defaultPackage" value="org.philmaster.boot.model" />
+<data-map xmlns="http://cayenne.apache.org/schema/10/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/10/modelMap http://cayenne.apache.org/schema/10/modelMap.xsd"
+	 project-version="10">
+	<property name="defaultPackage" value="org.philmaster.boot.model"/>
 	<db-entity name="car">
-		<db-attribute name="id" type="INTEGER" isPrimaryKey="true"
-			isMandatory="true" />
-		<db-attribute name="name" type="VARCHAR" length="255" />
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="name" type="VARCHAR" length="255"/>
 	</db-entity>
-	<obj-entity name="Car" className="org.philmaster.boot.model.Car"
-		dbEntityName="car">
-		<obj-attribute name="name" type="java.lang.String"
-			db-attribute-path="name" />
+	<obj-entity name="Car" className="org.philmaster.boot.model.Car" dbEntityName="car">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
 </data-map>

@@ -3,19 +3,25 @@ package org.philmaster.boot.views;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.el.ELContext;
 import javax.faces.FacesException;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.apache.cayenne.map.DbAttribute;
+import org.apache.cayenne.map.DbRelationship;
+import org.apache.cayenne.map.ObjRelationship;
 import org.philmaster.boot.model.Person;
 import org.philmaster.boot.request.SelectLevelListener;
+import org.philmaster.boot.util.Util;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -45,6 +51,7 @@ public class RolesAndRightsView implements Serializable {
 		persons.add(new Person("2", "Sara Schmidt", 2, calendar.getTime()));
 		calendar.set(1968, 2, 13);
 		persons.add(new Person("3", "Jasper Morgan", 3, calendar.getTime()));
+
 	}
 
 	public RolesAndRightsView() {
@@ -72,10 +79,7 @@ public class RolesAndRightsView implements Serializable {
 	public String saveSuccess(Person person) {
 		if (person == null)
 			return null;
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Person " + person.getName() + " has been saved", null);
-		FacesContext.getCurrentInstance().addMessage(null, message);
-
+		Util.statusMessageInfo("Info", "Person " + person.getName() + " has been saved");
 		return null;
 	}
 
@@ -94,9 +98,7 @@ public class RolesAndRightsView implements Serializable {
 			throw new FacesException(e.getMessage(), e);
 		}
 
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-				"Person " + person.getName() + " could not be saved", null);
-		FacesContext.getCurrentInstance().addMessage(null, message);
+		Util.statusMessageError("Error", "Person " + person.getName() + " could not be saved");
 
 		return null;
 	}

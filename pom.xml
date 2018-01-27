@@ -187,8 +187,8 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.cayenne.plugins</groupId>
-				<artifactId>maven-cayenne-modeler-plugin</artifactId>
-				<version>4.0.M4</version>
+				<artifactId>cayenne-modeler-maven-plugin</artifactId>
+				<version>4.1.M1</version>
 				<configuration>
 					<map>${basedir}/src/main/resources/datamap.map.xml</map>
 					<modelFile>>${basedir}/src/main/resources/cayenne-project.xml</modelFile>
@@ -202,8 +202,7 @@
 					<appName>ancient-gorge-66249</appName>
 					<jdkVersion>1.8</jdkVersion>
 					<processTypes>
-						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar
-							target/joinfaces-application-1.0.0-SNAPSHOT.jar</web>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/joinfaces-application-1.0.0-SNAPSHOT.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>
