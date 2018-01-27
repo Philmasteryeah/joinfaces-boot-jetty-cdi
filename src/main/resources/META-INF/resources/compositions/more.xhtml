@@ -4,17 +4,17 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
     <div>
-        <h:outputText value="#{msgs.someInfo}"/>
+        <h:outputText value="#{msg.someInfo}"/>
 
         <div style="padding:10px 0 10px 0;">
             <p:commandLink value="Click to simulate NullPointerException"
                            process="@this" action="#{tableController.simulateException}"/>
         </div>
 
-        <h:outputText value="#{msgs.someInfo}"/>
+        <h:outputText value="#{msg.someInfo}"/>
     </div>
 
-    <p:commandButton value="#{msgs['back']}" update=":form:masterDetail"
+    <p:commandButton value="#{msg['back']}" update=":form:masterDetail"
                      immediate="true" styleClass="firstbtn">
         <pe:selectDetailLevel step="-1"/>
     </p:commandButton>

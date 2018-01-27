@@ -21,6 +21,7 @@
         <h:outputScript library="js" name="common.js" target="body" />
     </pe:head>
     <h:body class="main-body">
+        <f:loadBundle var="msg" basename="messages"/>
         <h:form id="form" enctype="multipart/form-data">
             <pe:layout id="fullPage"
                 options="#{fullLayoutController.layoutOptions}"

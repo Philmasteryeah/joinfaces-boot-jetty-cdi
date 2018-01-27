@@ -45,4 +45,11 @@ public class SessionBean implements Serializable {
 		return StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(StringUtils.capitalize(page)), ' ');
 	}
 
+	public String changeLanguage(String locale) {
+		this.locale = new Locale(locale);
+		FacesContext.getCurrentInstance().getViewRoot().setLocale(this.locale);
+		return locale;
+
+	}
+
 }

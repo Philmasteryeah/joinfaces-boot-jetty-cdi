@@ -12,20 +12,20 @@
                 level="#{currentLevelData.currentLevel}"
                 selectLevelListener="#{selectLevelListener.handleNavigation}">
                 <pe:masterDetailLevel level="1"
-                    levelLabel="#{msgs['list']}">
+                    levelLabel="#{msg['list']}">
                     <ui:include src="/compositions/list.xhtml" />
                 </pe:masterDetailLevel>
 
                 <pe:masterDetailLevel level="2"
                     rendered="#{currentLevelData.currentLevel == 2}"
-                    levelLabel="#{msgs['moreDetails']}"
+                    levelLabel="#{msg['moreDetails']}"
                     contextVar="curRow">
                     <ui:include src="/compositions/detail.xhtml" />
                 </pe:masterDetailLevel>
 
                 <pe:masterDetailLevel level="3"
                     rendered="#{currentLevelData.currentLevel == 3}"
-                    levelLabel="#{msgs['moreDetails']}">
+                    levelLabel="#{msg['moreDetails']}">
                     <ui:include src="/compositions/more.xhtml" />
                 </pe:masterDetailLevel>
             </pe:masterDetail>

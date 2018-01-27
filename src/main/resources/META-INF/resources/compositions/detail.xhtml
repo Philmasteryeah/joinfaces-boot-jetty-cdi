@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
     <f:facet name="label">
-        <h:outputFormat value="#{msgs['detailsFor']}">
+        <h:outputFormat value="#{msg['detailsFor']}">
             <f:param value="#{curRow.column1}"/>
         </h:outputFormat>
     </f:facet>
@@ -31,15 +31,15 @@
         <p:inputText value="#{curRow.column5}"/>
     </h:panelGrid>
 
-    <p:commandButton value="#{msgs['save']}" onclick="PF('saveDlgWdgt').show(); return false;"
+    <p:commandButton value="#{msg['save']}" onclick="PF('saveDlgWdgt').show(); return false;"
                      styleClass="firstbtn" icon="ui-icon-disk"/>
-    <p:commandButton value="#{msgs['more']}" process="masterDetail"
+    <p:commandButton value="#{msg['more']}" process="masterDetail"
                      update=":form:masterDetail"
                      action="#{tableController.navigateToMore}"
                      styleClass="btn" icon="ui-icon-arrowthick-1-e">
         <pe:selectDetailLevel step="1"/>
     </p:commandButton>
-    <p:commandButton value="#{msgs['back']}" icon="ui-icon-arrowreturnthick-1-n"
+    <p:commandButton value="#{msg['back']}" icon="ui-icon-arrowreturnthick-1-n"
                      update=":form:masterDetail"
                      immediate="true" styleClass="btn">
         <pe:selectDetailLevel level="1"/>
