@@ -6,7 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
-import org.apache.cayenne.CayenneDataObject;
+import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.exp.Expression;
@@ -46,15 +46,15 @@ public class DatabaseService {
 		context = ServerRuntime.builder().addConfig(CAYENNE_CONFIG).build().newContext();
 	}
 
-	public <T extends CayenneDataObject> T createNew(Class<T> clazz) {
+	public <T extends BaseDataObject> T createNew(Class<T> clazz) {
 		return context.newObject(clazz);
 	}
 
-	public <T extends CayenneDataObject> List<T> fetchAll(Class<T> clazz) {
+	public <T extends BaseDataObject> List<T> fetchAll(Class<T> clazz) {
 		return context.select(SelectQuery.query(clazz));
 	}
 
-	public <T extends CayenneDataObject> List<T> fetch(Class<T> clazz, Expression where) {
+	public <T extends BaseDataObject> List<T> fetch(Class<T> clazz, Expression where) {
 		return ObjectSelect.query(clazz).where(where).select(context);
 	}
 }
