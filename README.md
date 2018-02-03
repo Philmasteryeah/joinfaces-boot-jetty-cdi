@@ -8,6 +8,8 @@
 - Cayenne 4.1.M1
 - javax.faces 2.3.3
 
+![alt text](https://abload.de/img/joinfaces_boot19swo.png)
+
 # Install Joinfaces
 - the new joinfaces with spring boot 2.0.0 is not availabe on maven atm
 - to start the application you need do the following steps in the GIT bash in your GIT home dir:
