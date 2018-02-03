@@ -7,9 +7,11 @@ import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
 import org.apache.commons.lang.StringUtils;
+import org.philmaster.boot.util.Util;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,8 +24,8 @@ import lombok.Setter;
  *         its very important to use SessionScope here otherwise it will be
  *         reset to 'main 'after menu click
  * 
- *         getPage() will return the name of the current page
- *         pageNameReadable() user readable printed for info messages
+ *         getPage() will return the name of the current page pageNameReadable()
+ *         user readable printed for info messages
  *
  */
 
@@ -34,8 +36,9 @@ import lombok.Setter;
 public class SessionBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	private Locale locale;
-	private String page;
+	private String page, name, password;
 
 	@PostConstruct
 	void init() {
@@ -58,5 +61,4 @@ public class SessionBean implements Serializable {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/index.xhtml?faces-redirect=true";
 	}
-
 }

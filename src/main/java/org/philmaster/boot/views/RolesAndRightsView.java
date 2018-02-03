@@ -3,10 +3,7 @@ package org.philmaster.boot.views;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.el.ELContext;
@@ -16,9 +13,6 @@ import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import org.apache.cayenne.map.DbAttribute;
-import org.apache.cayenne.map.DbRelationship;
-import org.apache.cayenne.map.ObjRelationship;
 import org.philmaster.boot.model.Person;
 import org.philmaster.boot.request.SelectLevelListener;
 import org.philmaster.boot.util.Util;
