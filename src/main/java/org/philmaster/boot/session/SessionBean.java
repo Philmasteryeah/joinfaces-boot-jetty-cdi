@@ -7,11 +7,9 @@ import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
 import org.apache.commons.lang.StringUtils;
-import org.philmaster.boot.util.Util;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +34,7 @@ import lombok.Setter;
 public class SessionBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Locale locale;
 	private String page, name, password;
 

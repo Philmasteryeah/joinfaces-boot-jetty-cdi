@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
+    <cc:interface>
+        <cc:attribute name="rows" />
+        <cc:attribute name="value" type="java.util.ArrayList" />
+        <cc:attribute name="fileNameExport" />
+        <cc:attribute name="var" />
+         <cc:attribute name="selection" />
+        <cc:attribute name="onRowSelect" />
+        <cc:attribute name="id" />
+        <cc:attribute name="rowKey" />
+    </cc:interface>
+
+    <cc:implementation>
+        <p:dataTable value="#{cc.attrs.value}"
+            rendered="#{not empty cc.attrs.value}" id="#{cc.attrs.id}"
+            paginator="true" rows="25" selection="#{cc.attrs.selection}" selectionMode="single" rowKey="#{cc.attrs.rowKey}"
+            currentPageReportTemplate="Showing {startRecord}-{endRecord} of     {totalRecords}"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+            rowsPerPageTemplate="25,50,100" paginatorPosition="bottom"
+            lazy="false">
+              <p:ajax event="rowSelect"
+                listener="#{cc.attrs.onRowSelect}"
+                update="@form" />
+            <f:facet name="{Exporters}">
+                <h:commandLink>
+                    <p:graphicImage name="/images/excel.png" width="24" />
+                    <p:dataExporter type="xls" target="#{cc.attrs.id}"
+                        fileName="#{cc.attrs.fileNameExport}" />
+                </h:commandLink>
+                <h:commandLink>
+                    <p:graphicImage name="/images/pdf.png" width="24" />
+                    <p:dataExporter type="pdf" target="#{cc.attrs.id}"
+                        fileName="#{cc.attrs.fileNameExport}" />
+                </h:commandLink>
+                <h:commandLink>
+                    <p:graphicImage name="/images/csv.png" width="24" />
+                    <p:dataExporter type="csv" target="#{cc.attrs.id}"
+                        fileName="#{cc.attrs.fileNameExport}" />
+                </h:commandLink>
+                <h:commandLink>
+                    <p:graphicImage name="/images/xml.png" width="24" />
+                    <p:dataExporter type="xml" target="#{cc.attrs.id}"
+                        fileName="#{cc.attrs.fileNameExport}" />
+                </h:commandLink>
+            </f:facet>
+            <c:set target="#{component}" property="var"
+                value="#{cc.attrs.var}" />
+            <cc:insertChildren />
+        </p:dataTable>
+    </cc:implementation>
+</ui:composition>
