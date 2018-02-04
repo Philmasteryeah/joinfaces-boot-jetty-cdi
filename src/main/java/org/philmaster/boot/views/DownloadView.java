@@ -1,6 +1,7 @@
 package org.philmaster.boot.views;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -41,13 +42,12 @@ public class DownloadView implements Serializable {
 	@PostConstruct
 	public void init() {
 		refreshCarList();
-		cars = new LazyCarDataModel(carsOld);
-		// cars.load(1, 1, null, null);
-		// System.err.println(cars.getRowData()+" ---------------");
+		
 	}
 
 	public void refreshCarList() {
 		carsOld = db.fetchAll(Car.class);
+		cars = new LazyCarDataModel(carsOld);
 	}
 
 	public void onRowSelect(SelectEvent event) {
@@ -62,7 +62,7 @@ public class DownloadView implements Serializable {
 	public void actionAdd(ActionEvent actionEvent) {
 		Car car = db.createNew(Car.class);
 		car.setName("test car");
-		carsOld.add(car);
+		db.getContext().commitChanges();
 		Util.statusMessageInfo("Welcome", "test");
 		refreshCarList();
 	}

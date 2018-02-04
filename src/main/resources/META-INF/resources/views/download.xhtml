@@ -4,6 +4,7 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:pe="http://primefaces.org/ui/extensions"
     xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:pm="http://java.sun.com/jsf/composite/components"
     template="/templates/frame.xhtml">
 
@@ -14,36 +15,20 @@
             selection="#{downloadView.selectedCar}"
             onRowSelect="#{downloadView.onRowSelect}"
             rowKey="#{carItem.objectId}" fileNameExport="cars">
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="ID" />
-                </f:facet>
-                <h:outputText value="#{carItem.objectId}" />
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Year" />
-                </f:facet>
-                <h:outputText value="#{carItem.name}" />
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Brand" />
-                </f:facet>
-                <h:outputText value="#{carItem.name}" />
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Color" />
-                </f:facet>
-                <h:outputText value="#{carItem.name}" />
-            </p:column>
+            
+            <c:forEach items="#{['getObjectId','getName']}" var="label">
+                <p:column headerText="#{label}">
+                    <h:outputText
+                        value="#{carItem.getClass().getMethod(label).invoke(carItem)}"></h:outputText>
+                </p:column>
+            </c:forEach>
+            
         </pm:pmList>
 
         <p:commandButton value="Add"
-            actionListener="#{downloadView.actionAdd}" update="growl" />
+            actionListener="#{downloadView.actionAdd}" update=":form:growl" />
         <p:commandButton value="Save"
-            actionListener="#{downloadView.actionSave}" update="growl" />
+            actionListener="#{downloadView.actionSave}" update="growl" ajax="false"/>
         <p:commandButton value="Test"
             actionListener="#{buttonBean.buttonAction}" update="growl" />
 

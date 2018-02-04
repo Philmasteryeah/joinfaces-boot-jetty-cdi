@@ -10,16 +10,10 @@ import org.philmaster.boot.model.Car;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
-/**
- * Dummy implementation of LazyDataModel that uses a list to mimic a real
- * datasource like a database.
- */
 public class LazyCarDataModel extends LazyDataModel<Car> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private List<Car> datasource;
 
 	public LazyCarDataModel(List<Car> datasource) {

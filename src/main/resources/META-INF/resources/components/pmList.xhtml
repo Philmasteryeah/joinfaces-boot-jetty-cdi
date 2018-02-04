@@ -7,13 +7,17 @@
     xmlns:p="http://primefaces.org/ui">
     <cc:interface>
         <cc:attribute name="rows" />
-        <cc:attribute name="value" type="org.philmaster.boot.service.LazyCarDataModel" />
+        <cc:attribute name="value"
+            type="org.philmaster.boot.service.LazyCarDataModel" />
+        <cc:attribute name="fileExporters" />
         <cc:attribute name="fileNameExport" />
-        <cc:attribute name="var" />
         <cc:attribute name="selection" />
-        <cc:attribute name="onRowSelect" />
+        <cc:attribute name="onRowSelect" 
+            method-signature="void action(org.primefaces.event.SelectEvent)" />
         <cc:attribute name="id" />
+        <cc:attribute name="var" />
         <cc:attribute name="rowKey" />
+        <cc:attribute name="ats" />
     </cc:interface>
 
     <cc:implementation>
@@ -26,28 +30,18 @@
             rowsPerPageTemplate="25,50,100" paginatorPosition="bottom"
             lazy="true">
             <p:ajax event="rowSelect" listener="#{cc.attrs.onRowSelect}"
-                update="@form" />
+                update=":form:growl" />
             <f:facet name="{Exporters}">
-                <h:commandLink>
-                    <p:graphicImage name="/images/excel.png" width="24" />
-                    <p:dataExporter type="xls" target="#{cc.attrs.id}"
-                        fileName="#{cc.attrs.fileNameExport}" />
-                </h:commandLink>
-                <h:commandLink>
-                    <p:graphicImage name="/images/pdf.png" width="24" />
-                    <p:dataExporter type="pdf" target="#{cc.attrs.id}"
-                        fileName="#{cc.attrs.fileNameExport}" />
-                </h:commandLink>
-                <h:commandLink>
-                    <p:graphicImage name="/images/csv.png" width="24" />
-                    <p:dataExporter type="csv" target="#{cc.attrs.id}"
-                        fileName="#{cc.attrs.fileNameExport}" />
-                </h:commandLink>
-                <h:commandLink>
-                    <p:graphicImage name="/images/xml.png" width="24" />
-                    <p:dataExporter type="xml" target="#{cc.attrs.id}"
-                        fileName="#{cc.attrs.fileNameExport}" />
-                </h:commandLink>
+                <c:forEach items="#{['xls','pdf','csv','xml']}"
+                    var="type">
+                    <h:commandLink>
+                        <p:graphicImage name="/images/#{type}.png"
+                            width="24" />
+                        <p:dataExporter type="#{type}"
+                            target="#{cc.attrs.id}"
+                            fileName="#{cc.attrs.fileNameExport}" />
+                    </h:commandLink>
+                </c:forEach>
             </f:facet>
             <c:set target="#{component}" property="var"
                 value="#{cc.attrs.var}" />
