@@ -11,10 +11,10 @@ import javax.inject.Named;
 
 import org.philmaster.boot.model.Car;
 import org.philmaster.boot.service.DatabaseService;
+import org.philmaster.boot.service.LazyCarDataModel;
 import org.philmaster.boot.util.Util;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
-import org.primefaces.model.LazyDataModel;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +26,10 @@ public class DownloadView implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Getter
-	private List<Car> cars;
+	private LazyCarDataModel cars;
+
+	@Getter
+	private List<Car> carsOld;
 
 	@Getter
 	@Setter
@@ -38,10 +41,13 @@ public class DownloadView implements Serializable {
 	@PostConstruct
 	public void init() {
 		refreshCarList();
+		cars = new LazyCarDataModel(carsOld);
+		// cars.load(1, 1, null, null);
+		// System.err.println(cars.getRowData()+" ---------------");
 	}
 
 	public void refreshCarList() {
-		cars = db.fetchAll(Car.class);
+		carsOld = db.fetchAll(Car.class);
 	}
 
 	public void onRowSelect(SelectEvent event) {
@@ -56,7 +62,7 @@ public class DownloadView implements Serializable {
 	public void actionAdd(ActionEvent actionEvent) {
 		Car car = db.createNew(Car.class);
 		car.setName("test car");
-		cars.add(car);
+		carsOld.add(car);
 		Util.statusMessageInfo("Welcome", "test");
 		refreshCarList();
 	}
