@@ -1,7 +1,6 @@
 package org.philmaster.boot.views;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;

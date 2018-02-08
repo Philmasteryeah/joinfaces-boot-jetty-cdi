@@ -1,5 +1,5 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:cc="http://xmlns.jcp.org/jsf/composite"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -12,10 +12,10 @@
         <cc:attribute name="fileExporters" />
         <cc:attribute name="fileNameExport" />
         <cc:attribute name="selection" />
-        <cc:attribute name="onRowSelect" 
+        <cc:attribute name="onRowSelect"
             method-signature="void action(org.primefaces.event.SelectEvent)" />
         <cc:attribute name="id" />
-        <cc:attribute name="var" />
+        <cc:attribute name="var"/>
         <cc:attribute name="rowKey" />
         <cc:attribute name="ats" />
     </cc:interface>
@@ -29,6 +29,9 @@
             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
             rowsPerPageTemplate="25,50,100" paginatorPosition="bottom"
             lazy="true">
+            <f:facet name="header">
+           Header
+            </f:facet>
             <p:ajax event="rowSelect" listener="#{cc.attrs.onRowSelect}"
                 update=":form:growl" />
             <f:facet name="{Exporters}">

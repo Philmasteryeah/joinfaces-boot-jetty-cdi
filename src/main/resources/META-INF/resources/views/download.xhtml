@@ -9,26 +9,30 @@
     template="/templates/frame.xhtml">
 
     <ui:define name="content">
-
         <pm:pmList id="cartable" var="carItem"
             value="#{downloadView.cars}" rows="10"
             selection="#{downloadView.selectedCar}"
             onRowSelect="#{downloadView.onRowSelect}"
             rowKey="#{carItem.objectId}" fileNameExport="cars">
-            
-            <c:forEach items="#{['getObjectId','getName']}" var="label">
-                <p:column headerText="#{label}">
-                    <h:outputText
-                        value="#{carItem.getClass().getMethod(label).invoke(carItem)}"></h:outputText>
-                </p:column>
-            </c:forEach>
-            
+
+            <p:column headerText="title" sortBy="#{carItem.name}">
+                <h:outputText value="#{carItem.name}" />
+            </p:column>
+            <p:column headerText="title" sortBy="#{carItem.name}">
+                <h:outputText value="#{carItem.name}" />
+            </p:column>
+            <!--  the following code line dosent work, dont know why-->
+            <pm:pmListRow title="#{carItem.name}"
+                value="#{carItem.name}" />
+
         </pm:pmList>
 
         <p:commandButton value="Add"
-            actionListener="#{downloadView.actionAdd}" update=":form:growl" />
+            actionListener="#{downloadView.actionAdd}"
+            update=":form:growl" />
         <p:commandButton value="Save"
-            actionListener="#{downloadView.actionSave}" update="growl" ajax="false"/>
+            actionListener="#{downloadView.actionSave}" update="growl"
+            ajax="false" />
         <p:commandButton value="Test"
             actionListener="#{buttonBean.buttonAction}" update="growl" />
 
