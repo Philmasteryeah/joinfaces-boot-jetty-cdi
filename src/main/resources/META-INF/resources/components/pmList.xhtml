@@ -27,7 +27,7 @@
             selectionMode="single" rowKey="#{cc.attrs.rowKey}"
             currentPageReportTemplate="Showing {startRecord}-{endRecord} of     {totalRecords}"
             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
-            rowsPerPageTemplate="25,50,100" paginatorPosition="bottom"
+            rowsPerPageTemplate="10,25,50,100" paginatorPosition="bottom" scrollHeight="260" scrollable="true"
             lazy="true">
             <f:facet name="header">
            Header
@@ -46,7 +46,7 @@
                     </h:commandLink>
                 </c:forEach>
             </f:facet>
-            <c:set target="#{component}" property="var"
+            <c:set target="#{component}" property="var" 
                 value="#{cc.attrs.var}" />
             <cc:insertChildren />
         </p:dataTable>
