@@ -37,5 +37,16 @@
         <p:commandButton value="Test"
             actionListener="#{buttonBean.buttonAction}" update="growl" />
 
+        <pm:pmConfirmation btnToggleValue="Dialog"
+            header="Modaler Dialog" message="Lorem Ipsum?"
+            actionListenerYes="#{buttonBean.buttonAction}"
+            actionListenerNo="#{buttonBean.buttonAction}" />
+
+        <pm:pmModal btnToggleValue="Modal" header="Modal">
+            <p:commandButton value="Test"
+                actionListener="#{buttonBean.buttonAction}"
+                update=":form:growl" />
+        asd</pm:pmModal>
+
     </ui:define>
 </ui:composition>

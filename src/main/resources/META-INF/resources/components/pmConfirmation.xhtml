@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+        <cc:attribute name="btnToggleValue" />
+        <cc:attribute name="header" />
+        <cc:attribute name="message" />
+        <cc:attribute name="actionListenerYes"
+            method-signature="void buttonAction(javax.faces.event.ActionEvent)" />
+        <cc:attribute name="actionListenerNo"
+            method-signature="void buttonAction(javax.faces.event.ActionEvent)" />
+    </cc:interface>
+
+    <cc:implementation>
+        <p:commandButton value="#{cc.attrs.btnToggleValue}"
+            update=":form:growl">
+            <p:confirm icon="ui-icon-alert" header="#{cc.attrs.header}"
+                message="#{cc.attrs.message}" />
+        </p:commandButton>
+        <p:confirmDialog global="true" showEffect="fade"
+            hideEffect="fade">
+            <p:commandButton icon="ui-icon-check" value="Yes"
+                styleClass="ui-confirmdialog-yes"
+                actionListener="#{cc.attrs.actionListenerYes}" />
+            <p:commandButton icon="ui-icon-close" value="No"
+                styleClass="ui-confirmdialog-no"
+                actionListener="#{cc.attrs.actionListenerNo}" />
+        </p:confirmDialog>
+    </cc:implementation>
+</ui:composition>

@@ -69,7 +69,7 @@ public class LazyCarDataModel extends LazyDataModel<Car> {
 
 		// sort
 		if (sortField != null) {
-			Collections.sort(data, new LazySorter<Car>(sortField, sortOrder));
+			Collections.sort(data, new LazySorter<Car>(sortField, sortOrder, Car.class));
 		}
 
 		// rowCount

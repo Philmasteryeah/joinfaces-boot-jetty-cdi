@@ -1,9 +1,12 @@
 package org.philmaster.boot.util;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -61,6 +64,30 @@ public class Util {
 	private static void statusMessage(@NonNull Severity errorType, @NonNull String title, @NonNull String text) {
 		FacesMessage message = new FacesMessage(errorType, title, text);
 		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+
+	// reflection
+
+	public static List<Field> getAllFields(@NonNull List<Field> fields, @NonNull Class<?> type) {
+		fields.addAll(Arrays.asList(type.getDeclaredFields()));
+		if (type.getSuperclass() != null)
+			getAllFields(fields, type.getSuperclass());
+		return fields;
+	}
+
+	public static Object getAccessibleField(@NonNull List<Field> fields, String sortField, Object obj) {
+		Field field = fields.stream().filter(f -> f.getName().contains(sortField)).findFirst().orElse(null);
+		if (field == null) {
+			// TODO logging if field not found
+			return null;
+		}
+		field.setAccessible(true); // cayennes fields are protected, so we need this hack
+		try {
+			return field.get(obj);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

@@ -24,6 +24,7 @@ public class ButtonBean implements Serializable {
 	// ##########Test############
 
 	public void buttonAction(ActionEvent actionEvent) {
+		System.err.println(actionEvent + " ");
 		Util.statusMessageInfo("Welcome", "test");
 	}
 }
