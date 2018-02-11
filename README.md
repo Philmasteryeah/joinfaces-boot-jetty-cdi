@@ -82,4 +82,4 @@ CREATE SEQUENCE pk_cars INCREMENT 20 START 200;
 - great project: https://github.com/joinfaces
 - inspired by: https://github.com/joinfaces/joinfaces-example
 - nice Heroku tricks: https://github.com/heroku/heroku-buildpack-java
-- Cayenne Docs https://cayenne.apache.org/docs/4.0/cayenne-guide/starting-cayenne.html 
+- Cayenne Docs https://cayenne.apache.org/docs/4.1/getting-started-guide/ 
