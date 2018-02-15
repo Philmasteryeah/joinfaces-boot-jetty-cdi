@@ -1,19 +1,18 @@
 package org.philmaster.boot.views;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.philmaster.boot.util.MenuProperties;
+import org.philmaster.boot.util.MenuProperties.MenuItem;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -25,35 +24,23 @@ import lombok.Setter;
  *         programmatic menu generation use menu.properties for configuration
  *
  */
-@Getter
+
 @Named
-@Configuration
-@PropertySource("classpath:menu.properties")
-@ConfigurationProperties(prefix = "menu")
 public class MenuView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Inject
+	private MenuProperties menuProperties;
+
 	@Getter
 	@Setter
-	public static class MenuItem implements Serializable {
-
-		private static final long serialVersionUID = 1L;
-
-		private String title;
-		private String pageName;
-		private String icon;
-		private boolean isAjax = false;
-	}
-
-	private List<MenuItem> items = new ArrayList<>();
-
 	private MenuModel model;
 
 	@PostConstruct
 	public void init() {
+		List<MenuItem> items = menuProperties.getItems();
 		model = new DefaultMenuModel();
-
 		DefaultSubMenu sub = null;
 		for (MenuItem menuItem : items) {
 			if (menuItem.getPageName() == null) {
