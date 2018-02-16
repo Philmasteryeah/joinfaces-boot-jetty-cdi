@@ -9,10 +9,13 @@ import javax.inject.Named;
 
 import org.philmaster.boot.util.MenuProperties;
 import org.philmaster.boot.util.MenuProperties.MenuItem;
+import org.philmaster.boot.util.MenuProperties.SubMenuItem;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
+
+import com.lowagie.text.pdf.AcroFields.Item;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -39,19 +42,12 @@ public class MenuView implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		List<MenuItem> items = menuProperties.getItems();
 		model = new DefaultMenuModel();
-		DefaultSubMenu sub = null;
-		for (MenuItem menuItem : items) {
-			if (menuItem.getPageName() == null) {
-				if (sub != null)
-					model.addElement(sub);
-				sub = new DefaultSubMenu(menuItem.getTitle());
-			} else if (sub != null)
-				sub.addElement(createPageItem(menuItem));
-		}
-		if (sub != null)
-			model.addElement(sub);
+		menuProperties.getItems().stream().forEach(item -> {
+			DefaultSubMenu sbm = new DefaultSubMenu(item.getSubmenu());
+			item.getSubitems().forEach(subItem -> sbm.addElement(createPageItem(subItem)));
+			model.addElement(sbm);
+		});
 	}
 
 	private DefaultMenuItem createPageItem(@NonNull MenuItem menuItem) {
