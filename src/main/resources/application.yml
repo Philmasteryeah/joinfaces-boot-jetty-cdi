@@ -1,6 +1,6 @@
 menu:
   items:
-  - submenu: Administration
+  - submenuTitle: Administration
     subitems:
     - title: Options
       pageName: options
@@ -14,7 +14,7 @@ menu:
       pageName: rolesAndRights
       icon: ui-icon-key
       isAjax: false
-  - submenu: Documents
+  - submenuTitle: Documents
     subitems:
     - title: Upload
       pageName: upload
@@ -23,4 +23,18 @@ menu:
     - title: Download
       pageName: download
       icon: ui-icon-circle-arrow-s
+      isAjax: false
+  - submenuTitle: Start
+    subitems:
+    - title: Start
+      pageName: main
+      icon: ui-icon-circle-arrow-s
+      isAjax: false
+    - title: MasterDetail
+      pageName: masterDetail
+      icon: ui-icon-circle-arrow-s
+      isAjax: false
+    - title: Car List
+      pageName: carList
+      icon: ui-icon-key
       isAjax: false

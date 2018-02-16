@@ -24,7 +24,7 @@ public class MenuProperties {
 	@Setter
 	public static class SubMenuItem {
 
-		private String submenu;
+		private String submenuTitle;
 		private List<MenuItem> subitems = new ArrayList<>();
 	}
 

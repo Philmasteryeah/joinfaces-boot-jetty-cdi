@@ -44,7 +44,7 @@ public class MenuView implements Serializable {
 	public void init() {
 		model = new DefaultMenuModel();
 		menuProperties.getItems().stream().forEach(item -> {
-			DefaultSubMenu sbm = new DefaultSubMenu(item.getSubmenu());
+			DefaultSubMenu sbm = new DefaultSubMenu(item.getSubmenuTitle());
 			item.getSubitems().forEach(subItem -> sbm.addElement(createPageItem(subItem)));
 			model.addElement(sbm);
 		});
