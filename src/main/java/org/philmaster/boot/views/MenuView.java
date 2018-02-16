@@ -45,12 +45,12 @@ public class MenuView implements Serializable {
 		model = new DefaultMenuModel();
 		menuProperties.getItems().stream().forEach(item -> {
 			DefaultSubMenu sbm = new DefaultSubMenu(item.getSubmenuTitle());
-			item.getSubitems().forEach(subItem -> sbm.addElement(createPageItem(subItem)));
+			item.getSubitems().forEach(subItem -> sbm.addElement(createMenuItem(subItem)));
 			model.addElement(sbm);
 		});
 	}
 
-	private DefaultMenuItem createPageItem(@NonNull MenuItem menuItem) {
+	private DefaultMenuItem createMenuItem(@NonNull MenuItem menuItem) {
 		DefaultMenuItem item = new DefaultMenuItem(menuItem.getTitle());
 		item.setIcon(menuItem.getIcon());
 		item.setAjax(menuItem.isAjax());
