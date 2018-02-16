@@ -24,7 +24,7 @@ import lombok.Setter;
 /**
  * @author Philmasteryeah
  * 
- *         programmatic menu generation use menu.properties for configuration
+ *         programmatic menu generation use application.yml for configuration
  *
  */
 
