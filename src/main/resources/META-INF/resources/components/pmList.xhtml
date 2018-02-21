@@ -7,28 +7,29 @@
     xmlns:p="http://primefaces.org/ui">
     <cc:interface>
         <cc:attribute name="rows" />
-        <cc:attribute name="value"
-            type="org.philmaster.boot.service.LazyCarDataModel" />
+        <cc:attribute name="value" type="java.util.ArrayList" />
         <cc:attribute name="fileExporters" />
         <cc:attribute name="fileNameExport" />
         <cc:attribute name="selection" />
         <cc:attribute name="onRowSelect"
             method-signature="void action(org.primefaces.event.SelectEvent)" />
         <cc:attribute name="id" />
-        <cc:attribute name="var"/>
+        <cc:attribute name="var" />
         <cc:attribute name="rowKey" />
         <cc:attribute name="ats" />
     </cc:interface>
 
     <cc:implementation>
         <p:dataTable value="#{cc.attrs.value}"
+            filteredValue="#{cc.attrs.value}"
             rendered="#{not empty cc.attrs.value}" id="#{cc.attrs.id}"
             paginator="true" rows="25" selection="#{cc.attrs.selection}"
             selectionMode="single" rowKey="#{cc.attrs.rowKey}"
             currentPageReportTemplate="Showing {startRecord}-{endRecord} of     {totalRecords}"
             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
-            rowsPerPageTemplate="10,25,50,100" paginatorPosition="bottom" scrollHeight="260" scrollable="true"
-            lazy="true">
+            rowsPerPageTemplate="10,25,50,100"
+            paginatorPosition="bottom" scrollHeight="260"
+            scrollable="true" lazy="false">
             <f:facet name="header">
            Header
             </f:facet>
@@ -46,7 +47,7 @@
                     </h:commandLink>
                 </c:forEach>
             </f:facet>
-            <c:set target="#{component}" property="var" 
+            <c:set target="#{component}" property="var"
                 value="#{cc.attrs.var}" />
             <cc:insertChildren />
         </p:dataTable>

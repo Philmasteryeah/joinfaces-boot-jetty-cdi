@@ -26,10 +26,10 @@ public class DownloadView implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Getter
-	private LazyCarDataModel cars;
+	private List<Car> cars;
 
-	@Getter
-	private List<Car> carsOld;
+	///@Getter
+	//private List<Car> carsOld;
 
 	@Getter
 	@Setter
@@ -45,8 +45,8 @@ public class DownloadView implements Serializable {
 	}
 
 	public void refreshCarList() {
-		carsOld = db.fetchAll(Car.class);
-		cars = new LazyCarDataModel(carsOld);
+		cars = db.fetchAll(Car.class);
+		//cars = new LazyCarDataModel(carsOld);
 	}
 
 	public void onRowSelect(SelectEvent event) {

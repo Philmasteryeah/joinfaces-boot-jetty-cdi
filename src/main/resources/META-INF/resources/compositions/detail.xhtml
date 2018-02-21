@@ -6,29 +6,22 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
     <f:facet name="label">
         <h:outputFormat value="#{msg['detailsFor']}">
-            <f:param value="#{curRow.column1}"/>
+            <f:param value="#{curRow.name}"/>
         </h:outputFormat>
     </f:facet>
 
     <h:panelGrid columns="2" columnClasses="formColumn1,formColumn2"
                  cellpadding="0" cellspacing="0">
         <h:outputText value="Column 1"/>
-        <p:calendar value="#{curRow.column1}" pattern="dd.MM.yyyy" showOn="button"
+        <p:calendar value="#{curRow.name}" pattern="dd.MM.yyyy" showOn="button"
                     timeZone="Europe/Berlin" label="Column 1"/>
         
         <h:outputText value="Column 2"/>
-        <p:spinner value="#{curRow.column2}" min="0" max="999999999" label="Column 2">
+        <p:spinner value="#{curRow.objectId}" min="0" max="999999999" label="Column 2">
             <p:keyFilter mask="num"/>
         </p:spinner>
-        
-        <h:outputText value="Column 3"/>
-        <p:inputText value="#{curRow.column3}"/>
-        
-        <h:outputText value="Column 4"/>
-        <p:inputText value="#{curRow.column4}"/>
-        
-        <h:outputText value="Column 5"/>
-        <p:inputText value="#{curRow.column5}"/>
+      
+
     </h:panelGrid>
 
     <p:commandButton value="#{msg['save']}" onclick="PF('saveDlgWdgt').show(); return false;"

@@ -20,7 +20,7 @@
             <p:column headerText="id" sortBy="#{carItem.objectId}">
                 <h:outputText value="#{carItem.objectId}" />
             </p:column>
-            <p:column headerText="title" sortBy="#{carItem.name}">
+            <p:column headerText="title" sortBy="#{carItem.name}" filterBy="#{carItem.name}" filterMatchMode="contains">
                 <h:outputText value="#{carItem.name}" />
             </p:column>
 

@@ -1,7 +1,6 @@
 package org.philmaster.boot.views;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -9,13 +8,10 @@ import javax.inject.Named;
 
 import org.philmaster.boot.util.MenuProperties;
 import org.philmaster.boot.util.MenuProperties.MenuItem;
-import org.philmaster.boot.util.MenuProperties.SubMenuItem;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
-
-import com.lowagie.text.pdf.AcroFields.Item;
 
 import lombok.Getter;
 import lombok.NonNull;
