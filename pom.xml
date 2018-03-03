@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.joinfaces</groupId>
 		<artifactId>joinfaces-parent</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
+		<version>3.0.0.RC2-SNAPSHOT</version>
 	</parent>
 	<artifactId>joinfaces-application</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
@@ -16,7 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<primefaces-theme.version>1.0.10</primefaces-theme.version>
 		<all-themes.version>1.0.10</all-themes.version>
-		<java.version>9</java.version>
+		<java.version>1.8</java.version>
 		<cdi.version>2.0</cdi.version>
 		<javax.faces.version>2.3.3</javax.faces.version>
 		<glassfish-el.version>3.0.1-b09</glassfish-el.version>
@@ -114,7 +115,8 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!--<dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> <optional>true</optional> </dependency> -->
+		<!--<dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
+			<optional>true</optional> </dependency> -->
 		<!-- Data Export -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -182,7 +184,7 @@
 			<plugin>
 				<groupId>org.apache.cayenne.plugins</groupId>
 				<artifactId>cayenne-modeler-maven-plugin</artifactId>
-				 <version>${cayenne.version}</version>
+				<version>${cayenne.version}</version>
 				<configuration>
 					<map>${basedir}/src/main/resources/datamap.map.xml</map>
 					<modelFile>>${basedir}/src/main/resources/cayenne-project.xml</modelFile>
@@ -208,42 +210,5 @@
 			<name>PrimeFaces Maven Repository</name>
 			<url>http://repository.primefaces.org</url>
 		</repository>
-		<repository>
-			<id>spring-snapshots</id>
-			<url>http://repo.spring.io/libs-snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-snapshots2</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>jboss</id>
-			<name>JBoss</name>
-			<url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/</url>
-		</repository>
 	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-snapshots</id>
-			<url>http://repo.spring.io/libs-snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
 </project>

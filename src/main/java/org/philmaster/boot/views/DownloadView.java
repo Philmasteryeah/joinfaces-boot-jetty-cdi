@@ -11,7 +11,6 @@ import javax.inject.Named;
 
 import org.philmaster.boot.model.Car;
 import org.philmaster.boot.service.DatabaseService;
-import org.philmaster.boot.service.LazyCarDataModel;
 import org.philmaster.boot.util.Util;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
@@ -28,8 +27,8 @@ public class DownloadView implements Serializable {
 	@Getter
 	private List<Car> cars;
 
-	///@Getter
-	//private List<Car> carsOld;
+	/// @Getter
+	// private List<Car> carsOld;
 
 	@Getter
 	@Setter
@@ -41,12 +40,12 @@ public class DownloadView implements Serializable {
 	@PostConstruct
 	public void init() {
 		refreshCarList();
-		
+
 	}
 
 	public void refreshCarList() {
 		cars = db.fetchAll(Car.class);
-		//cars = new LazyCarDataModel(carsOld);
+		// cars = new LazyCarDataModel(carsOld);
 	}
 
 	public void onRowSelect(SelectEvent event) {
