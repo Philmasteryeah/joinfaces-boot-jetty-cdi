@@ -19,59 +19,32 @@
                     </h:outputFormat>
                 </f:facet>
                 <p:dataTable id="persons"
-                    value="#{rolesAndRightsView.persons}" var="person">
-                    <p:column headerText="Name">
-                        <p:commandLink value="#{person.name}">
+                    value="#{rolesAndRightsView.accounts}" var="person">
+                    <p:column headerText="Name First">
+                        <p:commandLink value="#{person.nameFirst}">
                             <pe:selectDetailLevel
                                 contextValue="#{person}" />
                         </p:commandLink>
                     </p:column>
-                    <p:column headerText="Tax Class">
-                        <h:outputText value="#{person.taxClass}" />
+                    <p:column headerText="Name Last">
+                        <h:outputText value="#{person.nameLast}" />
                     </p:column>
-                    <p:column headerText="Birth Date">
-                        <h:outputText value="#{person.birthDate}">
-                            <f:convertDateTime pattern="dd.MM.yyyy" />
-                        </h:outputText>
-                    </p:column>
-                </p:dataTable>
+                  </p:dataTable>
             </pe:masterDetailLevel>
 
             <pe:masterDetailLevel level="2" contextVar="person"
                 levelLabel="Person Detail">
                 <h:panelGrid id="personDetail" columns="2"
                     columnClasses="formColumn1,formColumn2">
-                    <h:outputText value="Name (string)" />
-                    <p:inputText value="#{person.name}" required="true"
+                    <h:outputText value="Name First" />
+                    <p:inputText value="#{person.nameFirst}" required="true"
                         label="Name" />
-                    <h:outputText value="Tax Class (number)" />
-                    <p:inputText value="#{person.taxClass}"
-                        required="true" label="Tax Class">
+                    <h:outputText value="Name Last" />
+                    <p:inputText value="#{person.nameLast}"
+                        required="true" label="Name Last">
                         <f:validateLength maximum="1" />
                     </p:inputText>
-                    <h:outputText value="Birth Date (date dd.MM.yyyy)" />
-                    <p:inputText value="#{person.birthDate}"
-                        required="true" label="Birth Date">
-                        <f:convertDateTime pattern="dd.MM.yyyy" />
-                    </p:inputText>
-                    <h:outputText value="Language skills" />
-                    <h:panelGrid columns="2"
-                        style="vertical-align: middle;">
-                        <p:dataList value="#{person.languageSkills}"
-                            var="skill" itemType="circle">
-                            <h:outputText value="#{skill}" />
-                        </p:dataList>
-                        <p:commandLink immediate="true"
-                            style="padding:5px 0 0 8px; vertical-align:middle;">
-                            <h:graphicImage library="images"
-                                name="keyboardpencil.png"
-                                style="border:none;" />
-                            <pe:selectDetailLevel
-                                contextValue="#{person}"
-                                preserveInputs="@all" />
-                            <pe:tooltip value="Add language skills" />
-                        </p:commandLink>
-                    </h:panelGrid>
+
                 </h:panelGrid>
 
                 <p:commandButton value="Save with success"
@@ -109,23 +82,7 @@
                 </p:dialog>
             </pe:masterDetailLevel>
 
-            <pe:masterDetailLevel level="3" contextVar="person"
-                levelLabel="Language skills">
-                <h:panelGrid columns="2"
-                    columnClasses="formColumn1,formColumn2">
-                    <h:outputText value="Choose language skill" />
-                    <p:selectOneMenu id="languageSkills"
-                        value="#{rolesAndRightsView.languageSkillToAdd}"
-                        style="width:200px;">
-                        <f:selectItems
-                            value="#{rolesAndRightsView.availableLanguageSkills}" />
-                        <p:ajax event="valueChange"
-                            process="masterDetail"
-                            listener="#{rolesAndRightsView.addLanguageSkill(person)}" />
-                        <pe:selectDetailLevel step="-1" />
-                    </p:selectOneMenu>
-                </h:panelGrid>
-            </pe:masterDetailLevel>
+
         </pe:masterDetail>
         <!-- </h:form> -->
     </ui:define>

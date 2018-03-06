@@ -13,8 +13,9 @@ import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import org.philmaster.boot.model.Person;
+import org.philmaster.boot.model.Account;
 import org.philmaster.boot.request.SelectLevelListener;
+import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
 
 import lombok.Getter;
@@ -28,7 +29,7 @@ public class RolesAndRightsView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<Person> persons;
+	private List<Account> accounts;
 	private List<SelectItem> availableLanguageSkills = null;
 	private List<String> selectedLanguageSkills = new ArrayList<String>();
 	private String languageSkillToAdd;
@@ -36,16 +37,19 @@ public class RolesAndRightsView implements Serializable {
 
 	@PostConstruct
 	void init() {
-		persons = new ArrayList<Person>();
+		accounts = new ArrayList<>();
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1972, 5, 25);
-		persons.add(new Person("1", "Max Mustermann", 1, calendar.getTime()));
-		calendar.set(1981, 12, 10);
-		persons.add(new Person("2", "Sara Schmidt", 2, calendar.getTime()));
-		calendar.set(1968, 2, 13);
-		persons.add(new Person("3", "Jasper Morgan", 3, calendar.getTime()));
 
+				
+		accounts.add(new Account("Max", "Mustermann"));
+		calendar.set(1981, 12, 10);
+		accounts.add(new Account("Sara", "Schmidt"));
+		calendar.set(1968, 2, 13);
+		accounts.add(new Account("Jasper", "Morgan"));
+
+		
 	}
 
 	public RolesAndRightsView() {
@@ -70,14 +74,14 @@ public class RolesAndRightsView implements Serializable {
 		return languageSkillToAdd;
 	}
 
-	public String saveSuccess(Person person) {
+	public String saveSuccess(Account person) {
 		if (person == null)
 			return null;
-		Util.statusMessageInfo("Info", "Person " + person.getName() + " has been saved");
+		Util.statusMessageInfo("Info", "Person " + person.getNameFirst() + " has been saved");
 		return null;
 	}
 
-	public String saveFailure(Person person) {
+	public String saveFailure(Account person) {
 		if (person == null)
 			return null;
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -92,18 +96,17 @@ public class RolesAndRightsView implements Serializable {
 			throw new FacesException(e.getMessage(), e);
 		}
 
-		Util.statusMessageError("Error", "Person " + person.getName() + " could not be saved");
+		Util.statusMessageError("Error", "Person " + person.getNameFirst() + " could not be saved");
 
 		return null;
 	}
 
-	public String delete(Person person) {
-		if (person == null)
+	public String delete(Account acco) {
+		if (acco == null)
 			return null;
-		for (Person pers : persons) {
-			if (pers.getId().equals(person.getId())) {
-				persons.remove(pers);
-
+		for (Account acc : accounts) {
+			if (acc.getNameFirst().equals(acco.getNameFirst())) {
+				accounts.remove(acc);
 				break;
 			}
 		}
@@ -111,11 +114,11 @@ public class RolesAndRightsView implements Serializable {
 		return null;
 	}
 
-	public void addLanguageSkill(Person person) {
+	public void addLanguageSkill(Account person) {
 		if (person == null)
 			return;
 		if (languageSkillToAdd != null) {
-			person.addLanguageSkill(languageSkillToAdd);
+			// person.addLanguageSkill(languageSkillToAdd);
 		}
 
 		languageSkillToAdd = null;
