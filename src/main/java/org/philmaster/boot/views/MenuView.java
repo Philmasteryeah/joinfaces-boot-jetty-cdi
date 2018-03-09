@@ -49,8 +49,8 @@ public class MenuView implements Serializable {
 	private DefaultMenuItem createMenuItem(@NonNull MenuItem menuItem) {
 		DefaultMenuItem item = new DefaultMenuItem(menuItem.getTitle());
 		item.setIcon(menuItem.getIcon());
-		item.setAjax(menuItem.isAjax());
-		// item.setUpdate("@form");
+		//item.setAjax(menuItem.isAjax());
+		//item.setUpdate("form");
 		item.setOutcome(outcomeString(menuItem.getPageName()));
 		return item;
 	}

@@ -6,6 +6,10 @@ menu:
       pageName: options
       icon: ui-icon-wrench
       isAjax: false
+    - title: Script
+      pageName: script
+      icon: ui-icon-wrench
+      isAjax: false
     - title: Users
       pageName: users
       icon: ui-icon-person

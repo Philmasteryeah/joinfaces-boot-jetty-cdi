@@ -152,27 +152,11 @@
 			<groupId>org.apache.cayenne</groupId>
 			<artifactId>cayenne-server</artifactId>
 			<version>${cayenne.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cayenne.modeler</groupId>
 			<artifactId>cayenne-modeler</artifactId>
 			<version>${cayenne.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 	<build>
@@ -198,7 +182,8 @@
 					<appName>ancient-gorge-66249</appName>
 					<jdkVersion>9</jdkVersion>
 					<processTypes>
-						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/joinfaces-application-1.0.0-SNAPSHOT.jar</web>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar
+							target/joinfaces-application-1.0.0-SNAPSHOT.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>
