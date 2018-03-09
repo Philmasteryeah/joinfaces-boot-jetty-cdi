@@ -49,8 +49,7 @@ $ heroku open
 # Postgresql Test shema
 - install postgres and run this query
 ```
-CREATE TABLE cars (id integer NOT NULL, name varchar(255) NULL, PRIMARY KEY (id));
-CREATE SEQUENCE pk_cars INCREMENT 20 START 200;
+TODO
 
 ````
 - you can generate the query for other databaes too
