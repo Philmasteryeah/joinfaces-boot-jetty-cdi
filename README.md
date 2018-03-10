@@ -1,4 +1,4 @@
-[![Heroku](https://ancient-gorge-66249.herokuapp.com/login.xhtml)](https://ancient-gorge-66249.herokuapp.com/login.xhtml)
+[![Heroku](https://heroku-badge.herokuapp.com/?app=ancient-gorge-66249)](https://ancient-gorge-66249.herokuapp.com/login.xhtml)
 
 # joinfaces-boot-jetty-cdi
 - Java 9
