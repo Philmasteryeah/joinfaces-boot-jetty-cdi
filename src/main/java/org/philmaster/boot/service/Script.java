@@ -22,7 +22,7 @@ public class Script {
 	@PostConstruct
 	void init() {
 		engine = new ScriptEngineManager().getEngineByName("nashorn");
-		query = "var greeting='hello world';" + "print(greeting);" + "greeting"; // default test
+		query = "var greeting='hello world';" + "print(greeting);"; // default test
 	}
 
 	public void actionRunQuery(ActionEvent actionEvent) {

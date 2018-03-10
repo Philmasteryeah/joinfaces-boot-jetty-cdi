@@ -26,6 +26,9 @@
 		<postgresql.version>42.2.1</postgresql.version>
 		<jetty.version>9.4.8.v20171121</jetty.version>
 		<cayenne.version>4.1.M1</cayenne.version>
+		<heroku.version>2.0.3</heroku.version>
+		<primefaces.version>6.2</primefaces.version>
+		<primefaces-extensions.version>6.1.1</primefaces-extensions.version>
 	</properties>
 	<dependencies>
 		<!-- Joinfaces -->
@@ -177,7 +180,7 @@
 			<plugin>
 				<groupId>com.heroku.sdk</groupId>
 				<artifactId>heroku-maven-plugin</artifactId>
-				<version>2.0.3</version>
+				<version>${heroku.version}</version>
 				<configuration>
 					<appName>ancient-gorge-66249</appName>
 					<jdkVersion>9</jdkVersion>
