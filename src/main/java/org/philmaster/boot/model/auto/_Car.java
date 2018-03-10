@@ -3,7 +3,6 @@ package org.philmaster.boot.model.auto;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.time.LocalDate;
 
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.exp.Property;
@@ -20,34 +19,10 @@ public abstract class _Car extends BaseDataObject {
 
     public static final String ID_PK_COLUMN = "id";
 
-    public static final Property<LocalDate> DATE_OF_BUILD = Property.create("dateOfBuild", LocalDate.class);
-    public static final Property<String> MANUFACTURER = Property.create("manufacturer", String.class);
     public static final Property<String> NAME = Property.create("name", String.class);
 
-    protected LocalDate dateOfBuild;
-    protected String manufacturer;
     protected String name;
 
-
-    public void setDateOfBuild(LocalDate dateOfBuild) {
-        beforePropertyWrite("dateOfBuild", this.dateOfBuild, dateOfBuild);
-        this.dateOfBuild = dateOfBuild;
-    }
-
-    public LocalDate getDateOfBuild() {
-        beforePropertyRead("dateOfBuild");
-        return this.dateOfBuild;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        beforePropertyWrite("manufacturer", this.manufacturer, manufacturer);
-        this.manufacturer = manufacturer;
-    }
-
-    public String getManufacturer() {
-        beforePropertyRead("manufacturer");
-        return this.manufacturer;
-    }
 
     public void setName(String name) {
         beforePropertyWrite("name", this.name, name);
@@ -66,10 +41,6 @@ public abstract class _Car extends BaseDataObject {
         }
 
         switch(propName) {
-            case "dateOfBuild":
-                return this.dateOfBuild;
-            case "manufacturer":
-                return this.manufacturer;
             case "name":
                 return this.name;
             default:
@@ -84,12 +55,6 @@ public abstract class _Car extends BaseDataObject {
         }
 
         switch (propName) {
-            case "dateOfBuild":
-                this.dateOfBuild = (LocalDate)val;
-                break;
-            case "manufacturer":
-                this.manufacturer = (String)val;
-                break;
             case "name":
                 this.name = (String)val;
                 break;
@@ -109,16 +74,12 @@ public abstract class _Car extends BaseDataObject {
     @Override
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
-        out.writeObject(this.dateOfBuild);
-        out.writeObject(this.manufacturer);
         out.writeObject(this.name);
     }
 
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
-        this.dateOfBuild = (LocalDate)in.readObject();
-        this.manufacturer = (String)in.readObject();
         this.name = (String)in.readObject();
     }
 

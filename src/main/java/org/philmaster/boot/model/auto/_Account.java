@@ -3,6 +3,7 @@ package org.philmaster.boot.model.auto;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.LocalDate;
 
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.exp.Property;
@@ -17,30 +18,29 @@ public abstract class _Account extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String ID_PK_COLUMN = "id";
+    public static final String ACCOUNT_ID_PK_COLUMN = "account_id";
 
-    public static final Property<Integer> GENDER = Property.create("gender", Integer.class);
+    public static final Property<LocalDate> DATE_BIRTH = Property.create("dateBirth", LocalDate.class);
     public static final Property<String> NAME_FIRST = Property.create("nameFirst", String.class);
     public static final Property<String> NAME_LAST = Property.create("nameLast", String.class);
-    public static final Property<String> TITLE = Property.create("title", String.class);
+    public static final Property<String> PASSWORD = Property.create("password", String.class);
+    public static final Property<String> USERNAME = Property.create("username", String.class);
 
-    protected Integer gender;
+    protected LocalDate dateBirth;
     protected String nameFirst;
     protected String nameLast;
-    protected String title;
+    protected String password;
+    protected String username;
 
 
-    public void setGender(int gender) {
-        beforePropertyWrite("gender", this.gender, gender);
-        this.gender = gender;
+    public void setDateBirth(LocalDate dateBirth) {
+        beforePropertyWrite("dateBirth", this.dateBirth, dateBirth);
+        this.dateBirth = dateBirth;
     }
 
-    public int getGender() {
-        beforePropertyRead("gender");
-        if(this.gender == null) {
-            return 0;
-        }
-        return this.gender;
+    public LocalDate getDateBirth() {
+        beforePropertyRead("dateBirth");
+        return this.dateBirth;
     }
 
     public void setNameFirst(String nameFirst) {
@@ -63,14 +63,24 @@ public abstract class _Account extends BaseDataObject {
         return this.nameLast;
     }
 
-    public void setTitle(String title) {
-        beforePropertyWrite("title", this.title, title);
-        this.title = title;
+    public void setPassword(String password) {
+        beforePropertyWrite("password", this.password, password);
+        this.password = password;
     }
 
-    public String getTitle() {
-        beforePropertyRead("title");
-        return this.title;
+    public String getPassword() {
+        beforePropertyRead("password");
+        return this.password;
+    }
+
+    public void setUsername(String username) {
+        beforePropertyWrite("username", this.username, username);
+        this.username = username;
+    }
+
+    public String getUsername() {
+        beforePropertyRead("username");
+        return this.username;
     }
 
     @Override
@@ -80,14 +90,16 @@ public abstract class _Account extends BaseDataObject {
         }
 
         switch(propName) {
-            case "gender":
-                return this.gender;
+            case "dateBirth":
+                return this.dateBirth;
             case "nameFirst":
                 return this.nameFirst;
             case "nameLast":
                 return this.nameLast;
-            case "title":
-                return this.title;
+            case "password":
+                return this.password;
+            case "username":
+                return this.username;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -100,8 +112,8 @@ public abstract class _Account extends BaseDataObject {
         }
 
         switch (propName) {
-            case "gender":
-                this.gender = (Integer)val;
+            case "dateBirth":
+                this.dateBirth = (LocalDate)val;
                 break;
             case "nameFirst":
                 this.nameFirst = (String)val;
@@ -109,8 +121,11 @@ public abstract class _Account extends BaseDataObject {
             case "nameLast":
                 this.nameLast = (String)val;
                 break;
-            case "title":
-                this.title = (String)val;
+            case "password":
+                this.password = (String)val;
+                break;
+            case "username":
+                this.username = (String)val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -128,19 +143,21 @@ public abstract class _Account extends BaseDataObject {
     @Override
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
-        out.writeObject(this.gender);
+        out.writeObject(this.dateBirth);
         out.writeObject(this.nameFirst);
         out.writeObject(this.nameLast);
-        out.writeObject(this.title);
+        out.writeObject(this.password);
+        out.writeObject(this.username);
     }
 
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
-        this.gender = (Integer)in.readObject();
+        this.dateBirth = (LocalDate)in.readObject();
         this.nameFirst = (String)in.readObject();
         this.nameLast = (String)in.readObject();
-        this.title = (String)in.readObject();
+        this.password = (String)in.readObject();
+        this.username = (String)in.readObject();
     }
 
 }

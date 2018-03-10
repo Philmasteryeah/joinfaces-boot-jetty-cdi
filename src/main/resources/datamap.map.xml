@@ -4,10 +4,25 @@
 	 xsi:schemaLocation="http://cayenne.apache.org/schema/10/modelMap http://cayenne.apache.org/schema/10/modelMap.xsd"
 	 project-version="10">
 	<property name="defaultPackage" value="org.philmaster.boot.model"/>
+	<db-entity name="account">
+		<db-attribute name="account_id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="dateBirth" type="DATE"/>
+		<db-attribute name="name_first" type="VARCHAR" length="255"/>
+		<db-attribute name="name_last" type="VARCHAR" length="255"/>
+		<db-attribute name="password" type="VARCHAR" length="255"/>
+		<db-attribute name="username" type="VARCHAR" length="255"/>
+	</db-entity>
 	<db-entity name="car">
 		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
 		<db-attribute name="name" type="VARCHAR" length="255"/>
 	</db-entity>
+	<obj-entity name="Account" className="org.philmaster.boot.model.Account" dbEntityName="account">
+		<obj-attribute name="dateBirth" type="java.time.LocalDate" db-attribute-path="dateBirth"/>
+		<obj-attribute name="nameFirst" type="java.lang.String" db-attribute-path="name_first"/>
+		<obj-attribute name="nameLast" type="java.lang.String" db-attribute-path="name_last"/>
+		<obj-attribute name="password" type="java.lang.String" db-attribute-path="password"/>
+		<obj-attribute name="username" type="java.lang.String" db-attribute-path="username"/>
+	</obj-entity>
 	<obj-entity name="Car" className="org.philmaster.boot.model.Car" dbEntityName="car">
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
