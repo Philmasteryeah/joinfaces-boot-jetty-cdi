@@ -49,7 +49,7 @@ $ heroku open
 # Postgresql Test shema
 - install postgres and run this query
 ```
-TODO 
+TODO  
 
 ````
 - you can generate the query for other databaes too
