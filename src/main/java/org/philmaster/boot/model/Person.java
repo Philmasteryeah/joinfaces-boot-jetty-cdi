@@ -1,33 +1,33 @@
 package org.philmaster.boot.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@XmlRootElement
 public class Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
 	private String id;
 	private String name;
 	private int taxClass;
-	private Date birthDate;
-	private Set<String> languageSkills = new HashSet<String>();
+	private LocalDate birthDate;
 
-	public Person(String id, String name, int taxClass, Date birthDate) {
+	public Person() {
+
+	}
+
+	public Person(String id, String name, int taxClass, LocalDate birthDate) {
 		this.id = id;
 		this.name = name;
 		this.taxClass = taxClass;
 		this.birthDate = birthDate;
 	}
 
-	public void addLanguageSkill(String languageSkill) {
-		languageSkills.add(languageSkill);
-	}
 }

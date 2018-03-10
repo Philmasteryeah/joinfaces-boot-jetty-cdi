@@ -67,11 +67,12 @@
 					<groupId>org.hibernate.validator</groupId>
 					<artifactId>hibernate-validator</artifactId>
 				</exclusion>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-webmvc</artifactId>
-				</exclusion>
 			</exclusions>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.joinfaces</groupId>

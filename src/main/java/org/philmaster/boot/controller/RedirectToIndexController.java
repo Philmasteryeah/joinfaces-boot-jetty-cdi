@@ -14,6 +14,8 @@ public class RedirectToIndexController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String redirect() {
+		System.err.println("redirect");
 		return "redirect:index.xhtml";
 	}
+
 }

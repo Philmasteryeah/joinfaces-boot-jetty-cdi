@@ -15,7 +15,6 @@ import javax.inject.Named;
 
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.request.SelectLevelListener;
-import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
 
 import lombok.Getter;
@@ -42,14 +41,12 @@ public class RolesAndRightsView implements Serializable {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1972, 5, 25);
 
-				
 		accounts.add(new Account("Max", "Mustermann"));
 		calendar.set(1981, 12, 10);
 		accounts.add(new Account("Sara", "Schmidt"));
 		calendar.set(1968, 2, 13);
 		accounts.add(new Account("Jasper", "Morgan"));
 
-		
 	}
 
 	public RolesAndRightsView() {
