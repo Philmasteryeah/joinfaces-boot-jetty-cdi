@@ -22,7 +22,7 @@
 		<javax.faces.version>2.3.3</javax.faces.version>
 		<glassfish-el.version>3.0.1-b09</glassfish-el.version>
 		<omnifaces.version>1.14.1</omnifaces.version>
-		<spring-boot-maven-plugin.version>2.0.0.M7</spring-boot-maven-plugin.version>
+		<spring-boot-maven-plugin.version>2.0.0.RELEASE</spring-boot-maven-plugin.version>
 		<postgresql.version>42.2.1</postgresql.version>
 		<jetty.version>9.4.8.v20171121</jetty.version>
 		<cayenne.version>4.1.M1</cayenne.version>
