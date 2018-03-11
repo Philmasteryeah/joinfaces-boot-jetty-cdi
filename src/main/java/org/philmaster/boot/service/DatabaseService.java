@@ -45,6 +45,8 @@ public class DatabaseService {
 	void init() {
 		context = ServerRuntime.builder().addConfig(CAYENNE_CONFIG).build().newContext();
 	}
+	
+	
 
 	public <T extends BaseDataObject> T createNew(Class<T> clazz) {
 		return context.newObject(clazz);

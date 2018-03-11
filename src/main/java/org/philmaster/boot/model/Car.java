@@ -22,26 +22,4 @@ public class Car extends _Car {
 		super.setObjectId(objectId);
 	}
 
-	@Override
-	public int hashCode() {
-		int hash = 7;
-		hash = 59 * hash + (this.getObjectId() != null ? this.getObjectId().hashCode() : 0);
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		final Car other = (Car) obj;
-		if ((this.getObjectId() == null) ? (other.getObjectId() != null)
-				: !this.getObjectId().equals(other.getObjectId())) {
-			return false;
-		}
-		return true;
-	}
 }

@@ -60,6 +60,7 @@ public class DownloadView implements Serializable {
 	public void actionAdd(ActionEvent actionEvent) {
 		Car car = db.createNew(Car.class);
 		car.setName("test car");
+		
 		db.getContext().commitChanges();
 		Util.statusMessageInfo("Welcome", "test");
 		refreshCarList();
