@@ -11,32 +11,35 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+	
 	@Inject
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication().withUser("sa").password("{noop}1").roles("ADMIN");
 	}
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 
 		http.authorizeRequests()
 				.antMatchers("/", "/login.xhtml", "/javax.faces.resource/**")
-				.permitAll()
-				.anyRequest()
-				.fullyAuthenticated()
-				.and()
+				 .permitAll()
+				 .anyRequest()
+				 .fullyAuthenticated()
+				 .and()
 				.formLogin()
-				.loginPage("/login.xhtml")
-				.defaultSuccessUrl("/index.xhtml")
-				.failureUrl("/login.xhtml?error=true")
-				.and()
+				 .loginPage("/login.xhtml")
+				 .defaultSuccessUrl("/index.xhtml")
+				 .failureUrl("/login.xhtml?error=true")
+				 .permitAll()
+				 .and()
 				.logout()
-				.logoutSuccessUrl("/login.xhtml");
+				 .logoutSuccessUrl("/login.xhtml");
 
 		// allow to use ressource links like pdf
 		http.headers().frameOptions().sameOrigin();
 
 	}
+
+
 }

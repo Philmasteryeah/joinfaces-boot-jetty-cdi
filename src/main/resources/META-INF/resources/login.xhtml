@@ -1,54 +1,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:pe="http://primefaces.org/ui/extensions">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
 <f:view contentType="text/html">
-    <pe:head title="Login JoinFacesBootJetty">
-        <f:facet name="first">
-            <meta http-equiv="Content-Type"
-                content="text/html; charset=UTF-8" />
-            <meta http-equiv="pragma" content="no-cache" />
-            <meta http-equiv="cache-control" content="no-cache" />
-            <meta http-equiv="expires" content="0" />
-        </f:facet>
-        <link href="#{resource['images/favicon.ico']}"
-            rel="shortcut icon" />
-        <h:outputStylesheet library="css" name="login.css" />
-    </pe:head>
-    <h:body class="login-body">
-        <div id="login-wrapper">
-            <div style="height: 130px;"></div>
-            <div id="login-container">
-                <h:form prependId="false">
-                    <span class="title">JoinFaces Application</span>
-                    <p:tooltip id="toolTipGrow" for="username"
-                        value="Connection failed: user and/or password are wrong."
-                        position="top" widgetVar="tip1"
-                        showEffect="clip" hideEffect="explode"
-                        rendered="${!empty param['error']}" />
-                    <p:focus />
-                    <div class="ui-g ui-fluid">
-                        <div class="ui-g-12">
-                            <p:inputText id="username"
-                                placeholder="Username" />
-                        </div>
-                        <div class="ui-g-12">
-                            <p:password id="password"
-                                placeholder="Password" feedback="true" />
-                        </div>
-                        <div class="ui-g-12 ui-md-6"></div>
-                        <div class="ui-g-12">
-                            <p:commandButton id="submit" value="Login"
-                                ajax="false" />
-                        </div>
-                    </div>
-                </h:form>
-            </div>
-            <div class="login-footer">Philmaster Inc.</div>
-        </div>
-    </h:body>
+	<pe:head title="Login JoinFacesBootJetty">
+		<f:facet name="first">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta http-equiv="pragma" content="no-cache" />
+			<meta http-equiv="cache-control" content="no-cache" />
+			<meta http-equiv="expires" content="0" />
+		</f:facet>
+		<link href="#{resource['images/favicon.ico']}" rel="shortcut icon" />
+		<h:outputStylesheet library="css" name="login.css" />
+	</pe:head>
+	<h:body class="login-body">
+		<div id="login-wrapper">
+			<div style="height: 130px;"></div>
+			<div id="login-container">
+				<h:form prependId="false">
+					<span class="title">JoinFaces Application</span>
+					<p:tooltip id="toolTipGrow" for="username"
+						value="Connection failed: user and/or password are wrong."
+						position="top" widgetVar="tip1" showEffect="clip"
+						hideEffect="explode" rendered="${!empty param['error']}" />
+					<p:focus />
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-12">
+							<p:inputText id="username" placeholder="Username" />
+						</div>
+						<div class="ui-g-12">
+							<p:password id="password" placeholder="Password" feedback="true" />
+						</div>
+						<div class="ui-g-12 ui-md-6"></div>
+						<div class="ui-g-12">
+							<p:commandButton id="submit" value="Login" ajax="false"  actionListener="#{loginView.actionLogin}" />
+						</div>
+					</div>
+				</h:form>
+			</div>
+			<div class="login-footer">Philmaster Inc.</div>
+		</div>
+	</h:body>
 
 </f:view>
 </html>
