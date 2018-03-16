@@ -12,6 +12,7 @@ import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.query.ObjectSelect;
 import org.apache.cayenne.query.SelectQuery;
+import org.philmaster.boot.model.Client;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -45,8 +46,12 @@ public class DatabaseService {
 	void init() {
 		context = ServerRuntime.builder().addConfig(CAYENNE_CONFIG).build().newContext();
 	}
-	
-	
+
+	public Client clientByName() {
+		// TODO String param with name
+		// insert into client (client_id, name) values (1, 'default')
+		return fetchAll(Client.class).get(0);
+	}
 
 	public <T extends BaseDataObject> T createNew(Class<T> clazz) {
 		return context.newObject(clazz);

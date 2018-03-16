@@ -32,6 +32,7 @@
 		<obj-attribute name="username" type="java.lang.String" db-attribute-path="username"/>
 	</obj-entity>
 	<obj-entity name="Car" className="org.philmaster.boot.model.Car" dbEntityName="car">
+		<obj-attribute name="clientId" type="int" db-attribute-path="client_id"/>
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
 	<obj-entity name="Client" className="org.philmaster.boot.model.Client" dbEntityName="client">
@@ -46,6 +47,5 @@
 	<db-relationship name="cars" source="client" target="car" toMany="true">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
-	<obj-relationship name="client" source="Car" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
 	<obj-relationship name="cars" source="Client" target="Car" deleteRule="Deny" db-relationship-path="cars"/>
 </data-map>

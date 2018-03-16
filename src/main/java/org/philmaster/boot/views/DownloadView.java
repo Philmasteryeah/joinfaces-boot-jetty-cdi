@@ -9,7 +9,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.cayenne.exp.ExpressionFactory;
 import org.philmaster.boot.model.Car;
+import org.philmaster.boot.model.Client;
+import org.philmaster.boot.model.auto._Car;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
 import org.primefaces.event.SelectEvent;
@@ -26,6 +29,9 @@ public class DownloadView implements Serializable {
 
 	@Getter
 	private List<Car> cars;
+
+	@Getter
+	private Client client;
 
 	/// @Getter
 	// private List<Car> carsOld;
@@ -44,7 +50,9 @@ public class DownloadView implements Serializable {
 	}
 
 	public void refreshCarList() {
-		cars = db.fetchAll(Car.class);
+		client = db.clientByName();
+		cars = db.fetch(Car.class, ExpressionFactory.matchExp(_Car.CLIENT_ID.getName(), client.getId()));
+
 		// cars = new LazyCarDataModel(carsOld);
 	}
 
@@ -58,9 +66,10 @@ public class DownloadView implements Serializable {
 	}
 
 	public void actionAdd(ActionEvent actionEvent) {
+
 		Car car = db.createNew(Car.class);
+		car.setClientId(client.getId());
 		car.setName("test car");
-		
 		db.getContext().commitChanges();
 		Util.statusMessageInfo("Welcome", "test");
 		refreshCarList();
