@@ -51,6 +51,7 @@ public class DownloadView implements Serializable {
 
 	public void refreshCarList() {
 		client = db.clientByName();
+		//System.err.println(client.getCars()+" "+client.getCars().getClass());
 		cars = db.fetch(Car.class, ExpressionFactory.matchExp(_Car.CLIENT_ID.getName(), client.getId()));
 
 		// cars = new LazyCarDataModel(carsOld);
