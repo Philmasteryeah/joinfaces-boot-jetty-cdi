@@ -1,23 +1,49 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:pe="http://primefaces.org/ui/extensions"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    template="/templates/frame.xhtml">
-    <ui:define name="content">
-        <p:panelGrid columns="1" layout="grid">
-            <div class="ui-g">
-                <div class="ui-g-12 ui-md-4">Content</div>
-                <div class="ui-g-12 ui-md-4"></div>
-                <div class="ui-g-12 ui-md-4"></div>
-            </div>
-            <div class="ui-g">
-                <div class="ui-g-6 ui-md-3">car list page</div>
-            </div>
-            <p:commandButton value="Save"
-                actionListener="#{buttonBean.buttonAction}"
-                update="growl" />
-        </p:panelGrid>
-    </ui:define>
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pm="http://java.sun.com/jsf/composite/components"
+	template="/templates/frame.xhtml">
+	<ui:define name="content">
+
+		<pe:masterDetail id="masterDetail"
+			level="#{currentLevelData.currentLevel}"
+			selectLevelListener="#{selectLevelListener.handleNavigation}">
+			<pe:masterDetailLevel level="1" levelLabel="#{msg['list']}">
+
+				<pm:pmList id="cartable" var="carItem" value="#{downloadView.cars}"
+					rows="10" selection="#{downloadView.selectedCar}"
+					onRowSelect="#{downloadView.onRowSelect}"
+					rowKey="#{carItem.id}" fileNameExport="cars">
+
+					<p:column headerText="Column 1" sortBy="#{carItem.id}">
+						<p:commandLink update=":form:masterDetail">
+							<h:outputText value="#{carItem.name}" />
+							<pe:selectDetailLevel contextValue="#{carItem}" />
+						</p:commandLink>
+					</p:column>
+
+					<p:column headerText="id" sortBy="#{carItem.id}">
+						<h:outputText value="#{carItem.id}" />
+					</p:column>
+
+					<p:column headerText="title" sortBy="#{carItem.name}"
+						filterBy="#{carItem.name}" filterMatchMode="contains">
+						<h:outputText value="#{carItem.name}" />
+					</p:column>
+				</pm:pmList>
+
+			</pe:masterDetailLevel>
+
+			<pe:masterDetailLevel level="2"
+				rendered="#{currentLevelData.currentLevel == 2}"
+				levelLabel="#{msg['moreDetails']}" contextVar="carItem">
+				<ui:include src="/views/carDetail.xhtml" />
+			</pe:masterDetailLevel>
+
+		</pe:masterDetail>
+
+	</ui:define>
 </ui:composition>

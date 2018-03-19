@@ -4,6 +4,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
+                
     <p:dataTable value="#{downloadView.cars}" var="row" rowIndexVar="rowIdx"
                  paginator="true" paginatorPosition="bottom" rows="10">
                  
@@ -17,8 +18,10 @@
                 <pe:selectDetailLevel contextValue="#{row}"/>
             </p:commandLink>
         </p:column>
+        
         <p:column headerText="Column 2" sortBy="#{row.objectId}">
             <h:outputText value="#{row.objectId}"/>
         </p:column>
+        
     </p:dataTable>
 </ui:composition>       

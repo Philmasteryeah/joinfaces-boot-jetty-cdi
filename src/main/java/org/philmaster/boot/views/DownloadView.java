@@ -28,6 +28,7 @@ public class DownloadView implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Getter
+	@Setter
 	private List<Car> cars;
 
 	@Getter
@@ -51,7 +52,8 @@ public class DownloadView implements Serializable {
 
 	public void refreshCarList() {
 		client = db.clientByName();
-		//System.err.println(client.getCars()+" "+client.getCars().getClass());
+
+		System.err.println(client.cars() + " ");
 		cars = db.fetch(Car.class, ExpressionFactory.matchExp(_Car.CLIENT_ID.getName(), client.getId()));
 
 		// cars = new LazyCarDataModel(carsOld);

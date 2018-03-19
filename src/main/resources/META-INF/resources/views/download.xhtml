@@ -14,10 +14,10 @@
 		<pm:pmList id="cartable" var="carItem" value="#{downloadView.cars}"
 			rows="10" selection="#{downloadView.selectedCar}"
 			onRowSelect="#{downloadView.onRowSelect}"
-			rowKey="#{carItem.objectId}" fileNameExport="cars">
+			rowKey="#{carItem.id}" fileNameExport="cars">
 
-			<p:column headerText="id" sortBy="#{carItem.objectId}">
-				<h:outputText value="#{carItem.objectId}" />
+			<p:column headerText="id" sortBy="#{carItem.id}">
+				<h:outputText value="#{carItem.id}" />
 			</p:column>
 			<p:column headerText="title" sortBy="#{carItem.name}"
 				filterBy="#{carItem.name}" filterMatchMode="contains">
