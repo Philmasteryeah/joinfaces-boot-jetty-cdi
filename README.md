@@ -1,6 +1,6 @@
 [![Heroku](https://heroku-badge.herokuapp.com/?app=ancient-gorge-66249)](https://ancient-gorge-66249.herokuapp.com/login.xhtml)
 [![Coverage Status](https://coveralls.io/repos/github/Philmasteryeah/joinfaces-boot-jetty-cdi/badge.svg?branch=master)](https://coveralls.io/github/Philmasteryeah/joinfaces-boot-jetty-cdi?branch=master)
-
+ 
 # joinfaces-boot-jetty-cdi
 - Java 9
 - Spring Boot v2.0.0.M7
@@ -32,7 +32,7 @@ $ mvnw.cmd install
 $ heroku login
 $ cd <your project>
 $ heroku create
-$ git push heroku master
+$ git push heroku master 
 $ heroku ps:scale web=1
 $ heroku open
 ```
