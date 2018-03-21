@@ -15,10 +15,11 @@
 
 				<pm:pmList id="cartable" var="carItem" value="#{downloadView.cars}"
 					rows="10" selection="#{downloadView.selectedCar}"
-					onRowSelect="#{downloadView.onRowSelect}"
-					rowKey="#{carItem.id}" fileNameExport="cars">
+					onRowSelect="#{downloadView.onRowSelect}" rowKey="#{carItem.id}"
+					fileNameExport="cars">
 
-					<p:column headerText="Column 1" sortBy="#{carItem.id}">
+					<p:column headerText="title" sortBy="#{carItem.name}"
+						filterBy="#{carItem.name}" filterMatchMode="contains">
 						<p:commandLink update=":form:masterDetail">
 							<h:outputText value="#{carItem.name}" />
 							<pe:selectDetailLevel contextValue="#{carItem}" />
@@ -29,12 +30,17 @@
 						<h:outputText value="#{carItem.id}" />
 					</p:column>
 
-					<p:column headerText="title" sortBy="#{carItem.name}"
-						filterBy="#{carItem.name}" filterMatchMode="contains">
-						<h:outputText value="#{carItem.name}" />
-					</p:column>
 				</pm:pmList>
 
+				<p:commandButton value="Add"
+					actionListener="#{downloadView.actionAdd}" update="@form">
+					<pe:selectDetailLevel step="1" />
+				</p:commandButton>
+				
+				<p:commandButton value="Save!!"
+					actionListener="#{downloadView.actionSave}">
+					<pe:selectDetailLevel step="0" />
+				</p:commandButton>
 			</pe:masterDetailLevel>
 
 			<pe:masterDetailLevel level="2"

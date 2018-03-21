@@ -32,14 +32,15 @@ public class DownloadView implements Serializable {
 	private List<Car> cars;
 
 	@Getter
-	private Client client;
-
-	/// @Getter
-	// private List<Car> carsOld;
+	@Setter
+	private Car selectedCar, testCar;
 
 	@Getter
 	@Setter
-	private Car selectedCar;
+	private int currentLevel = 1;
+
+	@Getter
+	private Client client;
 
 	@Inject
 	private DatabaseService db;
@@ -53,7 +54,6 @@ public class DownloadView implements Serializable {
 	public void refreshCarList() {
 		client = db.clientByName();
 
-		System.err.println(client.cars() + " ");
 		cars = db.fetch(Car.class, ExpressionFactory.matchExp(_Car.CLIENT_ID.getName(), client.getId()));
 
 		// cars = new LazyCarDataModel(carsOld);
@@ -69,11 +69,10 @@ public class DownloadView implements Serializable {
 	}
 
 	public void actionAdd(ActionEvent actionEvent) {
+		testCar = db.createNew(Car.class);
+		testCar.setClientId(client.getId());
+		//car.setName("test car");
 
-		Car car = db.createNew(Car.class);
-		car.setClientId(client.getId());
-		car.setName("test car");
-		db.getContext().commitChanges();
 		Util.statusMessageInfo("Welcome", "test");
 		refreshCarList();
 	}
@@ -82,6 +81,7 @@ public class DownloadView implements Serializable {
 		db.getContext().commitChanges();
 		Util.statusMessageInfo("Welcome", "saved");
 		refreshCarList();
+		currentLevel = 1;
 	}
 
 }

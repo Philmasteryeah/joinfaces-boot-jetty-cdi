@@ -14,6 +14,8 @@ public class Car extends _Car {
 	}
 
 	public int getId() {
+		if (getObjectId() == null || getObjectId().isTemporary())
+			return -1;
 		return (int) getObjectId().getIdSnapshot().get(_Car.CAR_ID_PK_COLUMN);
 	}
 
