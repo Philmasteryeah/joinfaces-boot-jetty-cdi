@@ -8,7 +8,8 @@ cache:
 before_install:
   - chmod +x mvnw
 
-install: ./mvn -N io.takari:maven:wrapper
+install:
+    - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 script:
   - ./mvnw -B -Pcheck-duplicate,check-checkstyle,check-cycles,check-cpd,check-pmd,check-findbugs -DskipTests=true install
