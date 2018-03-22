@@ -1,2 +1,16 @@
 language: java
-jdk: oraclejdk8
+jdk:
+  - oraclejdk8
+cache:
+  directories:
+  - $HOME/.m2
+
+install: ./mvnw -B clean validate
+
+script:
+  - ./mvnw -B -Pcheck-duplicate,check-checkstyle,check-cycles,check-cpd,check-pmd,check-findbugs -DskipTests=true install
+  - ./mvnw -B verify
+
+after_success:
+  - "[[ ${TRAVIS_PULL_REQUEST} == 'false' ]] && ./mvnw -B org.eluder.coveralls:coveralls-maven-plugin:4.3.0:report"
+  - "[[ ${TRAVIS_PULL_REQUEST} == 'false' ]] && [[ ${TRAVIS_TAG} == '' ]] && ./mvnw --settings .travis.deploy-settings.xml -DskipTests=true -Pattach-test-jar,attach-source,attach-javadoc deploy"
