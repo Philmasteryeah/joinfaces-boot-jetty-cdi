@@ -3,49 +3,87 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pm="http://java.sun.com/jsf/composite/components"
+	template="/templates/frame.xhtml">
+	<ui:define name="content">
 
-	<f:facet name="label">
-		<h:outputFormat value="#{msg['detailsFor']}">
-			<f:param value="#{downloadView.selectedCar.name}" />
-		</h:outputFormat>
-	</f:facet>
+		<pe:masterDetail id="masterDetail" level="#{carView.currentLevel}"
+			levelLabel="Detail">
+			<f:facet name="header">
+				<p:messages showDetail="true" />
+			</f:facet>
+			<pe:masterDetailLevel level="1">
+				<p:panel header="Personal Details">
+					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
+						<h:outputText value="Firstname: *" />
+						<p:inputText required="true" label="Firstname"
+							value="#{carView.testCar.name}" />
+					</h:panelGrid>
+				</p:panel>
+				<p:commandButton value="Next" process="masterDetail"
+					style="margin-top: 10px;" icon="ui-icon-arrowthick-1-e">
+					<pe:selectDetailLevel step="1" />
+				</p:commandButton>
+				<p:commandButton value="Go to Save" process="masterDetail"
+					style="margin-top: 10px;" icon="ui-icon-arrowthickstop-1-e">
+					<pe:selectDetailLevel level="4" />
+				</p:commandButton>
+			</pe:masterDetailLevel>
 
-	<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2"
-		cellpadding="0" cellspacing="0">
-		<h:outputText value="Column 1" />
-		<p:inputText value="#{carItem.name}" />
+			<pe:masterDetailLevel level="2" levelLabel="Adress Details">
+				<p:panel header="Adress Details">
+					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
+						<h:outputText value="Street: " />
+						<p:inputText value="#{carView.testCar.name}" />
+					</h:panelGrid>
+				</p:panel>
+				<p:commandButton value="Back" style="margin-top: 10px;"
+					icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
+					<pe:selectDetailLevel step="-1" />
+				</p:commandButton>
+				<p:commandButton value="Next" process="masterDetail"
+					style="margin-top: 10px;" icon="ui-icon-arrowthick-1-e">
+					<pe:selectDetailLevel step="1" />
+				</p:commandButton>
+			</pe:masterDetailLevel>
 
-		<h:outputText value="Column 2" />
-		<p:inputText value="#{carItem.id}" />
+			<pe:masterDetailLevel level="3" levelLabel="Contact Information">
+				<p:panel header="Contact Information">
+					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
+						<h:outputText value="Additional Info: " />
+						<p:inputText value="#{carView.testCar.name}" />
+					</h:panelGrid>
+				</p:panel>
+				<p:commandButton value="Back" style="margin-top: 10px;"
+					icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
+					<pe:selectDetailLevel step="-1" />
+				</p:commandButton>
+				<p:commandButton value="Next" process="masterDetail"
+					style="margin-top: 10px;" icon="ui-icon-arrowthick-1-e">
+					<pe:selectDetailLevel step="1" />
+				</p:commandButton>
+			</pe:masterDetailLevel>
 
-	</h:panelGrid>
+			<pe:masterDetailLevel level="4" levelLabel="Confirmation">
+				<p:panel header="Confirmation">
+					<h:panelGrid id="confirmation" columns="2"
+						columnClasses="formColumn1,formColumn2">
+						<h:outputText value="Firstname: " />
+						<h:outputText value="#{carView.testCar.name}" />
+					</h:panelGrid>
+				</p:panel>
+				<p:commandButton value="Back" style="margin-top: 10px;"
+					icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
+					<pe:selectDetailLevel step="-1" />
+				</p:commandButton>
+				<p:commandButton value="Submit" process="masterDetail"
+					actionListener="#{carView.actionSave}" style="margin-top: 10px;"
+					icon="ui-icon-disk">
+					<pe:selectDetailLevel level="1" />
+				</p:commandButton>
+			</pe:masterDetailLevel>
+		</pe:masterDetail>
 
-	<h:outputText value="Name Test" />
-	<p:inputText value="#{downloadView.testCar.name}" />
-
-	<p:commandButton value="Save!!" update="form:masterDetail"
-		actionListener="#{downloadView.actionSave}">
-		<pe:selectDetailLevel step="1" />
-	</p:commandButton>
-	
-	<p:commandButton value="Submit" process="masterDetail"
-		actionListener="#{downloadView.actionSave}" update="@form"
-		style="margin-top: 10px;" icon="ui-icon-disk">
-		<pe:selectDetailLevel level="2" />
-	</p:commandButton>
-	<p:commandButton value="#{msg['save']}"
-		onclick="PF('saveDlgWdgt').show(); return false;"
-		styleClass="firstbtn" icon="ui-icon-disk" />
-
-	<p:commandButton value="#{msg['more']}" process="masterDetail"
-		update=":form:masterDetail" action="#{tableController.navigateToMore}"
-		styleClass="btn" icon="ui-icon-arrowthick-1-e">
-		<pe:selectDetailLevel step="1" />
-	</p:commandButton>
-	<p:commandButton value="#{msg['back']}"
-		icon="ui-icon-arrowreturnthick-1-n" update=":form:masterDetail"
-		immediate="true" styleClass="btn">
-		<pe:selectDetailLevel level="1" />
-	</p:commandButton>
+	</ui:define>
 </ui:composition>

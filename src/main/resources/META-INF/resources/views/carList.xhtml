@@ -8,47 +8,46 @@
 	template="/templates/frame.xhtml">
 	<ui:define name="content">
 
-		<pe:masterDetail id="masterDetail"
-			level="#{currentLevelData.currentLevel}"
-			selectLevelListener="#{selectLevelListener.handleNavigation}">
-			<pe:masterDetailLevel level="1" levelLabel="#{msg['list']}">
-
-				<pm:pmList id="cartable" var="carItem" value="#{downloadView.cars}"
-					rows="10" selection="#{downloadView.selectedCar}"
-					onRowSelect="#{downloadView.onRowSelect}" rowKey="#{carItem.id}"
-					fileNameExport="cars">
-
-					<p:column headerText="title" sortBy="#{carItem.name}"
-						filterBy="#{carItem.name}" filterMatchMode="contains">
+		<pe:masterDetail id="masterDetail" level="#{carView.currentLevel}"
+			levelLabel="Detail">
+			<f:facet name="header">
+				<p:messages showDetail="true" />
+			</f:facet>
+			<pe:masterDetailLevel level="1" levelLabel="Übersicht">
+				<p:dataTable value="#{downloadView.cars}" var="row"
+					rowIndexVar="rowIdx" paginator="true" paginatorPosition="bottom"
+					rows="10">
+					<p:column style="width:32px;">#{rowIdx + 1}</p:column>
+					<p:column headerText="Column 1" sortBy="#{car.objectId}">
 						<p:commandLink update=":form:masterDetail">
-							<h:outputText value="#{carItem.name}" />
-							<pe:selectDetailLevel contextValue="#{carItem}" />
+							<h:outputText value="#{row.name}" />
+							<pe:selectDetailLevel contextValue="#{row}" />
 						</p:commandLink>
 					</p:column>
-
-					<p:column headerText="id" sortBy="#{carItem.id}">
-						<h:outputText value="#{carItem.id}" />
+					<p:column headerText="Column 2" sortBy="#{row.objectId}">
+						<h:outputText value="#{row.objectId}" />
 					</p:column>
-
-				</pm:pmList>
-
-				<p:commandButton value="Add"
-					actionListener="#{downloadView.actionAdd}" update="@form">
-					<pe:selectDetailLevel step="1" />
-				</p:commandButton>
-				
-				<p:commandButton value="Save!!"
-					actionListener="#{downloadView.actionSave}">
-					<pe:selectDetailLevel step="0" />
-				</p:commandButton>
+				</p:dataTable>
 			</pe:masterDetailLevel>
 
-			<pe:masterDetailLevel level="2"
-				rendered="#{currentLevelData.currentLevel == 2}"
-				levelLabel="#{msg['moreDetails']}" contextVar="carItem">
-				<ui:include src="/views/carDetail.xhtml" />
+			<pe:masterDetailLevel level="2" levelLabel="Confirmation"
+				contextVar="car">
+				<p:panel header="Confirmation">
+					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
+						<h:outputText value="Street: " />
+						<p:inputText value="#{car.name}" />
+					</h:panelGrid>
+				</p:panel>
+				<p:commandButton value="Back" style="margin-top: 10px;"
+					icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
+					<pe:selectDetailLevel step="-1" />
+				</p:commandButton>
+				<p:commandButton value="Submit" process="masterDetail"
+					actionListener="#{carView.actionSave}" style="margin-top: 10px;"
+					icon="ui-icon-disk">
+					<pe:selectDetailLevel level="1" />
+				</p:commandButton>
 			</pe:masterDetailLevel>
-
 		</pe:masterDetail>
 
 	</ui:define>
