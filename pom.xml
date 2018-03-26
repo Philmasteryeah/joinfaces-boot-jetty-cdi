@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.joinfaces</groupId>
 		<artifactId>joinfaces-parent</artifactId>
 		<version>3.0.3-SNAPSHOT</version>
-		<relativePath />
+		<relativePath/> 
 	</parent>
-
+	
 	<artifactId>joinfaces-application</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>JoinFaces Spring Boot with CDI</name>
 	<description>Project with JoinFaces Spring Boot and CDI</description>
-
+	
 	<properties>
 		<main.basedir>${basedir}</main.basedir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,7 +33,7 @@
 		<primefaces.version>6.2</primefaces.version>
 		<primefaces-extensions.version>6.2</primefaces-extensions.version>
 	</properties>
-
+	
 	<dependencies>
 		<!-- Joinfaces -->
 		<dependency>
@@ -170,7 +169,6 @@
 	</dependencies>
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -192,29 +190,10 @@
 					<appName>ancient-gorge-66249</appName>
 					<jdkVersion>9</jdkVersion>
 					<processTypes>
-						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar
-							target/joinfaces-application-1.0.0-SNAPSHOT.jar</web>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/joinfaces-application-1.0.0-SNAPSHOT.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
 		</plugins>
 	</build>
 	<repositories>
@@ -223,6 +202,6 @@
 			<name>PrimeFaces Maven Repository</name>
 			<url>http://repository.primefaces.org</url>
 		</repository>
-	</repositories>
-
+  	</repositories>
+  	
 </project>
