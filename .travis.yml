@@ -6,12 +6,11 @@ cache:
   directories:
   - $HOME/.m2
 
-before_install:
-  - git clone https://github.com/joinfaces/joinfaces.git
-  - ./joinfaces/mvnw install
- 
-install: ./mvnw -B clean validate
+#install: ./mvnw -B clean validate
 
 script:
+  - git clone https://github.com/joinfaces/joinfaces.git
+  - ./joinfaces/mvnw install
+  - cd ../joinfaces-boot-jetty-cdi/
   - ./mvnw -B -DskipTests=true install
   - ./mvnw -B verify
