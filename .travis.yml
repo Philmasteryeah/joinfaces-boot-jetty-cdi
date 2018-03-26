@@ -8,7 +8,7 @@ cache:
 
 before_install:
   - git clone https://github.com/joinfaces/joinfaces.git
-  - ./joinfaces/mvnw.cmd install
+  - ./joinfaces/mvn
  
 install: ./mvnw -B clean validate
 
