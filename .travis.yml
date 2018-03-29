@@ -6,8 +6,16 @@ cache:
   directories:
   - $HOME/.m2
 
+before_install: 
+  - git clone https://github.com/joinfaces/joinfaces.git
+  - cd joinfaces
+  - ./mvnw install 
+
 install: ./mvnw -B clean validate
 
 script:
   - ./mvnw -B -DskipTests=true install
   - ./mvnw -B verify
+
+notifications:
+  email: false  
