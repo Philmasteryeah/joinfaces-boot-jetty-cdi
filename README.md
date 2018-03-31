@@ -1,6 +1,8 @@
 [![Heroku](https://heroku-badge.herokuapp.com/?app=ancient-gorge-66249)](https://ancient-gorge-66249.herokuapp.com/login.xhtml)
 [![Build Status](https://travis-ci.org/Philmasteryeah/joinfaces-boot-jetty-cdi.svg?branch=master)](https://travis-ci.org/Philmasteryeah/joinfaces-boot-jetty-cdi)
 [![Coverage Status](https://coveralls.io/repos/github/Philmasteryeah/joinfaces-boot-jetty-cdi/badge.svg?branch=master)](https://coveralls.io/github/Philmasteryeah/joinfaces-boot-jetty-cdi?branch=master)
+ [![Dependency Status](https://www.versioneye.com/user/projects/5abfbd950fb24f4489395eb5/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5abfbd950fb24f4489395eb5)
+ 
  
 # joinfaces-boot-jetty-cdi
 - Java 9
