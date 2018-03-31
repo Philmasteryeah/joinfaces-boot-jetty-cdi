@@ -43,17 +43,6 @@
 		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>jetty-spring-boot-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.annotation</groupId>
-					<artifactId>javax.annotation-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>javax.annotation</artifactId>
-			<version>10.0-b28</version>
 		</dependency>
 		<dependency>
 			<groupId>com.jayway.jsonpath</groupId>
