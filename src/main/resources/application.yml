@@ -34,10 +34,6 @@ menu:
       pageName: main
       icon: ui-icon-circle-arrow-s
       isAjax: false
-    - title: MasterDetail
-      pageName: masterDetail
-      icon: ui-icon-circle-arrow-s
-      isAjax: false
     - title: Car List
       pageName: carList
       icon: ui-icon-key

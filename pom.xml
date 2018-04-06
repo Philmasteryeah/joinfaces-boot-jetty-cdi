@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.joinfaces</groupId>
 		<artifactId>joinfaces-parent</artifactId>
-		<version>3.0.3-SNAPSHOT</version>
+		<version>3.1.2-SNAPSHOT</version>
 		<relativePath/> 
 	</parent>
 	
@@ -20,7 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<primefaces-theme.version>1.0.10</primefaces-theme.version>
 		<all-themes.version>1.0.10</all-themes.version>
-		<java.version>1.8</java.version>
+		<java.version>9</java.version>
 		<cdi.version>2.0</cdi.version>
 		<javax.faces.version>2.3.3</javax.faces.version>
 		<glassfish-el.version>3.0.1-b09</glassfish-el.version>
@@ -47,6 +47,12 @@
 		<dependency>
 			<groupId>com.jayway.jsonpath</groupId>
 			<artifactId>json-path</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.joinfaces</groupId>
@@ -149,11 +155,23 @@
 			<groupId>org.apache.cayenne</groupId>
 			<artifactId>cayenne-server</artifactId>
 			<version>${cayenne.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cayenne.modeler</groupId>
 			<artifactId>cayenne-modeler</artifactId>
 			<version>${cayenne.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 	<build>
