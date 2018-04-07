@@ -1,13 +1,5 @@
 package org.philmaster.boot.controller;
 
-import java.io.StringWriter;
-import java.time.LocalDate;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
-import org.philmaster.boot.model.Person;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,12 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class PMRestController {
 
 	@RequestMapping(value = "/person", method = RequestMethod.GET, produces = "application/xml", headers = "Accept=*/*")
-	public @ResponseBody String getPerson() throws JAXBException {
-		JAXBContext jaxbContext = JAXBContext.newInstance(Person.class);
-		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-		StringWriter sw = new StringWriter();
-		jaxbMarshaller.marshal(new Person("1", "Hans", 1, LocalDate.now()), sw);
-		return sw.toString();
+	public @ResponseBody String getPerson() {
+
+		return "person";
 	}
 
 	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/xml", headers = "Accept=*/*")

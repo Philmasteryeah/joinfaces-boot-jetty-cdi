@@ -3,14 +3,11 @@ package org.philmaster.boot.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@XmlRootElement
 public class Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;

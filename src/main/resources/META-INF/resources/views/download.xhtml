@@ -7,14 +7,14 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:pm="http://java.sun.com/jsf/composite/components"
 	template="/templates/frame.xhtml">
-
 	<ui:define name="content">
+	
         Filter        <p:commandButton value="Suche"
 			actionListener="#{buttonBean.buttonAction}" update="growl" />
 		<pm:pmList id="cartable" var="carItem" value="#{downloadView.cars}"
 			rows="10" selection="#{downloadView.selectedCar}"
-			onRowSelect="#{downloadView.onRowSelect}"
-			rowKey="#{carItem.id}" fileNameExport="cars">
+			onRowSelect="#{downloadView.onRowSelect}" rowKey="#{carItem.id}"
+			fileNameExport="cars">
 
 			<p:column headerText="id" sortBy="#{carItem.id}">
 				<h:outputText value="#{carItem.id}" />
@@ -40,7 +40,7 @@
 		<pm:pmModal btnToggleValue="Modal" header="Modal">
 			<p:commandButton value="Test"
 				actionListener="#{buttonBean.buttonAction}" update=":form:growl" />
-        </pm:pmModal>
+		</pm:pmModal>
 
 	</ui:define>
 </ui:composition>

@@ -5,14 +5,12 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	template="/templates/frame.xhtml">
-
-
 	<ui:define name="content">
 
-		<pe:codeMirror id="codeMirror" 	widgetVar="myCodeMirror" theme="eclipse" mode="javascript"
-			value="#{script.query}" lineNumbers="true"
+		<pe:codeMirror id="codeMirror" widgetVar="myCodeMirror"
+			theme="eclipse" mode="javascript" value="#{script.query}"
+			lineNumbers="true"
 			extraKeys="{ 'Ctrl-Space': function(cm) { PF('myCodeMirror').complete(); }}" />
-
 
 		<h:panelGrid columns="2" style="margin-top: 10px">
 
@@ -24,13 +22,14 @@
 
 			<p:commandButton value="Run Query"
 				actionListener="#{script.actionRunQuery}" update="result" />
+
 		</h:panelGrid>
 		<h:outputText id="result" value="#{script.result}" escape="false" />
-
 
 		<p:dialog header="Content" widgetVar="dlg" showEffect="fade"
 			hideEffect="fade">
 			<h:outputText id="display" value="#{script.result}" escape="false" />
 		</p:dialog>
+
 	</ui:define>
 </ui:composition>

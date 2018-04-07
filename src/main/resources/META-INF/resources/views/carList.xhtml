@@ -8,15 +8,15 @@
 	template="/templates/frame.xhtml">
 	<ui:define name="content">
 
-		<pe:masterDetail id="masterDetail" level="#{carView.currentLevel}"
+		<pe:masterDetail id="masterDetail" level="#{carDetail.currentLevel}"
 			levelLabel="Detail">
 			<f:facet name="header">
 				<p:messages showDetail="true" />
 			</f:facet>
 			<pe:masterDetailLevel level="1" levelLabel="Übersicht">
-				<p:dataTable value="#{downloadView.cars}" var="row"
-					rowIndexVar="rowIdx" paginator="true" paginatorPosition="bottom"
-					rows="10">
+				<!-- List Page -->
+				<p:dataTable value="#{carList.cars}" var="row" rowIndexVar="rowIdx"
+					paginator="true" paginatorPosition="bottom" rows="10">
 					<p:column style="width:32px;">#{rowIdx + 1}</p:column>
 					<p:column headerText="Column 1" sortBy="#{car.objectId}">
 						<p:commandLink update=":form:masterDetail">
@@ -30,12 +30,13 @@
 				</p:dataTable>
 			</pe:masterDetailLevel>
 
-			<pe:masterDetailLevel level="2" levelLabel="Confirmation"
-				contextVar="car">
-				<p:panel header="Confirmation">
+			<pe:masterDetailLevel level="2" levelLabel="Detail"
+				contextVar="detailObject">
+				<!-- Detail Page -->
+				<p:panel header="Detail">
 					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
 						<h:outputText value="Street: " />
-						<p:inputText value="#{car.name}" />
+						<p:inputText value="#{detailObject.name}" />
 					</h:panelGrid>
 				</p:panel>
 				<p:commandButton value="Back" style="margin-top: 10px;"
@@ -43,7 +44,7 @@
 					<pe:selectDetailLevel step="-1" />
 				</p:commandButton>
 				<p:commandButton value="Submit" process="masterDetail"
-					actionListener="#{carView.actionSave}" style="margin-top: 10px;"
+					actionListener="#{carDetail.actionSave}" style="margin-top: 10px;"
 					icon="ui-icon-disk">
 					<pe:selectDetailLevel level="1" />
 				</p:commandButton>
