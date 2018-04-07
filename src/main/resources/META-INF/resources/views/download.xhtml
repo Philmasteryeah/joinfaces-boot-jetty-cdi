@@ -11,6 +11,7 @@
 	
         Filter        <p:commandButton value="Suche"
 			actionListener="#{buttonBean.buttonAction}" update="growl" />
+			
 		<pm:pmList id="cartable" var="carItem" value="#{downloadView.cars}"
 			rows="10" selection="#{downloadView.selectedCar}"
 			onRowSelect="#{downloadView.onRowSelect}" rowKey="#{carItem.id}"

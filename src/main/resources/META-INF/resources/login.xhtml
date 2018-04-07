@@ -16,7 +16,7 @@
 		<link href="#{resource['images/favicon.ico']}" rel="shortcut icon" />
 		<h:outputStylesheet library="css" name="login.css" />
 	</pe:head>
-	
+
 	<h:body class="login-body">
 		<div id="login-wrapper">
 			<div style="height: 130px;"></div>
@@ -30,14 +30,16 @@
 					<p:focus />
 					<div class="ui-g ui-fluid">
 						<div class="ui-g-12">
-							<p:inputText id="username" placeholder="Username" />
+							<p:inputText id="username" placeholder="Username" value="sa" />
 						</div>
 						<div class="ui-g-12">
-							<p:password id="password" placeholder="Password" feedback="true" />
+							<p:password id="password" placeholder="Password" feedback="true"
+								value="1" />
 						</div>
 						<div class="ui-g-12 ui-md-6"></div>
 						<div class="ui-g-12">
-							<p:commandButton id="submit" value="Login" ajax="false"  actionListener="#{loginView.actionLogin}" />
+							<p:commandButton id="submit" value="Login" ajax="false"	/>
+
 						</div>
 					</div>
 				</h:form>

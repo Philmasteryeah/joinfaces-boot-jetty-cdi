@@ -15,27 +15,32 @@
 			</f:facet>
 			<pe:masterDetailLevel level="1" levelLabel="Übersicht">
 				<!-- List Page -->
-				<p:dataTable value="#{carList.cars}" var="row" rowIndexVar="rowIdx"
-					paginator="true" paginatorPosition="bottom" rows="10">
-					<p:column style="width:32px;">#{rowIdx + 1}</p:column>
-					<p:column headerText="Column 1" sortBy="#{car.objectId}">
+
+				<pm:pmList id="cartable" var="row" value="#{carList.cars}" rows="10"
+					selection="#{carList.selectedCar}"
+					onRowSelect="#{carList.onRowSelect}" rowKey="#{row.id}"
+					fileNameExport="cars">
+					<p:column style="width:32px;">#{row.id}</p:column>
+					<p:column headerText="Name" sortBy="#{car.name}">
 						<p:commandLink update=":form:masterDetail">
-							<h:outputText value="#{row.name}" />
+							#{row.name != null ? row.name : "..."}
 							<pe:selectDetailLevel contextValue="#{row}" />
 						</p:commandLink>
 					</p:column>
-					<p:column headerText="Column 2" sortBy="#{row.objectId}">
-						<h:outputText value="#{row.objectId}" />
+					<p:column headerText="ObjectId" sortBy="#{row.id}">
+						#{row.objectId}
 					</p:column>
-				</p:dataTable>
+				</pm:pmList>
+
 			</pe:masterDetailLevel>
 
 			<pe:masterDetailLevel level="2" levelLabel="Detail"
 				contextVar="detailObject">
 				<!-- Detail Page -->
+
 				<p:panel header="Detail">
 					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
-						<h:outputText value="Street: " />
+						<h:outputText value="Name: " />
 						<p:inputText value="#{detailObject.name}" />
 					</h:panelGrid>
 				</p:panel>
@@ -48,6 +53,7 @@
 					icon="ui-icon-disk">
 					<pe:selectDetailLevel level="1" />
 				</p:commandButton>
+
 			</pe:masterDetailLevel>
 		</pe:masterDetail>
 

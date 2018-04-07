@@ -9,6 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.exp.ExpressionFactory;
 import org.philmaster.boot.model.Car;
 import org.philmaster.boot.model.Client;
@@ -45,22 +46,21 @@ public class DownloadView implements Serializable {
 	@Inject
 	private DatabaseService db;
 
+	private ObjectContext context;
+
 	@PostConstruct
 	public void init() {
-		refreshCarList();
+		context = db.newContext();
 
-	}
+		client = DatabaseService.clientByName(context);
 
-	public void refreshCarList() {
-		client = db.clientByName();
+		cars = DatabaseService.fetch(context, Car.class,
+				ExpressionFactory.matchExp(_Car.CLIENT_ID.getName(), client.getId()));
 
-		cars = db.fetch(Car.class, ExpressionFactory.matchExp(_Car.CLIENT_ID.getName(), client.getId()));
-
-		// cars = new LazyCarDataModel(carsOld);
 	}
 
 	public void onRowSelect(SelectEvent event) {
-		Util.statusMessageInfo("Car Selected", selectedCar.getObjectId().toString());
+		Util.statusMessageInfo("Car Selected", selectedCar.getId() + "");
 	}
 
 	public void onRowUnselect(UnselectEvent event) {
@@ -69,18 +69,16 @@ public class DownloadView implements Serializable {
 	}
 
 	public void actionAdd(ActionEvent actionEvent) {
-		testCar = db.createNew(Car.class);
+		testCar = context.newObject(Car.class);
 		testCar.setClientId(client.getId());
-		//car.setName("test car");
+		// car.setName("test car");
 
 		Util.statusMessageInfo("Welcome", "test");
-		refreshCarList();
 	}
 
 	public void actionSave(ActionEvent actionEvent) {
-		db.getContext().commitChanges();
+		context.commitChanges();
 		Util.statusMessageInfo("Welcome", "saved");
-		refreshCarList();
 		currentLevel = 1;
 	}
 

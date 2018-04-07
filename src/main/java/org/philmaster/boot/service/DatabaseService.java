@@ -14,9 +14,6 @@ import org.apache.cayenne.query.ObjectSelect;
 import org.apache.cayenne.query.SelectQuery;
 import org.philmaster.boot.model.Client;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * @author Philmasteryeah
  * 
@@ -32,36 +29,54 @@ import lombok.Setter;
  *
  */
 
-@Getter
-@Setter
 @Named
 @ApplicationScoped
 public class DatabaseService {
 
 	private static final String CAYENNE_CONFIG = "cayenne-project.xml";
 
-	private ObjectContext context;
+	private ServerRuntime runtime;
 
 	@PostConstruct
 	void init() {
-		context = ServerRuntime.builder().addConfig(CAYENNE_CONFIG).build().newContext();
+		runtime = ServerRuntime.builder().addConfig(CAYENNE_CONFIG).build(); // db runntime
+
+		// ObjectContext context = BaseContext.getThreadObjectContext(); // session
+		// context
 	}
 
-	public Client clientByName() {
+	public ObjectContext newContext() {
+		return runtime.newContext();
+	}
+
+	public static Client clientByName(ObjectContext objectContext) {
 		// TODO String param with name
 		// insert into client (client_id, name) values (1, 'default')
-		return fetchAll(Client.class).get(0);
+		return fetchAll(objectContext, Client.class).get(0);
 	}
 
-	public <T extends BaseDataObject> T createNew(Class<T> clazz) {
+	public static <T extends BaseDataObject> T createNew(ObjectContext context, Class<T> clazz) {
 		return context.newObject(clazz);
 	}
 
-	public <T extends BaseDataObject> List<T> fetchAll(Class<T> clazz) {
+	public static <T extends BaseDataObject> List<T> fetchAll(ObjectContext context, Class<T> clazz) {
 		return context.select(SelectQuery.query(clazz));
 	}
 
-	public <T extends BaseDataObject> List<T> fetch(Class<T> clazz, Expression where) {
+	public static <T extends BaseDataObject> List<T> fetch(ObjectContext context, Class<T> clazz, Expression where) {
 		return ObjectSelect.query(clazz).where(where).select(context);
 	}
+
+	//
+	// Example:
+	// Artist a = ObjectSelect
+	// .query(Artist.class)
+	// .where(Artist.ARTIST_NAME.eq("Picasso"))
+	// .selectOne(context);
+
+	// List<String> names = ObjectSelect
+	// .columnQuery(Artist.class, Artist.ARTIST_NAME)
+	// .where(Artist.ARTIST_NAME.length().gt(6))
+	// .select(context);
+
 }

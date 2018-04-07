@@ -8,6 +8,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.cayenne.ObjectContext;
+import org.apache.cayenne.query.SelectQuery;
 import org.philmaster.boot.model.Car;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
@@ -24,7 +26,7 @@ public class CarDetail implements Serializable {
 
 	@Getter
 	@Setter
-	private Car selectedCar, newCar;
+	private Car newCar;
 
 	@Getter
 	private Client client;
@@ -36,16 +38,20 @@ public class CarDetail implements Serializable {
 	@Inject
 	private DatabaseService db;
 
+	private ObjectContext context;
+
 	@PostConstruct
 	public void init() {
-		client = db.clientByName();
+		context = db.newContext();
 
-		newCar = db.createNew(Car.class);
+		client = context.select(SelectQuery.query(Client.class)).get(0);
+	
+		newCar = context.newObject(Car.class);
 		newCar.setClientId(client.getId());
 	}
 
 	public void actionSave(ActionEvent actionEvent) {
-		db.getContext().commitChanges();
+		context.commitChanges();
 		Util.statusMessageInfo("Welcome", "saved");
 		currentLevel = 1;
 	}

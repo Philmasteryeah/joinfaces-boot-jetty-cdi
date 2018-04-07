@@ -9,12 +9,14 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.exp.ExpressionFactory;
 import org.philmaster.boot.model.Car;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.model.auto._Car;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
+import org.primefaces.event.SelectEvent;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,24 +29,35 @@ public class CarList implements Serializable {
 
 	@Inject
 	private DatabaseService db;
-	
+
 	@Getter
 	private Client client;
-	
+
 	@Getter
 	@Setter
 	private List<Car> cars;
 
+	@Getter
+	@Setter
+	private Car selectedCar;
+
+	private ObjectContext context;
 
 	@PostConstruct
 	public void init() {
-		client = db.clientByName();
-		cars = db.fetch(Car.class, ExpressionFactory.matchExp(_Car.CLIENT_ID.getName(), client.getId()));
+		context = db.newContext();
+		client = DatabaseService.clientByName(context);
+		cars = DatabaseService.fetch(context, Car.class,
+				ExpressionFactory.matchExp(_Car.CLIENT_ID.getName(), client.getId()));
+	}
+
+	public void onRowSelect(SelectEvent event) {
+		Util.statusMessageInfo("Car Selected", selectedCar.getId() + "");
 	}
 
 	public void actionSave(ActionEvent actionEvent) {
 		// not needed on list page but possible
-		db.getContext().commitChanges();
+		context.commitChanges();
 		Util.statusMessageInfo("Welcome", "saved");
 	}
 
