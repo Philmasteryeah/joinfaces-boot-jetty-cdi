@@ -11,11 +11,7 @@ before_install:
   - cd joinfaces
   - ./mvnw install -DskipTests=true -B
 
-install: ./mvnw clean validate -B
-
-script:
-  - ./mvnw install -DskipTests=true -B 
-  - ./mvnw verify -B
+install: ./mvnw install -DskipTests=true -B 
 
 after_success:
   - "[[ ${TRAVIS_PULL_REQUEST} == 'false' ]] && ./mvnw -B org.eluder.coveralls:coveralls-maven-plugin:4.3.0:report"
