@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import javax.sql.DataSource;
 
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
@@ -47,6 +48,10 @@ public class DatabaseService {
 
 	public ObjectContext newContext() {
 		return runtime.newContext();
+	}
+
+	public DataSource getDataSource() {
+		return runtime.getDataSource();
 	}
 
 	public static Client clientByName(ObjectContext objectContext) {

@@ -48,7 +48,7 @@ public class CarList implements Serializable {
 		context = db.newContext();
 		client = DatabaseService.clientByName(context);
 		cars = DatabaseService.fetch(context, Car.class,
-				ExpressionFactory.matchExp(_Car.CLIENT_ID.getName(), client.getId()));
+				ExpressionFactory.matchExp(_Car.CLIENT.getName(), client.getName()));
 	}
 
 	public void onRowSelect(SelectEvent event) {

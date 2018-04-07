@@ -45,9 +45,9 @@ public class CarDetail implements Serializable {
 		context = db.newContext();
 
 		client = context.select(SelectQuery.query(Client.class)).get(0);
-	
+
 		newCar = context.newObject(Car.class);
-		newCar.setClientId(client.getId());
+		newCar.setClient(client);
 	}
 
 	public void actionSave(ActionEvent actionEvent) {

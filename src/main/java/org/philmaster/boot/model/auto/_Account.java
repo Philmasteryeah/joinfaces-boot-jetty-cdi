@@ -21,12 +21,14 @@ public abstract class _Account extends BaseDataObject {
     public static final String ACCOUNT_ID_PK_COLUMN = "account_id";
 
     public static final Property<LocalDate> DATE_BIRTH = Property.create("dateBirth", LocalDate.class);
+    public static final Property<Boolean> ENABLED = Property.create("enabled", Boolean.class);
     public static final Property<String> NAME_FIRST = Property.create("nameFirst", String.class);
     public static final Property<String> NAME_LAST = Property.create("nameLast", String.class);
     public static final Property<String> PASSWORD = Property.create("password", String.class);
     public static final Property<String> USERNAME = Property.create("username", String.class);
 
     protected LocalDate dateBirth;
+    protected Boolean enabled;
     protected String nameFirst;
     protected String nameLast;
     protected String password;
@@ -41,6 +43,16 @@ public abstract class _Account extends BaseDataObject {
     public LocalDate getDateBirth() {
         beforePropertyRead("dateBirth");
         return this.dateBirth;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        beforePropertyWrite("enabled", this.enabled, enabled);
+        this.enabled = enabled;
+    }
+
+    public Boolean getEnabled() {
+        beforePropertyRead("enabled");
+        return this.enabled;
     }
 
     public void setNameFirst(String nameFirst) {
@@ -92,6 +104,8 @@ public abstract class _Account extends BaseDataObject {
         switch(propName) {
             case "dateBirth":
                 return this.dateBirth;
+            case "enabled":
+                return this.enabled;
             case "nameFirst":
                 return this.nameFirst;
             case "nameLast":
@@ -114,6 +128,9 @@ public abstract class _Account extends BaseDataObject {
         switch (propName) {
             case "dateBirth":
                 this.dateBirth = (LocalDate)val;
+                break;
+            case "enabled":
+                this.enabled = (Boolean)val;
                 break;
             case "nameFirst":
                 this.nameFirst = (String)val;
@@ -144,6 +161,7 @@ public abstract class _Account extends BaseDataObject {
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
         out.writeObject(this.dateBirth);
+        out.writeObject(this.enabled);
         out.writeObject(this.nameFirst);
         out.writeObject(this.nameLast);
         out.writeObject(this.password);
@@ -154,6 +172,7 @@ public abstract class _Account extends BaseDataObject {
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
         this.dateBirth = (LocalDate)in.readObject();
+        this.enabled = (Boolean)in.readObject();
         this.nameFirst = (String)in.readObject();
         this.nameLast = (String)in.readObject();
         this.password = (String)in.readObject();

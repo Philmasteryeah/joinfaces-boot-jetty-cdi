@@ -7,6 +7,7 @@
 	<db-entity name="account">
 		<db-attribute name="account_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
 		<db-attribute name="dateBirth" type="DATE"/>
+		<db-attribute name="enabled" type="BOOLEAN"/>
 		<db-attribute name="name_first" type="VARCHAR" length="255"/>
 		<db-attribute name="name_last" type="VARCHAR" length="255"/>
 		<db-attribute name="password" type="VARCHAR" length="255"/>
@@ -20,19 +21,19 @@
 	<db-entity name="client">
 		<db-attribute name="client_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
 		<db-attribute name="name" type="VARCHAR" length="255"/>
-		<db-attribute name="pictureLeft" type="BLOB"/>
-		<db-attribute name="pictureMid" type="BLOB"/>
-		<db-attribute name="pictureRight" type="BLOB"/>
+		<db-attribute name="pictureLeft" type="VARBINARY"/>
+		<db-attribute name="pictureMid" type="VARBINARY"/>
+		<db-attribute name="pictureRight" type="VARBINARY"/>
 	</db-entity>
 	<obj-entity name="Account" className="org.philmaster.boot.model.Account" dbEntityName="account">
 		<obj-attribute name="dateBirth" type="java.time.LocalDate" db-attribute-path="dateBirth"/>
+		<obj-attribute name="enabled" type="java.lang.Boolean" db-attribute-path="enabled"/>
 		<obj-attribute name="nameFirst" type="java.lang.String" db-attribute-path="name_first"/>
 		<obj-attribute name="nameLast" type="java.lang.String" db-attribute-path="name_last"/>
 		<obj-attribute name="password" type="java.lang.String" db-attribute-path="password"/>
 		<obj-attribute name="username" type="java.lang.String" db-attribute-path="username"/>
 	</obj-entity>
 	<obj-entity name="Car" className="org.philmaster.boot.model.Car" dbEntityName="car">
-		<obj-attribute name="clientId" type="int" db-attribute-path="client_id"/>
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
 	<obj-entity name="Client" className="org.philmaster.boot.model.Client" dbEntityName="client">
@@ -47,5 +48,6 @@
 	<db-relationship name="cars" source="client" target="car" toMany="true">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
+	<obj-relationship name="client" source="Car" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
 	<obj-relationship name="cars" source="Client" target="Car" deleteRule="Deny" db-relationship-path="cars"/>
 </data-map>
