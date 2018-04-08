@@ -85,9 +85,7 @@ public class Util {
 	public static Object getAccessibleField(@NonNull List<Field> fields, String sortField, Object obj) {
 		// field = java.lang.String org.philmaster.boot.model.auto._Car.name
 		// sortField = name
-		Field field = fields.stream()
-				.filter(f -> f.getName().replaceAll(".+\\.", "").equals(sortField))
-				.findFirst()
+		Field field = fields.stream().filter(f -> f.getName().replaceAll(".+\\.", "").equals(sortField)).findFirst()
 				.orElse(null);
 		if (field == null) {
 			LOGGER.info("field " + field + " not found");

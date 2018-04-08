@@ -6,9 +6,9 @@
  
 # joinfaces-boot-jetty-cdi
 - Java 9
-- Spring Boot v2.0.0.M7
-- PrimeFaces 6.1
-- Jetty 9.4.7.v20170914 
+- Spring Boot v2.0.1
+- PrimeFaces 6.2
+- Jetty 9.4.8.v20171121
 - CDI 2.0 (weld)
 - Postgres 42.2.0
 - Cayenne 4.1.M1
@@ -17,7 +17,7 @@
 ![alt text](https://abload.de/img/joinfaces_boot19swo.png)
 
 # Install Joinfaces
-- the new joinfaces with spring boot 2.0.0 is not availabe on maven atm
+- the new joinfaces with spring boot 2.0.1 is not availabe on maven atm
 - to start the application you need do the following steps in the GIT bash in your GIT home dir:
 ```
 $ git clone https://github.com/joinfaces/joinfaces.git
@@ -50,7 +50,8 @@ $ heroku open
 - select the jdbc driver from maven folder: .m2\repository\org\postgresql\postgresql\...
 
 # Start Apache Cayenne Generate Easy Model
-- TOOD
+- very nice tutorial
+- http://www.baeldung.com/apache-cayenne-orm
 
 # Postgresql Test shema
 - install postgres and run this query
@@ -84,20 +85,13 @@ INSERT INTO AUTO_PK_SUPPORT (TABLE_NAME, NEXT_ID) VALUES ('car', 200);
 - wait -> choose eclipse -> install -> quit
 - restart eclipse now complete and lombok should work
 
-# Tasks TODO
-- more Primefaces Examples working with CDI -> send me a pull request
-- model a simple account rights roles db sheme
-- add a english german translation
-
-# Tasks completed
-- login and redirect with pure spring security without beans 
-- programmatic Prime Faces menu and submenu with dynamic <ui:include src="..."/> components 
-- some growl messages
-- Apache Cayenne Modeler integrated
-- Postgres JDBC with Spring works -> JDBC Tempate
-- Cayenne Integration completed with orm class using
+# Highlights completed
+- login and redirect with spring security and cayenne database
+- automatic menu from application.yml
+- apache cayenne Integration completed with orm class using
 - lombok integation complete
-- menu from menu.property is working
+- messages from messages.properties -> translation possible
+- master detail page with list and database saving
 
 # THX
 - great project: https://github.com/joinfaces

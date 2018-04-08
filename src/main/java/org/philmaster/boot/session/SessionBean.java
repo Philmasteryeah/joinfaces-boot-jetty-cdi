@@ -37,6 +37,7 @@ public class SessionBean implements Serializable {
 
 	private Locale locale;
 	private String page, name, password;
+	private String username;
 
 	@PostConstruct
 	void init() {
