@@ -12,6 +12,7 @@ import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.query.ObjectSelect;
+import org.apache.cayenne.query.Ordering;
 import org.apache.cayenne.query.SelectQuery;
 import org.philmaster.boot.model.Client;
 
@@ -70,6 +71,10 @@ public class DatabaseService {
 
 	public static <T extends BaseDataObject> List<T> fetch(ObjectContext context, Class<T> clazz, Expression where) {
 		return ObjectSelect.query(clazz).where(where).select(context);
+	}
+	
+	public static <T extends BaseDataObject> List<T> fetch(ObjectContext context, Class<T> clazz, Expression where, Ordering order) {
+		return ObjectSelect.query(clazz).orderBy(order).where(where).select(context);
 	}
 
 	//

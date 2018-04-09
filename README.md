@@ -73,8 +73,7 @@ DELETE FROM AUTO_PK_SUPPORT WHERE TABLE_NAME IN ('account', 'car');
 INSERT INTO AUTO_PK_SUPPORT (TABLE_NAME, NEXT_ID) VALUES ('account', 200);
 
 INSERT INTO AUTO_PK_SUPPORT (TABLE_NAME, NEXT_ID) VALUES ('car', 200);
-
-````
+```
 - you can generate the query for other databaes too
 - mvn: cayenne-modeler:run
 - Tool -> Generate Database Schema
@@ -84,6 +83,25 @@ INSERT INTO AUTO_PK_SUPPORT (TABLE_NAME, NEXT_ID) VALUES ('car', 200);
 - run: java -jar C:\...\...\.m2\repository\org\projectlombok\lombok\1.16.16\lombok-1.16.16.jar
 - wait -> choose eclipse -> install -> quit
 - restart eclipse now complete and lombok should work
+
+# Direct Dependencies
+- org.joinfaces:spring-security-jsf-taglib:3.1.2-SNAPSHOT
+- org.joinfaces:jetty-spring-boot-starter:3.1.2-SNAPSHOT
+- org.joinfaces:jsf-spring-boot-starter:3.1.2-SNAPSHOT
+- org.joinfaces:primefaces-spring-boot-starter:3.1.2-SNAPSHOT
+- org.joinfaces:joinfaces-autoconfigure:3.1.2-SNAPSHOT
+- org.springframework:spring-jdbc:5.0.5.RELEASE
+- org.springframework.boot:spring-boot-starter-security:2.0.1.RELEASE
+- org.springframework.boot:spring-boot-starter-test:2.0.1.RELEASE
+- org.springframework.boot:spring-boot-configuration-processor:2.0.1.RELEASE
+- org.apache.cayenne:cayenne-server:4.1.M1
+- org.apache.cayenne.modeler:cayenne-modeler:4.1.M1
+- com.jayway.jsonpath:json-path:2.4.0
+- org.postgresql:postgresql:42.2.1
+- org.projectlombok:lombok:1.16.20
+- org.apache.poi:poi:3.7
+- org.apache.poi:poi-ooxml:3.7
+- com.lowagie:itext:2.1.7
 
 # Highlights completed
 - login and redirect with spring security and cayenne database

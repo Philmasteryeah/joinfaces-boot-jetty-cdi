@@ -9,11 +9,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.exp.ExpressionFactory;
 import org.philmaster.boot.model.Car;
 import org.philmaster.boot.model.Client;
-import org.philmaster.boot.model.auto._Car;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
 import org.primefaces.event.SelectEvent;
@@ -50,12 +50,11 @@ public class DownloadView implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		context = db.newContext();
+		context = BaseContext.getThreadObjectContext();
 
 		client = DatabaseService.clientByName(context);
 
-		cars = DatabaseService.fetch(context, Car.class,
-				ExpressionFactory.matchExp(_Car.CLIENT.getName(), client.getName()));
+		cars = DatabaseService.fetch(context, Car.class, ExpressionFactory.matchExp(client));
 
 	}
 

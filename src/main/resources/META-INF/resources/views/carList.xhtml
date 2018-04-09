@@ -21,38 +21,27 @@
 					onRowSelect="#{carList.onRowSelect}" rowKey="#{row.id}"
 					fileNameExport="cars">
 					<p:column style="width:32px;">#{row.id}</p:column>
-					<p:column headerText="Name" sortBy="#{car.name}">
-						<p:commandLink update=":form:masterDetail">
+					<p:column headerText="Name">
+						<p:commandLink update=":form:masterDetail" action="#{carDetail.setDetailObject(row)}" >
 							#{row.name != null ? row.name : "..."}
-							<pe:selectDetailLevel contextValue="#{row}" />
+							<pe:selectDetailLevel level="2" />
 						</p:commandLink>
 					</p:column>
 					<p:column headerText="ObjectId" sortBy="#{row.id}">
 						#{row.objectId}
 					</p:column>
 				</pm:pmList>
+				
+				<p:commandButton value="New" update="form" style="margin-top: 10px;"
+					icon="ui-icon-disk" action="#{carDetail.setDetailObject(null)}">
+					<pe:selectDetailLevel level="2"/>
+				</p:commandButton>
 
 			</pe:masterDetailLevel>
 
-			<pe:masterDetailLevel level="2" levelLabel="Detail"
-				contextVar="detailObject">
+			<pe:masterDetailLevel level="2" levelLabel="Detail">
 				<!-- Detail Page -->
-
-				<p:panel header="Detail">
-					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
-						<h:outputText value="Name: " />
-						<p:inputText value="#{detailObject.name}" />
-					</h:panelGrid>
-				</p:panel>
-				<p:commandButton value="Back" style="margin-top: 10px;"
-					icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
-					<pe:selectDetailLevel step="-1" />
-				</p:commandButton>
-				<p:commandButton value="Submit" process="masterDetail"
-					actionListener="#{carDetail.actionSave}" style="margin-top: 10px;"
-					icon="ui-icon-disk">
-					<pe:selectDetailLevel level="1" />
-				</p:commandButton>
+				<ui:include src="/views/carDetail.xhtml" />
 
 			</pe:masterDetailLevel>
 		</pe:masterDetail>

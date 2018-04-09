@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -33,32 +32,34 @@ public class CarList implements Serializable {
 	@Getter
 	private Client client;
 
-	@Getter
-	@Setter
 	private List<Car> cars;
 
 	@Getter
 	@Setter
 	private Car selectedCar;
 
+	@Getter
 	private ObjectContext context;
 
 	@PostConstruct
 	public void init() {
 		context = db.newContext();
 		client = DatabaseService.clientByName(context);
-		cars = DatabaseService.fetch(context, Car.class,
-				ExpressionFactory.matchExp(_Car.CLIENT.getName(), client.getName()));
+
 	}
 
 	public void onRowSelect(SelectEvent event) {
 		Util.statusMessageInfo("Car Selected", selectedCar.getId() + "");
 	}
 
-	public void actionSave(ActionEvent actionEvent) {
-		// not needed on list page but possible
-		context.commitChanges();
-		Util.statusMessageInfo("Welcome", "saved");
+	public List<Car> getCars() {
+		if (cars == null)
+			cars = DatabaseService.fetch(context, Car.class, ExpressionFactory.matchExp(client), Car.NAME.ascInsensitive());
+		return cars;
+	}
+
+	public void refresh() {
+		cars = null;
 	}
 
 }

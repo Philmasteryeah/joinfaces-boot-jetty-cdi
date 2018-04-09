@@ -4,86 +4,22 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:pm="http://java.sun.com/jsf/composite/components"
-	template="/templates/frame.xhtml">
-	<ui:define name="content">
-		<!-- testing  deeper detail level here-->
-		<pe:masterDetail id="masterDetail" level="#{carView.currentLevel}"
-			levelLabel="Detail">
-			<f:facet name="header">
-				<p:messages showDetail="true" />
-			</f:facet>
-			<pe:masterDetailLevel level="1">
-				<p:panel header="Personal Details">
-					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
-						<h:outputText value="Firstname: *" />
-						<p:inputText required="true" label="Firstname"
-							value="#{carView.testCar.name}" />
-					</h:panelGrid>
-				</p:panel>
-				<p:commandButton value="Next" process="masterDetail"
-					style="margin-top: 10px;" icon="ui-icon-arrowthick-1-e">
-					<pe:selectDetailLevel step="1" />
-				</p:commandButton>
-				<p:commandButton value="Go to Save" process="masterDetail"
-					style="margin-top: 10px;" icon="ui-icon-arrowthickstop-1-e">
-					<pe:selectDetailLevel level="4" />
-				</p:commandButton>
-			</pe:masterDetailLevel>
+	xmlns:pm="http://java.sun.com/jsf/composite/components">
 
-			<pe:masterDetailLevel level="2" levelLabel="Adress Details">
-				<p:panel header="Adress Details">
-					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
-						<h:outputText value="Street: " />
-						<p:inputText value="#{carView.testCar.name}" />
-					</h:panelGrid>
-				</p:panel>
-				<p:commandButton value="Back" style="margin-top: 10px;"
-					icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
-					<pe:selectDetailLevel step="-1" />
-				</p:commandButton>
-				<p:commandButton value="Next" process="masterDetail"
-					style="margin-top: 10px;" icon="ui-icon-arrowthick-1-e">
-					<pe:selectDetailLevel step="1" />
-				</p:commandButton>
-			</pe:masterDetailLevel>
 
-			<pe:masterDetailLevel level="3" levelLabel="Contact Information">
-				<p:panel header="Contact Information">
-					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
-						<h:outputText value="Additional Info: " />
-						<p:inputText value="#{carView.testCar.name}" />
-					</h:panelGrid>
-				</p:panel>
-				<p:commandButton value="Back" style="margin-top: 10px;"
-					icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
-					<pe:selectDetailLevel step="-1" />
-				</p:commandButton>
-				<p:commandButton value="Next" process="masterDetail"
-					style="margin-top: 10px;" icon="ui-icon-arrowthick-1-e">
-					<pe:selectDetailLevel step="1" />
-				</p:commandButton>
-			</pe:masterDetailLevel>
-
-			<pe:masterDetailLevel level="4" levelLabel="Confirmation">
-				<p:panel header="Confirmation">
-					<h:panelGrid id="confirmation" columns="2"
-						columnClasses="formColumn1,formColumn2">
-						<h:outputText value="Firstname: " />
-						<h:outputText value="#{carView.testCar.name}" />
-					</h:panelGrid>
-				</p:panel>
-				<p:commandButton value="Back" style="margin-top: 10px;"
-					icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
-					<pe:selectDetailLevel step="-1" />
-				</p:commandButton>
-				<p:commandButton value="Submit" process="masterDetail"
-					actionListener="#{carView.actionSave}" style="margin-top: 10px;"
-					icon="ui-icon-disk">
-					<pe:selectDetailLevel level="1" />
-				</p:commandButton>
-			</pe:masterDetailLevel>
-		</pe:masterDetail>
-
-	</ui:define>
+	<p:panel header="Detail">
+		<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
+			<h:outputText value="Name: " />
+			<p:inputText value="#{carDetail.detailObject.name}" />
+		</h:panelGrid>
+	</p:panel>
+	<p:commandButton value="Back" style="margin-top: 10px;"
+		icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
+		<pe:selectDetailLevel step="-1" />
+	</p:commandButton>
+	<p:commandButton value="Save" process="masterDetail"
+		actionListener="#{carDetail.actionSave}"
+		style="margin-top:10px;" icon="ui-icon-disk">
+		<pe:selectDetailLevel level="1" resetInputs="@all" />
+	</p:commandButton>
 </ui:composition>
