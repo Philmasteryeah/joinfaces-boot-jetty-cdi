@@ -16,7 +16,7 @@
 			<pe:masterDetailLevel level="1" levelLabel="Übersicht">
 				<!-- List Page -->
 
-				<pm:pmList id="cartable" var="row" value="#{carList.cars}" rows="10"
+				<pm:pmList id="cartable" var="row" value="#{carList.cars}" rows="20"
 					selection="#{carList.selectedCar}"
 					onRowSelect="#{carList.onRowSelect}" rowKey="#{row.id}"
 					fileNameExport="cars">
@@ -36,7 +36,9 @@
 					icon="ui-icon-disk" action="#{carDetail.setDetailObject(null)}">
 					<pe:selectDetailLevel level="2"/>
 				</p:commandButton>
-
+				<p:commandButton value="TestAdd" update="form" style="margin-top: 10px;"
+					icon="ui-icon-disk" actionListener="#{carDetail.actionAdd}">
+				</p:commandButton>
 			</pe:masterDetailLevel>
 
 			<pe:masterDetailLevel level="2" levelLabel="Detail">

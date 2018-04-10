@@ -6,7 +6,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -49,6 +54,17 @@ public class Util {
 		Path path = Files.createTempFile(prefix, "." + suffix);
 		Files.write(path, bytes);
 		return path;
+	}
+
+	public static String randomAlphanumericString(int length) {
+		return randomAlphanumericString32().substring(0, length);
+	}
+
+	public static String randomAlphanumericString32() {
+		// 2d7428a6-b58c-4008-8575-f05549f16316 - 36
+		List<char[]> characters = Arrays.asList(UUID.randomUUID().toString().replaceAll("-", "").toCharArray());
+		Collections.shuffle(characters);
+		return characters.stream().map(c -> String.valueOf(c)).collect(Collectors.joining());// alphanumeric - 32
 	}
 
 	// status message

@@ -22,12 +22,12 @@
 	<cc:implementation>
 		<p:dataTable value="#{cc.attrs.value}"
 			filteredValue="#{cc.attrs.value}" id="#{cc.attrs.id}"
-			paginator="true" rows="25" selection="#{cc.attrs.selection}"
+			paginator="true" rows="#{cc.attrs.rows}" selection="#{cc.attrs.selection}"
 			selectionMode="single" rowKey="#{cc.attrs.rowKey}"
 			currentPageReportTemplate="Showing {startRecord}-{endRecord} of     {totalRecords}"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
 			rowsPerPageTemplate="10,25,50,100" paginatorPosition="bottom"
-			scrollHeight="260" scrollable="true" lazy="false">
+			lazy="false">
 			<f:facet name="header">
            Header
             </f:facet>
