@@ -47,6 +47,7 @@ public class CarDetail implements Serializable {
 	public void setDetailObject(Car car) {
 		
 		if (car == null) {
+			
 			// new object
 			detailObject = context.newObject(Car.class);
 			detailObject.setClient(client);
@@ -64,13 +65,13 @@ public class CarDetail implements Serializable {
 	
 	public void actionAdd(ActionEvent actionEvent) {
 		
-		for (int i = 0; i < 10; i++) {
-			Car.createRandomTestCar(context, client);
-		}		
-		
-		
-		//context.commitChanges();
-		Util.statusMessageInfo("Welcome", "saved");
+//		for (int i = 0; i < 10; i++) {
+//			Car.createRandomTestCar(context, client);
+//		}		
+//		
+//		
+//		//context.commitChanges();
+//		Util.statusMessageInfo("Welcome", "saved");
 		
 	}
 
