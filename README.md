@@ -5,7 +5,7 @@
  
  
 # joinfaces-boot-jetty-cdi
-- Java 9
+- Java 10
 - Spring Boot v2.0.1
 - PrimeFaces 6.2
 - Jetty 9.4.8.v20171121

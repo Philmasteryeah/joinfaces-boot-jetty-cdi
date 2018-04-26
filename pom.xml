@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<primefaces-theme.version>1.0.10</primefaces-theme.version>
 		<all-themes.version>1.0.10</all-themes.version>
-		<java.version>9</java.version>
+		<java.version>10</java.version>
 		<cdi.version>2.0</cdi.version>
 		<javax.faces.version>2.3.3</javax.faces.version>
 		<glassfish-el.version>3.0.1-b09</glassfish-el.version>
