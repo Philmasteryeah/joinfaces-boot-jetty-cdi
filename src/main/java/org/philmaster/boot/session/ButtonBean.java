@@ -2,6 +2,7 @@ package org.philmaster.boot.session;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
@@ -23,8 +24,21 @@ public class ButtonBean implements Serializable {
 
 	// ##########Test############
 
+	@PostConstruct
+	public void init() {
+	}
+
 	public void buttonAction(ActionEvent actionEvent) {
 		System.err.println(actionEvent + " ");
 		Util.statusMessageInfo("Welcome", "test");
 	}
+
+	public void buttonTest(ActionEvent actionEvent) throws Exception {
+		System.err.println(actionEvent + " ");
+		Util.statusMessageInfo("Welcome", "test");
+
+		// Testing stuff here
+		// meals.forEach(System.err::println);
+	}
+
 }

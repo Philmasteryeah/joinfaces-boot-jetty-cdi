@@ -12,7 +12,6 @@ import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.exp.ExpressionFactory;
 import org.philmaster.boot.model.Car;
 import org.philmaster.boot.model.Client;
-import org.philmaster.boot.model.auto._Car;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
 import org.primefaces.event.SelectEvent;
@@ -54,7 +53,8 @@ public class CarList implements Serializable {
 
 	public List<Car> getCars() {
 		if (cars == null)
-			cars = DatabaseService.fetch(context, Car.class, ExpressionFactory.matchExp(client), Car.NAME.ascInsensitive());
+			cars = DatabaseService.fetch(context, Car.class, ExpressionFactory.matchExp(client),
+					Car.NAME.ascInsensitive());
 		return cars;
 	}
 

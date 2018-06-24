@@ -38,3 +38,7 @@ menu:
       pageName: carList
       icon: ui-icon-key
       isAjax: false
+    - title: Food
+      pageName: food
+      icon: ui-icon-person
+      isAjax: false
