@@ -13,14 +13,16 @@
 			actionListener="#{buttonBean.buttonTest}" update="growl" />
 
 
-		<pm:pmList id="cartable" var="row" value="#{foodList.meals}"
-			rows="20" selection="#{foodList.selectedMeal}"
+		<pm:pmList id="cartable" var="row" value="#{foodList.meals}" rows="20"
+			selection="#{foodList.selectedMeal}"
 			onRowSelect="#{foodList.onRowSelect}" rowKey="#{row.desc}"
 			fileNameExport="cars">
 			<p:column sortBy="#{row.day}" headerText="day">#{row.day}</p:column>
 			<p:column sortBy="#{row.type}" headerText="type">#{row.type}</p:column>
 			<p:column sortBy="#{row.desc}" headerText="desc">#{row.desc}</p:column>
 			<p:column sortBy="#{row.price}" headerText="price">#{row.price}</p:column>
+			<p:column sortBy="#{row.kcal}" headerText="kcal">#{row.kcal}</p:column>
+
 		</pm:pmList>
 
 	</ui:define>
