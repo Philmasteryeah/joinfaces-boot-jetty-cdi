@@ -13,17 +13,51 @@
 			actionListener="#{buttonBean.buttonTest}" update="growl" />
 
 
-		<pm:pmList id="cartable" var="row" value="#{foodList.meals}" rows="20"
-			selection="#{foodList.selectedMeal}"
-			onRowSelect="#{foodList.onRowSelect}" rowKey="#{row.desc}"
-			fileNameExport="cars">
-			<p:column sortBy="#{row.day}" headerText="day">#{row.day}</p:column>
-			<p:column sortBy="#{row.type}" headerText="type">#{row.type}</p:column>
-			<p:column sortBy="#{row.desc}" headerText="desc">#{row.desc}</p:column>
-			<p:column sortBy="#{row.price}" headerText="price">#{row.price}</p:column>
-			<p:column sortBy="#{row.kcal}" headerText="kcal">#{row.kcal}</p:column>
+		<p:dataTable var="meal" value="#{foodList.meals}"
+			filteredValue="#{foodList.mealsFiltered}" widgetVar="mealTable"
+			emptyMessage="No meals found with given criteria">
 
-		</pm:pmList>
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Search all fields:" />
+					<p:inputText id="globalFilter" onkeyup="PF('mealTable').filter()"
+						style="width:150px" placeholder="Enter keyword" />
+				</p:outputPanel>
+			</f:facet>
+
+			<p:column filterBy="#{meal.dayPrettyPrinted()}" sortBy="#{meal.dayPrettyPrinted()}"  headerText="Tag">
+				<f:facet name="filter">
+					<p:selectOneButton onchange="PF('mealTable').filter()">
+						<f:selectItem itemLabel="Montag" itemValue="Montag" />
+						<f:selectItem itemLabel="Dienstag" itemValue="Dienstag" />
+						<f:selectItem itemLabel="Mittwoch" itemValue="Mittwoch" />
+						<f:selectItem itemLabel="Donnerstag" itemValue="Donnerstag" />
+						<f:selectItem itemLabel="Freitag" itemValue="Freitag" />
+					</p:selectOneButton>
+				</f:facet>
+				<h:outputText value="#{meal.dayPrettyPrinted()}" />
+			</p:column>
+			
+			<p:column filterBy="#{meal.type}" headerText="type"
+				footerText="contains" sortBy="#{meal.type}"
+				filterMatchMode="contains">
+				#{meal.type}
+			</p:column>
+			
+			<p:column filterBy="#{meal.desc}" headerText="desc"
+				footerText="contains" sortBy="#{meal.desc}"
+				filterMatchMode="contains">
+				#{meal.desc}
+			</p:column>
+
+			<p:column filterBy="#{meal.price}" headerText="Price"
+				footerText="custom (min)" filterFunction="#{foodList.filterByPrice}" sortBy="#{meal.price}">
+				<h:outputText value="#{meal.price}">
+					<f:convertNumber currencySymbol="€" type="currency" />
+				</h:outputText>
+			</p:column>
+		</p:dataTable>
+
 
 	</ui:define>
 </ui:composition>

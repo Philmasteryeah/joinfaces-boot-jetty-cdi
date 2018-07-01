@@ -2,7 +2,9 @@ package org.philmaster.boot.model;
 
 import java.io.Serializable;
 import java.time.DayOfWeek;
+import java.time.format.TextStyle;
 import java.util.Arrays;
+import java.util.Locale;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,14 +15,12 @@ public class Meal implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Getter
 	public static enum TypePrice {
 		EINTOPF("Eintopf", 3.25f), TRADITIONELL_1("Traditionell 1", 3.30f), TRADITIONELL_2("Traditionell 2", 3.30f),
 		KLEINER_HUNGER("Kleiner Hunger", 2.80f), VITAL("Vital", 3.90f), FESTTAGSMENUE("Festtagsmenü", 4.0f),
 		SONDERMENUE("Sondermenü", 5.79f), DESSERT("Dessert", 1.2f), SALAT("Beilagensalat", 0.8f);
 
 		// Sondermenü is changing every week
-
 		private String name;
 		private float price;
 
@@ -39,13 +39,29 @@ public class Meal implements Serializable {
 			return tp != null ? tp.getPrice() : 0.0f;
 		}
 
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public float getPrice() {
+			return price;
+		}
+
+		public void setPrice(float price) {
+			this.price = price;
+		}
+
 	}
 
-	public DayOfWeek day;
-	public String type;
-	public String desc;
-	public String kcal;
-	public float price;
+	private DayOfWeek day;
+	private String type;
+	private String desc;
+	private String kcal;
+	private float price;
 
 	public Meal(DayOfWeek day, String type, String desc, float price, String kcal) {
 		super();
@@ -54,6 +70,10 @@ public class Meal implements Serializable {
 		this.desc = desc;
 		this.price = price;
 		this.kcal = kcal;
+	}
+
+	public String dayPrettyPrinted() {
+		return this.day.getDisplayName(TextStyle.FULL, Locale.GERMAN);
 	}
 
 	@Override
