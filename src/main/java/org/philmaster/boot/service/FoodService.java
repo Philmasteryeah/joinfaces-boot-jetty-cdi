@@ -1,5 +1,6 @@
 package org.philmaster.boot.service;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +24,10 @@ import org.philmaster.boot.model.Meal;
 
 @Named
 @ApplicationScoped
-public class FoodService {
+public class FoodService implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private static final String URL = "https://bestellung-rastenberger.mms-rcs.de/menu/3/2018-06-25/2018-07-01/";
 
 	@PostConstruct
