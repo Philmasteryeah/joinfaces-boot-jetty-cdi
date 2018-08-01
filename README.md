@@ -8,7 +8,7 @@
 - Java 10
 - Spring Boot v2.0.1
 - PrimeFaces 6.2
-- Jetty 9.4.8.v20171121
+- Jetty 9
 - CDI 2.0 (weld)
 - Postgres 42.2.0
 - Cayenne 4.1.M1
@@ -16,14 +16,29 @@
 
 ![alt text](https://abload.de/img/joinfaces_boot19swo.png)
 
-# Install Joinfaces
-- the new joinfaces with spring boot 2.0.1 is not availabe on maven atm
+
+# Local Deployment
+- you should not need postgres for deploying 
+
+```
+$ git clone https://github.com/Philmasteryeah/joinfaces-boot-jetty-cdi.git
+$ cd joinfaces-boot-jetty-cdi
+$ mvn spring-boot:run
+```
+
+- open your browser on [http://localhost:9090/index.xhtml](http://localhost:9090/index.xhtml)
+- login with sa // test 
+
+# Install milestone Joinfaces (for enthusiasts)  
+- the milestone releases of joinfaces are not availabe on maven
 - to start the application you need do the following steps in the GIT bash in your GIT home dir:
+
 ```
 $ git clone https://github.com/joinfaces/joinfaces.git
 $ cd joinfaces
 $ mvnw.cmd install
 ```
+
 - this will install the brand new bloody edge joinfaces in your local maven directory
 - now it should start properly
  
@@ -31,6 +46,7 @@ $ mvnw.cmd install
 - create a Heroku account
 - follow this instructions: https://devcenter.heroku.com/articles/getting-started-with-java#set-up
 - download the Heroku CLI from the link and open cmd as admin
+
 ```
 $ heroku login
 $ cd <your project>
@@ -39,6 +55,7 @@ $ git push heroku master
 $ heroku ps:scale web=1
 $ heroku open
 ```
+
 - this example App: https://ancient-gorge-66249.herokuapp.com/login.xhtml
 - sa // 1
 
@@ -55,6 +72,7 @@ $ heroku open
 
 # Postgresql Test shema
 - install postgres and run this query
+
 ```
 DROP TABLE car;
 
@@ -74,6 +92,7 @@ INSERT INTO AUTO_PK_SUPPORT (TABLE_NAME, NEXT_ID) VALUES ('account', 200);
 
 INSERT INTO AUTO_PK_SUPPORT (TABLE_NAME, NEXT_ID) VALUES ('car', 200);
 ```
+
 - you can generate the query for other databaes too
 - mvn: cayenne-modeler:run
 - Tool -> Generate Database Schema
