@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.philmaster.boot.service.DatabaseService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,8 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter
-		implements ApplicationListener<InteractiveAuthenticationSuccessEvent> {
+public class SecurityConfig implements ApplicationListener<InteractiveAuthenticationSuccessEvent> {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
@@ -32,27 +32,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 				.usersByUsernameQuery("SELECT username, password, enabled FROM account WHERE username=?")
 				.authoritiesByUsernameQuery("SELECT username, 'ADMIN' FROM account WHERE username=?").and()
 				.inMemoryAuthentication().withUser("sa").password("{noop}test").roles("ADMIN");
+		// noop password encoder is important for the forbidden http get on rest auth
 	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
+	@Configuration
+	@Order(1)
+	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+		protected void configure(HttpSecurity http) throws Exception {
+			// rest Login
+			http.antMatcher("/test/**").authorizeRequests().anyRequest().hasRole("ADMIN").and().httpBasic().and().csrf()
+					.disable();
+		}
+	}
 
-		http.authorizeRequests().antMatchers("/", "/login.xhtml", "/javax.faces.resource/**").permitAll().anyRequest()
-				.fullyAuthenticated().and().formLogin().loginPage("/login.xhtml").defaultSuccessUrl("/index.xhtml")
-				.failureUrl("/login.xhtml?error=true").permitAll().and().logout().logoutSuccessUrl("/login.xhtml");
+	@Configuration
+	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
-		// allow to use ressource links like pdf
-		http.headers().frameOptions().sameOrigin();
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+			// form login
+			http.authorizeRequests().antMatchers("/", "/login.xhtml", "/javax.faces.resource/**").permitAll()
+					.anyRequest().fullyAuthenticated().and().formLogin().loginPage("/login.xhtml")
+					.defaultSuccessUrl("/index.xhtml").failureUrl("/login.xhtml?error=true").permitAll().and().logout()
+					.logoutSuccessUrl("/login.xhtml").and().csrf().disable();
+			// allow to use ressource links like pdf
+			http.headers().frameOptions().sameOrigin();
+		}
 
 	}
 
 	@Override
 	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
-		// onLogin
+		// onLogin testing
 		UserDetails userDetails = (UserDetails) event.getAuthentication().getPrincipal();
 		// session.setUsername(userDetails.getUsername());
 		LOGGER.info("onLogin: " + userDetails);
 	}
-
 }

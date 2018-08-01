@@ -81,4 +81,8 @@ public class Meal implements Serializable {
 		return "Meal [day=" + day + ", type=" + type + ", desc=" + desc + ", kcal=" + kcal + ", price=" + price + "]";
 	}
 
+	public static Meal getTestMeal() {
+		return new Meal(DayOfWeek.MONDAY, "Eintopf", "Test", 3.99f, "500 kccal");
+	}
+
 }
