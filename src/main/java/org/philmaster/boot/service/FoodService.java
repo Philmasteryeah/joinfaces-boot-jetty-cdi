@@ -28,7 +28,7 @@ public class FoodService implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String URL = "https://bestellung-rastenberger.mms-rcs.de/menu/3/2018-06-25/2018-07-01/";
+	private static final String URL = "https://www.bestellung-rastenberger.de/menu/3/2018-07-30/2018-08-05/";
 
 	@PostConstruct
 	void init() {
