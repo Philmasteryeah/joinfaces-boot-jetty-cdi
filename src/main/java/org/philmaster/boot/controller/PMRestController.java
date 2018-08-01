@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PMRestController {
 
-	@RequestMapping(value = "/person", method = RequestMethod.GET, produces = "application/xml", headers = "Accept=*/*")
+	@RequestMapping(value = "/test/person", method = RequestMethod.GET, produces = "application/xml", headers = "Accept=*/*")
 	public @ResponseBody String getPerson() {
 
 		return "person";
 	}
 
-	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/xml", headers = "Accept=*/*")
+	@RequestMapping(value = "/test/test", method = RequestMethod.GET, produces = "application/xml", headers = "Accept=*/*")
 	public String test() {
 		System.err.println("test");
 		return "<?xmlss version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + "\r\n" + "<shiporder orderid=\"889923\"\r\n"
