@@ -52,6 +52,7 @@ public class FoodList implements Serializable {
 		Util.statusMessageInfo("Car Selected", selectedMeal + "");
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public boolean filterByPrice(Object value, Object filter, Locale locale) {
 		String filterText = (filter == null) ? null : filter.toString().trim();
 		if (filterText == null || filterText.equals("")) {

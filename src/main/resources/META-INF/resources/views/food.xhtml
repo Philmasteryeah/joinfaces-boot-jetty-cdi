@@ -25,7 +25,7 @@
 				</p:outputPanel>
 			</f:facet>
 
-			<p:column filterBy="#{meal.dayPrettyPrinted()}" sortBy="#{meal.dayPrettyPrinted()}"  headerText="Tag">
+			<p:column filterBy="#{meal.dayName}" sortBy="#{meal.dayName}"  headerText="Tag">
 				<f:facet name="filter">
 					<p:selectOneButton onchange="PF('mealTable').filter()">
 						<f:selectItem itemLabel="Montag" itemValue="Montag" />
@@ -35,7 +35,7 @@
 						<f:selectItem itemLabel="Freitag" itemValue="Freitag" />
 					</p:selectOneButton>
 				</f:facet>
-				<h:outputText value="#{meal.dayPrettyPrinted()}" />
+				<h:outputText value="#{meal.dayName}" />
 			</p:column>
 			
 			<p:column filterBy="#{meal.type}" headerText="type"

@@ -40,7 +40,7 @@ public class SecurityConfig implements ApplicationListener<InteractiveAuthentica
 	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 		protected void configure(HttpSecurity http) throws Exception {
 			// rest Login
-			http.antMatcher("/test/**").authorizeRequests().anyRequest().hasRole("ADMIN").and().httpBasic().and().csrf()
+			http.antMatcher("/rest/**").authorizeRequests().anyRequest().hasRole("ADMIN").and().httpBasic().and().csrf()
 					.disable();
 		}
 	}

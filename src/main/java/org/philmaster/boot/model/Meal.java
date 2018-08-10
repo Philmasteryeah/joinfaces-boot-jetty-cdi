@@ -21,7 +21,12 @@ public class Meal implements Serializable {
 		SONDERMENUE("Sondermenü", 5.79f), DESSERT("Dessert", 1.2f), SALAT("Beilagensalat", 0.8f);
 
 		// Sondermenü is changing every week
+		@Getter
+		@Setter
 		private String name;
+
+		@Getter
+		@Setter
 		private float price;
 
 		TypePrice(String name, float price) {
@@ -39,25 +44,9 @@ public class Meal implements Serializable {
 			return tp != null ? tp.getPrice() : 0.0f;
 		}
 
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public float getPrice() {
-			return price;
-		}
-
-		public void setPrice(float price) {
-			this.price = price;
-		}
-
 	}
 
-	private DayOfWeek day;
+	private String dayName;
 	private String type;
 	private String desc;
 	private String kcal;
@@ -65,20 +54,17 @@ public class Meal implements Serializable {
 
 	public Meal(DayOfWeek day, String type, String desc, float price, String kcal) {
 		super();
-		this.day = day;
+		this.dayName = day.getDisplayName(TextStyle.FULL, Locale.GERMAN);
 		this.type = type;
 		this.desc = desc;
 		this.price = price;
 		this.kcal = kcal;
 	}
 
-	public String dayPrettyPrinted() {
-		return this.day.getDisplayName(TextStyle.FULL, Locale.GERMAN);
-	}
-
 	@Override
 	public String toString() {
-		return "Meal [day=" + day + ", type=" + type + ", desc=" + desc + ", kcal=" + kcal + ", price=" + price + "]";
+		return "Meal [day=" + dayName + ", type=" + type + ", desc=" + desc + ", kcal=" + kcal + ", price=" + price
+				+ "]";
 	}
 
 	public static Meal getTestMeal() {

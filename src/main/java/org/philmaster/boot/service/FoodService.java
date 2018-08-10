@@ -1,5 +1,6 @@
 package org.philmaster.boot.service;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -27,20 +28,32 @@ import org.philmaster.boot.model.Meal;
 public class FoodService implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	// TODO date dynamic
 	private static final String URL = "https://www.bestellung-rastenberger.de/menu/3/2018-07-30/2018-08-05/";
 
 	@PostConstruct
 	void init() {
 	}
 
-	public List<Meal> getParsedMeals() throws Exception {
-		Document doc = Jsoup.connect(URL).get();
+	private Document parseUrlToDocument() {
+		try {
+			return Jsoup.connect(URL).get();
+		} catch (IOException e) {
+			System.err.println(e); // TODO
+		}
+		return null;
+	}
+
+	public List<Meal> getParsedMeals() {
+		Document doc = parseUrlToDocument();
+		if (doc == null)
+			return null;
+
 		Elements menuRows = doc.getElementById("menu-table_KW").select("tbody").get(0).select("tr");
 
 		List<Meal> meals = new ArrayList<>();
-
-		// erste row ist Header deswegen skippen
+		// skip header
 		for (int i = 1; i < menuRows.size(); i++) {
 			Element menuRow = menuRows.get(i);
 
@@ -56,6 +69,7 @@ public class FoodService implements Serializable {
 			for (int dayIndex = 0; dayIndex < 5; dayIndex++) {
 				String desc = rows.select("td").get(dayIndex).text();
 				String kcal = parseKcal(desc);
+				desc = desc.replaceAll(kcal, ""); // dont want it two times
 				DayOfWeek day = DayOfWeek.of(dayIndex + 1);
 				float price = Meal.TypePrice.getPrice(type);
 

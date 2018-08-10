@@ -2,10 +2,12 @@ package org.philmaster.boot.util;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -35,7 +37,7 @@ public class Util {
 			String text = new String(Files.readAllBytes(tmpFile), StandardCharsets.UTF_8);
 			return text;
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println(e); // TODO
 		}
 		return null;
 	}
@@ -109,9 +111,8 @@ public class Util {
 		try {
 			return field.get(obj);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
-			e.printStackTrace();
+			System.err.println(e); // TODO
 			return null;
 		}
 	}
-
 }
