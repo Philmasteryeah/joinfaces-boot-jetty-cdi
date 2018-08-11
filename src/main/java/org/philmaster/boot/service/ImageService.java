@@ -3,14 +3,22 @@ package org.philmaster.boot.service;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.primefaces.json.JSONArray;
+import org.primefaces.json.JSONException;
+import org.primefaces.json.JSONObject;
 
 import com.google.common.base.Charsets;
 
@@ -26,27 +34,53 @@ public class ImageService implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String API_KEY = "9791405-a7197fafe0a8ea969281cb9f5"; // this should be secret
+	private static final int API_QUERY_LIMIT = 100;
 
-	private static final String URL = "https://pixabay.com/api/?key=" + API_KEY + "&image_type=photo&pretty=true";
+	private static final String URL = "https://pixabay.com/api/?key=" + API_KEY
+			+ "&image_type=photo&pretty=true&category=food";
 
 	@PostConstruct
 	void init() {
 	}
 
-	public String getParsedImage() {
-		String url = URL + "&q=yellow+flowers"; // addparam TODO from meal desc
+	public String getTestImage() {
+		return getBase64ImageFromTags("yellow flowers");
+	}
+
+	public String getBase64ImageFromTags(String desc) {
+
+		// [a-zA-Z]{5,} TODO
+		List<String> tagList = new ArrayList<>();
+		Pattern p = Pattern.compile("[a-zA-Z]{5,}");
+		Matcher m = p.matcher(desc);
+		if (m.find()) {
+			String val = m.group(0);
+			// System.err.println("->" + val);
+			tagList.add(val);
+		}
+
+		desc = desc.substring(0, desc.length() > API_QUERY_LIMIT ? API_QUERY_LIMIT : desc.length());
+
+		String tags = tagList.stream().map(tag -> URLEncoder.encode(tag, Charsets.UTF_8))
+				.collect(Collectors.joining("+"));
+
+		//
+
+		String url = URL + "&q=" + tags; // add param
 		String dt = urlToString(url); // get json string request
 		JSONObject jsonObject = stringToJSON(dt); // transform to JSON
 		String imageUrl = urlFromJsonObject(jsonObject); // get url inside of json
-		String parsedImage = urlContentToBase64(imageUrl); // and make to base64 string
-		return parsedImage;
+		return urlContentToBase64(imageUrl); // and make to base64 string
 	}
 
 	//
 
 	private static String urlFromJsonObject(JSONObject jsonObject) {
+		if (jsonObject == null)
+			return null;
 		try {
-			return jsonObject.getJSONArray("hits").getJSONObject(0).get("previewURL").toString();
+			JSONArray arr = jsonObject.getJSONArray("hits");
+			return arr != null && arr.length() > 0 ? arr.getJSONObject(0).get("previewURL").toString() : null;
 		} catch (JSONException e) {
 			System.err.println(e);
 		}
@@ -55,7 +89,7 @@ public class ImageService implements Serializable {
 
 	private static JSONObject stringToJSON(String str) {
 		try {
-			return new JSONObject(str);
+			return str != null ? new JSONObject(str) : null;
 		} catch (Exception e) {
 			System.err.println(e); // TODO
 		}
@@ -64,7 +98,7 @@ public class ImageService implements Serializable {
 
 	private static String urlToString(String url) {
 		try {
-			return new String(new URL(url).openStream().readAllBytes(), Charsets.UTF_8);
+			return url != null ? new String(new URL(url).openStream().readAllBytes(), Charsets.UTF_8) : null;
 		} catch (IOException e) {
 			System.err.println(e); // TODO
 		}
@@ -73,7 +107,7 @@ public class ImageService implements Serializable {
 
 	private static String urlContentToBase64(String url) {
 		try {
-			return Base64.getEncoder().encodeToString(new URL(url).openStream().readAllBytes());
+			return url != null ? Base64.getEncoder().encodeToString(new URL(url).openStream().readAllBytes()) : null;
 		} catch (Exception e) {
 			System.err.println(e); // TODO
 		}

@@ -50,6 +50,7 @@ public class Meal implements Serializable {
 	private String type;
 	private String desc;
 	private String kcal;
+	private String imageBase64;
 	private float price;
 
 	public Meal(DayOfWeek day, String type, String desc, float price, String kcal) {

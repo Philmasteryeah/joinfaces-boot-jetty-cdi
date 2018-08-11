@@ -42,7 +42,7 @@ public class MealController {
 
 	@RequestMapping(path = "/rest/test", method = RequestMethod.GET)
 	public ResponseEntity<String> getTest() {
-		String s = is.getParsedImage(); // testing
+		String s = is.getTestImage(); // testing
 		return new ResponseEntity<String>(s, HttpStatus.OK);
 	}
 

@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jsoup.Jsoup;
@@ -31,6 +32,9 @@ public class FoodService implements Serializable {
 
 	// TODO date dynamic
 	private static final String URL = "https://www.bestellung-rastenberger.de/menu/3/2018-07-30/2018-08-05/";
+
+	@Inject
+	private ImageService is; // testing
 
 	@PostConstruct
 	void init() {
@@ -74,6 +78,9 @@ public class FoodService implements Serializable {
 				float price = Meal.TypePrice.getPrice(type);
 
 				Meal meal = new Meal(day, type, desc, price, kcal);
+
+				String base64 = is.getBase64ImageFromTags(desc);
+				meal.setImageBase64(base64 != null ? base64 : "");
 
 				meals.add(meal);
 			}
