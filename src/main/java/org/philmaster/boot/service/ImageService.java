@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -39,6 +38,8 @@ public class ImageService implements Serializable {
 	private static final String URL = "https://pixabay.com/api/?key=" + API_KEY
 			+ "&image_type=photo&pretty=true&category=food";
 
+	// TODO Request per Second Limit to avoid 429 Error
+	
 	@PostConstruct
 	void init() {
 	}
@@ -49,28 +50,23 @@ public class ImageService implements Serializable {
 
 	public String getBase64ImageFromTags(String desc) {
 
-		// [a-zA-Z]{5,} TODO
+		// TODO
 		List<String> tagList = new ArrayList<>();
 		Pattern p = Pattern.compile("[a-zA-Z]{5,}");
 		Matcher m = p.matcher(desc);
-		if (m.find()) {
-			String val = m.group(0);
-			// System.err.println("->" + val);
-			tagList.add(val);
-		}
-
-		desc = desc.substring(0, desc.length() > API_QUERY_LIMIT ? API_QUERY_LIMIT : desc.length());
+		if (m.find())
+			tagList.add(m.group(0));
 
 		String tags = tagList.stream().map(tag -> URLEncoder.encode(tag, Charsets.UTF_8))
 				.collect(Collectors.joining("+"));
 
-		//
+		// TODO
+		tags = tags.substring(0, tags.length() > API_QUERY_LIMIT ? API_QUERY_LIMIT : tags.length());
 
 		String url = URL + "&q=" + tags; // add param
-		String dt = urlToString(url); // get json string request
-		JSONObject jsonObject = stringToJSON(dt); // transform to JSON
+		JSONObject jsonObject = getUrlContentJSON(url); // get json string request
 		String imageUrl = urlFromJsonObject(jsonObject); // get url inside of json
-		return urlContentToBase64(imageUrl); // and make to base64 string
+		return getUrlContentBase64(imageUrl); //  make picture to base64 string
 	}
 
 	//
@@ -96,21 +92,25 @@ public class ImageService implements Serializable {
 		return null;
 	}
 
-	private static String urlToString(String url) {
-		try {
-			return url != null ? new String(new URL(url).openStream().readAllBytes(), Charsets.UTF_8) : null;
-		} catch (IOException e) {
-			System.err.println(e); // TODO
-		}
-		return null;
+	private static String getUrlContent(String url) {
+		return url != null ? new String(urlToBarry(url), Charsets.UTF_8) : null;
 	}
 
-	private static String urlContentToBase64(String url) {
-		try {
-			return url != null ? Base64.getEncoder().encodeToString(new URL(url).openStream().readAllBytes()) : null;
-		} catch (Exception e) {
-			System.err.println(e); // TODO
-		}
-		return null;
+	private static String getUrlContentBase64(String url) {
+		return url != null ? Base64.getEncoder().encodeToString(urlToBarry(url)) : null;
 	}
+
+	private static JSONObject getUrlContentJSON(String url) {
+		return stringToJSON(getUrlContent(url));
+	}
+
+	private static byte[] urlToBarry(String url) {
+		try {
+			return new URL(url).openStream().readAllBytes();
+		} catch (IOException e) {
+			System.err.println(e); // TODO
+			return null;
+		}
+	}
+
 }

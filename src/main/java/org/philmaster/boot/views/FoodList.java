@@ -9,6 +9,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.philmaster.boot.model.Meal;
 import org.philmaster.boot.service.FoodService;
 import org.philmaster.boot.util.Util;
@@ -22,6 +24,8 @@ import lombok.Setter;
 public class FoodList implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	@Getter
 	@Setter
@@ -43,26 +47,21 @@ public class FoodList implements Serializable {
 		try {
 			meals = fs.getParsedMeals();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error(e);
 		}
 	}
 
 	public void onRowSelect(SelectEvent event) {
-		Util.statusMessageInfo("Car Selected", selectedMeal + "");
+		Util.statusMessageInfo("meal selected", selectedMeal + "");
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public boolean filterByPrice(Object value, Object filter, Locale locale) {
 		String filterText = (filter == null) ? null : filter.toString().trim();
-		if (filterText == null || filterText.equals("")) {
+		if (filterText == null || filterText.equals("")) 
 			return true;
-		}
-
-		if (value == null) {
+		if (value == null) 
 			return false;
-		}
-
 		return ((Comparable) value).compareTo(Float.parseFloat(filterText)) > 0;
 	}
 }

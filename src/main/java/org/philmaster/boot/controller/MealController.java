@@ -35,15 +35,11 @@ public class MealController {
 
 	@RequestMapping(path = "/rest/meals", method = RequestMethod.GET)
 	public ResponseEntity<List<Meal>> getMeals() {
-		//String s = is.getImage(); // testing
-		//
 		return new ResponseEntity<List<Meal>>(fs.getParsedMeals(), HttpStatus.OK);
 	}
 
 	@RequestMapping(path = "/rest/test", method = RequestMethod.GET)
 	public ResponseEntity<String> getTest() {
-		String s = is.getTestImage(); // testing
-		return new ResponseEntity<String>(s, HttpStatus.OK);
+		return new ResponseEntity<String>(is.getTestImage(), HttpStatus.OK);
 	}
-
 }
