@@ -6,7 +6,33 @@
 
 	<ui:define name="content">
 
-    asd
+		<p:growl id="msgs" showDetail="true" />
 
-    </ui:define>
+		<p:dashboard id="board" model="#{mainView.model}">
+			<p:ajax event="reorder" listener="#{mainView.handleReorder}"
+				update="msgs" />
+
+			<p:panel id="sports" header="Sports">
+				<h:outputText value="Sports Content" />
+			</p:panel>
+
+			<p:panel id="finance" header="Finance">
+				<h:outputText value="Finance Content" />
+			</p:panel>
+
+			<p:panel id="lifestyle" header="Lifestyle">
+				<h:outputText value="Lifestyle Content" />
+			</p:panel>
+
+			<p:panel id="weather" header="Weather">
+				<h:outputText value="Weather Content" />
+			</p:panel>
+
+			<p:panel id="politics" header="Politics">
+				<h:outputText value="Politics Content" />
+			</p:panel>
+		</p:dashboard>
+
+		<div style="clear: both" />
+	</ui:define>
 </ui:composition>

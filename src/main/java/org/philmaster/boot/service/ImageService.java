@@ -39,7 +39,7 @@ public class ImageService implements Serializable {
 			+ "&image_type=photo&pretty=true&category=food";
 
 	// TODO Request per Second Limit to avoid 429 Error
-	
+
 	@PostConstruct
 	void init() {
 	}
@@ -66,7 +66,7 @@ public class ImageService implements Serializable {
 		String url = URL + "&q=" + tags; // add param
 		JSONObject jsonObject = getUrlContentJSON(url); // get json string request
 		String imageUrl = urlFromJsonObject(jsonObject); // get url inside of json
-		return getUrlContentBase64(imageUrl); //  make picture to base64 string
+		return getUrlContentBase64(imageUrl); // make picture to base64 string
 	}
 
 	//

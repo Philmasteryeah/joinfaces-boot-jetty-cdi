@@ -9,8 +9,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
-import org.apache.commons.lang.StringUtils;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,7 +44,8 @@ public class SessionBean implements Serializable {
 	}
 
 	public String pageNameReadable() {
-		return StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(StringUtils.capitalize(page)), ' ');
+		// TODO
+		return page;
 	}
 
 	public String changeLanguage(String locale) {

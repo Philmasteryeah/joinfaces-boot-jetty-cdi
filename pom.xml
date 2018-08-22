@@ -22,13 +22,9 @@
 		<primefaces-theme.version>1.0.10</primefaces-theme.version>
 		<all-themes.version>1.0.10</all-themes.version>
 		<java.version>10</java.version>
-
-
-
-		<spring-boot-maven-plugin.version>2.0.0.RELEASE</spring-boot-maven-plugin.version>
+		<spring-boot-maven-plugin.version>2.0.4.RELEASE</spring-boot-maven-plugin.version>
 		<postgresql.version>42.2.1</postgresql.version>
-
-		<cayenne.version>4.1.M1</cayenne.version>
+		<cayenne.version>4.1.M2</cayenne.version>
 		<heroku.version>2.0.3</heroku.version>
 	</properties>
 
@@ -178,6 +174,19 @@
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-api</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-impl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -187,8 +196,21 @@
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-impl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-api</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+
 			</exclusions>
 		</dependency>
 	</dependencies>
