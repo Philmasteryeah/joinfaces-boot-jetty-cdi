@@ -1,9 +1,9 @@
 package org.philmaster.boot.service;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -18,8 +18,6 @@ import javax.inject.Named;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONException;
 import org.primefaces.json.JSONObject;
-
-import com.google.common.base.Charsets;
 
 /**
  * @author Philmasteryeah
@@ -57,7 +55,7 @@ public class ImageService implements Serializable {
 		if (m.find())
 			tagList.add(m.group(0));
 
-		String tags = tagList.stream().map(tag -> URLEncoder.encode(tag, Charsets.UTF_8))
+		String tags = tagList.stream().map(tag -> URLEncoder.encode(tag, StandardCharsets.UTF_8))
 				.collect(Collectors.joining("+"));
 
 		// TODO
@@ -93,7 +91,9 @@ public class ImageService implements Serializable {
 	}
 
 	private static String getUrlContent(String url) {
-		return url != null ? new String(urlToBarry(url), Charsets.UTF_8) : null;
+		byte[] barry = urlToBarry(url);
+		System.err.println("--> " + url);
+		return barry != null ? new String(barry, StandardCharsets.UTF_8) : null;
 	}
 
 	private static String getUrlContentBase64(String url) {
@@ -107,7 +107,7 @@ public class ImageService implements Serializable {
 	private static byte[] urlToBarry(String url) {
 		try {
 			return new URL(url).openStream().readAllBytes();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.err.println(e); // TODO
 			return null;
 		}

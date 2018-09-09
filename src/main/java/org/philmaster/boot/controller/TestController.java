@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.philmaster.boot.model.Meal;
+import org.philmaster.boot.service.FileService;
 import org.philmaster.boot.service.FoodService;
 import org.philmaster.boot.service.ImageService;
 import org.springframework.http.HttpStatus;
@@ -15,13 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class MealController {
+public class TestController {
 
 	@Inject
 	private FoodService fs;
 
 	@Inject
 	private ImageService is; // testing
+
+	@Inject
+	private FileService fis;
 
 	@RequestMapping(path = "/rest/testMeal", method = RequestMethod.GET)
 	public ResponseEntity<Meal> getTestMeal() {
@@ -42,4 +46,10 @@ public class MealController {
 	public ResponseEntity<String> getTest() {
 		return new ResponseEntity<String>(is.getTestImage(), HttpStatus.OK);
 	}
+	
+	@RequestMapping(path = "/rest/test2", method = RequestMethod.GET,  produces="application/json")
+	public ResponseEntity<String> getTest2() {
+		return new ResponseEntity<String>(fis.getFileAsString("test.json"), HttpStatus.OK);
+	}
+	
 }

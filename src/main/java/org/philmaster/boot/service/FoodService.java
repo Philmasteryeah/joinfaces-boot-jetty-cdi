@@ -31,7 +31,7 @@ public class FoodService implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// TODO date dynamic
-	private static final String URL = "https://www.bestellung-rastenberger.de/menu/3/2018-07-30/2018-08-05/";
+	private static final String URL = "https://www.bestellung-rastenberger.de/menu/3/2018-09-10/2018-09-16/";
 
 	@Inject
 	private ImageService is; // testing
@@ -78,9 +78,9 @@ public class FoodService implements Serializable {
 				float price = Meal.TypePrice.getPrice(type);
 
 				Meal meal = new Meal(day, type, desc, price, kcal);
-
-				String base64 = is.getBase64ImageFromTags(desc);
-				meal.setImageBase64(base64 != null ? base64 : "");
+// testing without picture
+//				String base64 = is.getBase64ImageFromTags(desc);
+//				meal.setImageBase64(base64 != null ? base64 : "");
 
 				meals.add(meal);
 			}
