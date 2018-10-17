@@ -2,6 +2,7 @@ package org.philmaster.boot.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +31,7 @@ public class FileService {
 		try {
 			files = getFiles();
 		} catch (IOException e) {
-			System.err.println(e);// TODO
+			e.printStackTrace();
 			return null;
 		}
 		if (files == null)
@@ -38,11 +39,12 @@ public class FileService {
 		File f = files.stream().filter(p -> p.getName().contains(fileName)).findFirst().orElse(null);
 		if (f == null)
 			return null;
+		
 		List<String> a = null;
 		try {
-			a = Files.readAllLines(f.toPath());
+			a = Files.readAllLines(f.toPath(), StandardCharsets.ISO_8859_1); // TODO
 		} catch (IOException e) {
-			System.err.println(e);// TODO
+			e.printStackTrace();
 			return null;
 		}
 		return a.stream().collect(Collectors.joining("\n\r"));
@@ -56,7 +58,7 @@ public class FileService {
 					try {
 						return p.getFile();
 					} catch (IOException e) {
-						System.err.println(e);// TODO
+						e.printStackTrace();
 						return null;
 					}
 				}).filter(Objects::nonNull).sorted().collect(Collectors.toList());
