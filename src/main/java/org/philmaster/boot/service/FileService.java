@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternUtils;
 
@@ -39,7 +38,7 @@ public class FileService {
 		File f = files.stream().filter(p -> p.getName().contains(fileName)).findFirst().orElse(null);
 		if (f == null)
 			return null;
-		
+
 		List<String> a = null;
 		try {
 			a = Files.readAllLines(f.toPath(), StandardCharsets.ISO_8859_1); // TODO

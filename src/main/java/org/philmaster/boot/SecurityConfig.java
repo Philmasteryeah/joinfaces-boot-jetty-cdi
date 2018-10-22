@@ -5,20 +5,17 @@ import javax.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.philmaster.boot.service.DatabaseService;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig implements ApplicationListener<InteractiveAuthenticationSuccessEvent> {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
@@ -46,6 +43,7 @@ public class SecurityConfig implements ApplicationListener<InteractiveAuthentica
 	}
 
 	@Configuration
+	@Order(2)
 	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
 		@Override
@@ -59,13 +57,5 @@ public class SecurityConfig implements ApplicationListener<InteractiveAuthentica
 			http.headers().frameOptions().sameOrigin();
 		}
 
-	}
-
-	@Override
-	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
-		// onLogin testing
-		UserDetails userDetails = (UserDetails) event.getAuthentication().getPrincipal();
-		// session.setUsername(userDetails.getUsername());
-		LOGGER.info("onLogin: " + userDetails);
 	}
 }

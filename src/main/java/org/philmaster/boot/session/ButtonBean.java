@@ -2,18 +2,17 @@ package org.philmaster.boot.session;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.omnifaces.util.Messages;
 import org.philmaster.boot.util.Util;
 
 /**
  * @author Philmasteryeah
  * 
- *         testing stuff
- *
  */
 
 @Named
@@ -22,11 +21,8 @@ public class ButtonBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	// ##########Test############
-
-	@PostConstruct
-	public void init() {
-	}
+	@Inject
+	private SessionBean session;
 
 	public void buttonAction(ActionEvent actionEvent) {
 		System.err.println(actionEvent + " ");
@@ -39,6 +35,11 @@ public class ButtonBean implements Serializable {
 
 		// Testing stuff here
 		// meals.forEach(System.err::println);
+	}
+
+	public void doAction() {
+		Messages.create("Welcome to AdminBoot " + session.getUsername() + "!")
+				.detail("<b>AdminFaces</b> and <b>SpringBoot</b> integration via <b>JoinFaces.</b>").add();
 	}
 
 }

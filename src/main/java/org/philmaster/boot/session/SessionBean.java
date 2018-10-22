@@ -4,10 +4,16 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Locale;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Specializes;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+
+import org.springframework.context.ApplicationListener;
+import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.github.adminfaces.template.session.AdminSession;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +35,9 @@ import lombok.Setter;
 @Setter
 @Named
 @SessionScoped
-public class SessionBean implements Serializable {
+@Specializes
+public class SessionBean extends AdminSession
+		implements Serializable, ApplicationListener<InteractiveAuthenticationSuccessEvent> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -37,11 +45,7 @@ public class SessionBean implements Serializable {
 	private String page, name, password;
 	private String username;
 
-	@PostConstruct
-	void init() {
-		locale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
-		page = "main";
-	}
+// 	@PostConstruct dont works here
 
 	public String pageNameReadable() {
 		// TODO
@@ -58,5 +62,13 @@ public class SessionBean implements Serializable {
 	public String logout() throws IOException {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/index.xhtml?faces-redirect=true";
+	}
+
+	@Override
+	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
+		// TODO Auto-generated method stub
+		UserDetails userDetails = (UserDetails) event.getAuthentication().getPrincipal();
+		username = userDetails.getUsername();
+		System.err.println("user-> " + username);
 	}
 }

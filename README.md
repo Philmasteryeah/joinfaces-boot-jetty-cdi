@@ -4,17 +4,34 @@
  [![Dependency Status](https://www.versioneye.com/user/projects/5abfbd950fb24f4489395eb5/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5abfbd950fb24f4489395eb5)
  
  
-# joinfaces-boot-jetty-cdi
+# Joinfaces-boot-jetty-cdi
 - Java 10
-- Spring Boot v2.0.1
+- Spring Boot v2.0.6
 - PrimeFaces 6.2
 - Jetty 9
 - CDI 2.0 (weld)
 - Postgres 42.2.0
 - Cayenne 4.1.M1
-- javax.faces 2.3.3
+- javax.faces 2.3.7
 
 ![alt text](https://abload.de/img/joinfaces_boot19swo.png)
+
+# Highlights completed
+- login and redirect with spring security and cayenne database
+- session management with cdi from spring security
+- apache cayenne Integration completed with orm class using
+- lombok integation
+- messages from messages.properties
+- nice looking responsive layout
+- automatic menu from application.yml (TODO)
+- master detail page with list and database saving (TODO)
+
+- Login
+![alt text](https://abload.de/img/adminloginildcy.png)
+
+- Index
+![alt text](https://abload.de/img/adminindexclihl.png)
+
 
 
 # Local Deployment
@@ -103,35 +120,10 @@ INSERT INTO AUTO_PK_SUPPORT (TABLE_NAME, NEXT_ID) VALUES ('car', 200);
 - wait -> choose eclipse -> install -> quit
 - restart eclipse now complete and lombok should work
 
-# Direct Dependencies
-- org.joinfaces:spring-security-jsf-taglib:3.1.2-SNAPSHOT
-- org.joinfaces:jetty-spring-boot-starter:3.1.2-SNAPSHOT
-- org.joinfaces:jsf-spring-boot-starter:3.1.2-SNAPSHOT
-- org.joinfaces:primefaces-spring-boot-starter:3.1.2-SNAPSHOT
-- org.joinfaces:joinfaces-autoconfigure:3.1.2-SNAPSHOT
-- org.springframework:spring-jdbc:5.0.5.RELEASE
-- org.springframework.boot:spring-boot-starter-security:2.0.1.RELEASE
-- org.springframework.boot:spring-boot-starter-test:2.0.1.RELEASE
-- org.springframework.boot:spring-boot-configuration-processor:2.0.1.RELEASE
-- org.apache.cayenne:cayenne-server:4.1.M1
-- org.apache.cayenne.modeler:cayenne-modeler:4.1.M1
-- com.jayway.jsonpath:json-path:2.4.0
-- org.postgresql:postgresql:42.2.1
-- org.projectlombok:lombok:1.16.20
-- org.apache.poi:poi:3.7
-- org.apache.poi:poi-ooxml:3.7
-- com.lowagie:itext:2.1.7
-
-# Highlights completed
-- login and redirect with spring security and cayenne database
-- automatic menu from application.yml
-- apache cayenne Integration completed with orm class using
-- lombok integation complete
-- messages from messages.properties -> translation possible
-- master detail page with list and database saving
 
 # THX
 - great project: https://github.com/joinfaces
 - inspired by: https://github.com/joinfaces/joinfaces-example
+- admin template: https://github.com/adminfaces/admin-starter
 - nice Heroku tricks: https://github.com/heroku/heroku-buildpack-java
 - Cayenne Docs https://cayenne.apache.org/docs/4.1/getting-started-guide/ 
