@@ -14,8 +14,6 @@
 - Cayenne 4.1.M1
 - javax.faces 2.3.7
 
-![alt text](https://abload.de/img/joinfaces_boot19swo.png)
-
 # Highlights completed
 - login and redirect with spring security and cayenne database
 - session management with cdi from spring security
