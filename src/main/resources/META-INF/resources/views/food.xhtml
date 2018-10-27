@@ -5,12 +5,13 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:pm="http://java.sun.com/jsf/composite/components"
-	template="/templates/frame.xhtml">
-	<ui:define name="content">
+	template="/templates/template.xhtml">
+	
+	<ui:define name="body">
 
 	Test
 				<p:commandButton value="Test"
-			actionListener="#{buttonBean.buttonTest}" update="growl" />
+			actionListener="#{buttonBean.buttonTest}"  />
 
 
 		<p:dataTable var="meal" value="#{foodList.meals}"

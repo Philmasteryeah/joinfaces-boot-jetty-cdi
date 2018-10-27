@@ -6,42 +6,45 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:pm="http://java.sun.com/jsf/composite/components"
-	template="/templates/frame.xhtml">
-	<ui:define name="content">
+	template="/templates/template.xhtml">
+
+	<ui:define name="body">
+		<h:form> 
 	
         Filter        <p:commandButton value="Suche"
-			actionListener="#{buttonBean.buttonAction}" update="growl" />
-			
-		<pm:pmList id="cartable" var="carItem" value="#{downloadView.cars}"
-			rows="10" selection="#{downloadView.selectedCar}"
-			onRowSelect="#{downloadView.onRowSelect}" rowKey="#{carItem.id}"
-			fileNameExport="cars">
+				actionListener="#{buttonBean.buttonAction}" />
 
-			<p:column headerText="id" sortBy="#{carItem.id}">
-				<h:outputText value="#{carItem.id}" />
-			</p:column>
-			<p:column headerText="title" sortBy="#{carItem.name}"
-				filterBy="#{carItem.name}" filterMatchMode="contains">
-				<h:outputText value="#{carItem.name}" />
-			</p:column>
+			<pm:pmList id="cartable" var="carItem" value="#{downloadView.cars}"
+				rows="10" selection="#{downloadView.selectedCar}"
+				onRowSelect="#{downloadView.onRowSelect}" rowKey="#{carItem.id}"
+				fileNameExport="cars">
 
-		</pm:pmList>
+				<p:column headerText="id" sortBy="#{carItem.id}">
+					<h:outputText value="#{carItem.id}" />
+				</p:column>
+				<p:column headerText="title" sortBy="#{carItem.name}"
+					filterBy="#{carItem.name}" filterMatchMode="contains">
+					<h:outputText value="#{carItem.name}" />
+				</p:column>
 
-		<p:commandButton value="Add"
-			actionListener="#{downloadView.actionAdd}" update="growl" />
-		<p:commandButton value="Save"
-			actionListener="#{downloadView.actionSave}" update="form" />
-		<p:commandButton value="Test"
-			actionListener="#{buttonBean.buttonAction}" update="growl" />
+			</pm:pmList>
 
-		<pm:pmConfirmation btnToggleValue="Dialog" header="Modaler Dialog"
-			message="Lorem Ipsum?" actionListenerYes="#{buttonBean.buttonAction}"
-			actionListenerNo="#{buttonBean.buttonAction}" />
-
-		<pm:pmModal btnToggleValue="Modal" header="Modal">
+			<p:commandButton value="Add"
+				actionListener="#{downloadView.actionAdd}" />
+			<p:commandButton value="Save"
+				actionListener="#{downloadView.actionSave}" />
 			<p:commandButton value="Test"
-				actionListener="#{buttonBean.buttonAction}" update=":form:growl" />
-		</pm:pmModal>
+				actionListener="#{buttonBean.buttonAction}" />
 
+			<pm:pmConfirmation btnToggleValue="Dialog" header="Modaler Dialog"
+				message="Lorem Ipsum?"
+				actionListenerYes="#{buttonBean.buttonAction}"
+				actionListenerNo="#{buttonBean.buttonAction}" />
+
+			<pm:pmModal btnToggleValue="Modal" header="Modal">
+				<p:commandButton value="Test"
+					actionListener="#{buttonBean.buttonAction}" />
+			</pm:pmModal>
+		</h:form>
 	</ui:define>
 </ui:composition>

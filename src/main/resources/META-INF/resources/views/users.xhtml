@@ -4,13 +4,16 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/templates/frame.xhtml">
-	<ui:define name="content">
+	template="/templates/template.xhtml">
+
+	<ui:define name="body">
 
 		<p:panelGrid columns="1" layout="grid">
 			<div class="ui-g">
 				<div class="ui-g-12 ui-md-4">
-					<p:growl><p:autoUpdate/></p:growl>
+					<p:growl>
+						<p:autoUpdate />
+					</p:growl>
 					<p:signature style="width:400px; height:300px" widgetVar="sig"
 						value="#{usersView.signatureValue}" required="false"
 						label="Signature" guideline="true" />
@@ -35,7 +38,7 @@
 			</div>
 
 			<p:commandButton value="Save"
-				actionListener="#{buttonBean.buttonAction}" update="growl" />
+				actionListener="#{buttonBean.buttonAction}" />
 		</p:panelGrid>
 
 	</ui:define>

@@ -4,8 +4,9 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	template="/templates/frame.xhtml">
-	<ui:define name="content">
+	template="/templates/template.xhtml">
+	
+	<ui:define name="body">
 
 		<pe:codeMirror id="codeMirror" widgetVar="myCodeMirror"
 			theme="eclipse" mode="javascript" value="#{script.query}"

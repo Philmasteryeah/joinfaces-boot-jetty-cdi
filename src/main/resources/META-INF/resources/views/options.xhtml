@@ -4,8 +4,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/templates/frame.xhtml">
-	<ui:define name="content">
+	template="/templates/template.xhtml">
+	
+	<ui:define name="body">
 
 		<p:panelGrid columns="1" layout="grid">
 
@@ -18,7 +19,7 @@
 			</p:tabView>
 
 			<p:commandButton value="Save"
-				actionListener="#{buttonBean.buttonAction}" update="growl" />
+				actionListener="#{buttonBean.buttonAction}" />
 		</p:panelGrid>
 
 	</ui:define>

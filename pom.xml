@@ -244,4 +244,13 @@
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</repository>
 	</repositories>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>5.1.1.RELEASE</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
