@@ -1,25 +1,35 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pm="http://java.sun.com/jsf/composite/components">
-
-
 	<p:panel header="Detail">
-		<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
+		<h:panelGrid
+			columns="2"
+			columnClasses="formColumn1,formColumn2">
 			<h:outputText value="Name: " />
 			<p:inputText value="#{carDetail.detailObject.name}" />
 		</h:panelGrid>
 	</p:panel>
-	<p:commandButton value="Back" style="margin-top: 10px;"
-		icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
+	<p:commandButton
+		value="Back"
+		style="margin-top: 10px;"
+		icon="ui-icon-arrowthick-1-w"
+		process="@this"
+		immediate="true">
 		<pe:selectDetailLevel step="-1" />
 	</p:commandButton>
-	<p:commandButton value="Save" process="masterDetail"
+	<p:commandButton
+		value="Save"
+		process="masterDetail"
 		actionListener="#{carDetail.actionSave}"
-		style="margin-top:10px;" icon="ui-icon-disk">
-		<pe:selectDetailLevel level="1" resetInputs="@all" />
+		style="margin-top:10px;"
+		icon="ui-icon-disk">
+		<pe:selectDetailLevel
+			level="1"
+			resetInputs="@all" />
 	</p:commandButton>
 </ui:composition>

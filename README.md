@@ -30,7 +30,17 @@
 - Index
 ![alt text](https://abload.de/img/adminindexclihl.png)
 
-
+# Why
+- highly modular and customizable
+- fat jar deployment with all embedded
+- highly portable
+- supports Java EE features
+	- javax stuff
+	- jsf and primefaces
+- supports Spring features
+	- Security
+	- REST (web)
+- pick the best of all and use it together
 
 # Local Deployment
 - you should not need postgres for deploying 

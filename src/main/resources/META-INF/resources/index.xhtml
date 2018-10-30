@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="/templates/template.xhtml">
-
-    <ui:define name="head-end">
-        <ui:param name="renderBreadCrumb" value="false"/>
-    </ui:define>
-
-    <ui:define name="title">
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/includes/template.xhtml">
+	<ui:define name="head-end">
+		<ui:param
+			name="renderBreadCrumb"
+			value="false" />
+	</ui:define>
+	<ui:define name="title">
     Hello #{sessionBean.username}
         <h2 class="align-center">
-            Welcome to the <span class="text-aqua"> Philmaster Inc.</span> Project!
-            <br/>
-        </h2>
-
-		<p:commandButton value="Test"
-			actionListener="#{buttonBean.doAction()}"  />
-
-    </ui:define>
-
-
+			Welcome to the <span class="text-aqua"> Philmaster Inc.</span> Project! <br />
+		</h2>
+		<p:commandButton
+			value="Test"
+			actionListener="#{buttonBean.doAction()}" />
+	</ui:define>
 </ui:composition>

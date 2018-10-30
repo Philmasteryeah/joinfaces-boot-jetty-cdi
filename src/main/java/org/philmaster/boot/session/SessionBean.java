@@ -5,15 +5,12 @@ import java.io.Serializable;
 import java.util.Locale;
 
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Specializes;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import com.github.adminfaces.template.session.AdminSession;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,9 +32,8 @@ import lombok.Setter;
 @Setter
 @Named
 @SessionScoped
-@Specializes
-public class SessionBean extends AdminSession
-		implements Serializable, ApplicationListener<InteractiveAuthenticationSuccessEvent> {
+public class SessionBean  implements Serializable,ApplicationListener<InteractiveAuthenticationSuccessEvent>
+{
 
 	private static final long serialVersionUID = 1L;
 

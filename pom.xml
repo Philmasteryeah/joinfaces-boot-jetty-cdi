@@ -31,8 +31,26 @@
 	<!-- Joinfaces -->
 	<dependencies>
 		<dependency>
+			<groupId>com.github.adminfaces</groupId>
+			<artifactId>admin-theme</artifactId>
+
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+		</dependency>
+
+
+		<dependency>
+
 			<groupId>org.joinfaces</groupId>
 			<artifactId>adminfaces-spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.github.adminfaces</groupId>
+					<artifactId>admin-template</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.joinfaces</groupId>
@@ -54,6 +72,7 @@
 		</dependency>
 
 		<!-- Spring -->
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
