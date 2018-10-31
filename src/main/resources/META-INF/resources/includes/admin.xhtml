@@ -986,7 +986,8 @@
 	</ui:fragment>
 	<p:dialog
 		id="adminStatusDialog"
-		modal="true"
+		modal="false"
+		style="background: transparent; box-shadow: none;"
 		widgetVar="statusDialog"
 		draggable="false"
 		closable="false"
@@ -994,11 +995,9 @@
 		responsive="true"
 		showHeader="false"
 		appendTo="@(body)">
-		<!-- 	
 		<p:graphicImage
 			library="images"
-			name="#{adminConfig.loadingImage}" />
-	 -->
+			name="#{adm['adminConfig.loadingImage']}" />
 	</p:dialog>
 </h:body>
 </html>

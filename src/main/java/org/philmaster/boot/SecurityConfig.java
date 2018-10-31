@@ -39,6 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			// rest Login
 			http.antMatcher("/rest/**").authorizeRequests().anyRequest().hasRole("ADMIN").and().httpBasic().and().csrf()
 					.disable();
+			
+			 //.exceptionHandling().accessDeniedPage("/accessDenied.jsp");
 		}
 	}
 
