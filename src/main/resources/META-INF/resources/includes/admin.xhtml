@@ -72,7 +72,7 @@
 			id="sidebar"
 			class="main-sidebar slideout-menu">
 			<div>
-				<ui:insert name="menu-begin" /> 
+				<ui:insert name="menu-begin" />
 				<ui:fragment rendered="#{adm['admin.renderMenuSearch']}">
 					<div class="sidebar-form">
 						<div class="input-group">
@@ -98,15 +98,17 @@
 							id="menu-search"
 							class="nav navbar-nav"
 							role="menu">
-							<li class="dropdown"><a
-								href="#"
-								class="dropdown-toggle"
-								data-toggle="dropdown"
-								aria-expanded="true" />
+							<li class="dropdown">
+								<a
+									href="#"
+									class="dropdown-toggle"
+									data-toggle="dropdown"
+									aria-expanded="true" />
 								<ul
 									class="dropdown-menu"
 									role="menu">
-								</ul></li>
+								</ul>
+							</li>
 						</ul>
 					</div>
 				</ui:fragment>
@@ -138,7 +140,8 @@
 					<ol
 						class="breadcrumb"
 						style="overflow: hidden;">
-						<li style="position: relative;"><h:form prependId="false">
+						<li style="position: relative;">
+							<h:form prependId="false">
 								<p:commandLink
 									id="link-home"
 									action="#{breadCrumbMB.clearAndHome}"
@@ -148,19 +151,23 @@
 									<i class="fa fa-home"></i>
 									<h:outputText value="#{adm['label.home']}" />
 								</p:commandLink>
-							</h:form></li>
+							</h:form>
+						</li>
 						<ui:repeat
 							value="#{breadCrumbMB.breadCrumbs}"
 							var="b"
 							varStatus="status">
-							<li class="#{status.last ? 'active':''}"><h:panelGroup rendered="#{status.last}">
+							<li class="#{status.last ? 'active':''}">
+								<h:panelGroup rendered="#{status.last}">
                                     #{b.title}
-                                </h:panelGroup> <h:panelGroup rendered="#{not status.last}">
+                                </h:panelGroup>
+								<h:panelGroup rendered="#{not status.last}">
 									<a
 										href="#{request.contextPath.concat(b.link)}"
 										style="color: #3C8DBC; position: relative"
 										class="ripplelink"> #{b.title} </a>
-								</h:panelGroup></li>
+								</h:panelGroup>
+							</li>
 						</ui:repeat>
 					</ol>
 				</ui:fragment>
@@ -218,10 +225,12 @@
 					<ui:insert name="before-controlsidebar-content" />
 					<aside class="control-sidebar control-sidebar-dark">
 						<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-							<li class="active"><a
-								href="#control-sidebar-theme-demo-options-tab"
-								data-toggle="tab"> <i class="fa fa-wrench"></i>
-							</a></li>
+							<li class="active">
+								<a
+									href="#control-sidebar-theme-demo-options-tab"
+									data-toggle="tab"> <i class="fa fa-wrench"></i>
+								</a>
+							</li>
 							<ui:insert name="controlsidebar-tabs" />
 						</ul>
 						<div class="tab-content">
@@ -413,7 +422,8 @@
 									</div>
 									<h4 class="control-sidebar-heading">#{adm['controlsidebar.header.skins']}</h4>
 									<ul class="list-unstyled clearfix">
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-blue"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-blue' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-blue');updateSkinBlue()"
@@ -431,14 +441,17 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinBlue"
 												action="#{skinMB.changeSkin('skin-blue')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Blue</p></li>
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+											<p class="text-center no-margin">Blue</p>
+										</li>
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-black"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-black' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-black');updateSkinBlack()"
@@ -456,14 +469,17 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #222"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinBlack"
 												action="#{skinMB.changeSkin('skin-black')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Black</p></li>
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+											<p class="text-center no-margin">Black</p>
+										</li>
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-purple"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-purple' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-purple');updateSkinPurple()"
@@ -482,14 +498,17 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinPurple"
 												action="#{skinMB.changeSkin('skin-purple')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Purple</p></li>
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+											<p class="text-center no-margin">Purple</p>
+										</li>
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-green"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-green' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-green');updateSkinGreen()"
@@ -508,14 +527,17 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinGreen"
 												action="#{skinMB.changeSkin('skin-green')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Green</p></li>
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+											<p class="text-center no-margin">Green</p>
+										</li>
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-red"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-red' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-red');updateSkinRed()"
@@ -534,14 +556,17 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinRed"
 												action="#{skinMB.changeSkin('skin-red')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Red</p></li>
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+											<p class="text-center no-margin">Red</p>
+										</li>
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-yellow"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-yellow' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-yellow');updateSkinYellow()"
@@ -560,14 +585,17 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinYellow"
 												action="#{skinMB.changeSkin('skin-yellow')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Yellow</p></li>
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+											<p class="text-center no-margin">Yellow</p>
+										</li>
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-teal"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-teal' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-teal');updateSkinTeal()"
@@ -586,14 +614,17 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinTeal"
 												action="#{skinMB.changeSkin('skin-teal')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Teal</p></li>
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+											<p class="text-center no-margin">Teal</p>
+										</li>
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-blue-light"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-blue-light' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-blue-light');updateSkinBlueLight()"
@@ -610,14 +641,17 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinBlueLight"
 												action="#{skinMB.changeSkin('skin-blue-light')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Blue Light</p></li>
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+											<p class="text-center no-margin">Blue Light</p>
+										</li>
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-black-light"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-black-light' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-black-light');updateSkinBlackLight()"
@@ -635,14 +669,17 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinBlackLight"
 												action="#{skinMB.changeSkin('skin-black-light')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Black Light</p></li>
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+											<p class="text-center no-margin">Black Light</p>
+										</li>
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-purple-light"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-purple-light' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-purple-light');updateSkinPurpleLight()"
@@ -661,14 +698,17 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinPurpleLight"
 												action="#{skinMB.changeSkin('skin-purple-light')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Purple Light</p></li>
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+											<p class="text-center no-margin">Purple Light</p>
+										</li>
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-red-light"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-red-light' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-red-light');updateSkinRedLight()"
@@ -687,14 +727,17 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinRedLight"
 												action="#{skinMB.changeSkin('skin-red-light')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Red Light</p></li>
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+											<p class="text-center no-margin">Red Light</p>
+										</li>
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-green-light"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-green-light' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-green-light');updateSkinGreenLight()"
@@ -713,14 +756,17 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinGreenLight"
 												action="#{skinMB.changeSkin('skin-green-light')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Green Light</p></li>
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+											<p class="text-center no-margin">Green Light</p>
+										</li>
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-yellow-light"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-yellow-light' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-yellow-light');updateSkinYellowLight()"
@@ -739,14 +785,17 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinYellowLight"
 												action="#{skinMB.changeSkin('skin-yellow-light')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Yellow Light</p></li>
-										<li style="float: left; width: 33.33333%; padding: 5px;"><p:commandLink
+											<p class="text-center no-margin">Yellow Light</p>
+										</li>
+										<li style="float: left; width: 33.33333%; padding: 5px;">
+											<p:commandLink
 												id="btn-skin-teal-light"
 												styleClass="skin-link clearfix #{skinMB.skin eq 'skin-teal-light' ? '':'full-opacity-hover'}"
 												oncomplete="replaceSkinWith('skin-teal-light');updateSkinTealLight()"
@@ -765,13 +814,15 @@
 													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
 														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
-											</p:commandLink> <p:remoteCommand
+											</p:commandLink>
+											<p:remoteCommand
 												name="updateSkinTealLight"
 												action="#{skinMB.changeSkin('skin-teal-light')}"
 												process="@this"
 												update="@none"
 												global="false" />
-											<p class="text-center no-margin">Teal Light</p></li>
+											<p class="text-center no-margin">Teal Light</p>
+										</li>
 										<ui:insert name="after-controlsidebar-skin" />
 									</ul>
 									<ui:insert name="after-controlsidebar-tabs" />

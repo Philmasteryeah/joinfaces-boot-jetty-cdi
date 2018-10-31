@@ -15,13 +15,14 @@
 }
 </style>
 	<ul class="nav navbar-nav">
-		<li class="dropdown user user-menu"><a
-			href="#"
-			class="dropdown-toggle"
-			data-toggle="dropdown"> <pe:gravatar
+		<li class="dropdown user user-menu">
+			<a
+				href="#"
+				class="dropdown-toggle"
+				data-toggle="dropdown"> <pe:gravatar
 					id="userImage"
 					value="nonexisting" /> <span class="hidden-xs">#{sessionBean.username}</span>
-		</a>
+			</a>
 			<ul class="dropdown-menu">
 				<li class="user-header">
 					<div class="hidden-xs">
@@ -33,7 +34,8 @@
 						#{sessionBean.username} <small>Subtitle</small>
 					</p>
 				</li>
-				<li class="user-footer"><h:form prependId="false">
+				<li class="user-footer">
+					<h:form prependId="false">
 						<div class="pull-left">
 							<p:commandLink
 								styleClass="btn btn-danger"
@@ -47,12 +49,16 @@
 								<i class="fa fa-sign-out fa-2x"></i>
 							</p:commandLink>
 						</div>
-					</h:form></li>
-			</ul></li>
-		<li><a
-			id="layout-setup"
-			href="#"
-			class="#{adminConfig.controlSidebar.showOnMobile ? '':'hidden-sm hidden-xs'}"
-			data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></li>
+					</h:form>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a
+				id="layout-setup"
+				href="#"
+				class="#{adminConfig.controlSidebar.showOnMobile ? '':'hidden-sm hidden-xs'}"
+				data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+		</li>
 	</ul>
 </ui:composition>

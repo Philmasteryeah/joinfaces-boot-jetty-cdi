@@ -22,12 +22,10 @@
 		<primefaces-theme.version>1.0.10</primefaces-theme.version>
 		<all-themes.version>1.0.10</all-themes.version>
 		<java.version>10</java.version>
-		<spring-boot-maven-plugin.version>2.0.6.RELEASE</spring-boot-maven-plugin.version>
-		<postgresql.version>42.2.1</postgresql.version>
+		<postgresql.version>42.2.5</postgresql.version>
 		<cayenne.version>4.1.M2</cayenne.version>
-		<heroku.version>2.0.3</heroku.version>
+		<heroku.version>2.0.6</heroku.version>
 	</properties>
-
 
 	<dependencies>
 		<!-- AdminTheme -->
@@ -58,14 +56,17 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
+			<version>5.1.2.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+			<version>2.1.0.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<version>2.1.0.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- Misc -->
@@ -126,6 +127,11 @@
 		</dependency>
 		<!-- Cayenne -->
 		<dependency>
+			<groupId>org.apache.cayenne</groupId>
+			<artifactId>cayenne-client</artifactId>
+			<version>${cayenne.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.cayenne.modeler</groupId>
 			<artifactId>cayenne-modeler</artifactId>
 			<version>${cayenne.version}</version>
@@ -136,6 +142,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.1.0.RELEASE</version>
 				<configuration>
 					<excludes>
 						<exclude>
@@ -148,7 +155,7 @@
 			<plugin>
 				<groupId>org.apache.cayenne.plugins</groupId>
 				<artifactId>cayenne-modeler-maven-plugin</artifactId>
-				<version>${cayenne.version}</version>
+				<version>4.1.M1</version>
 				<configuration>
 					<map>${basedir}/src/main/resources/datamap.map.xml</map>
 					<modelFile>>${basedir}/src/main/resources/cayenne-project.xml</modelFile>
@@ -189,10 +196,52 @@
 	</repositories>
 	<dependencyManagement>
 		<dependencies>
+			<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
-				<version>5.1.1.RELEASE</version>
+				<version>5.1.2.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter</artifactId>
+				<version>2.1.0.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-jetty</artifactId>
+				<version>2.1.0.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot</artifactId>
+				<version>2.1.0.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>5.1.2.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-autoconfigure</artifactId>
+				<version>2.1.0.RELEASE</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>5.1.2.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>5.1.2.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>5.1.2.RELEASE</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
