@@ -3,8 +3,8 @@ package org.philmaster.boot.views;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -18,12 +18,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class CarDetail implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Getter
+	@Setter
 	private Car detailObject;
 
 	@Getter
@@ -44,8 +45,8 @@ public class CarDetail implements Serializable {
 		client = DatabaseService.clientByName(context);
 	}
 
-	public void setDetailObject(Car car) {
-		
+	public String handleDetailObject(Car car) {
+		System.err.println("! "+car);
 		if (car == null) {
 			
 			// new object
@@ -55,6 +56,7 @@ public class CarDetail implements Serializable {
 			// local instance of object
 			detailObject = context.localObject(car);
 		}
+		return "carDetail?faces-redirect=true";
 	}
 
 	public void actionSave(ActionEvent actionEvent) {

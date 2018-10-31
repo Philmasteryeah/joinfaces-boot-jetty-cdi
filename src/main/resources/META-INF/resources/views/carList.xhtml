@@ -14,20 +14,47 @@
         A page description
     </ui:define>
 	<ui:define name="body">
-				
-				<p:growl
-				id="growl"
-				life="2000" />
-				
-		<h:form id="form">
-
-			<p:commandButton
-				value="Ajax Submit"
-				id="ajax"
-				actionListener="#{buttonBean.buttonAction}"
-				styleClass="ui-priority-primary" />
-
-
+		<h:form>
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<!-- List Page -->
+					<pm:pmList
+						id="cartable"
+						var="car"
+						value="#{carList.cars}"
+						rows="20"
+						selection="#{carList.selectedCar}"
+						onRowSelect="#{carList.onRowSelect}"
+						rowKey="#{car.id}"
+						fileNameExport="cars">
+						<p:column style="width:32px;">#{car.id}</p:column>
+						<p:column headerText="Name">
+							<p:commandLink action="#{carDetail.handleDetailObject(car)}">
+							#{car.name != null ? car.name : "..."}
+							</p:commandLink>
+							<h:commandButton
+								action="carDetail"
+								value="Click Me">
+								<f:setPropertyActionListener
+									target="#{carDetail.detailObject}"
+									value="#{car}" />
+							</h:commandButton>
+						</p:column>
+						<p:column
+							headerText="ObjectId"
+							sortBy="#{car.id}">
+							#{car.objectId}
+						</p:column>
+					</pm:pmList>
+				</div>
+			</div>
+			<h:commandButton
+				action="carDetail"
+				value="New">
+				<f:setPropertyActionListener
+					target="#{carDetail.detailObject}"
+					value="#{null}" />
+			</h:commandButton>
 		</h:form>
 	</ui:define>
 </ui:composition>

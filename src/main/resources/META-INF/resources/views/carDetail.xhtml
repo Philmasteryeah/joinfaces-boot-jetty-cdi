@@ -12,8 +12,14 @@
     </ui:define>
 	<ui:define name="description">
         A page description
+        #{carDetail.detailObject.id}
     </ui:define>
 	<ui:define name="body">
-	Detail
+		<h:form>
+		7
+		  <h:outputText value="#{carDetail.detailObject}" />
+	asd
+	#{carDetail.detailObject.id}
+	</h:form>
 	</ui:define>
 </ui:composition>
