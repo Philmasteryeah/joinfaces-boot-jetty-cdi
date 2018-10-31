@@ -28,37 +28,17 @@
 		<heroku.version>2.0.3</heroku.version>
 	</properties>
 
-	<!-- Joinfaces -->
+
 	<dependencies>
+		<!-- AdminTheme -->
 		<dependency>
 			<groupId>com.github.adminfaces</groupId>
 			<artifactId>admin-theme</artifactId>
-
 		</dependency>
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-		</dependency>
-
-
-		<dependency>
-
-			<groupId>org.joinfaces</groupId>
-			<artifactId>adminfaces-spring-boot-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>com.github.adminfaces</groupId>
-					<artifactId>admin-template</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+		<!-- Joinfaces -->
 		<dependency>
 			<groupId>org.joinfaces</groupId>
-			<artifactId>jetty-spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.joinfaces</groupId>
-			<artifactId>jsf-spring-boot-starter</artifactId>
+			<artifactId>primefaces-spring-boot-starter</artifactId>
 			<exclusions>
 				<exclusion>
 					<groupId>org.joinfaces</groupId>
@@ -70,9 +50,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+		<dependency>
+			<groupId>org.joinfaces</groupId>
+			<artifactId>jetty-spring-boot-starter</artifactId>
+		</dependency>
 		<!-- Spring -->
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
@@ -80,31 +62,17 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-web</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- Misc -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp.jstl</groupId>
 			<artifactId>jstl-api</artifactId>
@@ -132,13 +100,11 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.7</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.11.3</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
@@ -160,51 +126,9 @@
 		</dependency>
 		<!-- Cayenne -->
 		<dependency>
-			<groupId>org.apache.cayenne</groupId>
-			<artifactId>cayenne-server</artifactId>
-			<version>${cayenne.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-impl</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-
-			</exclusions>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.cayenne.modeler</groupId>
 			<artifactId>cayenne-modeler</artifactId>
 			<version>${cayenne.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-impl</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 	<build>
