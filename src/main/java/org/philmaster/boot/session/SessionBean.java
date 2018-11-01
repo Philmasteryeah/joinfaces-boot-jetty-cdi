@@ -32,8 +32,7 @@ import lombok.Setter;
 @Setter
 @Named
 @SessionScoped
-public class SessionBean  implements Serializable,ApplicationListener<InteractiveAuthenticationSuccessEvent>
-{
+public class SessionBean implements Serializable, ApplicationListener<InteractiveAuthenticationSuccessEvent> {
 
 	private static final long serialVersionUID = 1L;
 

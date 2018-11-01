@@ -1,4 +1,5 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
@@ -7,40 +8,57 @@
 	xmlns:p="http://primefaces.org/ui">
 	<cc:interface>
 		<cc:attribute name="rows" />
-		<cc:attribute name="value" type="java.util.ArrayList" />
+		<cc:attribute
+			name="value"
+			type="java.util.ArrayList" />
 		<cc:attribute name="fileExporters" />
 		<cc:attribute name="fileNameExport" />
 		<cc:attribute name="selection" />
-		<cc:attribute name="onRowSelect"
+		<cc:attribute
+			name="onRowSelect"
 			method-signature="void action(org.primefaces.event.SelectEvent)" />
 		<cc:attribute name="id" />
 		<cc:attribute name="var" />
 		<cc:attribute name="rowKey" />
 		<cc:attribute name="ats" />
 	</cc:interface>
-
 	<cc:implementation>
-		<p:dataTable value="#{cc.attrs.value}"
-			filteredValue="#{cc.attrs.value}" id="#{cc.attrs.id}" 
-			paginator="true" rows="#{cc.attrs.rows}" selection="#{cc.attrs.selection}"
-			selectionMode="single" rowKey="#{cc.attrs.rowKey}"
+		<p:dataTable
+			value="#{cc.attrs.value}"
+			filteredValue="#{cc.attrs.value}"
+			id="#{cc.attrs.id}"
+			paginator="true"
+			rows="#{cc.attrs.rows}"
+			selection="#{cc.attrs.selection}"
+			selectionMode="single"
+			rowKey="#{cc.attrs.rowKey}"
 			currentPageReportTemplate="Showing {startRecord}-{endRecord} of     {totalRecords}"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
-			rowsPerPageTemplate="10,25,50,100" paginatorPosition="bottom"
+			rowsPerPageTemplate="10,25,50,100"
+			paginatorPosition="bottom"
 			lazy="false">
 			<f:facet name="header">
            Header
             </f:facet>
 			<f:facet name="{Exporters}">
-				<c:forEach items="#{['xls','pdf','csv','xml']}" var="type">
+				<c:forEach
+					items="#{['xls','pdf','csv','xml']}"
+					var="type">
 					<h:commandLink>
-						<p:graphicImage name="/images/#{type}.png" width="24" />
-						<p:dataExporter type="#{type}" target="#{cc.attrs.id}"
+						<p:graphicImage
+							name="/images/#{type}.png"
+							width="24" />
+						<p:dataExporter
+							type="#{type}"
+							target="#{cc.attrs.id}"
 							fileName="#{cc.attrs.fileNameExport}" />
 					</h:commandLink>
 				</c:forEach>
 			</f:facet>
-			<c:set target="#{component}" property="var" value="#{cc.attrs.var}" />
+			<c:set
+				target="#{component}"
+				property="var"
+				value="#{cc.attrs.var}" />
 			<cc:insertChildren />
 		</p:dataTable>
 	</cc:implementation>

@@ -48,6 +48,13 @@
 								title="Logoff">
 								<i class="fa fa-sign-out fa-2x"></i>
 							</p:commandLink>
+							<p:commandLink
+								value="#{msg.logout}"
+								ajax="false"
+								action="#{sessionBean.logout}"
+								immediate="true">
+								<i class="fa fa-sign-out fa-2x"></i>
+							</p:commandLink>
 						</div>
 					</h:form>
 				</li>

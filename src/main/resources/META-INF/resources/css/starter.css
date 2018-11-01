@@ -39,3 +39,7 @@ a#logout {
         padding-top:100px;
     }
 }
+
+.ui-widget-overlay {
+	opacity: 0;
+}

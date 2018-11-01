@@ -25,8 +25,6 @@
 		<postgresql.version>42.2.5</postgresql.version>
 		<cayenne.version>4.1.M2</cayenne.version>
 		<heroku.version>2.0.6</heroku.version>
-		<spring-boot.version>2.1.0.RELEASE</spring-boot.version>
-		<spring.version>5.1.2.RELEASE</spring.version>
 	</properties>
 
 	<dependencies>
@@ -58,17 +56,14 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<version>${spring-boot.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- Misc -->
@@ -150,7 +145,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring-boot.version}</version>
 				<configuration>
 					<excludes>
 						<exclude>
@@ -181,7 +175,8 @@
 					<appName>ancient-gorge-66249</appName>
 					<jdkVersion>10</jdkVersion>
 					<processTypes>
-						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/joinfaces-application-1.0.0-SNAPSHOT.jar</web>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar
+							target/joinfaces-application-1.0.0-SNAPSHOT.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>
@@ -205,58 +200,4 @@
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</repository>
 	</repositories>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-core</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-jetty</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-autoconfigure</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-beans</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-aop</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-web</artifactId>
-				<version>5.1.1.RELEASE</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 </project>

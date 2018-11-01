@@ -19,26 +19,22 @@
 				<div class="box-header with-border">
 					<!-- List Page -->
 					<pm:pmList
-						id="cartable"
 						var="car"
-						value="#{carList.cars}"
 						rows="20"
+						rowKey="#{car.id}"
+						value="#{carList.cars}"
 						selection="#{carList.selectedCar}"
 						onRowSelect="#{carList.onRowSelect}"
-						rowKey="#{car.id}"
 						fileNameExport="cars">
 						<p:column style="width:32px;">#{car.id}</p:column>
 						<p:column headerText="Name">
-							<p:commandLink action="#{carDetail.handleDetailObject(car)}">
-							#{car.name != null ? car.name : "..."}
-							</p:commandLink>
-							<h:commandButton
+							<h:commandLink
 								action="carDetail"
-								value="Click Me">
+								value="#{car.name != null and !car.name.isEmpty() ? car.name : '...'}">
 								<f:setPropertyActionListener
 									target="#{carDetail.detailObject}"
 									value="#{car}" />
-							</h:commandButton>
+							</h:commandLink>
 						</p:column>
 						<p:column
 							headerText="ObjectId"

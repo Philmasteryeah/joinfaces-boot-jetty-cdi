@@ -1,20 +1,20 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:cc="http://xmlns.jcp.org/jsf/composite"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:c="http://java.sun.com/jsp/jstl/core"
-    xmlns:p="http://primefaces.org/ui">
-
-    <cc:interface>
-        <cc:attribute name="title" />
-        <cc:attribute name="value" />
-    </cc:interface>
-
-    <cc:implementation>
-        <p:column headerText="#{cc.attrs.title}"
-            sortBy="#{cc.attrs.value}">
-            <h:outputText value="#{cc.attrs.value}" />
-        </p:column>
-    </cc:implementation>
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+	<cc:interface>
+		<cc:attribute name="title" />
+		<cc:attribute name="value" />
+	</cc:interface>
+	<cc:implementation>
+		<p:column
+			headerText="#{cc.attrs.title}"
+			sortBy="#{cc.attrs.value}">
+			<h:outputText value="#{cc.attrs.value}" />
+		</p:column>
+	</cc:implementation>
 </ui:composition>
