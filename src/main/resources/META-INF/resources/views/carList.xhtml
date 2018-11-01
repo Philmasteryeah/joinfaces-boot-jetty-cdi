@@ -14,10 +14,9 @@
         A page description
     </ui:define>
 	<ui:define name="body">
-		<h:form>
-			<div class="box box-primary">
-				<div class="box-header with-border">
-					<!-- List Page -->
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h:form>
 					<pm:pmList
 						var="car"
 						rows="20"
@@ -42,15 +41,15 @@
 							#{car.objectId}
 						</p:column>
 					</pm:pmList>
-				</div>
+					<h:commandButton
+						action="carDetail"
+						value="New">
+						<f:setPropertyActionListener
+							target="#{carDetail.detailObject}"
+							value="#{null}" />
+					</h:commandButton>
+				</h:form>
 			</div>
-			<h:commandButton
-				action="carDetail"
-				value="New">
-				<f:setPropertyActionListener
-					target="#{carDetail.detailObject}"
-					value="#{null}" />
-			</h:commandButton>
-		</h:form>
+		</div>
 	</ui:define>
 </ui:composition>

@@ -52,9 +52,9 @@ public class CarList implements Serializable {
 	}
 
 	public List<Car> getCars() {
-		if (cars == null)
-			cars = DatabaseService.fetch(context, Car.class, ExpressionFactory.matchExp(client),
-					Car.NAME.ascInsensitive());
+		if (cars != null)
+			return cars;
+		cars = DatabaseService.fetch(context, Car.class, ExpressionFactory.matchExp(client), Car.NAME.ascInsensitive());
 		return cars;
 	}
 

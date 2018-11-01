@@ -17,6 +17,13 @@ import org.philmaster.boot.util.Util;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * @author Philmaster
+ *
+ *         Needs to be session scoped because it gets the detail object from a
+ *         list page.
+ *
+ */
 @Named
 @SessionScoped
 public class CarDetail implements Serializable {
@@ -30,10 +37,6 @@ public class CarDetail implements Serializable {
 	@Getter
 	private Client client;
 
-	@Getter
-	@Setter
-	private int currentLevel = 1;
-
 	@Inject
 	private DatabaseService db;
 
@@ -45,28 +48,13 @@ public class CarDetail implements Serializable {
 		client = DatabaseService.clientByName(context);
 	}
 
-	public String handleDetailObject(Car car) {
-		System.err.println("! "+car);
-		if (car == null) {
-			
-			// new object
-			detailObject = context.newObject(Car.class);
-			detailObject.setClient(client);
-		} else {
-			// local instance of object
-			detailObject = context.localObject(car);
-		}
-		return "carDetail?faces-redirect=true";
-	}
-
 	public void actionSave(ActionEvent actionEvent) {
 		context.commitChanges();
 		Util.statusMessageInfo("Welcome", "saved");
-		currentLevel = 1;
 	}
-	
+
 	public void actionAdd(ActionEvent actionEvent) {
-		
+
 //		for (int i = 0; i < 10; i++) {
 //			Car.createRandomTestCar(context, client);
 //		}		
@@ -74,7 +62,7 @@ public class CarDetail implements Serializable {
 //		
 //		//context.commitChanges();
 //		Util.statusMessageInfo("Welcome", "saved");
-		
+
 	}
 
 }

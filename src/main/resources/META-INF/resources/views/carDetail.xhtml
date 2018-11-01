@@ -8,18 +8,38 @@
 	xmlns:pm="http://java.sun.com/jsf/composite/components"
 	template="/includes/template.xhtml">
 	<ui:define name="title">
-        A page title
+        Car detail
     </ui:define>
 	<ui:define name="description">
-        A page description
-        #{carDetail.detailObject.id}
+        displays car details
     </ui:define>
 	<ui:define name="body">
 		<h:form>
-		7
-		  <h:outputText value="#{carDetail.detailObject}" />
-	asd
-	#{carDetail.detailObject.id}
-	</h:form>
+			<p:tabView cache="true">
+				<p:tab title="System">
+					<h:panelGrid
+						columns="2"
+						cellpadding="10">
+						<h:outputText value="#{carDetail.detailObject}" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Person">
+					<h:panelGrid
+						columns="2"
+						cellpadding="10">
+						<p:graphicImage name="demo/images/godfather/godfather2.jpg" />
+						<h:outputText value="TODO." />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="History">
+					<h:panelGrid
+						columns="2"
+						cellpadding="10">
+						<p:graphicImage name="demo/images/godfather/godfather3.jpg" />
+						<h:outputText value="TODO2" />
+					</h:panelGrid>
+				</p:tab>
+			</p:tabView>
+		</h:form>
 	</ui:define>
 </ui:composition>
