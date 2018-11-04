@@ -113,12 +113,12 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>3.7</version>
+			<version>3.17</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>3.7</version>
+			<version>3.17</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -187,21 +187,16 @@
 				<configuration>
 					<includeTarget>false</includeTarget>
 					<includes>
-						<include>target/joinfaces-application-1.0.0-SNAPSHOT.jar</include>
+						<include>target/joinfaces-boot-jetty-cdi-1.0.0.jar</include>
 					</includes>
 					<appName>ancient-gorge-66249</appName>
-					<jdkVersion>8</jdkVersion>
+					<jdkVersion>10</jdkVersion>
 					<processTypes>
-						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar
-							target/joinfaces-application-1.0.0-SNAPSHOT.jar</web>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/joinfaces-boot-jetty-cdi-1.0.0.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>com.versioneye</groupId>
-				<artifactId>versioneye-maven-plugin</artifactId>
-				<version>3.11.4</version>
-			</plugin>
+
 		</plugins>
 	</build>
 	<repositories>
