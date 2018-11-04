@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.joinfaces</groupId>
 		<artifactId>joinfaces-parent</artifactId>
-		<version>3.2.4</version>
+		<version>3.2.6</version>
 		<relativePath />
 	</parent>
 
@@ -78,6 +78,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- Spring -->
+		<!-- webmvc needed for spring request mapping for rest-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
