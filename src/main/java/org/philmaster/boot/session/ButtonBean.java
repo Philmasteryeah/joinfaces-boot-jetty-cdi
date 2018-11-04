@@ -3,14 +3,11 @@ package org.philmaster.boot.session;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 
-import org.omnifaces.util.Messages;
 import org.philmaster.boot.util.Util;
 
 /**
@@ -32,7 +29,7 @@ public class ButtonBean implements Serializable {
 		Util.statusMessageInfo("Welcome", "test");
 	}
 
-	public void buttonTest(ActionEvent actionEvent) throws Exception {
+	public void buttonTest(ActionEvent actionEvent) {
 		System.err.println(actionEvent + " ");
 		Util.statusMessageInfo("Welcome", "test");
 
@@ -40,27 +37,27 @@ public class ButtonBean implements Serializable {
 		// meals.forEach(System.err::println);
 	}
 
-	public void doAction() throws ServletException {
-		Messages.create("Welcome to AdminBoot " + session.getUsername() + "!")
-				.detail("<b>AdminFaces</b> and <b>SpringBoot</b> integration via <b>JoinFaces.</b>").add();
-		throw new RuntimeException();
+	public void doAction() {
+		Util.statusMessageInfo("Welcome", "'" + session.getUsername() + "'");
+//		Messages.create("Welcome to AdminBoot " + session.getUsername() + "!")
+//				.detail("<b>AdminFaces</b> and <b>SpringBoot</b> integration via <b>JoinFaces.</b>").add();
+
 	}
 
-	public void doAction2() throws Exception {
-		Messages.create("Welcome to AdminBoot " + session.getUsername() + "!")
-				.detail("<b>AdminFaces</b> and <b>SpringBoot</b> integration via <b>JoinFaces.</b>").add();
-		throw new Exception();
+	public void doAction2() {
+		Util.statusMessageWarn("Welcome", "'" + session.getUsername() + "'");
+
 	}
-	
-	public void doAction3() throws ServletException {
-		Messages.create("Welcome to AdminBoot " + session.getUsername() + "!")
-				.detail("<b>AdminFaces</b> and <b>SpringBoot</b> integration via <b>JoinFaces.</b>").add();
-		throw new ServletException();
+
+	public void doAction3() {
+		Util.statusMessageError("Welcome", "'" + session.getUsername() + "'");
+
 	}
 
 	public void addMessage(String summary) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
-		FacesContext.getCurrentInstance().addMessage(null, message);
+		Util.statusMessageError("add", "'" + summary + "'");
+//		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+//		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 
 }
