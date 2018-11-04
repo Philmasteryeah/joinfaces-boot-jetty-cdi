@@ -1,8 +1,7 @@
 package org.philmaster.boot.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * @author Philmaster
@@ -14,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class RedirectToIndexController {
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@GetMapping("/")
 	public String redirect() {
+		System.err.println("red");
 		return "redirect:index.xhtml";
 	}
 

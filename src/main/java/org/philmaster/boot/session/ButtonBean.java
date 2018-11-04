@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletException;
 
 import org.omnifaces.util.Messages;
 import org.philmaster.boot.util.Util;
@@ -39,9 +40,22 @@ public class ButtonBean implements Serializable {
 		// meals.forEach(System.err::println);
 	}
 
-	public void doAction() {
+	public void doAction() throws ServletException {
 		Messages.create("Welcome to AdminBoot " + session.getUsername() + "!")
 				.detail("<b>AdminFaces</b> and <b>SpringBoot</b> integration via <b>JoinFaces.</b>").add();
+		throw new RuntimeException();
+	}
+
+	public void doAction2() throws Exception {
+		Messages.create("Welcome to AdminBoot " + session.getUsername() + "!")
+				.detail("<b>AdminFaces</b> and <b>SpringBoot</b> integration via <b>JoinFaces.</b>").add();
+		throw new Exception();
+	}
+	
+	public void doAction3() throws ServletException {
+		Messages.create("Welcome to AdminBoot " + session.getUsername() + "!")
+				.detail("<b>AdminFaces</b> and <b>SpringBoot</b> integration via <b>JoinFaces.</b>").add();
+		throw new ServletException();
 	}
 
 	public void addMessage(String summary) {

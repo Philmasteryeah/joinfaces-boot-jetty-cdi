@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("rest")
 public class TestController {
 
 	@Inject
@@ -27,27 +28,27 @@ public class TestController {
 	@Inject
 	private FileService fis;
 
-	@RequestMapping(path = "/rest/testMeal", method = RequestMethod.GET)
+	@RequestMapping(path = "/testMeal", method = RequestMethod.GET)
 	public ResponseEntity<Meal> getTestMeal() {
 		return new ResponseEntity<Meal>(Meal.getTestMeal(), HttpStatus.OK);
 	}
 
-	@RequestMapping(path = "/rest/testMeals", method = RequestMethod.GET)
+	@RequestMapping(path = "/testMeals", method = RequestMethod.GET)
 	public ResponseEntity<List<Meal>> getTestMeals() {
 		return new ResponseEntity<List<Meal>>(Arrays.asList(Meal.getTestMeal(), Meal.getTestMeal()), HttpStatus.OK);
 	}
 
-	@RequestMapping(path = "/rest/meals", method = RequestMethod.GET)
+	@RequestMapping(path = "/meals", method = RequestMethod.GET)
 	public ResponseEntity<List<Meal>> getMeals() {
 		return new ResponseEntity<List<Meal>>(fs.getParsedMeals(), HttpStatus.OK);
 	}
 
-	@RequestMapping(path = "/rest/test", method = RequestMethod.GET)
+	@RequestMapping(path = "/test", method = RequestMethod.GET)
 	public ResponseEntity<String> getTest() {
 		return new ResponseEntity<String>(is.getTestImage(), HttpStatus.OK);
 	}
 	
-	@RequestMapping(path = "/rest/test2", method = RequestMethod.GET,  produces="application/json")
+	@RequestMapping(path = "/test2", method = RequestMethod.GET,  produces="application/json")
 	public ResponseEntity<String> getTest2() {
 		return new ResponseEntity<String>(fis.getFileAsString("test.json"), HttpStatus.OK);
 	}

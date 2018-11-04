@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -89,11 +90,11 @@ public class Util {
 
 	// reflection
 
-	public static List<Field> getAllFields(@NonNull List<Field> fields, @NonNull Class<?> type) {
-		fields.addAll(Arrays.asList(type.getDeclaredFields()));
+	public static List<Field> getAllFields(@NonNull List<Field> arrayList, @NonNull Class<?> type) {
+		arrayList.addAll(Arrays.asList(type.getDeclaredFields()));
 		if (type.getSuperclass() != null)
-			getAllFields(fields, type.getSuperclass());
-		return fields;
+			getAllFields(arrayList, type.getSuperclass());
+		return arrayList;
 	}
 
 	public static Object getAccessibleField(@NonNull List<Field> fields, String sortField, Object obj) {

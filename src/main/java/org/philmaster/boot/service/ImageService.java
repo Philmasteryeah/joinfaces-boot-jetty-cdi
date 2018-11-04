@@ -1,9 +1,14 @@
 package org.philmaster.boot.service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -55,8 +60,15 @@ public class ImageService implements Serializable {
 		if (m.find())
 			tagList.add(m.group(0));
 
-		String tags = tagList.stream().map(tag -> URLEncoder.encode(tag, StandardCharsets.UTF_8))
-				.collect(Collectors.joining("+"));
+		String tags = tagList.stream().map(tag -> {
+			try {
+				return URLEncoder.encode(tag, StandardCharsets.UTF_8.name());
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return tag;
+		}).collect(Collectors.joining("+"));
 
 		// TODO
 		tags = tags.substring(0, tags.length() > API_QUERY_LIMIT ? API_QUERY_LIMIT : tags.length());
@@ -105,8 +117,20 @@ public class ImageService implements Serializable {
 	}
 
 	private static byte[] urlToBarry(String url) {
+
 		try {
-			return new URL(url).openStream().readAllBytes();
+			ByteArrayOutputStream output = new ByteArrayOutputStream();
+			URLConnection conn = new URL(url).openConnection();
+			conn.setRequestProperty("User-Agent", "Firefox");
+
+			try (InputStream inputStream = conn.getInputStream()) {
+				int n = 0;
+				byte[] buffer = new byte[1024];
+				while (-1 != (n = inputStream.read(buffer))) {
+					output.write(buffer, 0, n);
+				}
+			}
+			return output.toByteArray();
 		} catch (Exception e) {
 			System.err.println(e); // TODO
 			return null;

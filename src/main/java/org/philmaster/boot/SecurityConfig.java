@@ -13,9 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
@@ -37,17 +36,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 		protected void configure(HttpSecurity http) throws Exception {
 			// rest Login
-			http.antMatcher("/rest/**").authorizeRequests().anyRequest().hasRole("ADMIN").and().httpBasic().and().csrf()
+			http.antMatcher("/test/**").authorizeRequests().anyRequest().hasRole("ADMIN").and().httpBasic().and().csrf()
 					.disable();
-			
-			 //.exceptionHandling().accessDeniedPage("/accessDenied.jsp");
 		}
 	}
 
 	@Configuration
-	@Order(2)
 	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
-
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			// form login
@@ -55,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.anyRequest().fullyAuthenticated().and().formLogin().loginPage("/login.xhtml")
 					.defaultSuccessUrl("/index.xhtml").failureUrl("/login.xhtml?error=true").permitAll().and().logout()
 					.logoutSuccessUrl("/login.xhtml").and().csrf().disable();
+
 			// allow to use ressource links like pdf
 			http.headers().frameOptions().sameOrigin();
 		}
