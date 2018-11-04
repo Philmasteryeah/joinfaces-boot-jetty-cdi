@@ -20,9 +20,10 @@
 - apache cayenne Integration completed with orm class using
 - lombok integation
 - messages from messages.properties
+- all admin stuff in one property
 - nice looking responsive layout
-- automatic menu from application.yml (TODO)
 - master detail page with list and database saving (TODO)
+- simple exception page mapping
 
 - Login
 ![alt text](https://abload.de/img/adminloginildcy.png)
@@ -32,15 +33,16 @@
 
 # Why
 - highly modular and customizable
-- fat jar deployment with all embedded
+- fat jar deployment with all embedded (~50mb)
 - highly portable
 - supports Java EE features
 	- javax stuff
 	- jsf and primefaces
+	- component and layout concept
 - supports Spring features
 	- Security
 	- REST (web)
-- pick the best of all and use it together
+- do not re-invent the wheel, use the best of everything together
 
 # Local Deployment
 - you should not need postgres for deploying 
