@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition
 	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/includes/template.xhtml">
 	<ui:define name="head-end">
 		<ui:param
@@ -17,12 +17,10 @@
 		<p:commandButton
 			value="Test"
 			actionListener="#{buttonBean.doAction()}" />
-			
-					<p:commandButton
+		<p:commandButton
 			value="Test"
-			actionListener="#{buttonBean.doAction2()}"  />
-			
-					<p:commandButton
+			actionListener="#{buttonBean.doAction2()}" />
+		<p:commandButton
 			value="Test"
 			actionListener="#{buttonBean.doAction3()}" />
 	</ui:define>

@@ -6,15 +6,26 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui">
-	<cc:interface>
-		<cc:attribute name="title" />
-		<cc:attribute name="value" />
+	<cc:interface
+		componentType="org.primefaces.component.Column"
+		preferred="true">
+		<cc:attribute name="cvalue" />
+		<cc:attribute name="ctitle" />
 	</cc:interface>
+	<!-- IMPLEMENTATION -->
 	<cc:implementation>
-		<p:column
-			headerText="#{cc.attrs.title}"
-			sortBy="#{cc.attrs.value}">
-			<h:outputText value="#{cc.attrs.value}" />
-		</p:column>
+	<h:outputText value="#{cc.attrs.ctitle}" />
+		<cc:actionSource name="#{component}">
+			<p:column
+				sortBy="#{cc.attrs.var}"
+				filterBy="#{cc.attrs.var}">
+				<!-- Header wird nicht angezeigt -->
+				<f:facet name="header">
+					<h:outputText value="#{cc.attrs.ctitle}" />
+				</f:facet>
+
+				<h:outputText value="#{cc.attrs.var}" />
+			</p:column>
+		</cc:actionSource>
 	</cc:implementation>
 </ui:composition>
