@@ -22,6 +22,7 @@
 		<cc:attribute name="var" />
 		<cc:attribute name="rowKey" />
 		<cc:attribute name="ats" />
+		<cc:attribute name="rowIndex" />
 	</cc:interface>
 	<cc:implementation>
 		<p:dataTable
@@ -35,6 +36,7 @@
 			paginatorTemplate="{Cuf:attributerrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
 			rowsPerPageTemplate="10,25,50,100"
 			paginatorPosition="bottom"
+			rowIndexVar="#{cc.attrs.rowIndex}"
 			lazy="false">
 			<cc:insertFacet name="header" />
 			<f:facet name="{Exporters}">

@@ -84,7 +84,7 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- Spring -->
-		<!-- webmvc needed for spring request mapping for rest-->
+		<!-- webmvc needed for spring request mapping for rest -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -198,7 +198,8 @@
 					<appName>ancient-gorge-66249</appName>
 					<jdkVersion>10</jdkVersion>
 					<processTypes>
-						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/joinfaces-boot-jetty-cdi-1.0.0.jar</web>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar
+							target/joinfaces-boot-jetty-cdi-1.0.0.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>

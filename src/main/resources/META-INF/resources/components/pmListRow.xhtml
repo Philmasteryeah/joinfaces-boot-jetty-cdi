@@ -4,28 +4,15 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui">
 	<cc:interface
 		componentType="org.primefaces.component.Column"
 		preferred="true">
-		<cc:attribute name="cvalue" />
-		<cc:attribute name="ctitle" />
 	</cc:interface>
-	<!-- IMPLEMENTATION -->
 	<cc:implementation>
-	<h:outputText value="#{cc.attrs.ctitle}" />
-		<cc:actionSource name="#{component}">
-			<p:column
-				sortBy="#{cc.attrs.var}"
-				filterBy="#{cc.attrs.var}">
-				<!-- Header wird nicht angezeigt -->
-				<f:facet name="header">
-					<h:outputText value="#{cc.attrs.ctitle}" />
-				</f:facet>
-
-				<h:outputText value="#{cc.attrs.var}" />
-			</p:column>
-		</cc:actionSource>
+		<cc:valueHolder name="vh">
+				 #{component.rowIndex} - #{component.value[component.rowIndex].name}
+		</cc:valueHolder>
 	</cc:implementation>
 </ui:composition>

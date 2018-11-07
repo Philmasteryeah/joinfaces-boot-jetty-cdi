@@ -20,30 +20,27 @@
 					<pm:pmList
 						var="car"
 						rows="20"
-						rowKey="#{car.id}"
+						rowKey="#{car}"
 						value="#{carList.cars}"
 						fileNameExport="cars">
 						<f:facet name="header">
-          				 Headers
+          				Big  Header
 						</f:facet>
-						<p:column style="width:32px;">#{car.id}</p:column>
+						<p:column headerText="Name">
+							<h:commandLink
+								action="carDetail"
+								value="#{car.name != null and !car.name.isEmpty() ? car.name : '...'}">
+								<f:setPropertyActionListener
+									target="#{carDetail.detailObject}"
+									value="#{car}" />
+							</h:commandLink>
+						</p:column>
 						<pm:pmListRow
-							ctitle="Car"
-							cvalue="asd" />
-						<pm:pmListRow
-							ctitle="Car"
-							cvalue="asd" />
+							title="Car ID"
+							value1="#{car.id}" />
 					</pm:pmList>
 					<!-- 
-			<p:column headerText="Name">
-				<h:commandLink
-					action="carDetail"
-					value="#{car.name != null and !car.name.isEmpty() ? car.name : '...'}">
-					<f:setPropertyActionListener
-						target="#{carDetail.detailObject}"
-						value="#{car}" />
-				</h:commandLink>
-			</p:column>
+
 			<p:column
 				headerText="ObjectId"
 				sortBy="#{car.id}">
