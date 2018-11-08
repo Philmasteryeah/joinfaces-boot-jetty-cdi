@@ -8,10 +8,10 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	template="/includes/template.xhtml">
 	<ui:define name="title">
-        A page title
+        car list
     </ui:define>
 	<ui:define name="description">
-        A page description
+        a list of cars
     </ui:define>
 	<ui:define name="body">
 		<div class="box box-primary">
@@ -20,39 +20,36 @@
 					<pm:pmList
 						var="car"
 						rows="20"
-						rowKey="#{car}"
 						value="#{carList.cars}"
-						fileNameExport="cars">
-						<f:facet name="header">
-          				Big  Header
-						</f:facet>
-						<p:column headerText="Name">
-							<h:commandLink
+						fileNameExport="cars"
+						titleHeader="Header">
+						<p:column
+							headerText="Name"
+							sortBy="#{car.name}">
+							<p:commandLink
 								action="carDetail"
-								value="#{car.name != null and !car.name.isEmpty() ? car.name : '...'}">
+								ajax="false"
+								value="#{car.name}">
 								<f:setPropertyActionListener
 									target="#{carDetail.detailObject}"
 									value="#{car}" />
-							</h:commandLink>
+							</p:commandLink>
 						</p:column>
-						<pm:pmListRow
-							title="Car ID"
-							value1="#{car.id}" />
+						<p:column
+							headerText="ObjectId"
+							sortBy="#{car.id}">#{car.id}
+						</p:column>
+						<f:facet name="footer">
+							<p:commandButton
+								action="carDetail"
+								value="New"
+								ajax="false">
+								<f:setPropertyActionListener
+									target="#{carDetail.detailObject}"
+									value="#{null}" />
+							</p:commandButton>
+						</f:facet>
 					</pm:pmList>
-					<!-- 
-
-			<p:column
-				headerText="ObjectId"
-				sortBy="#{car.id}">
-							#{car.objectId}
-			</p:column> -->
-					<h:commandButton
-						action="carDetail"
-						value="New">
-						<f:setPropertyActionListener
-							target="#{carDetail.detailObject}"
-							value="#{null}" />
-					</h:commandButton>
 				</h:form>
 			</div>
 		</div>
