@@ -6,7 +6,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletException;
 
 import org.philmaster.boot.util.Util;
 
