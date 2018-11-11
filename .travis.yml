@@ -1,15 +1,7 @@
 dist: trusty
 language: java
 jdk:
-  - openjdk10
-cache:
-  directories:
-  - $HOME/.m2
-
-before_install: 
-  - git clone https://github.com/joinfaces/joinfaces.git
-  - cd joinfaces
-  - ./mvnw install -DskipTests=true -B
+  - openjdk11
 
 install: ./mvnw install -DskipTests=true -B 
 
