@@ -2,7 +2,7 @@ dist: trusty
 language: java
 jdk:
   - openjdk11
-  
+
 deploy:
   skip_cleanup: true
 
