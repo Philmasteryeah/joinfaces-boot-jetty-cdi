@@ -6,6 +6,8 @@
 # Joinfaces-boot-jetty-cdi
 - Java 10
 - Spring Boot v2.0.6
+- Spring Security
+- Spring REST
 - PrimeFaces 6.2
 - Jetty 9
 - CDI 2.0 (weld)

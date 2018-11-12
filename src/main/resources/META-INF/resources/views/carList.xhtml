@@ -27,12 +27,9 @@
 							headerText="Name"
 							sortBy="#{car.name}">
 							<p:commandLink
-								action="carDetail"
+								action="#{carDetail.actionDetail(car)}"
 								ajax="false"
-								value="#{car.name}">
-								<f:setPropertyActionListener
-									target="#{carDetail.detailObject}"
-									value="#{car}" />
+								value="#{car.name != null ? car.name : '...'}">
 							</p:commandLink>
 						</p:column>
 						<p:column
@@ -41,12 +38,9 @@
 						</p:column>
 						<f:facet name="footer">
 							<p:commandButton
-								action="carDetail"
-								value="New"
-								ajax="false">
-								<f:setPropertyActionListener
-									target="#{carDetail.detailObject}"
-									value="#{null}" />
+								action="#{carDetail.actionDetail(null)}"
+								ajax="false"
+								value="New">
 							</p:commandButton>
 						</f:facet>
 					</pm:pmList>

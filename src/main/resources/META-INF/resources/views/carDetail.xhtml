@@ -7,6 +7,17 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	template="/includes/template.xhtml">
+	<ui:define name="head-end">
+		<style type="text/css">
+div.ui-material {
+	margin-top: 20px;
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 30px white inset;
+}
+</style>
+	</ui:define>
 	<ui:define name="title">
         Car detail
     </ui:define>
@@ -15,29 +26,54 @@
     </ui:define>
 	<ui:define name="body">
 		<h:form>
-			<p:tabView cache="true">
-				<p:tab title="System">
-					<h:panelGrid
-						columns="2"
-						cellpadding="10">
-						<h:outputText value="#{carDetail.detailObject}" />
-					</h:panelGrid>
-				</p:tab>
-				<p:tab title="Person">
-					<h:panelGrid
-						columns="2"
-						cellpadding="10">
-						<h:outputText value="TODO." />
-					</h:panelGrid>
-				</p:tab>
-				<p:tab title="History">
-					<h:panelGrid
-						columns="2"
-						cellpadding="10">
-						<h:outputText value="TODO2" />
-					</h:panelGrid>
-				</p:tab>
-			</p:tabView>
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<p:tabView cache="true">
+						<p:tab title="System">
+							<h:panelGrid
+								columns="2"
+								cellpadding="10">
+								
+								<h:outputText value="#{carDetail.detailObject.name}" />
+								<p:inputText value="#{carDetail.detailObject.name}" />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="Person">
+							<h:panelGrid
+								columns="2"
+								cellpadding="10">
+								<h:outputText value="TODO." />
+								<div class="ui-g ui-fluid">
+									<div class="ui-g-6 ui-sm-12">
+										<div class="ui-material">
+											<p:outputLabel
+												for="input"
+												value="Material input" />
+											<p:inputText
+												id="input"
+												required="true"
+												placeholder="Material placeholder" />
+											<p:message for="input" />
+										</div>
+									</div>
+								</div>
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="History">
+							<h:panelGrid
+								columns="2"
+								cellpadding="10">
+								<h:outputText value="TODO2" />
+							</h:panelGrid>
+						</p:tab>
+					</p:tabView>
+					<p:commandButton
+						actionListener="#{carDetail.actionSave}"
+						update="@form"
+						value="Save">
+					</p:commandButton>
+				</div>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>

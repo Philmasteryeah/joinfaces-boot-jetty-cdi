@@ -31,7 +31,6 @@ public class CarDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Getter
-	@Setter
 	private Car detailObject;
 
 	@Getter
@@ -46,6 +45,18 @@ public class CarDetail implements Serializable {
 	public void init() {
 		context = db.newContext();
 		client = DatabaseService.clientByName(context);
+	}
+
+	public String actionDetail(Car car) {
+		if (car != null) {
+			// local instance of object
+			detailObject = context.localObject(car);
+		} else {
+			// new object
+			detailObject = context.newObject(Car.class);
+			detailObject.setClient(client);
+		}
+		return "carDetail";
 	}
 
 	public void actionSave(ActionEvent actionEvent) {
