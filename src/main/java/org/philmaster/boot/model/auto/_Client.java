@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.exp.Property;
+import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Car;
 
 /**
@@ -25,6 +26,7 @@ public abstract class _Client extends BaseDataObject {
     public static final Property<byte[]> PICTURE_LEFT = Property.create("pictureLeft", byte[].class);
     public static final Property<byte[]> PICTURE_MID = Property.create("pictureMid", byte[].class);
     public static final Property<byte[]> PICTURE_RIGHT = Property.create("pictureRight", byte[].class);
+    public static final Property<List<Account>> ACCOUNTS = Property.create("accounts", List.class);
     public static final Property<List<Car>> CARS = Property.create("cars", List.class);
 
     protected String name;
@@ -32,6 +34,7 @@ public abstract class _Client extends BaseDataObject {
     protected byte[] pictureMid;
     protected byte[] pictureRight;
 
+    protected Object accounts;
     protected Object cars;
 
     public void setName(String name) {
@@ -74,6 +77,19 @@ public abstract class _Client extends BaseDataObject {
         return this.pictureRight;
     }
 
+    public void addToAccounts(Account obj) {
+        addToManyTarget("accounts", obj, true);
+    }
+
+    public void removeFromAccounts(Account obj) {
+        removeToManyTarget("accounts", obj, true);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Account> getAccounts() {
+        return (List<Account>)readProperty("accounts");
+    }
+
     public void addToCars(Car obj) {
         addToManyTarget("cars", obj, true);
     }
@@ -102,6 +118,8 @@ public abstract class _Client extends BaseDataObject {
                 return this.pictureMid;
             case "pictureRight":
                 return this.pictureRight;
+            case "accounts":
+                return this.accounts;
             case "cars":
                 return this.cars;
             default:
@@ -128,6 +146,9 @@ public abstract class _Client extends BaseDataObject {
             case "pictureRight":
                 this.pictureRight = (byte[])val;
                 break;
+            case "accounts":
+                this.accounts = val;
+                break;
             case "cars":
                 this.cars = val;
                 break;
@@ -151,6 +172,7 @@ public abstract class _Client extends BaseDataObject {
         out.writeObject(this.pictureLeft);
         out.writeObject(this.pictureMid);
         out.writeObject(this.pictureRight);
+        out.writeObject(this.accounts);
         out.writeObject(this.cars);
     }
 
@@ -161,6 +183,7 @@ public abstract class _Client extends BaseDataObject {
         this.pictureLeft = (byte[])in.readObject();
         this.pictureMid = (byte[])in.readObject();
         this.pictureRight = (byte[])in.readObject();
+        this.accounts = in.readObject();
         this.cars = in.readObject();
     }
 

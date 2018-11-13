@@ -1,0 +1,33 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:pm="http://xmlns.jcp.org/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/includes/template.xhtml">
+	<ui:define name="title">
+        Car detail
+    </ui:define>
+	<ui:define name="description">
+        displays car details
+    </ui:define>
+	<ui:define name="body">
+		<h:form>
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h:outputText value="Username" />
+					<p:inputText value="#{accountDetail.detailObject.username}" />
+					<h:outputText value="Password" />
+					<p:inputText value="#{accountDetail.detailObject.password}" />
+					<p:commandButton
+						actionListener="#{accountDetail.actionSave}"
+						update="@form"
+						value="Save">
+					</p:commandButton>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

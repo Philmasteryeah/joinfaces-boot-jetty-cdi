@@ -18,35 +18,25 @@
 			<div class="box-header with-border">
 				<h:form>
 					<pm:pmList
-						var="car"
+						var="account"
 						rows="20"
-						value="#{carList.cars}"
-						fileNameExport="cars"
+						value="#{accountList.items}"
+						fileNameExport="accounts"
 						titleHeader="Header">
 						<p:column
 							headerText="Name"
-							sortBy="#{car.name}">
+							sortBy="#{account.username}">
 							<p:commandLink
-								action="carDetail"
+								action="#{accountDetail.actionDetail(account)}"
 								ajax="false"
-								value="#{car.name}">
-								<f:setPropertyActionListener
-									target="#{carDetail.detailObject}"
-									value="#{car}" />
+								value="#{account.username != null ? account.username : '...'}">
 							</p:commandLink>
-						</p:column>
-						<p:column
-							headerText="ObjectId"
-							sortBy="#{car.id}">#{car.id}
 						</p:column>
 						<f:facet name="footer">
 							<p:commandButton
-								action="carDetail"
-								value="New"
-								ajax="false">
-								<f:setPropertyActionListener
-									target="#{carDetail.detailObject}"
-									value="#{null}" />
+								action="#{accountDetail.actionDetail(null)}"
+								ajax="false"
+								value="New">
 							</p:commandButton>
 						</f:facet>
 					</pm:pmList>

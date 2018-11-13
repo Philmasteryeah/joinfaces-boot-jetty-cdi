@@ -41,11 +41,11 @@ public class RolesAndRightsView implements Serializable {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1972, 5, 25);
 
-		accounts.add(new Account("Max", "Mustermann"));
-		calendar.set(1981, 12, 10);
-		accounts.add(new Account("Sara", "Schmidt"));
-		calendar.set(1968, 2, 13);
-		accounts.add(new Account("Jasper", "Morgan"));
+//		accounts.add(new Account("Max", "Mustermann"));
+//		calendar.set(1981, 12, 10);
+//		accounts.add(new Account("Sara", "Schmidt"));
+//		calendar.set(1968, 2, 13);
+//		accounts.add(new Account("Jasper", "Morgan"));
 
 	}
 

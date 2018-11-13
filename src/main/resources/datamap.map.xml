@@ -6,6 +6,7 @@
 	<property name="defaultPackage" value="org.philmaster.boot.model"/>
 	<db-entity name="account">
 		<db-attribute name="account_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
+		<db-attribute name="client_id" type="INTEGER" isMandatory="true"/>
 		<db-attribute name="dateBirth" type="DATE"/>
 		<db-attribute name="enabled" type="BOOLEAN"/>
 		<db-attribute name="name_first" type="VARCHAR" length="255"/>
@@ -42,12 +43,20 @@
 		<obj-attribute name="pictureMid" type="byte[]" db-attribute-path="pictureMid"/>
 		<obj-attribute name="pictureRight" type="byte[]" db-attribute-path="pictureRight"/>
 	</obj-entity>
+	<db-relationship name="client" source="account" target="client">
+		<db-attribute-pair source="client_id" target="client_id"/>
+	</db-relationship>
 	<db-relationship name="client" source="car" target="client">
+		<db-attribute-pair source="client_id" target="client_id"/>
+	</db-relationship>
+	<db-relationship name="accounts" source="client" target="account" toMany="true">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
 	<db-relationship name="cars" source="client" target="car" toMany="true">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
+	<obj-relationship name="client" source="Account" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
 	<obj-relationship name="client" source="Car" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
+	<obj-relationship name="accounts" source="Client" target="Account" deleteRule="Deny" db-relationship-path="accounts"/>
 	<obj-relationship name="cars" source="Client" target="Car" deleteRule="Deny" db-relationship-path="cars"/>
 </data-map>

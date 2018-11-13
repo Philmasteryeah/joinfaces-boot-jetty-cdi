@@ -7,17 +7,6 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	template="/includes/template.xhtml">
-	<ui:define name="head-end">
-		<style type="text/css">
-div.ui-material {
-	margin-top: 20px;
-}
-
-input:-webkit-autofill {
-	-webkit-box-shadow: 0 0 0 30px white inset;
-}
-</style>
-	</ui:define>
 	<ui:define name="title">
         Car detail
     </ui:define>
@@ -33,7 +22,6 @@ input:-webkit-autofill {
 							<h:panelGrid
 								columns="2"
 								cellpadding="10">
-								
 								<h:outputText value="#{carDetail.detailObject.name}" />
 								<p:inputText value="#{carDetail.detailObject.name}" />
 							</h:panelGrid>
@@ -46,6 +34,7 @@ input:-webkit-autofill {
 								<div class="ui-g ui-fluid">
 									<div class="ui-g-6 ui-sm-12">
 										<div class="ui-material">
+											<!-- 
 											<p:outputLabel
 												for="input"
 												value="Material input" />
@@ -54,6 +43,7 @@ input:-webkit-autofill {
 												required="true"
 												placeholder="Material placeholder" />
 											<p:message for="input" />
+											 -->
 										</div>
 									</div>
 								</div>

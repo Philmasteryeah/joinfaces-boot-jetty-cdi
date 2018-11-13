@@ -23,8 +23,4 @@ public class CarList extends PMContextListBean<Car> implements Serializable {
 				Car.NAME.ascInsensitive());
 	}
 
-	public List<Car> getCars() {
-		return getItems();
-	}
-
 }
