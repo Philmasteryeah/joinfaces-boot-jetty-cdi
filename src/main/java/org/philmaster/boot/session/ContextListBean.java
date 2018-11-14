@@ -17,12 +17,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Dependent
-public abstract class PMContextListBean<T extends BaseDataObject> {
+public abstract class ContextListBean<T extends BaseDataObject> {
 
-	public abstract List<T> initList();
+	// public abstract List<T> initList();
 
-	@Inject
-	private DatabaseService db;
+	public abstract Class<T> initClass();
+
+	private Class<T> persistentClass;
 
 	@Getter
 	private Client client;
@@ -37,14 +38,19 @@ public abstract class PMContextListBean<T extends BaseDataObject> {
 	@Setter
 	private T selectedItem;
 
+	@Inject
+	private DatabaseService db;
+
 	@PostConstruct
 	public void init() {
+		persistentClass = initClass();
 		context = db.newContext();
 		client = DatabaseService.fetchClient(context);
-		items = initList();
+		items = DatabaseService.fetchAll(context, persistentClass);
 	}
 
 	public void onRowSelect(SelectEvent event) {
 		Util.statusMessageInfo("Selected", "'" + selectedItem + "'");
 	}
+
 }

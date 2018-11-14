@@ -1,7 +1,5 @@
 package org.philmaster.boot.session;
 
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.faces.event.ActionEvent;
@@ -9,7 +7,6 @@ import javax.inject.Inject;
 
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
-import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
@@ -17,14 +14,13 @@ import org.philmaster.boot.util.Util;
 import lombok.Getter;
 
 @Dependent
-public abstract class PMContextDetailBean<T extends BaseDataObject> {
+public abstract class ContextDetailBean<T extends BaseDataObject> {
 
-	public abstract T initDetailObject();
+	public abstract Class<T> initClass();
 
-	public abstract String detailPageName();
+	private Class<T> persistentClass;
 
-	@Inject
-	private DatabaseService db;
+	private String detailPageName;
 
 	@Getter
 	private T detailObject;
@@ -35,11 +31,15 @@ public abstract class PMContextDetailBean<T extends BaseDataObject> {
 	@Getter
 	private ObjectContext context;
 
+	@Inject
+	private DatabaseService db;
+
 	@PostConstruct
 	public void init() {
+		persistentClass = initClass();
 		context = db.newContext();
 		client = DatabaseService.fetchClient(context);
-		detailObject = initDetailObject();
+		detailPageName = persistentClass.getSimpleName().toLowerCase() + "Detail";
 	}
 
 	public String actionDetail(T account) {
@@ -48,10 +48,10 @@ public abstract class PMContextDetailBean<T extends BaseDataObject> {
 			detailObject = context.localObject(account);
 		} else {
 			// new object
-			detailObject = initDetailObject();
+			getContext().newObject(persistentClass);
 			// detailObject.setClient(client);
 		}
-		return detailPageName();
+		return detailPageName;
 	}
 
 	public void actionSave(ActionEvent actionEvent) {

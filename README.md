@@ -43,10 +43,10 @@
 - supports Spring features
 	- Security
 	- REST (web)
-- do not re-invent the wheel, use the best of everything together
 
 # Local Deployment
-- you should not need postgres for deploying 
+- run mig0 in postgres
+- normally you should not need postgres for deploying TODO
 
 ```
 $ git clone https://github.com/Philmasteryeah/joinfaces-boot-jetty-cdi.git
@@ -101,28 +101,7 @@ $ heroku open
 - http://www.baeldung.com/apache-cayenne-orm
 
 # Postgresql Test shema
-- install postgres and run this query
-
-```
-DROP TABLE car;
-
-DROP TABLE account;
-
-CREATE TABLE account (account_id INTEGER NOT NULL, dateBirth DATE NULL, name_first VARCHAR(255) NULL, name_last VARCHAR(255) NULL, password VARCHAR(255) NULL, username VARCHAR(255) NULL, PRIMARY KEY (account_id));
-
-CREATE TABLE car (id INTEGER NOT NULL, name VARCHAR(255) NULL, PRIMARY KEY (id));
-
-DROP TABLE AUTO_PK_SUPPORT;
-
-CREATE TABLE AUTO_PK_SUPPORT (TABLE_NAME CHAR(100) NOT NULL, NEXT_ID BIGINT NOT NULL, PRIMARY KEY(TABLE_NAME));
-
-DELETE FROM AUTO_PK_SUPPORT WHERE TABLE_NAME IN ('account', 'car');
-
-INSERT INTO AUTO_PK_SUPPORT (TABLE_NAME, NEXT_ID) VALUES ('account', 200);
-
-INSERT INTO AUTO_PK_SUPPORT (TABLE_NAME, NEXT_ID) VALUES ('car', 200);
-```
-
+- install postgres and run the resources/mig0 query 
 - you can generate the query for other databaes too
 - mvn: cayenne-modeler:run
 - Tool -> Generate Database Schema
@@ -132,7 +111,6 @@ INSERT INTO AUTO_PK_SUPPORT (TABLE_NAME, NEXT_ID) VALUES ('car', 200);
 - run: java -jar C:\...\...\.m2\repository\org\projectlombok\lombok\1.16.16\lombok-1.16.16.jar
 - wait -> choose eclipse -> install -> quit
 - restart eclipse now complete and lombok should work
-
 
 # THX
 - great project: https://github.com/joinfaces
