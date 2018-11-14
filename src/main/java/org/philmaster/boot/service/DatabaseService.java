@@ -55,10 +55,17 @@ public class DatabaseService {
 		return runtime.getDataSource();
 	}
 
-	public static Client clientByName(ObjectContext objectContext) {
-		// TODO String param with name
+	public static Client fetchClient(ObjectContext objectContext) {
+		// TODO String param with nam
 		// insert into client (client_id, name) values (1, 'default')
-		return fetchAll(objectContext, Client.class).get(0);
+		return clientByName(objectContext, null);
+	}
+
+	public static Client clientByName(ObjectContext objectContext, String name) {
+		// TODO use name param
+		// insert into client (client_id, name) values (1, 'default')
+		List<Client> clients = fetchAll(objectContext, Client.class);
+		return clients != null && !clients.isEmpty() ? clients.get(0) : null;
 	}
 
 	public static <T extends BaseDataObject> T createNew(ObjectContext context, Class<T> clazz) {
@@ -72,8 +79,9 @@ public class DatabaseService {
 	public static <T extends BaseDataObject> List<T> fetch(ObjectContext context, Class<T> clazz, Expression where) {
 		return ObjectSelect.query(clazz).where(where).select(context);
 	}
-	
-	public static <T extends BaseDataObject> List<T> fetch(ObjectContext context, Class<T> clazz, Expression where, Ordering order) {
+
+	public static <T extends BaseDataObject> List<T> fetch(ObjectContext context, Class<T> clazz, Expression where,
+			Ordering order) {
 		return ObjectSelect.query(clazz).orderBy(order).where(where).select(context);
 	}
 

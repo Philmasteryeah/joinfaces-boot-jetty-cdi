@@ -2,20 +2,12 @@ package org.philmaster.boot.views;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
-import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.cayenne.ObjectContext;
-import org.philmaster.boot.model.Car;
-import org.philmaster.boot.model.Client;
-import org.philmaster.boot.service.DatabaseService;
-import org.philmaster.boot.util.Util;
-
-import lombok.Getter;
-import lombok.Setter;
+import org.philmaster.boot.model.Account;
+import org.philmaster.boot.session.PMContextDetailBean;
 
 /**
  * @author Philmaster
@@ -26,51 +18,24 @@ import lombok.Setter;
  */
 @Named
 @SessionScoped
-public class CarDetail implements Serializable {
+public class CarDetail extends PMContextDetailBean<Account> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Getter
-	private Car detailObject;
-
-	@Getter
-	private Client client;
-
-	@Inject
-	private DatabaseService db;
-
-	private ObjectContext context;
-
-	@PostConstruct
-	public void init() {
-		context = db.newContext();
-		client = DatabaseService.clientByName(context);
+	@Override
+	public Account initDetailObject() {
+		return getContext().newObject(Account.class);
 	}
 
-	public String actionDetail(Car car) {
-		if (car != null) {
-			// local instance of object
-			detailObject = context.localObject(car);
-		} else {
-			// new object
-			detailObject = context.newObject(Car.class);
-			detailObject.setClient(client);
-		}
+	@Override
+	public String detailPageName() {
 		return "carDetail";
 	}
 
-	public void actionSave(ActionEvent actionEvent) {
-		context.commitChanges();
-		Util.statusMessageInfo("Welcome", "saved");
-	}
-
 	public void actionAdd(ActionEvent actionEvent) {
-
 //		for (int i = 0; i < 10; i++) {
 //			Car.createRandomTestCar(context, client);
 //		}		
-//		
-//		
 //		//context.commitChanges();
 //		Util.statusMessageInfo("Welcome", "saved");
 

@@ -19,9 +19,7 @@ import lombok.Setter;
 @Dependent
 public abstract class PMContextListBean<T extends BaseDataObject> {
 
-	public abstract List<T> initItems();
-
-	// ---------
+	public abstract List<T> initList();
 
 	@Inject
 	private DatabaseService db;
@@ -33,17 +31,17 @@ public abstract class PMContextListBean<T extends BaseDataObject> {
 	private List<T> items;
 
 	@Getter
-	@Setter
-	private T selectedItem;
+	private ObjectContext context;
 
 	@Getter
-	private ObjectContext context;
+	@Setter
+	private T selectedItem;
 
 	@PostConstruct
 	public void init() {
 		context = db.newContext();
-		client = DatabaseService.clientByName(context);
-		items = initItems();
+		client = DatabaseService.fetchClient(context);
+		items = initList();
 	}
 
 	public void onRowSelect(SelectEvent event) {

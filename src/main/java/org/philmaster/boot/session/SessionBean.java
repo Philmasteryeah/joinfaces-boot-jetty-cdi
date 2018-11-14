@@ -65,5 +65,7 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		UserDetails userDetails = (UserDetails) event.getAuthentication().getPrincipal();
 		username = userDetails.getUsername();
 		System.err.println("user-> " + username);
+		
+		// TODO client setzen
 	}
 }

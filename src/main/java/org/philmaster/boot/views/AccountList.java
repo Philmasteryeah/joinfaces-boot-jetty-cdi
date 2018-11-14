@@ -17,8 +17,7 @@ public class AccountList extends PMContextListBean<Account> implements Serializa
 
 	private static final long serialVersionUID = 1L;
 
-	@Override
-	public List<Account> initItems() {
+	public List<Account> initList() {
 		//
 		// return getClient().getAccounts();Caused by: javax.el.ELException: Cannot
 		// convert [org.apache.cayenne.access.ToManyList@114808156] of type [class

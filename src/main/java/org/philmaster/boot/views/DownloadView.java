@@ -51,7 +51,7 @@ public class DownloadView implements Serializable {
 	public void init() {
 		context = db.newContext();
 
-		client = DatabaseService.clientByName(context);
+		client = DatabaseService.fetchClient(context);
 
 		cars = DatabaseService.fetch(context, Car.class, ExpressionFactory.matchExp(client));
 

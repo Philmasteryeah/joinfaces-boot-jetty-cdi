@@ -18,7 +18,7 @@ public class CarList extends PMContextListBean<Car> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public List<Car> initItems() {
+	public List<Car> initList() {
 		return DatabaseService.fetch(getContext(), Car.class, ExpressionFactory.matchExp(getClient()),
 				Car.NAME.ascInsensitive());
 	}
