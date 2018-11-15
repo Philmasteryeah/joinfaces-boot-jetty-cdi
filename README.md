@@ -25,6 +25,7 @@
 - nice looking responsive layout
 - master detail page with list and database saving (TODO)
 - simple exception page mapping
+- http2
 
 - Login
 ![alt text](https://abload.de/img/adminloginildcy.png)
@@ -44,9 +45,15 @@
 	- Security
 	- REST (web)
 
+# HTTP2
+- connect to https://localhost:9090/
+- accept the cert
+![alt text](https://abload.de/img/http2f0cct.png)
+
+
 # Local Deployment
 - run mig0 in postgres
-- normally you should not need postgres for deploying TODO
+- normally you should not need postgres for deploying
 
 ```
 $ git clone https://github.com/Philmasteryeah/joinfaces-boot-jetty-cdi.git
