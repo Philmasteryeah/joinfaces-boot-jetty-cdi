@@ -7,6 +7,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	template="/includes/template.xhtml">
+	<ui:param
+		name="detailObject"
+		value="#{accountDetail.detailObject}" />
 	<ui:define name="title">
         Car detail
     </ui:define>
@@ -18,9 +21,9 @@
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<h:outputText value="Username" />
-					<p:inputText value="#{accountDetail.detailObject.username}" />
+					<p:inputText value="#{detailObject.username}" />
 					<h:outputText value="Password" />
-					<p:inputText value="#{accountDetail.detailObject.password}" />
+					<p:inputText value="#{detailObject.password}" />
 					<p:commandButton
 						actionListener="#{accountDetail.actionSave}"
 						update="@form"
