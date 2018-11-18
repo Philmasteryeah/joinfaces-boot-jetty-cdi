@@ -1,0 +1,46 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+	<cc:interface>
+		<cc:attribute name="value" />
+		<cc:attribute name="valueFiltered" />
+		<cc:attribute name="colAttributes" />
+		<cc:attribute name="colTitles" />
+		<cc:attribute name="detailPage" />
+	</cc:interface>
+	<cc:implementation>
+		<c:set
+			var="first"
+			value="#{cc.attrs.colAttributes[0]}" />
+		<p:dataTable
+			rows="20"
+			var="car"
+			value="#{cc.attrs.value}"
+			filteredValue="#{cc.attrs.valueFiltered}">
+			<p:column
+				headerText="#{cc.attrs.colTitles[0]}"
+				sortBy="#{car.id}"
+				filterBy="#{car.id}">
+				<h:link
+					value="#{car.id}"
+					outcome="#{cc.attrs.detailPage}">
+				</h:link>
+			</p:column>
+			<p:columns
+				value="#{cc.attrs.colAttributes}"
+				var="attr"
+				columnIndexVar="colIndex"
+				sortBy="#{car[attr]}"
+				filterBy="#{car[attr]}"
+				headerText="#{cc.attrs.colTitles[colIndex+1]}">
+				<h:outputText value="#{car[attr]}" />
+			</p:columns>
+			<cc:insertChildren />
+		</p:dataTable>
+	</cc:implementation>
+</ui:composition>

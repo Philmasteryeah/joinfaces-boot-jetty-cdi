@@ -22,10 +22,12 @@
 						rows="20"
 						value="#{accountList.items}"
 						fileNameExport="accounts"
+						colAttributes="#{['username']}"
 						titleHeader="Header">
 						<p:column
 							headerText="Name"
-							sortBy="#{account.username}">
+							sortBy="#{account.username}"
+							filterBy="#{account.username}">
 							<p:commandLink
 								action="#{accountDetail.actionDetail(account)}"
 								ajax="false"

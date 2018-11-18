@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
+import org.apache.cayenne.validation.ValidationException;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
@@ -26,10 +27,10 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	private T detailObject;
 
 	@Getter
-	private Client client;
+	private ObjectContext context;
 
 	@Getter
-	private ObjectContext context;
+	private Client client;
 
 	@Inject
 	private DatabaseService db;
@@ -39,7 +40,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 		persistentClass = initClass();
 		context = db.newContext();
 		client = DatabaseService.fetchClient(context);
-		detailPageName = persistentClass.getSimpleName().toLowerCase() + "Detail";
+		detailPageName = persistentClass.getSimpleName().toLowerCase() + "Detail?faces-redirect=true";
 	}
 
 	public String actionDetail(T account) {
@@ -48,7 +49,8 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 			detailObject = context.localObject(account);
 		} else {
 			// new object
-			getContext().newObject(persistentClass);
+			context.newObject(persistentClass);
+			//detailObject.setToOneTarget("client", client, true);
 			// detailObject.setClient(client);
 		}
 		return detailPageName;
@@ -56,6 +58,6 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	public void actionSave(ActionEvent actionEvent) {
 		context.commitChanges();
-		Util.statusMessageInfo("Welcome", "saved");
+		Util.statusMessageError("Validation Exception", "Test");
 	}
 }

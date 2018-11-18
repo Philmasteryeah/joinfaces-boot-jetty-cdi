@@ -1,4 +1,4 @@
-package org.philmaster.boot.views;
+package org.philmaster.boot.viewsLegacy;
 
 import java.io.Serializable;
 

@@ -17,33 +17,13 @@
 		<div class="box box-primary">
 			<div class="box-header with-border">
 				<h:form>
-					<pm:pmList
-						var="car"
-						rows="20"
+					<pm:pmList2
+						colTitles="#{['Id', 'Name' ]}"
+						colAttributes="#{['name']}"
 						value="#{carList.items}"
-						fileNameExport="cars"
-						titleHeader="Header">
-						<p:column
-							headerText="Name"
-							sortBy="#{car.name}">
-							<p:commandLink
-								action="#{carDetail.actionDetail(car)}"
-								ajax="false"
-								value="#{car.name != null ? car.name : '...'}">
-							</p:commandLink>
-						</p:column>
-						<p:column
-							headerText="ObjectId"
-							sortBy="#{car.id}">#{car.id}
-						</p:column>
-						<f:facet name="footer">
-							<p:commandButton
-								action="#{carDetail.actionDetail(null)}"
-								ajax="false"
-								value="New">
-							</p:commandButton>
-						</f:facet>
-					</pm:pmList>
+						valueFiltered="#{carList.itemsFiltered}"
+						detailPage="carDetail">
+					</pm:pmList2>
 				</h:form>
 			</div>
 		</div>

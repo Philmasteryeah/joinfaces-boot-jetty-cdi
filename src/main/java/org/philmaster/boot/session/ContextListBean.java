@@ -19,24 +19,23 @@ import lombok.Setter;
 @Dependent
 public abstract class ContextListBean<T extends BaseDataObject> {
 
-	// public abstract List<T> initList();
-
 	public abstract Class<T> initClass();
 
 	private Class<T> persistentClass;
 
 	@Getter
-	private Client client;
-
-	@Getter
-	private List<T> items;
-
-	@Getter
-	private ObjectContext context;
-
+	@Setter
+	private List<T> items, itemsFiltered;
+	
 	@Getter
 	@Setter
 	private T selectedItem;
+
+	@Getter
+	private Client client;
+
+	@Getter
+	private ObjectContext context;
 
 	@Inject
 	private DatabaseService db;
@@ -50,6 +49,7 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 	}
 
 	public void onRowSelect(SelectEvent event) {
+		// TODO
 		Util.statusMessageInfo("Selected", "'" + selectedItem + "'");
 	}
 
