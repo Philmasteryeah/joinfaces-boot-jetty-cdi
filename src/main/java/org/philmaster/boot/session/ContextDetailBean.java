@@ -7,12 +7,12 @@ import javax.inject.Inject;
 
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.validation.ValidationException;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Dependent
 public abstract class ContextDetailBean<T extends BaseDataObject> {
@@ -24,6 +24,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	private String detailPageName;
 
 	@Getter
+	@Setter
 	private T detailObject;
 
 	@Getter
@@ -43,14 +44,28 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 		detailPageName = persistentClass.getSimpleName().toLowerCase() + "Detail?faces-redirect=true";
 	}
 
-	public String actionDetail(T account) {
-		if (account != null) {
+//	public void initDetail() {
+//		System.err.println("initDetail");
+//		if (detailObject != null) {
+//			// local instance of object
+//			detailObject = context.localObject(detailObject);
+//		} else {
+//			// new object
+//			detailObject = context.newObject(persistentClass);
+//			// detailObject.setToOneTarget("client", client, true);
+//			// detailObject.setClient(client);
+//		}
+//	}
+
+	public String actionDetail(T detail) {
+		System.err.println("asd -> " + detail);
+		if (detail != null) {
 			// local instance of object
-			detailObject = context.localObject(account);
+			detailObject = context.localObject(detail);
 		} else {
 			// new object
 			context.newObject(persistentClass);
-			//detailObject.setToOneTarget("client", client, true);
+			// detailObject.setToOneTarget("client", client, true);
 			// detailObject.setClient(client);
 		}
 		return detailPageName;

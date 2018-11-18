@@ -14,9 +14,6 @@
 		<cc:attribute name="detailPage" />
 	</cc:interface>
 	<cc:implementation>
-		<c:set
-			var="first"
-			value="#{cc.attrs.colAttributes[0]}" />
 		<p:dataTable
 			rows="20"
 			var="car"
@@ -26,10 +23,10 @@
 				headerText="#{cc.attrs.colTitles[0]}"
 				sortBy="#{car.id}"
 				filterBy="#{car.id}">
-				<h:link
+				<p:commandLink
 					value="#{car.id}"
-					outcome="#{cc.attrs.detailPage}">
-				</h:link>
+					action="#{carDetail.actionDetail(car)}">
+				</p:commandLink>
 			</p:column>
 			<p:columns
 				value="#{cc.attrs.colAttributes}"
