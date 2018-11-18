@@ -8,17 +8,25 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	template="/includes/template.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam
+				name="id"
+				value="#{carDetail.detailId}" />
+			<f:viewAction action="#{carDetail.initDetail}" />
+			<c:set
+				var="detailObject"
+				value="#{carDetail.detailObject}" />
+			<!-- add validation msg here -->
+		</f:metadata>
+	</ui:define>
 	<ui:define name="title">
-        Car detail - #{carDetail.detailObject.id}  - #{detailObject.id} -
+        car detail - #{detailObject.id}
     </ui:define>
 	<ui:define name="description">
         displays car details
     </ui:define>
 	<ui:define name="body">
-		<c:set
-			var="detailObject"
-			scope="view"
-			value="#{carDetail.detailObject}" />
 		<h:form>
 			<div class="box box-primary">
 				<div class="box-header with-border">
@@ -27,8 +35,8 @@
 							<h:panelGrid
 								columns="2"
 								cellpadding="10">
-								<h:outputText value="#{carDetail.detailObject.name}" />
-								<p:inputText value="#{carDetail.detailObject.name}" />
+								<h:outputText value="#{detailObject.name}" />
+								<p:inputText value="#{detailObject.name}" />
 							</h:panelGrid>
 						</p:tab>
 						<p:tab title="Person">

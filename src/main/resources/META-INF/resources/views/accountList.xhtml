@@ -18,29 +18,10 @@
 			<div class="box-header with-border">
 				<h:form>
 					<pm:pmList
-						var="account"
-						rows="20"
-						value="#{accountList.items}"
-						fileNameExport="accounts"
-						colAttributes="#{['username']}"
-						titleHeader="Header">
-						<p:column
-							headerText="Name"
-							sortBy="#{account.username}"
-							filterBy="#{account.username}">
-							<p:commandLink
-								action="#{accountDetail.actionDetail(account)}"
-								ajax="false"
-								value="#{account.username != null ? account.username : '...'}">
-							</p:commandLink>
-						</p:column>
-						<f:facet name="footer">
-							<p:commandButton
-								action="#{accountDetail.actionDetail(null)}"
-								ajax="false"
-								value="New">
-							</p:commandButton>
-						</f:facet>
+						colTitles="#{['Username', 'Password']}"
+						colAttributes="#{['username', 'password']}"
+						listBean="#{accountList}"
+						detailPage="accountDetail">
 					</pm:pmList>
 				</h:form>
 			</div>

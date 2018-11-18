@@ -1,0 +1,96 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+	<cc:interface>
+		<cc:attribute name="rows" />
+		<cc:attribute
+			name="value"
+			type="java.util.ArrayList" />
+		<cc:attribute
+			name="valueFiltered"
+			type="java.util.ArrayList" />
+		<cc:attribute name="fileExporters" />
+		<cc:attribute
+			name="fileNameExport"
+			default="test" />
+		<cc:attribute name="selection" />
+		<cc:attribute
+			name="onRowSelect"
+			method-signature="void action(org.primefaces.event.SelectEvent)" />
+		<cc:attribute name="id" />
+		<cc:attribute name="ats" />
+		<cc:attribute name="rowIndex" />
+		<cc:attribute name="titleHeader" />
+		<cc:attribute name="titleFooter" />
+		<cc:attribute
+			name="colAttributes"
+			default="#{['id']}" />
+		<cc:attribute
+			name="colTitles"
+			default="#{['Id']}" />
+	</cc:interface>
+	<cc:implementation>
+		<p:dataTable
+			value="#{cc.attrs.value}"
+			filteredValue="#{cc.attrs.valueFiltered}"
+			id="#{cc.attrs.id}"
+			paginator="true"
+			rows="#{cc.attrs.rows}"
+			rowKey="rowKey"
+			var="item"
+			currentPageReportTemplate="Showing {startRecord}-{endRecord} of     {totalRecords}"
+			paginatorTemplate="{Cuf:attributerrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+			rowsPerPageTemplate="10,25,50,100"
+			paginatorPosition="bottom"
+			rowIndexVar="index"
+			lazy="false">
+			<f:facet name="header">
+          	    #{cc.attrs.titleHeader}
+			</f:facet>
+			<f:facet name="{Exporters}">
+				<c:forEach
+					items="#{['xls','pdf','csv','xml']}"
+					var="type">
+					<p:commandLink>
+						<p:graphicImage
+							name="/images/#{type}.png"
+							width="24" />
+						<p:dataExporter
+							type="#{type}"
+							target="#{cc.attrs.id}"
+							fileName="#{cc.attrs.fileNameExport}" />
+					</p:commandLink>
+				</c:forEach>
+			</f:facet>
+			<c:set
+				target="#{component}"
+				property="var"
+				value="#{cc.attrs.var}" />
+			<ui:param
+				name="detail"
+				value="#{cc.attrs.value[index]}" />
+			<p:columns
+				value="#{cc.attrs.colAttributes}"
+				var="colAttr"
+				columnIndexVar="colIndex"
+				sortBy="#{detail[colAttr]}"
+				filterBy="#{detail[colAttr]}"
+				headerText="#{cc.attrs.colTitles[colIndex]}">
+				#{item}-
+				<h:outputText value="#{detail[colAttr]}" />
+			</p:columns>
+			<cc:insertChildren />
+			<!-- 
+			<f:facet name="footer">
+          	    #{cc.attrs.titleFooter}
+			</f:facet>
+			 -->
+			<cc:insertFacet name="footer" />
+		</p:dataTable>
+	</cc:implementation>
+</ui:composition>

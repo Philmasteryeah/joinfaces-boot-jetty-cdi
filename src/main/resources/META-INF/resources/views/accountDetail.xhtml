@@ -6,12 +6,23 @@
 	xmlns:pm="http://xmlns.jcp.org/jsf/composite/components"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	template="/includes/template.xhtml">
+	template="/includes/template.xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<f:metadata>
+		<f:viewParam
+			name="id"
+			value="#{accountDetail.detailId}" />
+		<f:viewAction action="#{accountDetail.initDetail}" />
+		<c:set
+			var="detailObject"
+			value="#{accountDetail.detailObject}" />
+		<!-- add validation msg here -->
+	</f:metadata>
 	<ui:define name="title">
-        Car detail
+        account detail -  #{detailObject.id}
     </ui:define>
 	<ui:define name="description">
-        displays car details
+        displays account details
     </ui:define>
 	<ui:define name="body">
 		<h:form>

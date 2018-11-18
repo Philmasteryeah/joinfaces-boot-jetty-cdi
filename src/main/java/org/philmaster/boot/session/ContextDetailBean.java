@@ -7,6 +7,8 @@ import javax.inject.Inject;
 
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
+import org.apache.cayenne.query.SelectById;
+import org.philmaster.boot.model.Car;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
@@ -21,6 +23,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	private Class<T> persistentClass;
 
+	@Getter
 	private String detailPageName;
 
 	@Getter
@@ -28,10 +31,14 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	private T detailObject;
 
 	@Getter
+	@Setter
+	public String detailId;
+
+	@Getter
 	private ObjectContext context;
 
 	@Getter
-	private Client client;
+	private Client client; // TODO Session
 
 	@Inject
 	private DatabaseService db;
@@ -41,38 +48,23 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 		persistentClass = initClass();
 		context = db.newContext();
 		client = DatabaseService.fetchClient(context);
-		detailPageName = persistentClass.getSimpleName().toLowerCase() + "Detail?faces-redirect=true";
+		detailPageName = persistentClass.getSimpleName().toLowerCase() + "Detail";
 	}
 
-//	public void initDetail() {
-//		System.err.println("initDetail");
-//		if (detailObject != null) {
-//			// local instance of object
-//			detailObject = context.localObject(detailObject);
-//		} else {
-//			// new object
-//			detailObject = context.newObject(persistentClass);
-//			// detailObject.setToOneTarget("client", client, true);
-//			// detailObject.setClient(client);
-//		}
-//	}
-
-	public String actionDetail(T detail) {
-		System.err.println("asd -> " + detail);
-		if (detail != null) {
-			// local instance of object
-			detailObject = context.localObject(detail);
+	public void initDetail() {
+		if (detailId != null) {
+			// fetch by id
+			detailObject = SelectById.query(persistentClass, detailId).selectOne(context);
 		} else {
-			// new object
-			context.newObject(persistentClass);
+			// or create new
+			detailObject = context.newObject(persistentClass);
 			// detailObject.setToOneTarget("client", client, true);
 			// detailObject.setClient(client);
 		}
-		return detailPageName;
 	}
 
 	public void actionSave(ActionEvent actionEvent) {
 		context.commitChanges();
-		Util.statusMessageError("Validation Exception", "Test");
+		Util.statusMessageInfo("Saved", "Saved");
 	}
 }

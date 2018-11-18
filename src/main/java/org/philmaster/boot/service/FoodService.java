@@ -91,6 +91,21 @@ public class FoodService implements Serializable {
 		return meals;
 
 	}
+// new java11 HTTPRequest Stuff from https://www.logicbig.com/tutorials/core-java-tutorial/java-11-changes/http-client.html
+//    HttpRequest request = HttpRequest.newBuilder()
+//            .uri(URI.create("http://www.example.com/"))
+//            .GET()//used by default if we don't specify
+//            .build();
+////creating response body handler
+//HttpResponse.BodyHandler<String> bodyHandler = HttpResponse.BodyHandlers.ofString();
+//
+////sending request and receiving response via HttpClient
+//HttpClient client = HttpClient.newHttpClient();
+//CompletableFuture<HttpResponse<String>> future = client.sendAsync(request, bodyHandler);
+//future.thenApply(HttpResponse::body)
+//.thenAccept(System.out::println)
+//.join();
+//	
 
 	private static String parseKcal(String desc) {
 		Pattern pattern = Pattern.compile("[0-9]+ kcal");
