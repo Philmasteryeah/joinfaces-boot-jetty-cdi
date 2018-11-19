@@ -18,9 +18,4 @@ public class AccountList extends ContextListBean<Account> implements Serializabl
 	public Class<Account> initClass() {
 		return Account.class;
 	}
-//	//
-//	// return getClient().getAccounts();Caused by: javax.el.ELException: Cannot
-//	// convert [org.apache.cayenne.access.ToManyList@114808156] of type [class
-//	// org.apache.cayenne.access.ToManyList] to [class java.util.ArrayList]
-
 }

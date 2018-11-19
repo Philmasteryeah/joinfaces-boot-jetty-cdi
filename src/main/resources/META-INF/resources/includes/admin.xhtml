@@ -80,7 +80,7 @@
 			class="main-sidebar slideout-menu">
 			<div>
 				<ui:insert name="menu-begin" />
-				<ui:fragment rendered="#{adm['admin.renderMenuSearch']}">
+				<ui:fragment rendered="#{adm['adminConfig.renderMenuSearch']}">
 					<div class="sidebar-form">
 						<div class="input-group">
 							<input
@@ -225,13 +225,13 @@
 			<i class="fa fa-chevron-up"></i>
 		</div>
 		<ui:insert name="wrapper-end" />
-		<ui:fragment rendered="#{adminConfig.renderControlSidebar and (empty renderControlSidebar or renderControlSidebar)}">
+		<ui:fragment rendered="#{adm['adminConfig.renderControlSidebar'] and (empty renderControlSidebar or renderControlSidebar)}">
 			<!-- controlsidebar component, can't be a composite component because of multiple ui:insert and can't be an external xhtml because myfaces will not propagete ui:params and child pages will not be able to define inserted regions -->
 			<h:form prependId="false">
 				<h:panelGroup
 					id="controlsidebarPanel"
 					layout="block"
-					styleClass="#{adminConfig.controlSidebar.showOnMobile ? '':'hidden-sm hidden-xs'}">
+					styleClass="#{adm['adminConfig.controlSidebar.showOnMobile'] ? '':'hidden-sm hidden-xs'}">
 					<ui:insert name="before-controlsidebar-content" />
 					<aside class="control-sidebar control-sidebar-dark">
 						<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
@@ -927,23 +927,23 @@
 		library="js"
 		name="slideout.min.js"
 		target="head"
-		rendered="#{adminConfig.enableSlideMenu and (empty enableSlideMenu or enableSlideMenu)}" />
+		rendered="#{adm['adminConfig.enableSlideMenu'] and (empty enableSlideMenu or enableSlideMenu)}" />
 	<h:outputScript
 		library="js"
 		name="adminslide.js"
 		target="head"
-		rendered="#{adminConfig.enableSlideMenu and (empty enableSlideMenu or enableSlideMenu)}" />
+		rendered="#{adm['adminConfig.enableSlideMenu'] and (empty enableSlideMenu or enableSlideMenu)}" />
 	<h:outputScript
 		library="js"
 		name="control-sidebar.js"
 		target="head"
-		rendered="#{adminConfig.renderControlSidebar and (empty renderControlSidebar or renderControlSidebar)}" />
+		rendered="#{adm['adminConfig.renderControlSidebar'] and (empty renderControlSidebar or renderControlSidebar)}" />
 	<h:outputScript
 		library="js"
 		name="slimscroll.min.js"
 		target="head" />
 	<ui:fragment
-		rendered="#{not adminConfig.enableSlideMenu or (not empty enableSlideMenu and enableSlideMenu eq 'false')}">
+		rendered="#{not adm['adminConfig.enableSlideMenu'] or (not empty enableSlideMenu and enableSlideMenu eq 'false')}">
 		<script type="text/javascript">
             $(document).ready(function () {
                 $('.slideout-menu').removeClass('slideout-menu');
@@ -952,7 +952,7 @@
 
         </script>
 	</ui:fragment>
-	<ui:fragment rendered="#{adminConfig.autoShowNavbar and (empty autoShowNavbar or autoShowNavbar)}">
+	<ui:fragment rendered="#{adm['adminConfig.autoShowNavbar'] and (empty autoShowNavbar or autoShowNavbar)}">
 		<script type="text/javascript">
             $(window).scroll(function () {
                 if (isMobile()) {
@@ -973,7 +973,7 @@
             });
         </script>
 	</ui:fragment>
-	<ui:fragment rendered="#{adminConfig.autoHideMessages and (empty autoHideMessages or autoHideMessages)}">
+	<ui:fragment rendered="#{adm['adminConfig.autoHideMessages'] and (empty autoHideMessages or autoHideMessages)}">
 		<script type="text/javascript">
             //<![CDATA[
             /* hide info messages */
@@ -982,7 +982,7 @@
 
                 if ($messages.length) {
                     var wordCount = $messages.text().split(/\W/).length;
-                    var readingTimeMillis = #{adminConfig.messagesHideTimeout} + (wordCount * 200);
+                    var readingTimeMillis = #{adm['adminConfig.messagesHideTimeout']} + (wordCount * 200);
 
                     setTimeout(function () {
                         $messages.slideUp();
@@ -996,7 +996,7 @@
 
                 if ($messages.length) {
                     var wordCount = $messages.text().split(/\W/).length;
-                    var readingTimeMillis = #{adminConfig.messagesHideTimeout} + (wordCount * 200);
+                    var readingTimeMillis = #{adm['adminConfig.messagesHideTimeout']} + (wordCount * 200);
 
                     setTimeout(function () {
                         $messages.slideUp();
@@ -1014,7 +1014,7 @@
             });
         </script>
 	</ui:fragment>
-	<ui:fragment rendered="#{adminConfig.iconsEffect and (empty iconsEffect or iconsEffect)}">
+	<ui:fragment rendered="#{adm['adminConfig.iconsEffect'] and (empty iconsEffect or iconsEffect)}">
 		<script type="text/javascript">
             $(document).ready(function () {
                 activateRippleIcons();
