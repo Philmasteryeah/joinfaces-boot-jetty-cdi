@@ -47,17 +47,24 @@
 		<header class="main-header">
 			<a
 				href="/index.xhtml"
-				class="logo"> <span class="logo-mini"> <ui:insert name="logo-mini" />
-			</span> <span class="logo-lg"> <ui:insert name="logo-lg" />
-			</span> <span class="logo-lg"> <ui:insert name="logo" />
-			</span>
+				class="logo">
+				<span class="logo-mini">
+					<ui:insert name="logo-mini" />
+				</span>
+				<span class="logo-lg">
+					<ui:insert name="logo-lg" />
+				</span>
+				<span class="logo-lg">
+					<ui:insert name="logo" />
+				</span>
 			</a>
 			<nav class="navbar navbar-static-top">
 				<a
 					href="/index.xhtml"
 					class="sidebar-toggle"
 					data-toggle="push-menu"
-					role="button"> <span class="sr-only"></span>
+					role="button">
+					<span class="sr-only"></span>
 				</a>
 				<div class="navbar-custom-menu">
 					<ui:insert name="top-menu" />
@@ -84,7 +91,8 @@
 								autocomplete="off"
 								onclick="this.value = '';searchLeftMenu('')"
 								onkeyup="searchLeftMenu(this.value)"
-								onblur="this.value = '';hideMenuResults()" /> <span class="input-group-btn">
+								onblur="this.value = '';hideMenuResults()" />
+							<span class="input-group-btn">
 								<button
 									type="submit"
 									name="search"
@@ -133,7 +141,9 @@
 							value="#{title}"
 							rendered="#{not empty title and empty requestScope['javax.servlet.error.exception_type'] and empty requestScope['javax.servlet.error.message']}" />
 					</ui:insert>
-					<small><ui:insert name="description" /></small>
+					<small>
+						<ui:insert name="description" />
+					</small>
 				</h1>
 				<ui:fragment
 					rendered="#{(adm['adminConfig.renderBreadCrumb']) and (empty renderBreadCrumb or renderBreadCrumb) and (empty requestScope['javax.servlet.error.exception_type'] and empty requestScope['javax.servlet.error.message'])}">
@@ -228,7 +238,8 @@
 							<li class="active">
 								<a
 									href="#control-sidebar-theme-demo-options-tab"
-									data-toggle="tab"> <i class="fa fa-wrench"></i>
+									data-toggle="tab">
+									<i class="fa fa-wrench"></i>
 								</a>
 							</li>
 							<ui:insert name="controlsidebar-tabs" />
@@ -241,8 +252,11 @@
 									id="restore-defaults"
 									style="font-size: 11px;"
 									class="align-right">
-									<a href="#"> <i class="fa fa-recycle"></i> <span><p:outputLabel
-												value="#{adm['controlsidebar.label.restore-defaults']}" /></span>
+									<a href="#">
+										<i class="fa fa-recycle"></i>
+										<span>
+											<p:outputLabel value="#{adm['controlsidebar.label.restore-defaults']}" />
+										</span>
 									</a>
 									<p:remoteCommand
 										name="loadLayoutDefaults"
@@ -262,10 +276,12 @@
 								<div>
 									<h4 class="control-sidebar-heading">#{adm['controlsidebar.header']}</h4>
 									<div class="form-group">
-										<span class="control-sidebar-subheading"> <p:outputLabel
+										<span class="control-sidebar-subheading">
+											<p:outputLabel
 												id="toggle-menu-layout-label"
 												value="#{adm['controlsidebar.label.menu-horientation']}"
-												for="toggle-menu-layout" /> <p:selectBooleanCheckbox
+												for="toggle-menu-layout" />
+											<p:selectBooleanCheckbox
 												value="#{layoutMB.leftMenuTemplate}"
 												id="toggle-menu-layout"
 												styleClass="pull-right black"
@@ -274,7 +290,8 @@
 													update="@none"
 													global="false"
 													oncomplete="updateTemplate()" />
-											</p:selectBooleanCheckbox> <p:remoteCommand
+											</p:selectBooleanCheckbox>
+											<p:remoteCommand
 												name="updateTemplate"
 												action="#{layoutMB.toggleTemplate}"
 												process="@this"
@@ -288,10 +305,12 @@
 										</p>
 									</div>
 									<div class="form-group">
-										<span class="control-sidebar-subheading"> <p:outputLabel
+										<span class="control-sidebar-subheading">
+											<p:outputLabel
 												id="fixed-layout-label"
 												value="#{adm['controlsidebar.label.fixed-layout']}"
-												for="fixed-layout" /> <p:selectBooleanCheckbox
+												for="fixed-layout" />
+											<p:selectBooleanCheckbox
 												value="#{layoutMB.fixedLayout}"
 												id="fixed-layout"
 												widgetVar="fixedLayout"
@@ -310,10 +329,12 @@
 										</p>
 									</div>
 									<div class="form-group">
-										<span class="control-sidebar-subheading"> <p:outputLabel
+										<span class="control-sidebar-subheading">
+											<p:outputLabel
 												id="boxed-layout-label"
 												value="#{adm['controlsidebar.label.boxed-layout']}"
-												for="boxed-layout" /> <p:selectBooleanCheckbox
+												for="boxed-layout" />
+											<p:selectBooleanCheckbox
 												value="#{layoutMB.boxedLayout}"
 												id="boxed-layout"
 												widgetVar="boxedLayout"
@@ -332,10 +353,12 @@
 										</p>
 									</div>
 									<div class="form-group">
-										<span class="control-sidebar-subheading"> <p:outputLabel
+										<span class="control-sidebar-subheading">
+											<p:outputLabel
 												id="sidebar-collapsed-label"
 												value="#{adm['controlsidebar.label.sidebar-collapsed']}"
-												for="sidebar-collapsed" /> <p:selectBooleanCheckbox
+												for="sidebar-collapsed" />
+											<p:selectBooleanCheckbox
 												value="#{layoutMB.sidebarCollapsed}"
 												disabled="#{not layoutMB.defaultTemplate}"
 												id="sidebar-collapsed"
@@ -355,10 +378,12 @@
 										</p>
 									</div>
 									<div class="form-group">
-										<span class="control-sidebar-subheading"> <p:outputLabel
+										<span class="control-sidebar-subheading">
+											<p:outputLabel
 												id="sidebar-expand-hover-label"
 												value="#{adm['controlsidebar.label.sidebar-expand-hover']}"
-												for="sidebar-expand-hover" /> <p:selectBooleanCheckbox
+												for="sidebar-expand-hover" />
+											<p:selectBooleanCheckbox
 												value="#{layoutMB.expandOnHover}"
 												disabled="#{not layoutMB.defaultTemplate}"
 												id="sidebar-expand-hover"
@@ -378,10 +403,12 @@
 										</p>
 									</div>
 									<div class="form-group">
-										<span class="control-sidebar-subheading"> <p:outputLabel
+										<span class="control-sidebar-subheading">
+											<p:outputLabel
 												id="control-sidebar-toggle-label"
 												value="#{adm['controlsidebar.label.sidebar-slide']}"
-												for="control-sidebar-toggle" /> <p:selectBooleanCheckbox
+												for="control-sidebar-toggle" />
+											<p:selectBooleanCheckbox
 												value="#{layoutMB.fixedControlSidebar}"
 												id="control-sidebar-toggle"
 												widgetVar="fixedControlSidebar"
@@ -400,9 +427,11 @@
 										</p>
 									</div>
 									<div class="form-group">
-										<span class="control-sidebar-subheading"> <p:outputLabel
+										<span class="control-sidebar-subheading">
+											<p:outputLabel
 												value="#{adm['controlsidebar.label.sidebar-skin']}"
-												for="sidebar-skin" /> <p:selectBooleanCheckbox
+												for="sidebar-skin" />
+											<p:selectBooleanCheckbox
 												value="#{layoutMB.darkControlSidebarSkin}"
 												id="sidebar-skin"
 												widgetVar="controlSidebarSkin"
@@ -433,13 +462,14 @@
 												partialSubmit="true">
 												<!-- the link can't process anything otherwise the controlsidebar will collapse when changing the skin-->
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 7px; background: #367fa9"> </span> <span
+													<span style="display: block; width: 20%; float: left; height: 7px; background: #367fa9"> </span>
+													<span
 														class="bg-light-blue"
 														style="display: block; width: 80%; float: left; height: 7px;"> </span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
@@ -462,12 +492,12 @@
 												<div
 													style="box-shadow: 0 0 2px rgba(0, 0, 0, 0.1)"
 													class="clearfix">
-													<span style="display: block; width: 20%; float: left; height: 7px; background: #fefefe"></span> <span
-														style="display: block; width: 80%; float: left; height: 7px; background: #fefefe"></span>
+													<span style="display: block; width: 20%; float: left; height: 7px; background: #fefefe"></span>
+													<span style="display: block; width: 80%; float: left; height: 7px; background: #fefefe"></span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #222"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #222"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
@@ -490,13 +520,14 @@
 												<div>
 													<span
 														style="display: block; width: 20%; float: left; height: 7px;"
-														class="bg-purple-active"></span> <span
+														class="bg-purple-active"></span>
+													<span
 														class="bg-purple"
 														style="display: block; width: 80%; float: left; height: 7px;"></span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
@@ -519,13 +550,14 @@
 												<div>
 													<span
 														style="display: block; width: 20%; float: left; height: 7px;"
-														class="bg-green-active"></span> <span
+														class="bg-green-active"></span>
+													<span
 														class="bg-green"
 														style="display: block; width: 80%; float: left; height: 7px;"></span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
@@ -548,13 +580,14 @@
 												<div>
 													<span
 														style="display: block; width: 20%; float: left; height: 7px;"
-														class="bg-red-active"></span> <span
+														class="bg-red-active"></span>
+													<span
 														class="bg-red"
 														style="display: block; width: 80%; float: left; height: 7px;"></span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
@@ -577,13 +610,14 @@
 												<div>
 													<span
 														style="display: block; width: 20%; float: left; height: 7px;"
-														class="bg-yellow-active"></span> <span
+														class="bg-yellow-active"></span>
+													<span
 														class="bg-yellow"
 														style="display: block; width: 80%; float: left; height: 7px;"></span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
@@ -606,13 +640,14 @@
 												<div>
 													<span
 														style="display: block; width: 20%; float: left; height: 7px;"
-														class="bg-teal-active"></span> <span
+														class="bg-teal-active"></span>
+													<span
 														class="bg-teal"
 														style="display: block; width: 80%; float: left; height: 7px;"></span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #222d32"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
@@ -633,13 +668,14 @@
 												global="false"
 												partialSubmit="true">
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 7px; background: #367fa9"></span> <span
+													<span style="display: block; width: 20%; float: left; height: 7px; background: #367fa9"></span>
+													<span
 														class="bg-light-blue"
 														style="display: block; width: 80%; float: left; height: 7px;"></span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
@@ -662,12 +698,12 @@
 												<div
 													style="box-shadow: 0 0 2px rgba(0, 0, 0, 0.1)"
 													class="clearfix">
-													<span style="display: block; width: 20%; float: left; height: 7px; background: #fefefe"></span> <span
-														style="display: block; width: 80%; float: left; height: 7px; background: #fefefe"></span>
+													<span style="display: block; width: 20%; float: left; height: 7px; background: #fefefe"></span>
+													<span style="display: block; width: 80%; float: left; height: 7px; background: #fefefe"></span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
@@ -690,13 +726,14 @@
 												<div>
 													<span
 														style="display: block; width: 20%; float: left; height: 7px;"
-														class="bg-purple-active"></span> <span
+														class="bg-purple-active"></span>
+													<span
 														class="bg-purple"
 														style="display: block; width: 80%; float: left; height: 7px;"></span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
@@ -719,13 +756,14 @@
 												<div>
 													<span
 														style="display: block; width: 20%; float: left; height: 7px;"
-														class="bg-red-active"></span> <span
+														class="bg-red-active"></span>
+													<span
 														class="bg-red"
 														style="display: block; width: 80%; float: left; height: 7px;"></span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
@@ -748,13 +786,14 @@
 												<div>
 													<span
 														style="display: block; width: 20%; float: left; height: 7px;"
-														class="bg-green-active"></span> <span
+														class="bg-green-active"></span>
+													<span
 														class="bg-green"
 														style="display: block; width: 80%; float: left; height: 7px;"></span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
@@ -777,13 +816,14 @@
 												<div>
 													<span
 														style="display: block; width: 20%; float: left; height: 7px;"
-														class="bg-yellow-active"></span> <span
+														class="bg-yellow-active"></span>
+													<span
 														class="bg-yellow"
 														style="display: block; width: 80%; float: left; height: 7px;"></span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
@@ -806,13 +846,14 @@
 												<div>
 													<span
 														style="display: block; width: 20%; float: left; height: 7px;"
-														class="bg-teal-active"></span> <span
+														class="bg-teal-active"></span>
+													<span
 														class="bg-teal"
 														style="display: block; width: 80%; float: left; height: 7px;"></span>
 												</div>
 												<div>
-													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span> <span
-														style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
+													<span style="display: block; width: 20%; float: left; height: 20px; background: #f9fafc"></span>
+													<span style="display: block; width: 80%; float: left; height: 20px; background: #f4f5f7"></span>
 												</div>
 											</p:commandLink>
 											<p:remoteCommand
