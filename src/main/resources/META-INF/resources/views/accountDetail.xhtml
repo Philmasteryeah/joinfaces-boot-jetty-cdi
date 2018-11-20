@@ -8,16 +8,21 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="/includes/template.xhtml">
-	<f:metadata>
-		<f:viewParam
-			name="id"
-			value="#{accountDetail.detailId}" />
-		<f:viewAction action="#{accountDetail.initDetail}" />
-		<c:set
-			var="detailObject"
-			value="#{accountDetail.detailObject}" />
-		<!-- add validation msg here -->
-	</f:metadata>
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event
+				type="preRenderView"
+				listener="#{breadcrumpBean.addPageUrl()}" />
+			<f:viewParam
+				name="id"
+				value="#{accountDetail.detailId}" />
+			<f:viewAction action="#{accountDetail.initDetail}" />
+			<c:set
+				var="detailObject"
+				value="#{accountDetail.detailObject}" />
+			<!-- add validation msg here -->
+		</f:metadata>
+	</ui:define>
 	<ui:define name="title">
         account detail -  #{detailObject.id}
     </ui:define>
@@ -43,6 +48,11 @@
 					</p:commandButton>
 				</div>
 			</div>
+			 ---
+					<h:outputLink
+				value="#{breadcrumpBean.backUrl}"
+				rendered="#{breadcrumpBean.hasPageBack()}">Back</h:outputLink>
+						---
 		</h:form>
 	</ui:define>
 </ui:composition>
