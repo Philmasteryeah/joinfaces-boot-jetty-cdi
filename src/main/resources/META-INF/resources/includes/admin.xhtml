@@ -225,7 +225,8 @@
 			<i class="fa fa-chevron-up"></i>
 		</div>
 		<ui:insert name="wrapper-end" />
-		<ui:fragment rendered="#{adm['adminConfig.renderControlSidebar'] and (empty renderControlSidebar or renderControlSidebar)}">
+		<ui:fragment
+			rendered="#{adm['adminConfig.renderControlSidebar'] and (empty renderControlSidebar or renderControlSidebar)}">
 			<!-- controlsidebar component, can't be a composite component because of multiple ui:insert and can't be an external xhtml because myfaces will not propagete ui:params and child pages will not be able to define inserted regions -->
 			<h:form prependId="false">
 				<h:panelGroup

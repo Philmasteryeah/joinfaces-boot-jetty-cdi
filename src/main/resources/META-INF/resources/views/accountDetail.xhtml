@@ -10,9 +10,6 @@
 	template="/includes/template.xhtml">
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:event
-				type="preRenderView"
-				listener="#{breadcrumpBean.addPageUrl()}" />
 			<f:viewParam
 				name="id"
 				value="#{accountDetail.detailId}" />
@@ -48,11 +45,6 @@
 					</p:commandButton>
 				</div>
 			</div>
-			 ---
-					<h:outputLink
-				value="#{breadcrumpBean.backUrl}"
-				rendered="#{breadcrumpBean.hasPageBack()}">Back</h:outputLink>
-						---
 		</h:form>
 	</ui:define>
 </ui:composition>

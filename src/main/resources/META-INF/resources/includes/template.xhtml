@@ -42,6 +42,9 @@
 		<h:outputStylesheet
 			library="css"
 			name="starter.css" />
+		<f:event
+			type="preRenderView"
+			listener="#{breadcrumbBean.addPageUrl()}" />
 	</ui:define>
 	<ui:define name="logo">
         Admin Starter
@@ -76,6 +79,13 @@
 		<ui:include src="/includes/controlsidebar-tabs-content.xhtml" />
 	</ui:define>
 	<ui:define name="footer">
+				---
+			<h:outputText value="#{breadcrumbBean.allPageStackUrls()}" />
+			---
+			<h:outputLink
+			value="#{breadcrumbBean.backUrl}"
+			rendered="#{breadcrumbBean.hasPageBack()}">Back</h:outputLink>
+			---
 		<a
 			target="_blank"
 			href="https://github.com/adminfaces/"> Copyright (C) 2017 - AdminFaces </a>

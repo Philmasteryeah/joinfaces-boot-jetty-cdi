@@ -1,29 +1,48 @@
 package org.philmaster.boot.session;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Stack;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Named
 @SessionScoped
-public class BreadcrumpBean implements Serializable {
+public class BreadcrumbBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private static Integer maxHistoryStackSize = 20;
+
+	@Getter
+	@Setter
 	private Stack<String> pageStack = new Stack<>();
-	private Integer maxHistoryStackSize = 20;
 
 	public void addPageUrl() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		if (!facesContext.isPostback() && !facesContext.isValidationFailed()) {
 			HttpServletRequest servletRequest = (HttpServletRequest) facesContext.getExternalContext().getRequest();
-			String fullUrl = servletRequest.getRequestURL() + "?" + servletRequest.getQueryString();
+			String url = servletRequest.getRequestURL().toString();
+			String query = servletRequest.getQueryString();
+			String fullUrl = query != null && !query.trim().isEmpty() ? url + "?" + query : url;
 			updatePageStack(fullUrl);
 		}
+	}
+
+	public String allPageStackUrls() {
+		// History
+		return pageStack.stream().map(s -> s.replaceAll("^.+\\/", "").replaceAll("[.].+$", ""))
+				.collect(Collectors.joining(" > "));
 	}
 
 	public String getBackUrl() {
@@ -35,16 +54,8 @@ public class BreadcrumpBean implements Serializable {
 		return pageStack.get(stackSize - 1);
 	}
 
-	public Stack<String> getPageStack() {
-		return pageStack;
-	}
-
 	public boolean hasPageBack() {
 		return pageStack.size() > 1;
-	}
-
-	public void setPageStack(Stack<String> pageStack) {
-		this.pageStack = pageStack;
 	}
 
 	private void updatePageStack(String navigationCase) {
