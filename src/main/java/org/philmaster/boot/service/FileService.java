@@ -28,7 +28,7 @@ public class FileService {
 		// fileName = test.json
 		List<File> files = null;
 		try {
-			files = getFiles();
+			files = getSaticResourceFiles();
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -49,7 +49,7 @@ public class FileService {
 		return a.stream().collect(Collectors.joining("\n\r"));
 	}
 
-	private List<File> getFiles() throws IOException {
+	private List<File> getSaticResourceFiles() throws IOException {
 		// loading files from ressources inside jar
 		return Arrays.stream(
 				ResourcePatternUtils.getResourcePatternResolver(resourceLoader).getResources(RES_STATIC_PATTERN))
