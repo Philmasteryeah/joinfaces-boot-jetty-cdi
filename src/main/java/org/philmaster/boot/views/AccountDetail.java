@@ -22,8 +22,8 @@ public class AccountDetail extends ContextDetailBean<Account> implements Seriali
 
 	@Override
 	public void actionSave(ActionEvent actionEvent) {
-		getDetailObject().setClient(getClient());
 		super.actionSave(actionEvent);
+		
 	}
 
 }

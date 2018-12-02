@@ -7,6 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
 
+import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.configuration.server.ServerRuntime;
@@ -14,6 +15,7 @@ import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.query.ObjectSelect;
 import org.apache.cayenne.query.Ordering;
 import org.apache.cayenne.query.SelectQuery;
+import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 
 /**
@@ -37,6 +39,8 @@ public class DatabaseService {
 
 	private static final String CAYENNE_CONFIG = "cayenne-project.xml";
 
+	private static final String DEFAULT_CLIENT_NAME = "default";
+
 	private ServerRuntime runtime;
 
 	@PostConstruct
@@ -56,16 +60,15 @@ public class DatabaseService {
 	}
 
 	public static Client fetchClient(ObjectContext objectContext) {
-		// TODO String param with nam
-		// insert into client (client_id, name) values (1, 'default')
-		return clientByName(objectContext, null);
+		return fetchClientByName(objectContext, DEFAULT_CLIENT_NAME);
 	}
 
-	public static Client clientByName(ObjectContext objectContext, String name) {
-		// TODO use name param
-		// insert into client (client_id, name) values (1, 'default')
-		List<Client> clients = fetchAll(objectContext, Client.class);
-		return clients != null && !clients.isEmpty() ? clients.get(0) : null;
+	public static Client fetchClientByName(ObjectContext context, String name) {
+		return ObjectSelect.query(Client.class).where(Client.NAME.eq(name)).selectOne(context);
+	}
+
+	public static Account fetchAccountByUsername(ObjectContext context, String username) {
+		return ObjectSelect.query(Account.class).where(Account.USERNAME.eq(username)).selectOne(context);
 	}
 
 	public static <T extends BaseDataObject> T createNew(ObjectContext context, Class<T> clazz) {

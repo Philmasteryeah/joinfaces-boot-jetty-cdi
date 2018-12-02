@@ -10,7 +10,6 @@ import javax.inject.Named;
 
 import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Client;
-import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.session.SessionBean;
 import org.philmaster.boot.util.Util;
 
@@ -23,9 +22,6 @@ public class ClientDetail implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	private DatabaseService db;
-	
 	private ObjectContext context;
 
 	@Getter
@@ -37,7 +33,7 @@ public class ClientDetail implements Serializable {
 
 	@PostConstruct
 	void init() {
-		context = db.newContext();
+		context = session.getDb().newContext();
 		detailObject = session.getClient(context);
 	}
 
