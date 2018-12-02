@@ -59,12 +59,15 @@ public class DatabaseService {
 		return runtime.getDataSource();
 	}
 
-	public static Client fetchClient(ObjectContext objectContext) {
+	public static Client fetchDefaultClient(ObjectContext objectContext) {
 		return fetchClientByName(objectContext, DEFAULT_CLIENT_NAME);
 	}
 
 	public static Client fetchClientByName(ObjectContext context, String name) {
-		return ObjectSelect.query(Client.class).where(Client.NAME.eq(name)).selectOne(context);
+		if (name != null)
+			return ObjectSelect.query(Client.class).where(Client.NAME.eq(name)).selectOne(context);
+		// TODO Logging
+		return fetchDefaultClient(context);
 	}
 
 	public static Account fetchAccountByUsername(ObjectContext context, String username) {

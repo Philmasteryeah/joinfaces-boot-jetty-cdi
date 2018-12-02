@@ -3,20 +3,22 @@ package org.philmaster.boot.session;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Getter;
@@ -42,6 +44,9 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	private Locale locale;
 
+	@Autowired
+	private HttpServletRequest request;
+
 	@Getter
 	private String page, name;
 
@@ -51,7 +56,7 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	// session context is only for client and account
 	// every context page has its own context
-	private ObjectContext sessionContext;
+	private ObjectContext context;
 
 	@Getter
 	@Inject
@@ -61,20 +66,18 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	@Override
 	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
-		String clientname = null;
-		// TODO get the client parameter from request
-		// not working like this
-//		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-//		clientname = params.get("client");
-
+// 		alternative to autowired
+//		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+//				.getRequest();
+		String clientname = request.getParameter("client");
 		String username = ((UserDetails) event.getAuthentication().getPrincipal()).getUsername();
-
-		System.err.println("client-> " + clientname);
-		System.err.println(event.getGeneratedBy());
-		System.err.println("user-> " + username);
-		System.err.println(event.getSource());
-
-		initSession(clientname, username);
+		// TODO handle the double checked login
+		// this should never be false
+		// otherwise the sql in spring security is not correct
+		boolean isLoggedIn = isInitSession(clientname, username);
+		if (!isLoggedIn) {
+			System.err.print("error logout");
+		}
 	}
 
 	public String pageNameReadable() {
@@ -90,16 +93,27 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	}
 
 	public String logout() throws IOException {
+		// clear faces session
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		// clear spring session
+		SecurityContextHolder.clearContext();
 		return "/index.xhtml?faces-redirect=true";
 	}
 
-	private void initSession(String clientname, String username) {
-		sessionContext = db.newContext();
-		if (clientname == null)
-			clientname = "default"; // TODO use static
-		client = DatabaseService.fetchClientByName(sessionContext, clientname);
-		account = DatabaseService.fetchAccountByUsername(sessionContext, username);
+	private boolean isInitSession(String clientname, String username) {
+		// TODO Logging
+//		System.err.println("client-> " + clientname);
+//		System.err.println("user-> " + username);
+		if (clientname == null || username == null)
+			return false;
+		context = db.newContext();
+		if (context == null)
+			return false;
+		client = DatabaseService.fetchClientByName(context, clientname);
+		account = DatabaseService.fetchAccountByUsername(context, username);
+		if (account == null || client == null)
+			return false;
+		return true;
 	}
 
 	public Client getClient(@Nonnull ObjectContext context) {

@@ -4,7 +4,7 @@
 
  
 # Joinfaces-boot-jetty-cdi
-- Java 10
+- Java 11
 - Spring Boot v2.0.6
 - Spring Security
 - Spring REST

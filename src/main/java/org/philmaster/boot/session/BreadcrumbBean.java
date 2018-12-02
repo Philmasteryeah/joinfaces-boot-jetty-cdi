@@ -1,11 +1,7 @@
 package org.philmaster.boot.session;
 
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.Stack;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.SessionScoped;
