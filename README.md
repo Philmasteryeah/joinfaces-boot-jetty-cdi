@@ -25,7 +25,8 @@
 - nice looking responsive layout
 - master detail page with list and database saving (TODO)
 - simple exception page mapping
-- http2
+- http2 with tls
+- flyway database migrations
 
 - Login
 ![alt text](https://abload.de/img/adminloginildcy.png)
