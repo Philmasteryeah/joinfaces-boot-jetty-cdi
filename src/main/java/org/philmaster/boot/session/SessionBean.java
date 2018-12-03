@@ -15,11 +15,12 @@ import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import lombok.Getter;
 
@@ -44,8 +45,8 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	private Locale locale;
 
-	@Autowired
-	private HttpServletRequest request;
+//	@Autowired
+//	private HttpServletRequest request;
 
 	@Getter
 	private String page, name;
@@ -67,8 +68,10 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	@Override
 	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
 // 		alternative to autowired
-//		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-//				.getRequest();
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+				.getRequest();
+		System.err.println(request);
+
 		String clientname = request.getParameter("client");
 		String username = ((UserDetails) event.getAuthentication().getPrincipal()).getUsername();
 		// TODO handle the double checked login
@@ -92,7 +95,7 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	}
 
-	public String logout() throws IOException {
+	public String logout() {
 		// clear faces session
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		// clear spring session
@@ -101,17 +104,23 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	}
 
 	private boolean isInitSession(String clientname, String username) {
-		// TODO Logging
-//		System.err.println("client-> " + clientname);
-//		System.err.println("user-> " + username);
-		if (clientname == null || username == null)
-			return false;
+		// fix null string
+		if ("null".equals(clientname))
+			clientname = null;
+		System.err.println("client-> " + clientname);
+		System.err.println("user-> " + username);
+//		if (clientname == null || username == null)
+//			return false;
 		context = db.newContext();
 		if (context == null)
 			return false;
 		client = DatabaseService.fetchClientByName(context, clientname);
+		System.err.println("client-> " + client);
+		if (client == null)
+			return false;
 		account = DatabaseService.fetchAccountByUsername(context, username);
-		if (account == null || client == null)
+		System.err.println("user-> " + account);
+		if (account == null)
 			return false;
 		return true;
 	}
