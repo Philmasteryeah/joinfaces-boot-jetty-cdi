@@ -10,12 +10,11 @@ import org.springframework.stereotype.Component;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Component
 @Configuration
 @ConfigurationProperties("menu")
 public class MenuProperties {
-	
+
 	@Getter
 	@Setter
 	private List<SubMenuItem> items = new ArrayList<>();

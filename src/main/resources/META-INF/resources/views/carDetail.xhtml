@@ -1,5 +1,4 @@
-<ui:composition
-	xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -10,13 +9,9 @@
 	template="/includes/template.xhtml">
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewParam
-				name="id"
-				value="#{carDetail.detailId}" />
+			<f:viewParam name="id" value="#{carDetail.detailId}" />
 			<f:viewAction action="#{carDetail.initDetail}" />
-			<c:set
-				var="detailObject"
-				value="#{carDetail.detailObject}" />
+			<c:set var="detailObject" value="#{carDetail.detailObject}" />
 			<!-- add validation msg here -->
 		</f:metadata>
 	</ui:define>
@@ -32,17 +27,14 @@
 				<div class="box-header with-border">
 					<p:tabView cache="true">
 						<p:tab title="System">
-							<h:panelGrid
-								columns="2"
+							<h:panelGrid columns="2"
 								style="border-collapse: separate; border-spacing: 10px;">
 								<h:outputText value="Name:" />
 								<p:inputText value="#{detailObject.name}" />
 							</h:panelGrid>
 						</p:tab>
 						<p:tab title="Person">
-							<h:panelGrid
-								columns="2"
-								cellpadding="10">
+							<h:panelGrid columns="2" cellpadding="10">
 								<h:outputText value="TODO." />
 								<div class="ui-g ui-fluid">
 									<div class="ui-g-6 ui-sm-12">
@@ -63,17 +55,13 @@
 							</h:panelGrid>
 						</p:tab>
 						<p:tab title="History">
-							<h:panelGrid
-								columns="2"
-								cellpadding="10">
+							<h:panelGrid columns="2" cellpadding="10">
 								<h:outputText value="TODO2" />
 							</h:panelGrid>
 						</p:tab>
 					</p:tabView>
-					<p:commandButton
-						actionListener="#{carDetail.actionSave}"
-						update="@form"
-						value="Save">
+					<p:commandButton actionListener="#{carDetail.actionSave}"
+						update="@form" value="Save">
 					</p:commandButton>
 				</div>
 			</div>

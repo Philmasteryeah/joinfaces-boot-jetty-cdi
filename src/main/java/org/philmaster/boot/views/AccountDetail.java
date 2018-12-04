@@ -23,7 +23,6 @@ public class AccountDetail extends ContextDetailBean<Account> implements Seriali
 	@Override
 	public void actionSave(ActionEvent actionEvent) {
 		super.actionSave(actionEvent);
-		
 	}
 
 }

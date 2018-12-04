@@ -1,5 +1,4 @@
-<ui:composition
-	xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -10,47 +9,28 @@
 			<f:param value="#{curRow.name}" />
 		</h:outputFormat>
 	</f:facet>
-	<h:panelGrid
-		columns="2"
-		columnClasses="formColumn1,formColumn2"
-		cellpadding="0"
-		cellspacing="0">
+	<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2"
+		cellpadding="0" cellspacing="0">
 		<h:outputText value="Column 1" />
-		<p:calendar
-			value="#{curRow.name}"
-			pattern="dd.MM.yyyy"
-			showOn="button"
-			timeZone="Europe/Berlin"
-			label="Column 1" />
+		<p:calendar value="#{curRow.name}" pattern="dd.MM.yyyy"
+			showOn="button" timeZone="Europe/Berlin" label="Column 1" />
 		<h:outputText value="Column 2" />
-		<p:spinner
-			value="#{curRow.objectId}"
-			min="0"
-			max="999999999"
+		<p:spinner value="#{curRow.objectId}" min="0" max="999999999"
 			label="Column 2">
 			<p:keyFilter mask="num" />
 		</p:spinner>
 	</h:panelGrid>
-	<p:commandButton
-		value="#{msg['save']}"
+	<p:commandButton value="#{msg['save']}"
 		onclick="PF('saveDlgWdgt').show(); return false;"
-		styleClass="firstbtn"
-		icon="ui-icon-disk" />
-	<p:commandButton
-		value="#{msg['more']}"
-		process="masterDetail"
-		update=":form:masterDetail"
-		action="#{tableController.navigateToMore}"
-		styleClass="btn"
-		icon="ui-icon-arrowthick-1-e">
+		styleClass="firstbtn" icon="ui-icon-disk" />
+	<p:commandButton value="#{msg['more']}" process="masterDetail"
+		update=":form:masterDetail" action="#{tableController.navigateToMore}"
+		styleClass="btn" icon="ui-icon-arrowthick-1-e">
 		<pe:selectDetailLevel step="1" />
 	</p:commandButton>
-	<p:commandButton
-		value="#{msg['back']}"
-		icon="ui-icon-arrowreturnthick-1-n"
-		update=":form:masterDetail"
-		immediate="true"
-		styleClass="btn">
+	<p:commandButton value="#{msg['back']}"
+		icon="ui-icon-arrowreturnthick-1-n" update=":form:masterDetail"
+		immediate="true" styleClass="btn">
 		<pe:selectDetailLevel level="1" />
 	</p:commandButton>
 	<ui:include src="/compositions/dialogs.xhtml" />

@@ -51,8 +51,9 @@ public class FileService {
 
 	private List<File> getSaticResourceFiles() throws IOException {
 		// loading files from ressources inside jar
-		return Arrays.stream(
-				ResourcePatternUtils.getResourcePatternResolver(resourceLoader).getResources(RES_STATIC_PATTERN))
+		return Arrays
+				.stream(ResourcePatternUtils.getResourcePatternResolver(resourceLoader)
+						.getResources(RES_STATIC_PATTERN))
 				.map(p -> {
 					try {
 						return p.getFile();
@@ -60,6 +61,9 @@ public class FileService {
 						e.printStackTrace();
 						return null;
 					}
-				}).filter(Objects::nonNull).sorted().collect(Collectors.toList());
+				})
+				.filter(Objects::nonNull)
+				.sorted()
+				.collect(Collectors.toList());
 	}
 }

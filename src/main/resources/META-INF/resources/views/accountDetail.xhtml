@@ -1,5 +1,4 @@
-<ui:composition
-	xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -10,13 +9,9 @@
 	template="/includes/template.xhtml">
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewParam
-				name="id"
-				value="#{accountDetail.detailId}" />
+			<f:viewParam name="id" value="#{accountDetail.detailId}" />
 			<f:viewAction action="#{accountDetail.initDetail}" />
-			<c:set
-				var="detailObject"
-				value="#{accountDetail.detailObject}" />
+			<c:set var="detailObject" value="#{accountDetail.detailObject}" />
 			<!-- add validation msg here -->
 		</f:metadata>
 	</ui:define>
@@ -30,18 +25,14 @@
 		<h:form>
 			<div class="box box-primary">
 				<div class="box-header with-border">
-					<h:panelGrid
-						columns="2"
-						style="margin:10px 0">
+					<h:panelGrid columns="2" style="margin:10px 0">
 						<h:outputText value="Username:" />
 						<p:inputText value="#{detailObject.username}" />
 						<h:outputText value="Password:" />
 						<p:inputText value="#{detailObject.password}" />
 					</h:panelGrid>
-					<p:commandButton
-						actionListener="#{accountDetail.actionSave}"
-						update="@form"
-						value="Save">
+					<p:commandButton actionListener="#{accountDetail.actionSave}"
+						update="@form" value="Save">
 					</p:commandButton>
 				</div>
 			</div>

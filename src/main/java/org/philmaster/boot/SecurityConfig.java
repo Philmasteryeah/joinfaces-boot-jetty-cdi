@@ -23,20 +23,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		auth.jdbcAuthentication().dataSource(db.getDataSource())
+		auth.jdbcAuthentication()
+				.dataSource(db.getDataSource())
 				.usersByUsernameQuery("SELECT username, password, enabled FROM account WHERE username=?")
 				.authoritiesByUsernameQuery("SELECT username, 'ADMIN' FROM account WHERE username=?")
 				.and()
-				.inMemoryAuthentication().withUser("sa").password("{noop}test").roles("ADMIN");
+				.inMemoryAuthentication()
+				.withUser("sa")
+				.password("{noop}test")
+				.roles("ADMIN");
 		;
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/login.xhtml", "/javax.faces.resource/**").permitAll().anyRequest()
-				.fullyAuthenticated().and().formLogin().loginPage("/login.xhtml").defaultSuccessUrl("/index.xhtml")
-				.failureUrl("/login.xhtml?error=true").permitAll().and().logout().logoutSuccessUrl("/login.xhtml").and()
-				.csrf().disable();
+
+		http.authorizeRequests()
+				.antMatchers("/", "/login.xhtml", "/javax.faces.resource/**")
+				.permitAll()
+				.anyRequest()
+				.fullyAuthenticated()
+				.and()
+				.formLogin()
+				.loginPage("/login.xhtml")
+				.defaultSuccessUrl("/index.xhtml")
+				.failureUrl("/login.xhtml?error=true")
+				.permitAll()
+				.and()
+				.logout()
+				.logoutSuccessUrl("/login.xhtml")
+				.and()
+				.csrf()
+				.disable();
 
 	}
 

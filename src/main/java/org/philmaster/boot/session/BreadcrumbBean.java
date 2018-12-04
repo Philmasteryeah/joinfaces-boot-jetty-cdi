@@ -37,7 +37,8 @@ public class BreadcrumbBean implements Serializable {
 
 	public String allPageStackUrls() {
 		// History
-		return pageStack.stream().map(s -> s.replaceAll("^.+\\/", "").replaceAll("[.].+$", ""))
+		return pageStack.stream()
+				.map(s -> s.replaceAll("^.+\\/", "").replaceAll("[.].+$", ""))
 				.collect(Collectors.joining(" > "));
 	}
 

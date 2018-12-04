@@ -1,5 +1,4 @@
-<ui:composition
-	xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
@@ -12,16 +11,10 @@
 		<cc:attribute name="message" />
 	</cc:interface>
 	<cc:implementation>
-		<p:commandButton
-			value="#{cc.attrs.btnToggleValue}"
-			type="button"
+		<p:commandButton value="#{cc.attrs.btnToggleValue}" type="button"
 			onclick="PF('dlg').show();" />
-		<p:dialog
-			header="#{cc.attrs.header}"
-			widgetVar="dlg"
-			modal="true"
-			appendTo="@(body)"
-			height="100">
+		<p:dialog header="#{cc.attrs.header}" widgetVar="dlg" modal="true"
+			appendTo="@(body)" height="100">
 			<h:outputText value="#{cc.attrs.message}" />
 			<cc:insertChildren />
 		</p:dialog>

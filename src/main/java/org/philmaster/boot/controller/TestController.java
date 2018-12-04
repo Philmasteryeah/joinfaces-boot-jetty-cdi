@@ -47,10 +47,10 @@ public class TestController {
 	public ResponseEntity<String> getTest() {
 		return new ResponseEntity<String>(is.getTestImage(), HttpStatus.OK);
 	}
-	
-	@RequestMapping(path = "/test2", method = RequestMethod.GET,  produces="application/json")
+
+	@RequestMapping(path = "/test2", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<String> getTest2() {
 		return new ResponseEntity<String>(fis.getFileAsString("test.json"), HttpStatus.OK);
 	}
-	
+
 }

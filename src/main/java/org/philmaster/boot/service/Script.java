@@ -26,7 +26,8 @@ public class Script {
 			+ "    while((line = bufferedReader.readLine()) != null)\r\n" + "    	inputLine += line;\r\n"
 			+ "bufferedReader.close();\r\n" + "print(String(inputLine));\r\n" + "";
 
-	private static String test2 = "var input = [\r\n" + "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
+	private static String test2 = "var input = [\r\n"
+			+ "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
 			+ "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
 			+ "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
 			+ "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
@@ -46,7 +47,7 @@ public class Script {
 			+ "  	xml.setValue(formValue, xPath);\r\n" + "  \r\n" + "}\r\n" + "\r\n" + "";
 
 	private static String test3 = "var greeting='hello world';" + "print(greeting);";
-	
+
 	@PostConstruct
 	void init() {
 		engine = new ScriptEngineManager().getEngineByName("nashorn");

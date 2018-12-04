@@ -86,8 +86,8 @@ public class RolesAndRightsView implements Serializable {
 
 		SelectLevelListener selectLevelListener;
 		try {
-			selectLevelListener = (SelectLevelListener) elContext.getELResolver().getValue(elContext, null,
-					"selectLevelListener");
+			selectLevelListener = (SelectLevelListener) elContext.getELResolver()
+					.getValue(elContext, null, "selectLevelListener");
 			selectLevelListener.setErrorOccured(true);
 		} catch (RuntimeException e) {
 			throw new FacesException(e.getMessage(), e);
