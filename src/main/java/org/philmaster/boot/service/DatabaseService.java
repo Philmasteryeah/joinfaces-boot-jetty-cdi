@@ -7,7 +7,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
 
-import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.configuration.server.ServerRuntime;
@@ -45,7 +44,9 @@ public class DatabaseService {
 
 	@PostConstruct
 	void init() {
-		runtime = ServerRuntime.builder().addConfig(CAYENNE_CONFIG).build(); // db runntime
+		runtime = ServerRuntime.builder()
+				.addConfig(CAYENNE_CONFIG)
+				.build(); // db runntime
 
 		// ObjectContext context = BaseContext.getThreadObjectContext(); // session
 		// context
@@ -65,12 +66,16 @@ public class DatabaseService {
 
 	public static Client fetchClientByName(ObjectContext context, String name) {
 		if (name != null)
-			return ObjectSelect.query(Client.class).where(Client.NAME.eq(name)).selectOne(context);
+			return ObjectSelect.query(Client.class)
+					.where(Client.NAME.eq(name))
+					.selectOne(context);
 		return fetchDefaultClient(context);
 	}
 
 	public static Account fetchAccountByUsername(ObjectContext context, String username) {
-		return ObjectSelect.query(Account.class).where(Account.USERNAME.eq(username)).selectOne(context);
+		return ObjectSelect.query(Account.class)
+				.where(Account.USERNAME.eq(username))
+				.selectOne(context);
 	}
 
 	public static <T extends BaseDataObject> T createNew(ObjectContext context, Class<T> clazz) {
@@ -82,12 +87,17 @@ public class DatabaseService {
 	}
 
 	public static <T extends BaseDataObject> List<T> fetch(ObjectContext context, Class<T> clazz, Expression where) {
-		return ObjectSelect.query(clazz).where(where).select(context);
+		return ObjectSelect.query(clazz)
+				.where(where)
+				.select(context);
 	}
 
 	public static <T extends BaseDataObject> List<T> fetch(ObjectContext context, Class<T> clazz, Expression where,
 			Ordering order) {
-		return ObjectSelect.query(clazz).orderBy(order).where(where).select(context);
+		return ObjectSelect.query(clazz)
+				.orderBy(order)
+				.where(where)
+				.select(context);
 	}
 
 	//

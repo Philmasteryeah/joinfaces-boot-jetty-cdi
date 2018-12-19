@@ -37,7 +37,8 @@ public class Meal implements Serializable {
 		public static TypePrice getTypePrice(String type) {
 			return Arrays.asList(TypePrice.values())
 					.stream()
-					.filter(val -> val.getName().equals(type))
+					.filter(val -> val.getName()
+							.equals(type))
 					.findFirst()
 					.orElse(null);
 		}

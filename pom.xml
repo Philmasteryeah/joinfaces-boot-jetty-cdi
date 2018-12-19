@@ -1,34 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.joinfaces</groupId>
-		<artifactId>joinfaces-parent</artifactId>
-		<version>3.2.6</version>
-		<relativePath />
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.1.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-
-	<artifactId>joinfaces-boot-jetty-cdi</artifactId>
-	<version>1.0.0</version>
+	<groupId>org.philmaster</groupId>
+	<artifactId>boot</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>JoinFaces Spring Boot with CDI</name>
-	<description>Project with JoinFaces Spring Boot and CDI</description>
+	<name>joinfaces-boot-jetty-cdi</name>
+	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<main.basedir>${basedir}</main.basedir>
-		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<primefaces-theme.version>1.0.10</primefaces-theme.version>
-		<all-themes.version>1.0.10</all-themes.version>
+		<java.version>11</java.version>
 
-		<postgresql.version>42.2.5</postgresql.version>
+		<joinfaces.version>4.0.0</joinfaces.version>
+		<primefaces-theme.version>1.0.10</primefaces-theme.version>
+		<commons-fileupload.version>1.3.3</commons-fileupload.version>
+		<maven-model.version>3.6.0</maven-model.version>
+
 		<cayenne.version>4.1.M2</cayenne.version>
-		<heroku.version>2.0.6</heroku.version>
+
+		<duplicate-finder-maven-plugin.version>1.3.0</duplicate-finder-maven-plugin.version>
+		<duplicate.ignoredResourcePattern>about.html</duplicate.ignoredResourcePattern>
+		<duplicate.ignoredClassPattern>META-INF.versions.9.module-info</duplicate.ignoredClassPattern>
+
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.joinfaces</groupId>
+				<artifactId>joinfaces-dependencies</artifactId>
+				<version>${joinfaces.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>${commons-fileupload.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-io</groupId>
+						<artifactId>commons-io</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-model</artifactId>
+				<version>${maven-model.version}</version>
+			</dependency>
+			<!-- version -->
+			<dependency>
+				<groupId>org.glassfish</groupId>
+				<artifactId>javax.faces</artifactId>
+				<version>2.4.0</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.enterprise</groupId>
+				<artifactId>cdi-api</artifactId>
+				<version>2.0.SP1</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+		<!-- version -->
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.faces</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+		</dependency>
 		<!-- HTTP2 -->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
@@ -37,27 +97,6 @@
 		<dependency>
 			<groupId>org.eclipse.jetty.http2</groupId>
 			<artifactId>http2-server</artifactId>
-		</dependency>
-		<!-- CDI -->
-		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-			<version>1</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-		</dependency>
-		<!-- because of xee security -->
-		<dependency>
-			<groupId>org.apache.taglibs</groupId>
-			<artifactId>taglibs-standard-jstlel</artifactId>
-			<version>1.2.5</version>
-		</dependency>
-		<!-- Joinfaces -->
-		<dependency>
-			<groupId>com.github.adminfaces</groupId>
-			<artifactId>admin-theme</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.joinfaces</groupId>
@@ -71,42 +110,29 @@
 					<groupId>org.joinfaces</groupId>
 					<artifactId>tomcat-spring-boot-starter</artifactId>
 				</exclusion>
-				<exclusion>
-					<groupId>org.hibernate.validator</groupId>
-					<artifactId>hibernate-validator</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.joinfaces</groupId>
-					<artifactId>
-						omnifaces1-spring-boot-starter
-					</artifactId>
-				</exclusion>
 			</exclusions>
-		</dependency>
-		<!-- Misc -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<!-- Spring -->
-		<!-- webmvc needed for spring request mapping for rest -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
+		<!-- this is needed for faces -->
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>apache-jsp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.joinfaces</groupId>
+			<artifactId>security-spring-boot-starter</artifactId>
+		</dependency>
+		<!-- Tests -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -118,29 +144,30 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- Cayenne -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
+			<groupId>org.apache.cayenne.modeler</groupId>
+			<artifactId>cayenne-modeler</artifactId>
+			<version>${cayenne.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
-			<optional>true</optional> </dependency> -->
-		<!-- Data Export -->
+
 		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>4.0.0</version>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>4.0.0</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.11.3</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
@@ -160,18 +187,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- Cayenne -->
-		<dependency>
-			<groupId>org.apache.cayenne.modeler</groupId>
-			<artifactId>cayenne-modeler</artifactId>
-			<version>${cayenne.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -187,45 +203,8 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.cayenne.plugins</groupId>
-				<artifactId>cayenne-modeler-maven-plugin</artifactId>
-				<version>4.1.M1</version>
-				<configuration>
-					<map>${basedir}/src/main/resources/datamap.map.xml</map>
-					<modelFile>>${basedir}/src/main/resources/cayenne-project.xml</modelFile>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.heroku.sdk</groupId>
-				<artifactId>heroku-maven-plugin</artifactId>
-				<version>${heroku.version}</version>
-				<configuration>
-					<includeTarget>false</includeTarget>
-					<includes>
-						<include>target/joinfaces-boot-jetty-cdi-1.0.0.jar</include>
-					</includes>
-					<appName>ancient-gorge-66249</appName>
-					<jdkVersion>10</jdkVersion>
-					<processTypes>
-						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar
-							target/joinfaces-boot-jetty-cdi-1.0.0.jar</web>
-					</processTypes>
-				</configuration>
-			</plugin>
 		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>false</filtering>
-			</resource>
-		</resources>
 	</build>
-	<repositories>
-		<repository>
-			<id>prime-repo</id>
-			<name>PrimeFaces Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-		</repository>
-	</repositories>
+
+
 </project>

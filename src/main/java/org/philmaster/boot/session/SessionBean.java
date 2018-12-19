@@ -1,10 +1,8 @@
 package org.philmaster.boot.session;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -23,6 +21,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import lombok.Getter;
+import lombok.NonNull;
 
 /**
  * @author Philmasteryeah
@@ -73,7 +72,8 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		System.err.println(request);
 
 		String clientname = request.getParameter("client");
-		String username = ((UserDetails) event.getAuthentication().getPrincipal()).getUsername();
+		String username = ((UserDetails) event.getAuthentication()
+				.getPrincipal()).getUsername();
 		// TODO handle the double checked login
 		// this should never be false
 		// otherwise the sql in spring security is not correct
@@ -90,14 +90,18 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	public String changeLanguage(String locale) {
 		this.locale = new Locale(locale);
-		FacesContext.getCurrentInstance().getViewRoot().setLocale(this.locale);
+		FacesContext.getCurrentInstance()
+				.getViewRoot()
+				.setLocale(this.locale);
 		return locale;
 
 	}
 
 	public String logout() {
 		// clear faces session
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		FacesContext.getCurrentInstance()
+				.getExternalContext()
+				.invalidateSession();
 		// clear spring session
 		SecurityContextHolder.clearContext();
 		return "/index.xhtml?faces-redirect=true";
@@ -125,11 +129,11 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		return true;
 	}
 
-	public Client getClient(@Nonnull ObjectContext context) {
+	public Client getClient(@NonNull ObjectContext context) {
 		return context.localObject(client);
 	}
 
-	public Account getAccount(@Nonnull ObjectContext context) {
+	public Account getAccount(@NonNull ObjectContext context) {
 		return context.localObject(account);
 	}
 

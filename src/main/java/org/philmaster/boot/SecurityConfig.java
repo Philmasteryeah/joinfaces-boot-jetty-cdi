@@ -4,13 +4,12 @@ import javax.inject.Inject;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.philmaster.boot.service.AuthenticationService;
 import org.philmaster.boot.service.DatabaseService;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -20,19 +19,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Inject
 	private DatabaseService db;
 
+	@Inject
+	private AuthenticationService authenticationService;
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 		auth.jdbcAuthentication()
 				.dataSource(db.getDataSource())
-				.usersByUsernameQuery("SELECT username, password, enabled FROM account WHERE username=?")
-				.authoritiesByUsernameQuery("SELECT username, 'ADMIN' FROM account WHERE username=?")
-				.and()
-				.inMemoryAuthentication()
-				.withUser("sa")
-				.password("{noop}test")
-				.roles("ADMIN");
-		;
+				.usersByUsernameQuery("SELECT username, password, enabled FROM account WHERE username=?");
+//				.userDetailsService(authenticationService);
+
+//		auth.jdbcAuthentication()
+//				.dataSource(db.getDataSource())
+//				.usersByUsernameQuery("SELECT username, password, enabled FROM account WHERE username=?")
+//				.authoritiesByUsernameQuery("SELECT username, 'ADMIN' FROM account WHERE username=?")
+//				.and()
+//				.inMemoryAuthentication()
+//				.withUser("sa")
+//				.password("{noop}test")
+//				.roles("ADMIN");
+
 	}
 
 	@Override
