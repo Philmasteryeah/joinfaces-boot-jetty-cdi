@@ -1,7 +1,8 @@
 dist: trusty
 language: java
 jdk:
-  - openjdk10
+  - openjdk11
+  
 cache:
   directories:
   - $HOME/.m2
