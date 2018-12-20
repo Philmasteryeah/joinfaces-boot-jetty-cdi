@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class RedirectToIndexController {
 
-	@GetMapping("/")
-	public String redirect() {
-		System.err.println("red");
-		return "redirect:index.xhtml";
-	}
+//	@GetMapping("/")
+//	public String redirect() {
+//		System.err.println("red");
+//		return "redirect:index.xhtml";
+//	}
 
 }
