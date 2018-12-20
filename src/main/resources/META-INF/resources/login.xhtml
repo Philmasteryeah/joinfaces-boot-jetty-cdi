@@ -49,7 +49,7 @@ html {
 				<li>Username: sa</li>
 				<li>Password: test</li>
 			</ul>
-			<form method="post">
+			<h:form method="post">
 				<div class="form-group has-feedback">
 					<input type="text" class="form-control" name="username"
 						placeholder="username" /> <span
@@ -62,11 +62,11 @@ html {
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
-			
-						<p:commandButton type="submit" class="btn btn-primary btn-block btn-flat">Login</p:commandButton>
+						<p:commandButton id="submit"
+							styleClass="btn btn-success btn-block" value="Login" ajax="false" />
 					</div>
 				</div>
-			</form>
+			</h:form>
 		</div>
 	</div>
 </h:body>

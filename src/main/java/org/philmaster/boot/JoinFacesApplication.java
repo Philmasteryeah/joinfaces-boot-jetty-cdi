@@ -17,6 +17,8 @@ public class JoinFacesApplication implements ServletContextInitializer {
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		servletContext.setInitParameter("primefaces.THEME", "admin");
+		servletContext.setInitParameter("primefaces.FONT_AWESOME", "true");
+		servletContext.setInitParameter("primeface.moveScriptsToBottom", "true");
 	}
 
 }

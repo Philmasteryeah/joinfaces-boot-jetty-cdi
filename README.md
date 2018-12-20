@@ -5,15 +5,15 @@
  
 # Joinfaces-boot-jetty-cdi
 - Java 11
-- Spring Boot v2.0.6
+- Spring Boot v2.1.1
 - Spring Security
 - Spring REST
 - PrimeFaces 6.2
-- Jetty 9
-- CDI 2.0 (weld)
+- Jetty 9 (embedded)
+- CDI 2.0.SP1 (weld)
 - Postgres 42.2.0
 - Cayenne 4.1.M1
-- javax.faces 2.3.7
+- javax.faces 2.4.0
 
 # Highlights completed
 - login and redirect with spring security and cayenne database

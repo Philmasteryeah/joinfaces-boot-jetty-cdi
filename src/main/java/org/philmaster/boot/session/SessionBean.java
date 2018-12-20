@@ -138,6 +138,6 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	}
 
 	public String getUsername() {
-		return account.getUsername();
+		return account != null ? account.getUsername() : null;
 	}
 }
