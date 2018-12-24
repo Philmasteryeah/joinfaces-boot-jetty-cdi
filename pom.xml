@@ -23,6 +23,7 @@
 		<commons-fileupload.version>1.3.3</commons-fileupload.version>
 		<maven-model.version>3.6.0</maven-model.version>
 		<cayenne.version>4.1.M2</cayenne.version>
+		<heroku.version>2.0.6</heroku.version>
 	</properties>
 
 	<dependencyManagement>
@@ -175,6 +176,31 @@
 							<artifactId>cayenne-modeler</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.cayenne.plugins</groupId>
+				<artifactId>cayenne-modeler-maven-plugin</artifactId>
+				<version>4.1.M1</version>
+				<configuration>
+					<map>${basedir}/src/main/resources/datamap.map.xml</map>
+					<modelFile>>${basedir}/src/main/resources/cayenne-project.xml</modelFile>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>${heroku.version}</version>
+				<configuration>
+					<includeTarget>false</includeTarget>
+					<includes>
+						<include>target/joinfaces-boot-jetty-cdi-1.0.0.jar</include>
+					</includes>
+					<appName>ancient-gorge-66249</appName>
+					<jdkVersion>10</jdkVersion>
+					<processTypes>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/joinfaces-boot-jetty-cdi-1.0.0.jar</web>
+					</processTypes>
 				</configuration>
 			</plugin>
 		</plugins>

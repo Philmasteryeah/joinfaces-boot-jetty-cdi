@@ -1,7 +1,9 @@
 package org.philmaster.boot.session;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -10,6 +12,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.cayenne.ObjectContext;
+import org.apache.cayenne.query.ObjectSelect;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
@@ -56,6 +59,8 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	// session context is only for client and account
 	// every context page has its own context
+	// private static ObjectContext sessionContext =
+	// BaseContext.getThreadObjectContext();
 	private ObjectContext context;
 
 	@Getter
@@ -80,6 +85,7 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		boolean isLoggedIn = isInitSession(clientname, username);
 		if (!isLoggedIn) {
 			System.err.print("error logout");
+			logout();
 		}
 	}
 
@@ -108,25 +114,26 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	}
 
 	private boolean isInitSession(String clientname, String username) {
-		// fix null string
-		if ("null".equals(clientname))
-			clientname = null;
-		System.err.println("client-> " + clientname);
-		System.err.println("user-> " + username);
-//		if (clientname == null || username == null)
-//			return false;
 		context = db.newContext();
-		if (context == null)
-			return false;
 		client = DatabaseService.fetchClientByName(context, clientname);
-		System.err.println("client-> " + client);
-		if (client == null)
-			return false;
-		account = DatabaseService.fetchAccountByUsername(context, username);
-		System.err.println("user-> " + account);
+		account = DatabaseService.fetchAccountByUsername(context, username, client.getName());
 		if (account == null)
-			return false;
+			return false; // LOGGING no accc
+		if (client == null)
+			return false; // LOGGING no client
+
+		System.err.println("init session client-> " + client.getName());
+		System.err.println("init session user-> " + account.getUsername());
+
 		return true;
+	}
+
+	public Account fetchAccountByUsername(String username) {
+		System.err.println("fetchAccountByUsername " + username);
+		return ObjectSelect.query(Account.class)
+				.where(Account.USERNAME.eq(username))
+				.selectOne(context);
+		// TODO client
 	}
 
 	public Client getClient(@NonNull ObjectContext context) {

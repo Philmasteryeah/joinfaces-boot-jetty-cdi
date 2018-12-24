@@ -7,10 +7,12 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
 
+import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.exp.Expression;
+import org.apache.cayenne.exp.ExpressionFactory;
 import org.apache.cayenne.query.ObjectSelect;
 import org.apache.cayenne.query.Ordering;
 import org.apache.cayenne.query.SelectQuery;
@@ -47,9 +49,6 @@ public class DatabaseService {
 		runtime = ServerRuntime.builder()
 				.addConfig(CAYENNE_CONFIG)
 				.build(); // db runntime
-
-		// ObjectContext context = BaseContext.getThreadObjectContext(); // session
-		// context
 	}
 
 	public ObjectContext newContext() {
@@ -65,17 +64,28 @@ public class DatabaseService {
 	}
 
 	public static Client fetchClientByName(ObjectContext context, String name) {
-		if (name != null)
-			return ObjectSelect.query(Client.class)
-					.where(Client.NAME.eq(name))
-					.selectOne(context);
-		return fetchDefaultClient(context);
+		if (name == null || name.isBlank() || "null".equals(name.trim()))
+			return fetchDefaultClient(context);
+		return ObjectSelect.query(Client.class)
+				.where(Client.NAME.eq(name))
+				.selectOne(context);
 	}
 
-	public static Account fetchAccountByUsername(ObjectContext context, String username) {
-		return ObjectSelect.query(Account.class)
-				.where(Account.USERNAME.eq(username))
-				.selectOne(context);
+	@SuppressWarnings("unchecked")
+	public static Account fetchAccountByUsername(ObjectContext context, String username, String clientname) {
+		// dont want to fetch all accounts from client like this
+		// Client client = fetchClientByName(context, clientname);
+		// client.getAccounts().stream().findFirst().orElse(null);
+		// wanted to use a join like raw sql
+		SelectQuery<Account> query = new SelectQuery<>(Account.class);
+		query.andQualifier(ExpressionFactory.matchExp("username", username));
+		query.andQualifier(ExpressionFactory.matchExp("client.name", clientname));
+		List<Account> accounts = context.performQuery(query);
+		if (accounts == null || accounts.isEmpty())
+			return null; // TODO logging not found
+		if (accounts.size() > 1)
+			return null; // TODO logging should not happend
+		return accounts.get(0);
 	}
 
 	public static <T extends BaseDataObject> T createNew(ObjectContext context, Class<T> clazz) {
