@@ -31,7 +31,7 @@ public class FoodService implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// TODO date dynamic
-	private static final String URL = "https://www.bestellung-rastenberger.de/menu/3/2018-09-10/2018-09-16/";
+	private static final String URL = "https://www.bestellung-rastenberger.de/menu/3/2019-01-07/2019-01-13/#speiseplan";
 
 	@Inject
 	private ImageService is; // testing
