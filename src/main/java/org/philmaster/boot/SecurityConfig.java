@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.usersByUsernameQuery("SELECT username, password, enabled FROM account WHERE username=?")
 				.authoritiesByUsernameQuery("SELECT username, 'ROLE_ADMIN' as authority FROM account WHERE username=?")
 				.and()
-				.inMemoryAuthentication()
+			.inMemoryAuthentication()
 				.withUser("sa")
 				.password("{noop}test")
 				.roles("ADMIN");

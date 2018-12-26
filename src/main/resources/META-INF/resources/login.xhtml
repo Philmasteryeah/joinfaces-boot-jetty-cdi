@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Admin Starter</title>
@@ -49,6 +50,11 @@ html {
 				<li>Username: sa</li>
 				<li>Password: test</li>
 			</ul>
+			<c:if test="${param.error ne null}">
+				<div class="alert alert-danger">
+					<strong>Invalid Credentials</strong>
+				</div>
+			</c:if>
 			<h:form method="post">
 				<div class="form-group has-feedback">
 					<input type="text" class="form-control" name="username"
@@ -63,7 +69,8 @@ html {
 				<div class="row">
 					<div class="col-xs-12">
 						<p:commandButton id="submit"
-							styleClass="btn btn-success btn-block" value="Login" ajax="false" />
+							styleClass="btn btn-success btn-block btn-flat" value="Login"
+							ajax="false" />
 					</div>
 				</div>
 			</h:form>

@@ -1,11 +1,13 @@
 package org.philmaster.boot.session;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -105,12 +107,20 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	public String logout() {
 		// clear faces session
-		FacesContext.getCurrentInstance()
-				.getExternalContext()
-				.invalidateSession();
+		ExternalContext ec = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		ec.invalidateSession();
+
 		// clear spring session
 		SecurityContextHolder.clearContext();
-		return "/index.xhtml?faces-redirect=true";
+		String url = "/index.xhtml?faces-redirect=true";
+		try {
+			ec.redirect(url);
+		} catch (IOException e) {
+			System.err.println("couldnt redirect");
+			e.printStackTrace();
+		}
+		return url;
 	}
 
 	private boolean isInitSession(String clientname, String username) {
