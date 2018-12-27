@@ -106,6 +106,8 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	}
 
 	public String logout() {
+		// instance can be null here
+		// TODO redirect not working
 		// clear faces session
 		ExternalContext ec = FacesContext.getCurrentInstance()
 				.getExternalContext();

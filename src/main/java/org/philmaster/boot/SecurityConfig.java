@@ -5,13 +5,20 @@ import javax.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.philmaster.boot.service.DatabaseService;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @EnableWebSecurity
 public class SecurityConfig {
@@ -37,50 +44,44 @@ public class SecurityConfig {
 	}
 
 	@Configuration
-	@Order(2)
-	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
-
-		@Override
+	@Order(1)
+	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 		protected void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests()
-					.antMatchers("/", "/favicon.ico", "/javax.faces.resource/**", "/index.xhtml")
-					.permitAll()
+			// TODO something is not working here like its should be
+			http.csrf().disable();
+			http.antMatcher("/rest/**")
+					.authorizeRequests()
 					.anyRequest()
-					.hasAnyRole("ADMIN", "USER")
-					.and()
-					.formLogin()
-					.loginPage("/login.xhtml")
-					.defaultSuccessUrl("/index.xhtml")
-					.failureUrl("/login.xhtml?error=true")
-					.permitAll()
-					.and()
-					.logout()
-					.logoutSuccessUrl("/login.xhtml")
-					.and()
-					.csrf()
-					.disable();
-			http.headers()
-					.frameOptions()
-					.sameOrigin();
+					.authenticated()
+				.and()
+					.httpBasic();
+
 		}
 	}
 
 	@Configuration
-	@Order(1)
-	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
-
+	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			// not working ?!
-			http.antMatcher("/rest/**")
-					.authorizeRequests()
-					.anyRequest()
-					.hasRole("ADMIN")
-					.and()
-					.httpBasic()
-					.and()
-					.csrf()
-					.disable();
+			http.csrf().disable();
+			http.authorizeRequests()
+					.antMatchers("/").permitAll()
+					.antMatchers("/**.xhtml").permitAll()
+					.antMatchers("/javax.faces.resource/**").permitAll()
+					.anyRequest().authenticated()
+				.and()
+					.formLogin()
+					.loginPage("/login.xhtml")
+					.defaultSuccessUrl("/index.xhtml")
+					.failureUrl("/login.xhtml?error")
+					.permitAll()
+				.and()
+					.logout()
+					.logoutSuccessUrl("/login.xhtml");
+
+			http.headers()
+					.frameOptions()
+					.sameOrigin();
 		}
 	}
 

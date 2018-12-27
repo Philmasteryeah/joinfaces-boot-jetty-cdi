@@ -7,20 +7,12 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Admin Starter</title>
+	<link href="#{resource['images/favicon.ico']}" rel="shortcut icon" />
+	<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-	<link rel="shortcut icon" type="image/x-icon"
-		href="#{resource['favicon/favicon.ico']}" />
-	<link rel="shortcut icon" type="image/x-icon"
-		href="#{resource['favicon/favicon-16x16.png']}" sizes="16x16" />
-	<link rel="shortcut icon" type="image/x-icon"
-		href="#{resource['favicon/favicon-32x32.png']}" sizes="32x32" />
-	<link rel="shortcut icon" type="image/x-icon"
-		href="#{resource['favicon/favicon-96x96.png']}" sizes="96x96" />
-	<link rel="shortcut icon" type="image/x-icon"
-		href="#{resource['favicon/favicon-144x144.png']}" sizes="144x144" />
 	<meta name="theme-color" content="#444" />
 	<meta name="mobile-web-app-capable" content="yes" />
 	<style type="text/css">
@@ -55,7 +47,10 @@ html {
 					<strong>Invalid Credentials</strong>
 				</div>
 			</c:if>
-			<h:form method="post">
+			<p:outputLabel
+				value="Connection failed: user and/or password are wrong."
+				rendered="${!empty param['error']}" />
+			<h:form>
 				<div class="form-group has-feedback">
 					<input type="text" class="form-control" name="username"
 						placeholder="username" /> <span
