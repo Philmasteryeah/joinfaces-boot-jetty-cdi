@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.1.RELEASE</version>
+		<version>2.1.2.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.philmaster</groupId>
@@ -24,6 +24,7 @@
 		<maven-model.version>3.6.0</maven-model.version>
 		<cayenne.version>4.1.M2</cayenne.version>
 		<heroku.version>2.0.6</heroku.version>
+		<jetty.version>9.4.14.v20181114</jetty.version>
 	</properties>
 
 	<dependencyManagement>
@@ -46,16 +47,14 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-			<dependency>
-				<groupId>org.glassfish</groupId>
-				<artifactId>javax.faces</artifactId>
-				<version>2.4.0</version>
-			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.github.adminfaces</groupId>
 			<artifactId>admin-theme</artifactId>
@@ -76,10 +75,6 @@
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.faces</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
 		</dependency>
 		<!-- HTTP2 -->
 		<dependency>
@@ -116,10 +111,6 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>security-spring-boot-starter</artifactId>
 		</dependency>
@@ -129,6 +120,7 @@
 			<artifactId>cayenne-modeler</artifactId>
 			<version>${cayenne.version}</version>
 		</dependency>
+		<!-- Misc -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -199,7 +191,8 @@
 					<appName>ancient-gorge-66249</appName>
 					<jdkVersion>10</jdkVersion>
 					<processTypes>
-						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/joinfaces-boot-jetty-cdi-1.0.0.jar</web>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar
+							target/joinfaces-boot-jetty-cdi-1.0.0.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>

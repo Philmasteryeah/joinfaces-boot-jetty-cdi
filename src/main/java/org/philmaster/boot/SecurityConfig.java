@@ -28,7 +28,7 @@ public class SecurityConfig {
 				.passwordEncoder(plaintextPasswordEncoder())
 				.usersByUsernameQuery("SELECT username, password, enabled FROM account WHERE username=?")
 				.authoritiesByUsernameQuery("SELECT username, 'ADMIN' as authority FROM account WHERE username=?")
-				.and()
+			.and()
 				.inMemoryAuthentication()
 				.withUser("sa")
 				.password("{noop}test")
