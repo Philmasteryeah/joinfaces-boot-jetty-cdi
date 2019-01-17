@@ -79,14 +79,16 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		System.err.println(request);
 
 		String clientname = request.getParameter("client");
+		System.err.println("client connected " + clientname);
 		String username = ((UserDetails) event.getAuthentication()
 				.getPrincipal()).getUsername();
+		System.err.println("user connected " + username);
 		// TODO handle the double checked login
 		// this should never be false
 		// otherwise the sql in spring security is not correct
 		boolean isLoggedIn = isInitSession(clientname, username);
 		if (!isLoggedIn) {
-			System.err.print("error logout");
+			System.err.print("error could not login");
 			logout();
 		}
 	}
@@ -109,20 +111,14 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		// instance can be null here
 		// TODO redirect not working
 		// clear faces session
-		ExternalContext ec = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		ec.invalidateSession();
+//		ExternalContext ec = FacesContext.getCurrentInstance()
+//				.getExternalContext();
+//		ec.invalidateSession();
 
 		// clear spring session
 		SecurityContextHolder.clearContext();
-		String url = "/index.xhtml?faces-redirect=true";
-		try {
-			ec.redirect(url);
-		} catch (IOException e) {
-			System.err.println("couldnt redirect");
-			e.printStackTrace();
-		}
-		return url;
+		return "/index.xhtml?faces-redirect=true";
+
 	}
 
 	private boolean isInitSession(String clientname, String username) {
