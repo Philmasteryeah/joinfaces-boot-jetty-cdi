@@ -1,0 +1,23 @@
+{
+	"quuestions": [ 
+		{
+			"question": "How do you feel",
+			"description": "A question about you",
+			"rank": "0",
+			"isMandatory": "true",
+			"dbAttribute": "quest1",
+			"answers": [
+				{	"answer": "good",
+					 "rank":"0"
+				},	
+				{
+				 	"answer": "middle",
+				 	 "rank":"1"
+				 },
+				 {	"answer": "bad",
+				    "rank":"2"
+				 }
+			]
+		}
+	]
+}
