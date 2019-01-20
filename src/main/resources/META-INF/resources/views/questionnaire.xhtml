@@ -16,11 +16,20 @@
 		<div class="box box-primary">
 			<div class="box-header with-border">
 				<h:form>
-					<pm:dataTable detailPage="accountDetail" listBean="#{accountList}"
-						colTitles="#{['Username', 'Password']}"
-						colAttributes="#{['username', 'password']}">
 
-					</pm:dataTable> ---
+					<h3 style="margin-top: 0">Header</h3>
+					<p:tabView>
+						<p:tab title="Question I">
+							<h:panelGrid columns="2" cellpadding="10">
+								<h:outputText value="TODO" />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="Question  II">
+							<h:panelGrid columns="2" cellpadding="10">
+								<h:outputText value="TODO" />
+							</h:panelGrid>
+						</p:tab>
+					</p:tabView>
 					<h:outputLink value="#{breadcrumbBean.backUrl}"
 						rendered="#{breadcrumbBean.hasPageBack()}">Back</h:outputLink>
 						---

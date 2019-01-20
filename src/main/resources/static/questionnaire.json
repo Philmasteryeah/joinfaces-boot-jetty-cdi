@@ -1,23 +1,27 @@
 {
-	"questions": [ 
-		{
-			"question": "How do you feel",
-			"description": "A question about you",
-			"rank": "0",
-			"isMandatory": "true",
-			"dbAttribute": "quest1",
-			"answers": [
-				{	"answer": "good",
-					 "rank":"0"
-				},	
-				{
-				 	"answer": "middle",
-				 	 "rank":"1"
-				 },
-				 {	"answer": "bad",
-				    "rank":"2"
-				 }
-			]
-		}
-	]
+  "questionnaire": {
+    "name": "test",
+    "question": [
+      {
+        "title": "How do you feel?",
+        "isMandatory": "true",
+        "attribute": "question1",
+        "rank": "0",
+        "answer": [
+          {
+            "title": "bad",
+            "key": "0"
+          },
+          {
+            "title": "middle",
+            "key": "1"
+          },
+          {
+            "title": "good",
+            "key": "2"
+          }
+        ]
+      }
+    ]
+  }
 }

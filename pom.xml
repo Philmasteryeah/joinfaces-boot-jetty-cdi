@@ -18,12 +18,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>11</java.version>
-		<joinfaces.version>4.0.1</joinfaces.version>
+		<joinfaces.version>4.0.2</joinfaces.version>
 		<primefaces-theme.version>1.0.10</primefaces-theme.version>
 		<maven-model.version>3.6.0</maven-model.version>
 		<cayenne.version>4.1.M2</cayenne.version>
 		<heroku.version>2.0.6</heroku.version>
-		<jetty.version>9.4.14.v20181114</jetty.version>
 	</properties>
 
 	<dependencyManagement>
@@ -59,7 +58,7 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
-		<!-- Mojarra + CDI -->
+		<!-- JSF -->
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.faces</artifactId>
@@ -183,7 +182,8 @@
 					<appName>ancient-gorge-66249</appName>
 					<jdkVersion>10</jdkVersion>
 					<processTypes>
-						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/joinfaces-boot-jetty-cdi-1.0.0.jar</web>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar
+							target/joinfaces-boot-jetty-cdi-1.0.0.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>
