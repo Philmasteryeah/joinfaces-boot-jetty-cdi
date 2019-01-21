@@ -50,14 +50,15 @@
 		<ui:include src="/includes/controlsidebar-tabs-content.xhtml" />
 	</ui:define>
 	<ui:define name="footer">
-				---
-			<h:outputText value="#{breadcrumbBean.allPageStackUrls()}" />
-			---
-			<h:outputLink value="#{breadcrumbBean.backUrl}"
+	<div>
+		<h:outputText value="#{breadcrumbBean.allPageStackUrls()}" style="padding-right: 5px;" />
+		<h:outputLink value="#{breadcrumbBean.backUrl}"
 			rendered="#{breadcrumbBean.hasPageBack()}">Back</h:outputLink>
-			---
-		<a target="_blank" href="https://github.com/adminfaces/">
-			Copyright (C) 2017 - AdminFaces </a>
+		</div>
+
+		<a target="_blank"
+			href="https://github.com/Philmasteryeah/joinfaces-boot-jetty-cdi">
+			Copyright (C) 2019 - Philmasteryeah </a>
 		<div class="pull-right hidden-xs" style="color: gray">
 			<i>#{msg['starter.version']}</i>
 		</div>
