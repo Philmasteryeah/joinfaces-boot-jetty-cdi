@@ -26,15 +26,26 @@
 				<div class="box-header with-border">
 					<h:panelGrid columns="2" cellpadding="5">
 						<h:outputText value="Name:" />
-						<p:inputText value="#{detailObject.name}" />
+						<h:outputText value="#{detailObject.name}" />
 					</h:panelGrid>
 					<h:panelGrid columns="2" cellpadding="5">
 						<h:outputText value="Inline: " />
 						<p:colorPicker value="#{clientDetail.colorHex}" mode="inline" />
 					</h:panelGrid>
 					<h:outputText value="Inline color: " />
-					<h:outputText value="#{clientDetail.colorHex}"	style="background-color: ##{clientDetail.colorHex}" />
-					
+					<h:outputText id="asd" value="#{clientDetail.colorHex}"
+						style="background-color: ##{clientDetail.colorHex}" />
+						
+					<script>
+					// TODO ajax
+					//$(function() {
+					//	var color = jQuery('.ui-colorpicker_new_color').css('background-color');
+					//	console.log(color);
+					//	jQuery('.navbar').css('background-color', color);
+					//	});
+
+						
+					</script>
 					<div class="box-footer with-border">
 						<p:commandButton actionListener="#{clientDetail.actionSave}"
 							update="@form" value="Save">

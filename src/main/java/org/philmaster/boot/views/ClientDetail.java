@@ -37,8 +37,9 @@ public class ClientDetail implements Serializable {
 
 	@PostConstruct
 	void init() {
-		context = session.getDb()
-				.newContext();
+		// local context
+		context = session.getDb().newContext();
+		// local copy of the client from session context to this view context
 		detailObject = session.getClient(context);
 	}
 
