@@ -4,8 +4,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:adm="http://github.com/adminfaces">
+	xmlns:p="http://primefaces.org/ui">
 <ui:insert name="metadata" />
 <h:head>
 	<meta charset="utf-8" />
@@ -14,7 +13,7 @@
 		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="mobile-web-app-capable" content="yes" />
-	<f:loadBundle var="adm" basename="admin" />
+
 	<ui:insert name="head" />
 	<ui:insert name="head-end" />
 </h:head>
@@ -83,8 +82,10 @@
 		</aside>
 		<!-- content -->
 		<div id="content" class="content-wrapper">
+			<!-- 
 			<adm:breadcrumb title="#{title}"
 				rendered="#{not empty title and empty requestScope['javax.servlet.error.exception_type'] and empty requestScope['javax.servlet.error.message']}" />
+				 -->
 			<ui:insert name="content-wrapper" />
 			<section class="content-header">
 				<h1>
@@ -95,6 +96,7 @@
 					<small> <ui:insert name="description" />
 					</small>
 				</h1>
+				<!-- 
 				<ui:fragment
 					rendered="#{(adm['adminConfig.renderBreadCrumb']) and (empty renderBreadCrumb or renderBreadCrumb) and (empty requestScope['javax.servlet.error.exception_type'] and empty requestScope['javax.servlet.error.message'])}">
 					<ol class="breadcrumb" style="overflow: hidden;">
@@ -120,10 +122,12 @@
 						</ui:repeat>
 					</ol>
 				</ui:fragment>
+				 -->
 				<ui:insert name="content-header" />
 			</section>
 			<section class="content">
 				<ui:insert name="content-begin" />
+			 
 				<ui:fragment
 					rendered="#{adm['adminConfig.renderMessages'] and (empty renderMessages or renderMessages)}">
 					<div class="row">
@@ -132,16 +136,17 @@
 								showDetail="true" severity="error,fatal" escape="false">
 								<p:autoUpdate />
 							</p:messages>
-							<!-- we need two messages because info-messages are hidden by javascript  -->
+							
 							<p:messages id="info-messages" closable="true" showDetail="true"
 								severity="info,warn" escape="false">
 								<p:autoUpdate />
 							</p:messages>
 							<p:tooltip />
-							<!-- exception messages with type tooltip -->
+					
 						</div>
 					</div>
 				</ui:fragment>
+			
 				<ui:insert name="body" />
 			</section>
 			<ui:insert name="content-end" />
@@ -154,9 +159,10 @@
 			<i class="fa fa-chevron-up"></i>
 		</div>
 		<ui:insert name="wrapper-end" />
+		<!-- 
 		<ui:fragment
 			rendered="#{adm['adminConfig.renderControlSidebar'] and (empty renderControlSidebar or renderControlSidebar)}">
-			<!-- controlsidebar component, can't be a composite component because of multiple ui:insert and can't be an external xhtml because myfaces will not propagete ui:params and child pages will not be able to define inserted regions -->
+		
 			<h:form prependId="false">
 				<h:panelGroup id="controlsidebarPanel" layout="block"
 					styleClass="#{adm['adminConfig.controlSidebar.showOnMobile'] ? '':'hidden-sm hidden-xs'}">
@@ -320,7 +326,7 @@
 												oncomplete="replaceSkinWith('skin-blue');updateSkinBlue()"
 												global="false" process="@none" update="@none"
 												partialSubmit="true">
-												<!-- the link can't process anything otherwise the controlsidebar will collapse when changing the skin-->
+										
 												<div>
 													<span
 														style="display: block; width: 20%; float: left; height: 7px; background: #367fa9">
@@ -674,19 +680,24 @@
 				</h:panelGroup>
 			</h:form>
 		</ui:fragment>
+		  -->
 	</div>
+
 	<ui:insert name="after-wrapper" />
 	<script type="text/javascript">
         if (isMobile()) {
             window.onscroll = activateScrollToTop;
         }
     </script>
+	<!-- 
 	<adm:ripple />
+	 -->
 	<h:outputScript library="primefaces" name="jquery/jquery.js"
 		target="head" />
 	<h:outputScript library="js" name="bootstrap.min.js" target="head" />
 	<h:outputScript library="js" name="admin-lte.min.js" target="head" />
 	<h:outputScript library="js" name="admintemplate.js" target="head" />
+
 	<!-- slide in/out menu integration  -->
 	<h:outputScript library="js" name="slideout.min.js" target="head"
 		rendered="#{adm['adminConfig.enableSlideMenu'] and (empty enableSlideMenu or enableSlideMenu)}" />
@@ -786,8 +797,10 @@
 		widgetVar="statusDialog" draggable="false" closable="false"
 		resizable="false" responsive="true" showHeader="false"
 		appendTo="@(body)">
+		<!-- 
 		<p:graphicImage library="images"
 			name="#{adm['adminConfig.loadingImage']}" />
+			 -->
 	</p:dialog>
 </h:body>
 </html>
