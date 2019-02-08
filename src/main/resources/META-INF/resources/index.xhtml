@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" template="/includes/template.xhtml">
+	xmlns:p="http://primefaces.org/ui"
+	template="/includes/template.xhtml">
 	<ui:define name="head-end">
-		<ui:param name="renderBreadCrumb" value="false" />
+		<ui:param
+			name="renderBreadCrumb"
+			value="false" />
 	</ui:define>
 	<ui:define name="title">
     Hello #{pmSession.username}
         <h2 class="align-center">
-			Welcome to the <span class="text-aqua"> Philmaster Inc.</span>
-			Project! <br />
+			Welcome to the
+			<span class="text-aqua"> Philmaster Inc.</span>
+			Project!
+			<br />
 		</h2>
-		<p:commandButton value="Test"
+		<p:commandButton
+			value="Test"
 			actionListener="#{buttonBean.doAction()}" />
-		<p:commandButton value="Test"
+		<p:commandButton
+			value="Test"
 			actionListener="#{buttonBean.doAction2()}" />
-		<p:commandButton value="Test"
+		<p:commandButton
+			value="Test"
 			actionListener="#{buttonBean.doAction3()}" />
 	</ui:define>
 </ui:composition>

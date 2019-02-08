@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
@@ -14,10 +15,15 @@
 }
 </style>
 	<ul class="nav navbar-nav">
-		<li class="dropdown user user-menu"><a href="#"
-			class="dropdown-toggle" data-toggle="dropdown"> <i
-				class="fa fa-sign-out" aria-hidden="true"></i>
-		</a>
+		<li class="dropdown user user-menu">
+			<a
+				href="#"
+				class="dropdown-toggle"
+				data-toggle="dropdown">
+				<i
+					class="fa fa-sign-out"
+					aria-hidden="true"></i>
+			</a>
 			<ul class="dropdown-menu">
 				<li class="user-header">
 					<div class="hidden-xs"></div>
@@ -25,18 +31,29 @@
 						<small>User Menu</small>
 					</p>
 				</li>
-				<li class="user-footer"><h:form prependId="false">
+				<li class="user-footer">
+					<h:form prependId="false">
 						<div class="pull-left">TODO</div>
 						<div class="pull-right">
-							<p:commandLink action="#{sessionBean.logout}" ajax="false"
-								value="#{msg['label.logout']}" styleClass="btn btn-danger">
+							<p:commandLink
+								action="#{sessionBean.logout}"
+								ajax="false"
+								value="#{msg['label.logout']}"
+								styleClass="btn btn-danger">
 							</p:commandLink>
 						</div>
-					</h:form></li>
-			</ul></li>
-		<li><a id="layout-setup" href="#"
-			class="#{adm['adminConfig.controlSidebar.showOnMobile'] ? '':'hidden-sm hidden-xs'}"
-			data-toggle="control-sidebar"> <i class="fa fa-gears"></i>
-		</a></li>
+					</h:form>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a
+				id="layout-setup"
+				href="#"
+				class="#{adm['adminConfig.controlSidebar.showOnMobile'] ? '':'hidden-sm hidden-xs'}"
+				data-toggle="control-sidebar">
+				<i class="fa fa-gears"></i>
+			</a>
+		</li>
 	</ul>
 </ui:composition>

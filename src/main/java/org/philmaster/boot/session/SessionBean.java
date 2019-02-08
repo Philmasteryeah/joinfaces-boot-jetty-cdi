@@ -1,13 +1,11 @@
 package org.philmaster.boot.session;
 
-import java.io.IOException;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,6 +25,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 /**
  * @author Philmasteryeah
@@ -48,6 +47,19 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	private static final long serialVersionUID = 1L;
 
 	private Locale locale;
+
+	@Getter
+	@Setter
+	private String layoutSkin;
+
+	@Getter
+	@Setter
+	private String layoutSkinSelected;
+
+	@Getter
+	private List<String> layoutSkins = Arrays.asList("skin-blue", "skin-blue-light", "skin-yellow", "skin-yellow-light",
+			"skin-green", "skin-green-light", "skin-purple", "skin-purple-light", "skin-red", "skin-red-light",
+			"skin-black", "skin-black-light");
 
 //	@Autowired
 //	private HttpServletRequest request;

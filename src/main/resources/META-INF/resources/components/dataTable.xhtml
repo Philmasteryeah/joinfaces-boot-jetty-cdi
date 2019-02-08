@@ -1,4 +1,5 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
@@ -12,20 +13,31 @@
 		<cc:attribute name="detailPage" />
 	</cc:interface>
 	<cc:implementation>
-		<p:dataTable rows="20" var="detailObject"
+		<p:dataTable
+			rows="20"
+			var="detailObject"
 			value="#{cc.attrs.listBean.items}"
 			filteredValue="#{cc.attrs.listBean.valuesFiltered}">
 			<!-- first column is 'Id' for default, every db obj has it -->
-			<p:column headerText="Id" sortBy="#{detailObject.id}"
+			<p:column
+				headerText="Id"
+				sortBy="#{detailObject.id}"
 				filterBy="#{detailObject.id}">
 				<!-- important = link without ajax here -->
-				<p:link value="#{detailObject.id}" outcome="#{cc.attrs.detailPage}"
+				<p:link
+					value="#{detailObject.id}"
+					outcome="#{cc.attrs.detailPage}"
 					includeViewParams="true">
-					<f:param name="id" value="#{detailObject.id}" />
+					<f:param
+						name="id"
+						value="#{detailObject.id}" />
 				</p:link>
 			</p:column>
-			<p:columns value="#{cc.attrs.colAttributes}" var="attr"
-				columnIndexVar="colIndex" sortBy="#{detailObject[attr]}"
+			<p:columns
+				value="#{cc.attrs.colAttributes}"
+				var="attr"
+				columnIndexVar="colIndex"
+				sortBy="#{detailObject[attr]}"
 				filterBy="#{detailObject[attr]}"
 				headerText="#{cc.attrs.colTitles[colIndex]}">
 				<h:outputText value="#{detailObject[attr]}" />

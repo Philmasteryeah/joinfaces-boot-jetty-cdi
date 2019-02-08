@@ -1,4 +1,5 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -7,14 +8,20 @@
 	<ui:define name="body">
 		<div class="error-page">
 			<h2 class="headline text-fatal">#{adm['label.404.header']}</h2>
-			<div class="error-content" style="font-size: 1.1em">
+			<div
+				class="error-content"
+				style="font-size: 1.1em">
 				<h3>
-					<i class="fa fa-lock text-fatal"></i> #{adm['label.404.message']}
+					<i class="fa fa-lock text-fatal"></i>
+					#{adm['label.404.message']}
 				</h3>
 				<p>
 					#{adm['label.go-back']}
-					<p:link style="text-decoration: underline" href="/index.xhtml"
-						value="#{adm['label.home']}" escape="false" />
+					<p:link
+						style="text-decoration: underline"
+						href="/index.xhtml"
+						value="#{adm['label.home']}"
+						escape="false" />
 					.
 				</p>
 			</div>
