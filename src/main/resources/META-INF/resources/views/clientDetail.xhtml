@@ -27,40 +27,20 @@
 
 			<div class="box box-primary">
 				<div class="box-header with-border">
+				
 					<h:panelGrid
 						columns="2"
-						cellpadding="5">
+						cellpadding="5" style="width: 250px;">
 						<h:outputText value="Name:" />
 						<h:outputText value="#{detailObject.name}" />
+						<h:outputText value="Color:" />
+						<p:selectOneMenu
+							value="#{sessionBean.layoutSkin}"
+							style="width:150px">
+							<f:selectItems value="#{sessionBean.layoutSkins}" />
+						</p:selectOneMenu>
 					</h:panelGrid>
-					<h:panelGrid
-						columns="2"
-						cellpadding="5">
-						<h:outputText value="Inline: " />
-						<p:colorPicker
-							value="#{clientDetail.colorHex}"
-							mode="inline" />
-					</h:panelGrid>
-					<h:outputText value="Inline color: " />
-					<h:outputText
-						id="asd"
-						value="#{clientDetail.colorHex}"
-						style="background-color: ##{clientDetail.colorHex}" />
-					<script>
-						// TODO ajax
-						//$(function() {
-						//	var color = jQuery('.ui-colorpicker_new_color').css('background-color');
-						//	console.log(color);
-						//	jQuery('.navbar').css('background-color', color);
-						//	});
-					</script>
 
-
-					<p:selectOneMenu
-						value="#{sessionBean.layoutSkin}"
-						style="width:150px">
-						<f:selectItems value="#{sessionBean.layoutSkins}" />
-					</p:selectOneMenu>
 
 					<div class="box-footer with-border">
 						<p:commandButton
@@ -69,6 +49,7 @@
 							actionListener="#{clientDetail.actionSave}"
 							ajax="false">
 						</p:commandButton>
+						
 					</div>
 				</div>
 

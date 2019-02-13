@@ -95,14 +95,16 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		String username = ((UserDetails) event.getAuthentication()
 				.getPrincipal()).getUsername();
 		System.err.println("user connected " + username);
-		// TODO handle the double checked login
 		// this should never be false
 		// otherwise the sql in spring security is not correct
 		boolean isLoggedIn = isInitSession(clientname, username);
 		if (!isLoggedIn) {
 			System.err.print("error could not login");
 			logout();
+			return;
 		}
+		// logged in now
+
 	}
 
 	public String pageNameReadable() {
@@ -145,6 +147,8 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		System.err.println("init session client-> " + client.getName());
 		System.err.println("init session user-> " + account.getUsername());
 
+		// TODO load layout from client settings from db
+		// setLayoutSkin(client.getLayoutSkin());
 		return true;
 	}
 

@@ -28,23 +28,21 @@ public class ClientDetail implements Serializable {
 	@Setter
 	private Client detailObject;
 
-	@Getter
-	@Setter
-	private String colorHex;
-
 	@Inject
 	private SessionBean session;
 
 	@PostConstruct
 	void init() {
 		// local context
-		context = session.getDb().newContext();
+		
+		context = session.getDb()
+				.newContext();
 		// local copy of the client from session context to this view context
 		detailObject = session.getClient(context);
 	}
 
 	public void actionSave(ActionEvent actionEvent) {
 		context.commitChanges();
-		Util.statusMessageInfo("Saved", "Saved Color changed to " + colorHex);
+		Util.statusMessageInfo("Saved", "Saved");
 	}
 }
