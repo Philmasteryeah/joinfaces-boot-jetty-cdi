@@ -38,6 +38,11 @@
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- DB automatic Migration -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
 
 		<!-- AdminLTE Layout -->
 		<dependency>

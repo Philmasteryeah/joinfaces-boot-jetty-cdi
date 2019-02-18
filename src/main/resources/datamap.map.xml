@@ -25,6 +25,7 @@
 		<db-attribute name="pictureLeft" type="VARBINARY"/>
 		<db-attribute name="pictureMid" type="VARBINARY"/>
 		<db-attribute name="pictureRight" type="VARBINARY"/>
+		<db-attribute name="skin" type="VARCHAR" length="50"/>
 	</db-entity>
 	<obj-entity name="Account" className="org.philmaster.boot.model.Account" dbEntityName="account">
 		<obj-attribute name="dateBirth" type="java.time.LocalDate" db-attribute-path="dateBirth"/>
@@ -42,6 +43,7 @@
 		<obj-attribute name="pictureLeft" type="byte[]" db-attribute-path="pictureLeft"/>
 		<obj-attribute name="pictureMid" type="byte[]" db-attribute-path="pictureMid"/>
 		<obj-attribute name="pictureRight" type="byte[]" db-attribute-path="pictureRight"/>
+		<obj-attribute name="skin" type="java.lang.String" db-attribute-path="skin"/>
 	</obj-entity>
 	<db-relationship name="client" source="account" target="client">
 		<db-attribute-pair source="client_id" target="client_id"/>
