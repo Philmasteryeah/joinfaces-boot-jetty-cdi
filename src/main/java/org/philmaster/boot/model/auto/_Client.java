@@ -26,6 +26,7 @@ public abstract class _Client extends BaseDataObject {
     public static final Property<byte[]> PICTURE_LEFT = Property.create("pictureLeft", byte[].class);
     public static final Property<byte[]> PICTURE_MID = Property.create("pictureMid", byte[].class);
     public static final Property<byte[]> PICTURE_RIGHT = Property.create("pictureRight", byte[].class);
+    public static final Property<String> SKIN = Property.create("skin", String.class);
     public static final Property<List<Account>> ACCOUNTS = Property.create("accounts", List.class);
     public static final Property<List<Car>> CARS = Property.create("cars", List.class);
 
@@ -33,6 +34,7 @@ public abstract class _Client extends BaseDataObject {
     protected byte[] pictureLeft;
     protected byte[] pictureMid;
     protected byte[] pictureRight;
+    protected String skin;
 
     protected Object accounts;
     protected Object cars;
@@ -77,6 +79,16 @@ public abstract class _Client extends BaseDataObject {
         return this.pictureRight;
     }
 
+    public void setSkin(String skin) {
+        beforePropertyWrite("skin", this.skin, skin);
+        this.skin = skin;
+    }
+
+    public String getSkin() {
+        beforePropertyRead("skin");
+        return this.skin;
+    }
+
     public void addToAccounts(Account obj) {
         addToManyTarget("accounts", obj, true);
     }
@@ -118,6 +130,8 @@ public abstract class _Client extends BaseDataObject {
                 return this.pictureMid;
             case "pictureRight":
                 return this.pictureRight;
+            case "skin":
+                return this.skin;
             case "accounts":
                 return this.accounts;
             case "cars":
@@ -146,6 +160,9 @@ public abstract class _Client extends BaseDataObject {
             case "pictureRight":
                 this.pictureRight = (byte[])val;
                 break;
+            case "skin":
+                this.skin = (String)val;
+                break;
             case "accounts":
                 this.accounts = val;
                 break;
@@ -172,6 +189,7 @@ public abstract class _Client extends BaseDataObject {
         out.writeObject(this.pictureLeft);
         out.writeObject(this.pictureMid);
         out.writeObject(this.pictureRight);
+        out.writeObject(this.skin);
         out.writeObject(this.accounts);
         out.writeObject(this.cars);
     }
@@ -183,6 +201,7 @@ public abstract class _Client extends BaseDataObject {
         this.pictureLeft = (byte[])in.readObject();
         this.pictureMid = (byte[])in.readObject();
         this.pictureRight = (byte[])in.readObject();
+        this.skin = (String)in.readObject();
         this.accounts = in.readObject();
         this.cars = in.readObject();
     }

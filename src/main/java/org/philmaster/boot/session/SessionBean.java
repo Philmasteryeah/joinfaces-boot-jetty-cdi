@@ -148,7 +148,9 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		System.err.println("init session user-> " + account.getUsername());
 
 		// TODO load layout from client settings from db
-		// setLayoutSkin(client.getLayoutSkin());
+		String skin = client.getSkin();
+		System.err.println(skin + " skin loaded");
+		setLayoutSkin(skin);
 		return true;
 	}
 
