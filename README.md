@@ -23,7 +23,7 @@
 - messages from messages.properties
 - all admin stuff in one property
 - nice looking responsive layout
-- master detail page with list and database saving (TODO)
+- master detail page with list and database saving
 - simple exception page mapping
 - http2 with tls
 - flyway database migrations
@@ -64,6 +64,14 @@ $ mvn spring-boot:run
 
 - open your browser on [http://localhost:9090/index.xhtml](http://localhost:9090/index.xhtml)
 - login with sa // test 
+
+# Flyway Migrations
+- with extra mvn run config
+
+```
+mvn clean flyway:migrate
+```
+- add new migrations in resources/db/migrations like the other files
 
 # Install milestone Joinfaces (for enthusiasts)  
 - the milestone releases of joinfaces are not availabe on maven
@@ -126,3 +134,4 @@ $ heroku open
 - admin template: https://github.com/adminfaces/admin-starter
 - nice Heroku tricks: https://github.com/heroku/heroku-buildpack-java
 - Cayenne Docs https://cayenne.apache.org/docs/4.1/getting-started-guide/ 
+- nice, short and easy Primefaces Tutorials https://www.logicbig.com/tutorials/misc/primefaces.html
