@@ -6,9 +6,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.philmaster.boot.model.Questionnaire;
+import org.philmaster.boot.service.QuestionnaireService;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.event.TabCloseEvent;
 
@@ -21,7 +23,10 @@ public class QuestionnaireView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Questionnaire questionnaire;
+	//private Questionnaire questionnaire;
+
+	@Inject
+	private QuestionnaireService questService;
 
 	@Getter
 	@Setter
@@ -29,6 +34,8 @@ public class QuestionnaireView implements Serializable {
 
 	@PostConstruct
 	public void init() {
+
+		questService.getFirstTitle();
 
 	}
 
