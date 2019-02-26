@@ -1,142 +1,107 @@
 {
-	"questionnaire": {
-		"@attributes": {
-			"name": "quest",
-			"version": "1"
-		},
-		"question": [
-			{
-				"@attributes": {
-					"rank": "0",
-					"attribute": "feeling",
-					"isMandatory": "true",
-					"type": "RADIO",
-					"title": "How do you feel?"
+	"name": "questionnaire",
+	"version": "1",
+	"question": [
+		{
+			"rank": "1",
+			"attribute": "feeling",
+			"isMandatory": "true",
+			"type": "RADIO",
+			"title": "How do you feel?",
+			"answer": [
+				{
+					"key": "0",
+					"title": "very bad"
 				},
-				"answer": [
-					{
-						"@attributes": {
-							"key": "0",
-							"title": "very bad"
-						}
-					},
-					{
-						"@attributes": {
-							"key": "1",
-							"title": "bad"
-						}
-					},
-					{
-						"@attributes": {
-							"key": "2",
-							"title": "middle"
-						}
-					},
-					{
-						"@attributes": {
-							"key": "3",
-							"title": "good"
-						}
-					},
-					{
-						"@attributes": {
-							"key": "4",
-							"title": "very good"
-						}
-					}
-				]
-			},
-			{
-				"@attributes": {
-					"rank": "1",
-					"attribute": "age",
-					"isMandatory": "true",
-					"type": "NUMBER",
-					"title": "How old are you?"
+				{
+					"key": "1",
+					"title": "bad"
+				},
+				{
+					"key": "2",
+					"title": "middle"
+				},
+				{
+					"key": "3",
+					"title": "good"
+				},
+				{
+					"key": "4",
+					"title": "very good"
 				}
-			},
-			{
-				"@attributes": {
-					"rank": "2",
-					"attribute": "hobby",
-					"isMandatory": "true",
-					"type": "RADIO",
-					"title": "Whats your prefered hobby?"
+			]
+		},
+		{
+			"rank": "2",
+			"attribute": "age",
+			"isMandatory": "true",
+			"type": "NUMBER",
+			"title": "How old are you?"
+		},
+		{
+			"rank": "3",
+			"attribute": "hobby",
+			"isMandatory": "true",
+			"type": "RADIO",
+			"title": "Whats your prefered hobby?",
+			"answer": [
+				{
+					"key": "0",
+					"title": "programming"
 				},
-				"answer": [
-					{
-						"@attributes": {
-							"key": "0",
-							"title": "programming"
-						}
-					},
-					{
-						"@attributes": {
-							"key": "1",
-							"title": "reading"
-						}
-					},
-					{
-						"@attributes": {
-							"key": "2",
-							"title": "fapping"
-						}
-					},
-					{
-						"@attributes": {
-							"key": "3",
-							"title": "gaming"
-						}
-					},
-					{
-						"@attributes": {
-							"key": "4",
-							"title": "sex"
-						}
-					}
-				]
-			},
-			{
-				"@attributes": {
-					"rank": "3",
-					"attribute": "programming",
-					"isMandatory": "false",
-					"type": "RADIO",
-					"title": "Whats your prefered programming language?"
+				{
+					"key": "1",
+					"title": "reading"
 				},
-				"answer": [
-					{
-						"@attributes": {
-							"key": "0",
-							"title": "Java"
-						}
-					},
-					{
-						"@attributes": {
-							"key": "1",
-							"title": "C++"
-						}
-					},
-					{
-						"@attributes": {
-							"key": "2",
-							"title": "C#"
-						}
-					},
-					{
-						"@attributes": {
-							"key": "3",
-							"title": "JavaScript"
-						}
-					},
-					{
-						"@attributes": {
-							"key": "4",
-							"title": "Go"
-						}
-					}
-				]
-			}
-		]
-	}
+				{
+					"key": "2",
+					"title": "fapping"
+				},
+				{
+					"key": "3",
+					"title": "gaming"
+				},
+				{
+					"key": "4",
+					"title": "sex"
+				}
+			]
+		},
+		{
+			"rank": "4",
+			"attribute": "programming",
+			"isMandatory": "false",
+			"type": "RADIO",
+			"title": "Whats your prefered programming language?",
+			"answer": [
+				{
+					"key": "0",
+					"title": "Java"
+				},
+				{
+					"key": "1",
+					"title": "C++"
+				},
+				{
+					"key": "2",
+					"title": "C#"
+				},
+				{
+					"key": "3",
+					"title": "JavaScript"
+				},
+				{
+					"key": "4",
+					"title": "Go"
+				}
+			]
+		},
+		{
+			"rank": "5",
+			"attribute": "name",
+			"isMandatory": "true",
+			"type": "TEXT",
+			"title": "Whats your name?"
+		}
+	]
 }

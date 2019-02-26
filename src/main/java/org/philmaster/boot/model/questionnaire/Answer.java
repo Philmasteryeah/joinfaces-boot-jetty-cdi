@@ -11,22 +11,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "@attributes" })
+@JsonPropertyOrder({ "key", "title" })
 public class Answer {
 
-	@JsonProperty("@attributes")
-	private Attributes__ attributes;
+	@JsonProperty("key")
+	private String key;
+	@JsonProperty("title")
+	private String title;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-	@JsonProperty("@attributes")
-	public Attributes__ getAttributes() {
-		return attributes;
+	@JsonProperty("key")
+	public String getKey() {
+		return key;
 	}
 
-	@JsonProperty("@attributes")
-	public void setAttributes(Attributes__ attributes) {
-		this.attributes = attributes;
+	@JsonProperty("key")
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	@JsonProperty("title")
+	public String getTitle() {
+		return title;
+	}
+
+	@JsonProperty("title")
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@JsonAnyGetter

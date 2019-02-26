@@ -1,6 +1,7 @@
 package org.philmaster.boot.views;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -9,7 +10,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.philmaster.boot.model.Questionnaire;
+import org.philmaster.boot.model.questionnaire.Question;
+import org.philmaster.boot.model.questionnaire.Questionnaire;
 import org.philmaster.boot.service.QuestionnaireService;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.event.TabCloseEvent;
@@ -23,10 +25,10 @@ public class QuestionnaireView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	//private Questionnaire questionnaire;
-
 	@Inject
 	private QuestionnaireService questService;
+
+	private Questionnaire questionnaire;
 
 	@Getter
 	@Setter
@@ -34,10 +36,22 @@ public class QuestionnaireView implements Serializable {
 
 	@PostConstruct
 	public void init() {
-
-		questService.getFirstTitle();
-
+		questionnaire = questService.getQuestionnaire();
+		if (questionnaire == null) {
+			// TODO statusmessage error
+		}
+		
 	}
+
+	public Questionnaire getQuestionnaire() {
+		return questionnaire;
+	}
+
+	public List<Question> getQuestions() {
+		return questionnaire.getQuestion();
+	}
+
+	///////////////
 
 	public void onTabChange(TabChangeEvent event) {
 		FacesMessage msg = new FacesMessage("Tab Changed", "Active Tab: " + event.getTab()

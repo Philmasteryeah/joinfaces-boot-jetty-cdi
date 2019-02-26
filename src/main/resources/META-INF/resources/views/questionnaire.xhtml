@@ -6,6 +6,7 @@
 	xmlns:pm="http://xmlns.jcp.org/jsf/composite/components"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	template="/includes/template.xhtml">
 	<ui:define name="title">
 
@@ -19,35 +20,36 @@
 				<div class="box-header with-border">
 
 					<h3 style="margin-top: 0">Header</h3>
-					<p:tabView>
-						<p:tab title="Question I">
-							<h3 style="margin-top: 0">How do you feel?</h3>
-							<h:panelGrid
-								columns="2"
-								style="margin-bottom:10px"
-								cellpadding="5">
-								<p:selectOneRadio
-									id="console"
-									value="#{questionnaireView.question1}">
-									<f:selectItem
-										itemLabel="very good"
-										itemValue="0" />
-									<f:selectItem
-										itemLabel="middle"
-										itemValue="1" />
-									<f:selectItem
-										itemLabel="very  bad"
-										itemValue="2" />
-								</p:selectOneRadio>
+					<p:tabView
+						value="#{questionnaireView.questions}"
+						var="quest">
+						<p:tab title="#{quest.rank}">
+							<h:panelGrid rendered="#{quest.type eq 'TEXT'}">
+								<h3 style="margin-top: 0">#{quest.title}</h3>
+								TODO Textinput
 							</h:panelGrid>
-						</p:tab>
-						<p:tab title="Question  II">
-							<h3 style="margin-top: 0">How old are you?</h3>
 							<h:panelGrid
+								rendered="#{quest.type eq 'NUMBER'}"
 								columns="2"
-								style="margin-bottom:10px"
 								cellpadding="5">
-								<input />
+								<h3 style="margin-top: 0">#{quest.title}</h3>
+								TODO Numberinput
+							</h:panelGrid>
+							<h:panelGrid
+								rendered="#{quest.type eq 'RADIO'}"
+								columns="1"
+								cellpadding="5">
+								<h3 style="margin-top: 0">#{quest.title}</h3>
+								<p:selectOneRadio
+									id="answers"
+									value="#{questionnaireView.question1}">
+									<f:selectItems
+										value="#{quest.answer}"
+										var="a"
+										itemLabel="#{a.title}"
+										itemValue="#{a.key}" />
+								</p:selectOneRadio>
+
 							</h:panelGrid>
 						</p:tab>
 					</p:tabView>

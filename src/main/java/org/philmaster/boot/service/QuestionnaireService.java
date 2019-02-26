@@ -26,40 +26,28 @@ public class QuestionnaireService implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Questionnaire questionnaire;
-
 	@Value("classpath:static/questionnaire.json")
 	private Resource qj;
+
+	private Questionnaire questionnaire;
 
 	@PostConstruct
 	void init() {
 
 		ObjectMapper objectMapper = new ObjectMapper();
-		
+
 		try {
-			questionnaire = objectMapper.readerFor(Questionnaire.class)
-					.readValue(qj.getInputStream());
-			System.err.println(questionnaire.toString()+"asd");
+			questionnaire = objectMapper.readValue(qj.getInputStream(), Questionnaire.class);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage()); // TODO Logging
 		}
-		System.err.println("--->" + questionnaire.getAttributes());
-		if (questionnaire == null) {
-			System.err.println("err");
-			return;
-		}
+
+		if (questionnaire == null)
+			System.err.println("could not load questionnaire");
 	}
 
-	public String getFirstTitle() {
-		List<Question> questions = questionnaire.getQuestion();
-
-		Question question = questions.get(0);
-		String title = question.getAttributes()
-				.getTitle();
-		System.err.println(title + "------------");
-		return title;
-
+	public Questionnaire getQuestionnaire() {
+		return questionnaire;
 	}
 
 }

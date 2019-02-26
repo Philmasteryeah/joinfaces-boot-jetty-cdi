@@ -4,10 +4,6 @@ package org.philmaster.boot.model.questionnaire;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,24 +12,36 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "@attributes", "question" })
+@JsonPropertyOrder({ "name", "version", "question" })
 public class Questionnaire {
 
-	@JsonProperty("@attributes")
-	private Attributes attributes;
+	@JsonProperty("name")
+	private String name;
+	@JsonProperty("version")
+	private String version;
 	@JsonProperty("question")
 	private List<Question> question = null;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-	@JsonProperty("@attributes")
-	public Attributes getAttributes() {
-		return attributes;
+	@JsonProperty("name")
+	public String getName() {
+		return name;
 	}
 
-	@JsonProperty("@attributes")
-	public void setAttributes(Attributes attributes) {
-		this.attributes = attributes;
+	@JsonProperty("name")
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@JsonProperty("version")
+	public String getVersion() {
+		return version;
+	}
+
+	@JsonProperty("version")
+	public void setVersion(String version) {
+		this.version = version;
 	}
 
 	@JsonProperty("question")
