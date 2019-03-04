@@ -13,7 +13,7 @@
 - CDI 2.0.SP1 (weld)
 - Postgres 42.2.0
 - Cayenne 4.1.M1
-- javax.faces 2.4.0
+- javax.faces 2.3.0
 
 # Highlights completed
 - login and redirect with spring security and cayenne database
@@ -35,7 +35,7 @@
 ![alt text](https://abload.de/img/adminindexclihl.png)
 
 # Why
-- highly modular and customizable
+- modular and customizable complete packet
 - fat jar deployment with all embedded (~50mb)
 - highly portable
 - supports Java EE features
@@ -44,7 +44,21 @@
 	- component and layout concept
 - supports Spring features
 	- Security
-	- REST (web)
+	- REST
+	- Resource mapping
+	- http2
+	- permissions
+	- properties
+	- flyway migrations
+- admin LTE and bootstrap with mobile support (responsive)
+- cayenne ORM with nice modeler 
+
+# TODOs
+- Git WIKI with tutorials
+- kill all xml files
+- archetype for generic standard web application
+	- login, user, lists
+- more code examples for complete workflows
 
 # HTTP2
 - connect to https://localhost:9090/
@@ -54,7 +68,6 @@
 
 # Local Deployment
 - run mig0 in postgres
-- normally you should not need postgres for deploying
 
 ```
 $ git clone https://github.com/Philmasteryeah/joinfaces-boot-jetty-cdi.git

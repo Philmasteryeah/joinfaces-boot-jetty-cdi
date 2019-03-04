@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphs xmlns="http://cayenne.apache.org/schema/10/graph">
+	<graph type="ER" scale="1.0">
+		<entity name="questionnaire" x="231.0" y="429.0" width="89.0" height="178.0"/>
+		<entity name="car" x="0.0" y="602.84" width="46.0" height="82.0"/>
+		<entity name="client" x="115.23" y="297.44" width="67.0" height="130.0"/>
+		<entity name="account" x="249.71" y="0.0" width="58.0" height="162.0"/>
+	</graph>
+</graphs>

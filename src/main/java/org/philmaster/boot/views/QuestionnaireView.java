@@ -6,13 +6,19 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.philmaster.boot.model.questionnaire.Question;
-import org.philmaster.boot.model.questionnaire.Questionnaire;
+import org.apache.cayenne.ObjectContext;
+import org.philmaster.boot.model.Questionnaire;
+import org.philmaster.boot.model.questionnaire.QuestionJS;
+import org.philmaster.boot.model.questionnaire.QuestionnaireJS;
+import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.service.QuestionnaireService;
+import org.philmaster.boot.session.SessionBean;
+import org.philmaster.boot.util.Util;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.event.TabCloseEvent;
 
@@ -26,13 +32,21 @@ public class QuestionnaireView implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
+	private SessionBean session;
+
+	@Inject
 	private QuestionnaireService questService;
 
-	private Questionnaire questionnaire;
+	private QuestionnaireJS questionnaire;
 
 	@Getter
 	@Setter
-	private String question1;
+	private String question1; // testing
+
+	private ObjectContext context;
+
+	@Getter
+	private Questionnaire detailObject;
 
 	@PostConstruct
 	public void init() {
@@ -40,15 +54,34 @@ public class QuestionnaireView implements Serializable {
 		if (questionnaire == null) {
 			// TODO statusmessage error
 		}
-		
+
+		context = session.getDb()
+				.newContext();
+
+		detailObject = DatabaseService.createNew(context, Questionnaire.class);
+
+		// local copy of the client from session context to this view context
+		// detailObject = session.getClient(context);
+
 	}
 
-	public Questionnaire getQuestionnaire() {
+	public QuestionnaireJS getQuestionnaire() {
 		return questionnaire;
 	}
 
-	public List<Question> getQuestions() {
+	public List<QuestionJS> getQuestions() {
 		return questionnaire.getQuestion();
+	}
+
+	public void actionSave(ActionEvent actionEvent) {
+		context.commitChanges();
+
+		Util.statusMessageInfo("Saved", "Saved");
+		// TODO
+		// detailObject.setAccount(account);
+
+		System.err.println("quest in db name -> " + detailObject.getName());
+
 	}
 
 	///////////////

@@ -34,7 +34,7 @@ public class ClientDetail implements Serializable {
 	@PostConstruct
 	void init() {
 		// local context
-		
+
 		context = session.getDb()
 				.newContext();
 		// local copy of the client from session context to this view context
@@ -43,6 +43,9 @@ public class ClientDetail implements Serializable {
 
 	public void actionSave(ActionEvent actionEvent) {
 		context.commitChanges();
+
 		Util.statusMessageInfo("Saved", "Saved");
+
+		session.setLayoutSkin(detailObject.getSkin());
 	}
 }

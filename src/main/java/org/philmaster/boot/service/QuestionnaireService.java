@@ -2,14 +2,12 @@ package org.philmaster.boot.service;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
-import org.philmaster.boot.model.questionnaire.Question;
-import org.philmaster.boot.model.questionnaire.Questionnaire;
+import org.philmaster.boot.model.questionnaire.QuestionnaireJS;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 
@@ -29,7 +27,7 @@ public class QuestionnaireService implements Serializable {
 	@Value("classpath:static/questionnaire.json")
 	private Resource qj;
 
-	private Questionnaire questionnaire;
+	private QuestionnaireJS questionnaire;
 
 	@PostConstruct
 	void init() {
@@ -37,7 +35,7 @@ public class QuestionnaireService implements Serializable {
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		try {
-			questionnaire = objectMapper.readValue(qj.getInputStream(), Questionnaire.class);
+			questionnaire = objectMapper.readValue(qj.getInputStream(), QuestionnaireJS.class);
 		} catch (IOException e) {
 			System.out.println(e.getMessage()); // TODO Logging
 		}
@@ -46,7 +44,7 @@ public class QuestionnaireService implements Serializable {
 			System.err.println("could not load questionnaire");
 	}
 
-	public Questionnaire getQuestionnaire() {
+	public QuestionnaireJS getQuestionnaire() {
 		return questionnaire;
 	}
 

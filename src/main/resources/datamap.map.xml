@@ -27,6 +27,17 @@
 		<db-attribute name="pictureRight" type="VARBINARY"/>
 		<db-attribute name="skin" type="VARCHAR" length="50"/>
 	</db-entity>
+	<db-entity name="questionnaire">
+		<db-attribute name="account_id" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="age" type="NUMERIC"/>
+		<db-attribute name="client_id" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="feeling" type="BOOLEAN"/>
+		<db-attribute name="hobby" type="BOOLEAN"/>
+		<db-attribute name="name" type="VARCHAR" length="255"/>
+		<db-attribute name="programming" type="BOOLEAN"/>
+		<db-attribute name="questionnaire_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
+		<db-attribute name="version" type="INTEGER"/>
+	</db-entity>
 	<obj-entity name="Account" className="org.philmaster.boot.model.Account" dbEntityName="account">
 		<obj-attribute name="dateBirth" type="java.time.LocalDate" db-attribute-path="dateBirth"/>
 		<obj-attribute name="enabled" type="java.lang.Boolean" db-attribute-path="enabled"/>
@@ -45,8 +56,19 @@
 		<obj-attribute name="pictureRight" type="byte[]" db-attribute-path="pictureRight"/>
 		<obj-attribute name="skin" type="java.lang.String" db-attribute-path="skin"/>
 	</obj-entity>
+	<obj-entity name="Questionnaire" className="org.philmaster.boot.model.Questionnaire" dbEntityName="questionnaire">
+		<obj-attribute name="age" type="java.math.BigDecimal" db-attribute-path="age"/>
+		<obj-attribute name="feeling" type="boolean" db-attribute-path="feeling"/>
+		<obj-attribute name="hobby" type="boolean" db-attribute-path="hobby"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="programming" type="boolean" db-attribute-path="programming"/>
+		<obj-attribute name="version" type="int" db-attribute-path="version"/>
+	</obj-entity>
 	<db-relationship name="client" source="account" target="client">
 		<db-attribute-pair source="client_id" target="client_id"/>
+	</db-relationship>
+	<db-relationship name="questionnaires" source="account" target="questionnaire" toMany="true">
+		<db-attribute-pair source="account_id" target="account_id"/>
 	</db-relationship>
 	<db-relationship name="client" source="car" target="client">
 		<db-attribute-pair source="client_id" target="client_id"/>
@@ -57,8 +79,21 @@
 	<db-relationship name="cars" source="client" target="car" toMany="true">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
+	<db-relationship name="questionnaires" source="client" target="questionnaire" toMany="true">
+		<db-attribute-pair source="client_id" target="client_id"/>
+	</db-relationship>
+	<db-relationship name="account" source="questionnaire" target="account">
+		<db-attribute-pair source="account_id" target="account_id"/>
+	</db-relationship>
+	<db-relationship name="client" source="questionnaire" target="client">
+		<db-attribute-pair source="client_id" target="client_id"/>
+	</db-relationship>
 	<obj-relationship name="client" source="Account" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
+	<obj-relationship name="questionnaires" source="Account" target="Questionnaire" deleteRule="Deny" db-relationship-path="questionnaires"/>
 	<obj-relationship name="client" source="Car" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
 	<obj-relationship name="accounts" source="Client" target="Account" deleteRule="Deny" db-relationship-path="accounts"/>
 	<obj-relationship name="cars" source="Client" target="Car" deleteRule="Deny" db-relationship-path="cars"/>
+	<obj-relationship name="questionnaires" source="Client" target="Questionnaire" deleteRule="Deny" db-relationship-path="questionnaires"/>
+	<obj-relationship name="account" source="Questionnaire" target="Account" deleteRule="Nullify" db-relationship-path="account"/>
+	<obj-relationship name="client" source="Questionnaire" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
 </data-map>

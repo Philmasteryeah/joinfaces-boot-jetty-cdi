@@ -1,35 +1,35 @@
 <ui:composition
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:pm="http://xmlns.jcp.org/jsf/composite/components"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:pe="http://primefaces.org/ui/extensions"
-	template="/includes/template.xhtml">
-	<ui:define name="title">
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:pm="http://xmlns.jcp.org/jsf/composite/components"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    template="/includes/template.xhtml">
+    <ui:define name="title">
         account list
     </ui:define>
-	<ui:define name="description">
+    <ui:define name="description">
         a list of accounts
     </ui:define>
-	<ui:define name="body">
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h:form>
-					<pm:dataTable
-						detailPage="accountDetail"
-						listBean="#{accountList}"
-						colTitles="#{['Username', 'Password']}"
-						colAttributes="#{['username', 'password']}">
+    <ui:define name="body">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h:form>
+                    <pm:dataTable
+                        detailPage="accountDetail"
+                        listBean="#{accountList}"
+                        colTitles="#{['Username', 'Password']}"
+                        colAttributes="#{['username', 'password']}">
 
-					</pm:dataTable> ---
+                    </pm:dataTable> ---
 					<h:outputLink
-						value="#{breadcrumbBean.backUrl}"
-						rendered="#{breadcrumbBean.hasPageBack()}">Back</h:outputLink>
+                        value="#{breadcrumbBean.backUrl}"
+                        rendered="#{breadcrumbBean.hasPageBack()}">Back</h:outputLink>
 						---
 				</h:form>
-			</div>
-		</div>
-	</ui:define>
+            </div>
+        </div>
+    </ui:define>
 </ui:composition>

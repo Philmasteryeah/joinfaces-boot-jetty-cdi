@@ -2,7 +2,6 @@
 package org.philmaster.boot.model.questionnaire;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -12,46 +11,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "name", "version", "question" })
-public class Questionnaire {
+@JsonPropertyOrder({ "key", "title" })
+public class AnswerJS {
 
-	@JsonProperty("name")
-	private String name;
-	@JsonProperty("version")
-	private String version;
-	@JsonProperty("question")
-	private List<Question> question = null;
+	@JsonProperty("key")
+	private String key;
+	@JsonProperty("title")
+	private String title;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-	@JsonProperty("name")
-	public String getName() {
-		return name;
+	@JsonProperty("key")
+	public String getKey() {
+		return key;
 	}
 
-	@JsonProperty("name")
-	public void setName(String name) {
-		this.name = name;
+	@JsonProperty("key")
+	public void setKey(String key) {
+		this.key = key;
 	}
 
-	@JsonProperty("version")
-	public String getVersion() {
-		return version;
+	@JsonProperty("title")
+	public String getTitle() {
+		return title;
 	}
 
-	@JsonProperty("version")
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	@JsonProperty("question")
-	public List<Question> getQuestion() {
-		return question;
-	}
-
-	@JsonProperty("question")
-	public void setQuestion(List<Question> question) {
-		this.question = question;
+	@JsonProperty("title")
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@JsonAnyGetter

@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "rank", "attribute", "isMandatory", "type", "title", "answer" })
-public class Question {
+public class QuestionJS {
 
 	@JsonProperty("rank")
 	private String rank;
@@ -26,7 +26,7 @@ public class Question {
 	@JsonProperty("title")
 	private String title;
 	@JsonProperty("answer")
-	private List<Answer> answer = null;
+	private List<AnswerJS> answer = null;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -81,12 +81,12 @@ public class Question {
 	}
 
 	@JsonProperty("answer")
-	public List<Answer> getAnswer() {
+	public List<AnswerJS> getAnswer() {
 		return answer;
 	}
 
 	@JsonProperty("answer")
-	public void setAnswer(List<Answer> answer) {
+	public void setAnswer(List<AnswerJS> answer) {
 		this.answer = answer;
 	}
 

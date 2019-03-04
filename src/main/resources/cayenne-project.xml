@@ -15,4 +15,5 @@
 			<login userName="postgres" password="postgres"/>
 		</data-source>
 	</node>
+	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="project.graph.xml"/>
 </domain>
