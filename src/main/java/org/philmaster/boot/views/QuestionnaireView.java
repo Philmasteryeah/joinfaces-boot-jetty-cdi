@@ -17,6 +17,7 @@ import org.philmaster.boot.model.questionnaire.QuestionJS;
 import org.philmaster.boot.model.questionnaire.QuestionnaireJS;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.service.QuestionnaireService;
+import org.philmaster.boot.session.ContextDetailBean;
 import org.philmaster.boot.session.SessionBean;
 import org.philmaster.boot.util.Util;
 import org.primefaces.event.TabChangeEvent;
@@ -37,11 +38,7 @@ public class QuestionnaireView implements Serializable {
 	@Inject
 	private QuestionnaireService questService;
 
-	private QuestionnaireJS questionnaire;
-
-	@Getter
-	@Setter
-	private String question1; // testing
+	private QuestionnaireJS questionnaireJS;
 
 	private ObjectContext context;
 
@@ -50,9 +47,9 @@ public class QuestionnaireView implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		questionnaire = questService.getQuestionnaire();
-		if (questionnaire == null) {
-			// TODO statusmessage error
+		questionnaireJS = questService.getQuestionnaire();
+		if (questionnaireJS == null) {
+			// TODO statusmessage error cant load template
 		}
 
 		context = session.getDb()
@@ -66,19 +63,19 @@ public class QuestionnaireView implements Serializable {
 	}
 
 	public QuestionnaireJS getQuestionnaire() {
-		return questionnaire;
+		return questionnaireJS;
 	}
 
 	public List<QuestionJS> getQuestions() {
-		return questionnaire.getQuestion();
+		return questionnaireJS.getQuestion();
 	}
 
 	public void actionSave(ActionEvent actionEvent) {
-		context.commitChanges();
+		detailObject.setAccount(session.getAccount(context));
+		detailObject.setClient(session.getClient(context));
 
+		context.commitChanges();
 		Util.statusMessageInfo("Saved", "Saved");
-		// TODO
-		// detailObject.setAccount(account);
 
 		System.err.println("quest in db name -> " + detailObject.getName());
 

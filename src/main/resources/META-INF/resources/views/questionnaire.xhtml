@@ -18,60 +18,50 @@
         <h:form>
             <div class="box box-primary">
                 <div class="box-header with-border">
-
-                    <h3 style="margin-top: 0">Header</h3>
+                    <h3 style="margin-top: 0">#{questionnaireView.questionnaire.name}</h3>
                     <p:tabView
                         value="#{questionnaireView.questions}"
                         var="quest">
                         <p:tab title="#{quest.rank}">
                             <h3 style="margin-top: 0">#{quest.title}</h3>
-
                             <h:panelGrid
                                 rendered="#{quest.type eq 'TEXT'}">
-									TODO Textinput
-                                    <!-- TODO 
-								<p:inputText value="#{questionnaireView.detailObject.#{quest.attribute}}" />v
-                                 -->
+                                <p:inputText
+                                    value="#{questionnaireView.detailObject[quest.attribute]}" />
                             </h:panelGrid>
                             <h:panelGrid
                                 rendered="#{quest.type eq 'NUMBER'}"
                                 columns="2"
                                 cellpadding="5">
-							
-								TODO Numberinput
-              				  <p:inputNumber
+                                <p:inputNumber
                                     id="input3"
-                                    value="#{inputNumberView.input3}"
+                                    value="#{questionnaireView.detailObject[quest.attribute]}"
                                     decimalSeparator=","
                                     minValue="20"
                                     maxValue="50">
-
                                 </p:inputNumber>
                             </h:panelGrid>
                             <h:panelGrid
                                 rendered="#{quest.type eq 'RADIO'}"
                                 columns="1"
                                 cellpadding="5">
-
                                 <p:selectOneRadio
                                     id="answers"
-                                    value="#{questionnaireView.question1}">
+                                    value="#{questionnaireView.detailObject[quest.attribute]}">
                                     <f:selectItems
                                         value="#{quest.answer}"
                                         var="a"
                                         itemLabel="#{a.title}"
                                         itemValue="#{a.key}" />
                                 </p:selectOneRadio>
-
                             </h:panelGrid>
                         </p:tab>
                     </p:tabView>
-
                 </div>
                 <div class="box-footer with-border">
                     <p:commandButton
                         value="Save"
-                        actionListener="#{buttonBean.doAction()}" />
+                        actionListener="#{questionnaireView.actionSave}" />
                     <p:commandButton
                         value="last"
                         actionListener="#{buttonBean.doAction()}" />

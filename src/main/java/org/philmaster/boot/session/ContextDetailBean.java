@@ -38,25 +38,29 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	private Client client;
 
 	@Inject
+	@Getter
 	private SessionBean session;
 
 	@PostConstruct
 	public void init() {
 		persistentClass = initClass();
-		context = session.getDb().newContext();
+		context = session.getDb()
+				.newContext();
 		client = session.getClient(context);
-		detailPageName = persistentClass.getSimpleName().toLowerCase() + "Detail";
+		detailPageName = persistentClass.getSimpleName()
+				.toLowerCase() + "Detail";
 	}
 
 	public void initDetail() {
 		// TODO maybe by name too
 		if (detailId != null) {
 			// fetch by id
-			detailObject = SelectById.query(persistentClass, detailId).selectOne(context);
+			detailObject = SelectById.query(persistentClass, detailId)
+					.selectOne(context);
 		} else {
 			// or create new
 			detailObject = context.newObject(persistentClass);
-			detailObject.setToOneTarget("client", client, true);
+			detailObject.setToOneTarget("client", client, true); // TODO client out here
 		}
 	}
 
