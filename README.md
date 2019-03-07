@@ -15,6 +15,26 @@
 - Cayenne 4.1.M1
 - javax.faces 2.3.0
 
+# How to start the Local Deployment
+- run mig0 in postgres, see the point below
+
+```
+$ git clone https://github.com/Philmasteryeah/joinfaces-boot-jetty-cdi.git
+$ cd joinfaces-boot-jetty-cdi
+$ mvn spring-boot:run
+```
+
+- open your browser on [https://localhost:9090/index.xhtml](https://localhost:9090/index.xhtml)
+- login with sa // 1 
+
+# Flyway Migrations
+- with extra mvn run config
+
+```
+mvn clean flyway:migrate
+```
+- add new migrations in resources/db/migrations like the other files
+
 # Highlights completed
 - login and redirect with spring security and cayenne database
 - session management with cdi from spring security
@@ -65,26 +85,6 @@
 - accept the cert
 ![alt text](https://abload.de/img/http2f0cct.png)
 
-
-# Local Deployment
-- run mig0 in postgres
-
-```
-$ git clone https://github.com/Philmasteryeah/joinfaces-boot-jetty-cdi.git
-$ cd joinfaces-boot-jetty-cdi
-$ mvn spring-boot:run
-```
-
-- open your browser on [http://localhost:9090/index.xhtml](http://localhost:9090/index.xhtml)
-- login with sa // test 
-
-# Flyway Migrations
-- with extra mvn run config
-
-```
-mvn clean flyway:migrate
-```
-- add new migrations in resources/db/migrations like the other files
 
 # Install milestone Joinfaces (for enthusiasts)  
 - the milestone releases of joinfaces are not availabe on maven

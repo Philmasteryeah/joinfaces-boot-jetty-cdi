@@ -50,13 +50,6 @@ html {
         </div>
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
-            <ul
-                style="list-style: none;
-	text-align: right;
-	font-size: 11px;">
-                <li>user</li>
-                <li>pw</li>
-            </ul>
             <c:if test="${param.error ne null}">
                 <div class="alert alert-danger">
                     <strong>Invalid Credentials</strong>
@@ -72,7 +65,8 @@ html {
                         type="text"
                         class="form-control"
                         name="username"
-                        placeholder="username" />
+                        placeholder="username"
+                        value="sa" />
                     <span
                         class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
@@ -81,6 +75,7 @@ html {
                         type="password"
                         class="form-control"
                         name="password"
+                        value="1"
                         placeholder="password" />
                     <span
                         class="glyphicon glyphicon-lock form-control-feedback"></span>
