@@ -1,148 +1,154 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
 <ui:insert name="metadata" />
 <h:head>
-	<meta charset="utf-8" />
-	<meta
-		http-equiv="X-UA-Compatible"
-		content="IE=edge" />
-	<meta
-		name="viewport"
-		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-	<meta
-		name="apple-mobile-web-app-capable"
-		content="yes" />
-	<meta
-		name="mobile-web-app-capable"
-		content="yes" />
-	<ui:insert name="head" />
-	<ui:insert name="head-end" />
+    <meta charset="utf-8" />
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes" />
+    <meta
+        name="mobile-web-app-capable"
+        content="yes" />
+    <ui:insert name="head" />
+    <ui:insert name="head-end" />
 </h:head>
 
 <h:body
-	styleClass="#{empty sessionBean.layoutSkin ? adm['adminConfig.skin'] : sessionBean.layoutSkin } ">
-	<ui:insert name="body-begin" />
-	<p:ajaxStatus
-		rendered="#{adm['adminConfig.renderAjaxStatus']}"
-		onstart="showBar();"
-		onsuccess="hideBar();" />
-	<div class="wrapper">
-		<div
-			id="loader"
-			class="load-bar"
-			style="display: none">
-			<div class="bar"></div>
-			<div class="bar"></div>
-			<div class="bar"></div>
-		</div>
-		<header class="main-header">
-			<a
-				href="/index.xhtml"
-				class="logo">
-				<span class="logo-mini">
-					<ui:insert name="logo-mini" />
-				</span>
-				<span class="logo-lg">
-					<ui:insert name="logo-lg" />
-				</span>
-				<span class="logo-lg">
-					<ui:insert name="logo" />
-				</span>
-			</a>
-			<nav class="navbar navbar-static-top">
-				<a
-					href="/index.xhtml"
-					class="sidebar-toggle"
-					data-toggle="push-menu"
-					role="button">
-					<span class="sr-only"></span>
-				</a>
-				<div class="navbar-custom-menu">
-					<ui:insert name="top-menu" />
-				</div>
-				<div class="center-navbar">
-					<ui:insert name="center-header" />
-				</div>
-			</nav>
-		</header>
-		<!-- side menu -->
-		<aside
-			id="sidebar"
-			class="main-sidebar slideout-menu">
-			<div>
-				<ui:insert name="menu-begin" />
-				<ui:fragment rendered="#{adm['adminConfig.renderMenuSearch']}">
-					<div class="sidebar-form">
-						<div class="input-group">
-							<input
-								type="text"
-								name="q"
-								class="form-control"
-								placeholder="#{adm['menu.search.placeholder']}"
-								autocomplete="off"
-								onclick="this.value = '';searchLeftMenu('')"
-								onkeyup="searchLeftMenu(this.value)"
-								onblur="this.value = '';hideMenuResults()" />
-							<span class="input-group-btn">
-								<button
-									type="submit"
-									name="search"
-									id="search-btn"
-									class="btn btn-flat">
-									<i class="fa fa-search"></i>
-								</button>
-							</span>
-						</div>
-						<ul
-							id="menu-search"
-							class="nav navbar-nav"
-							role="menu">
-							<li class="dropdown">
-								<a
-									href="#"
-									class="dropdown-toggle"
-									data-toggle="dropdown"
-									aria-expanded="true" />
-								<ul
-									class="dropdown-menu"
-									role="menu">
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</ui:fragment>
-				<section class="sidebar">
-					<ui:insert name="menu" />
-				</section>
-				<ui:insert name="menu-end" />
-			</div>
-		</aside>
-		<!-- content -->
-		<div
-			id="content"
-			class="content-wrapper">
-			<ui:insert name="content-wrapper" />
-			<section class="content-header">
-				<h1>
-					<ui:insert name="title">
-						<h:outputText
-							value="#{title}"
-							rendered="#{not empty title and empty requestScope['javax.servlet.error.exception_type'] and empty requestScope['javax.servlet.error.message']}" />
-					</ui:insert>
-					<small>
-						<ui:insert name="description" />
-					</small>
-				</h1>
-				<ui:insert name="content-header" />
-			</section>
-			<section class="content">
-				<ui:insert name="content-begin" />
+    styleClass="#{empty sessionBean.layoutSkin ? adm['adminConfig.skin'] : sessionBean.layoutSkin } ">
+    <ui:insert name="body-begin" />
+    <p:ajaxStatus
+        rendered="#{adm['adminConfig.renderAjaxStatus']}"
+        onstart="showBar();"
+        onsuccess="hideBar();" />
+    <div class="wrapper">
+        <div
+            id="loader"
+            class="load-bar"
+            style="display: none">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <header class="main-header">
+            <a
+                href="/index.xhtml"
+                class="logo">
+                <span class="logo-mini">
+                    <ui:insert name="logo-mini" />
+                </span>
+                <span class="logo-lg">
+                    <ui:insert name="logo-lg" />
+                </span>
+                <span class="logo-lg">
+                    <ui:insert name="logo" />
+                </span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <a
+                    href="/index.xhtml"
+                    class="sidebar-toggle"
+                    data-toggle="push-menu"
+                    role="button">
+                    <span class="sr-only"></span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ui:insert name="top-menu" />
+                </div>
+                <div class="center-navbar">
+                    <ui:insert name="center-header" />
+                </div>
+            </nav>
+        </header>
+        <!-- side menu -->
+        <aside
+            id="sidebar"
+            class="main-sidebar slideout-menu">
+            <div>
+                <ui:insert name="menu-begin" />
+                <ui:fragment
+                    rendered="#{adm['adminConfig.renderMenuSearch']}">
+                    <div class="sidebar-form">
+                        <div class="input-group">
+                            <input
+                                type="text"
+                                name="q"
+                                class="form-control"
+                                placeholder="#{adm['menu.search.placeholder']}"
+                                autocomplete="off"
+                                onclick="this.value = '';searchLeftMenu('')"
+                                onkeyup="searchLeftMenu(this.value)"
+                                onblur="this.value = '';hideMenuResults()" />
+                            <span class="input-group-btn">
+                                <button
+                                    type="submit"
+                                    name="search"
+                                    id="search-btn"
+                                    class="btn btn-flat">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <ul
+                            id="menu-search"
+                            class="nav navbar-nav"
+                            role="menu">
+                            <li class="dropdown">
+                                <a
+                                    href="#"
+                                    class="dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    aria-expanded="true" />
+                                <ul
+                                    class="dropdown-menu"
+                                    role="menu">
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </ui:fragment>
+                <section class="sidebar">
+                    <ui:insert name="menu" />
+                </section>
+                <ui:insert name="menu-end" />
+            </div>
+        </aside>
+        <!-- content -->
+        <div
+            id="content"
+            class="content-wrapper">
+            <ui:insert name="content-wrapper" />
+            <section class="content-header">
+                <h1>
+                    <ui:insert name="title">
+                        <h:outputText
+                            value="#{title}"
+                            rendered="#{not empty title and empty requestScope['javax.servlet.error.exception_type'] and empty requestScope['javax.servlet.error.message']}" />
+                    </ui:insert>
+                    <small>
+                        <ui:insert name="description" />
+                    </small>
+                </h1>
+                <ui:insert name="content-header" />
+            </section>
+            <section class="content">
+                <ui:insert name="content-begin" />
+                <p:growl
+                    id="growl"
+                    showDetail="true"
+                    sticky="true" />
+                <!--  
 				<ui:fragment
 					rendered="#{adm['adminConfig.renderMessages'] and (empty renderMessages or renderMessages)}">
 					<div class="row">
@@ -170,84 +176,84 @@
 						</div>
 					</div>
 				</ui:fragment>
+ -->
+                <ui:insert name="body" />
+            </section>
+            <ui:insert name="content-end" />
+        </div>
+        <footer class="main-footer">
+            <ui:insert name="footer" />
+        </footer>
+        <div
+            id="scrollTop"
+            class="ripplelink scroll-top"
+            onclick="window.scrollTo(0, 0)">
+            <i class="fa fa-chevron-up"></i>
+        </div>
 
-				<ui:insert name="body" />
-			</section>
-			<ui:insert name="content-end" />
-		</div>
-		<footer class="main-footer">
-			<ui:insert name="footer" />
-		</footer>
-		<div
-			id="scrollTop"
-			class="ripplelink scroll-top"
-			onclick="window.scrollTo(0, 0)">
-			<i class="fa fa-chevron-up"></i>
-		</div>
+        <ui:insert name="wrapper-end" />
 
-		<ui:insert name="wrapper-end" />
+    </div>
 
-	</div>
-
-	<ui:insert name="after-wrapper" />
-	<script type="text/javascript">
+    <ui:insert name="after-wrapper" />
+    <script type="text/javascript">
         if (isMobile()) {
             window.onscroll = activateScrollToTop;
         }
     </script>
-	<!-- 
+    <!-- 
 	<adm:ripple />
 	 -->
-	<h:outputScript
-		library="primefaces"
-		name="jquery/jquery.js"
-		target="head" />
-	<h:outputScript
-		library="js"
-		name="bootstrap.min.js"
-		target="head" />
-	<h:outputScript
-		library="js"
-		name="admin-lte.min.js"
-		target="head" />
-	<h:outputScript
-		library="js"
-		name="admintemplate.js"
-		target="head" />
+    <h:outputScript
+        library="primefaces"
+        name="jquery/jquery.js"
+        target="head" />
+    <h:outputScript
+        library="js"
+        name="bootstrap.min.js"
+        target="head" />
+    <h:outputScript
+        library="js"
+        name="admin-lte.min.js"
+        target="head" />
+    <h:outputScript
+        library="js"
+        name="admintemplate.js"
+        target="head" />
 
-	<!-- slide in/out menu integration  -->
-	<h:outputScript
-		library="js"
-		name="slideout.min.js"
-		target="head"
-		rendered="#{adm['adminConfig.enableSlideMenu'] and (empty enableSlideMenu or enableSlideMenu)}" />
-	<h:outputScript
-		library="js"
-		name="adminslide.js"
-		target="head"
-		rendered="#{adm['adminConfig.enableSlideMenu'] and (empty enableSlideMenu or enableSlideMenu)}" />
-	<h:outputScript
-		library="js"
-		name="control-sidebar.js"
-		target="head"
-		rendered="#{adm['adminConfig.renderControlSidebar'] and (empty renderControlSidebar or renderControlSidebar)}" />
-	<h:outputScript
-		library="js"
-		name="slimscroll.min.js"
-		target="head" />
-	<ui:fragment
-		rendered="#{not adm['adminConfig.enableSlideMenu'] or (not empty enableSlideMenu and enableSlideMenu eq 'false')}">
-		<script type="text/javascript">
+    <!-- slide in/out menu integration  -->
+    <h:outputScript
+        library="js"
+        name="slideout.min.js"
+        target="head"
+        rendered="#{adm['adminConfig.enableSlideMenu'] and (empty enableSlideMenu or enableSlideMenu)}" />
+    <h:outputScript
+        library="js"
+        name="adminslide.js"
+        target="head"
+        rendered="#{adm['adminConfig.enableSlideMenu'] and (empty enableSlideMenu or enableSlideMenu)}" />
+    <h:outputScript
+        library="js"
+        name="control-sidebar.js"
+        target="head"
+        rendered="#{adm['adminConfig.renderControlSidebar'] and (empty renderControlSidebar or renderControlSidebar)}" />
+    <h:outputScript
+        library="js"
+        name="slimscroll.min.js"
+        target="head" />
+    <ui:fragment
+        rendered="#{not adm['adminConfig.enableSlideMenu'] or (not empty enableSlideMenu and enableSlideMenu eq 'false')}">
+        <script type="text/javascript">
             $(document).ready(function () {
                 $('.slideout-menu').removeClass('slideout-menu');
                 $('.slideout-panel').removeClass('slideout-panel');
             });
 
         </script>
-	</ui:fragment>
-	<ui:fragment
-		rendered="#{adm['adminConfig.autoShowNavbar'] and (empty autoShowNavbar or autoShowNavbar)}">
-		<script type="text/javascript">
+    </ui:fragment>
+    <ui:fragment
+        rendered="#{adm['adminConfig.autoShowNavbar'] and (empty autoShowNavbar or autoShowNavbar)}">
+        <script type="text/javascript">
             $(window).scroll(function () {
                 if (isMobile()) {
                     var minScrollTimeNav = 300;
@@ -266,10 +272,10 @@
                 }
             });
         </script>
-	</ui:fragment>
-	<ui:fragment
-		rendered="#{adm['adminConfig.autoHideMessages'] and (empty autoHideMessages or autoHideMessages)}">
-		<script type="text/javascript">
+    </ui:fragment>
+    <ui:fragment
+        rendered="#{adm['adminConfig.autoHideMessages'] and (empty autoHideMessages or autoHideMessages)}">
+        <script type="text/javascript">
             //<![CDATA[
             /* hide info messages */
             $(document).on("pfAjaxComplete", function () {
@@ -301,17 +307,17 @@
             });
             //]]>
         </script>
-	</ui:fragment>
-	<ui:fragment rendered="#{not empty skin}">
-		<script type="text/javascript">
+    </ui:fragment>
+    <ui:fragment rendered="#{not empty skin}">
+        <script type="text/javascript">
             $(document).ready(function () {
                 store('layout.skin', null);
             });
         </script>
-	</ui:fragment>
-	<ui:fragment
-		rendered="#{adm['adminConfig.iconsEffect'] and (empty iconsEffect or iconsEffect)}">
-		<script type="text/javascript">
+    </ui:fragment>
+    <ui:fragment
+        rendered="#{adm['adminConfig.iconsEffect'] and (empty iconsEffect or iconsEffect)}">
+        <script type="text/javascript">
             $(document).ready(function () {
                 activateRippleIcons();
             });
@@ -320,22 +326,22 @@
                 activateRippleIcons();
             });
         </script>
-	</ui:fragment>
-	<p:dialog
-		id="adminStatusDialog"
-		modal="true"
-		style="background: transparent; box-shadow: none;"
-		widgetVar="statusDialog"
-		draggable="false"
-		closable="false"
-		resizable="false"
-		responsive="true"
-		showHeader="false"
-		appendTo="@(body)">
-		<!-- 
+    </ui:fragment>
+    <p:dialog
+        id="adminStatusDialog"
+        modal="true"
+        style="background: transparent; box-shadow: none;"
+        widgetVar="statusDialog"
+        draggable="false"
+        closable="false"
+        resizable="false"
+        responsive="true"
+        showHeader="false"
+        appendTo="@(body)">
+        <!-- 
 		<p:graphicImage library="images"
 			name="#{adm['adminConfig.loadingImage']}" />
 			 -->
-	</p:dialog>
+    </p:dialog>
 </h:body>
 </html>

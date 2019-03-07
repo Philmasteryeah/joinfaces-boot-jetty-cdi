@@ -7,16 +7,13 @@
     template="/includes/template.xhtml">
     <ui:define name="body">
         <h:form>
-            <p:growl
-                id="msgs"
-                showDetail="true" />
             <p:dashboard
                 id="board"
                 model="#{mainView.model}">
                 <p:ajax
                     event="reorder"
                     listener="#{mainView.handleReorder}"
-                    update="msgs" />
+                    update="growl " />
                 <p:panel
                     id="sports"
                     header="Sports">

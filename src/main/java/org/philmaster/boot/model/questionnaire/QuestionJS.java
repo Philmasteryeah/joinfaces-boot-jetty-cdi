@@ -25,6 +25,9 @@ public class QuestionJS {
 	private String type;
 	@JsonProperty("title")
 	private String title;
+	@JsonProperty("suffix")
+	private String suffix;
+
 	@JsonProperty("answer")
 	private List<AnswerJS> answer = null;
 	@JsonIgnore
@@ -88,6 +91,16 @@ public class QuestionJS {
 	@JsonProperty("answer")
 	public void setAnswer(List<AnswerJS> answer) {
 		this.answer = answer;
+	}
+
+	@JsonProperty("suffix")
+	public String getSuffix() {
+		return suffix;
+	}
+
+	@JsonProperty("suffix")
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
 	}
 
 	@JsonAnyGetter
