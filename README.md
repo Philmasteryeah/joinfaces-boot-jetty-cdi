@@ -16,11 +16,11 @@
 - javax.faces 2.3.0
 
 # How to start the Local Deployment
-- run mig0 in postgres, see the point below
 
 ```
 $ git clone https://github.com/Philmasteryeah/joinfaces-boot-jetty-cdi.git
 $ cd joinfaces-boot-jetty-cdi
+$
 $ mvn spring-boot:run
 ```
 
@@ -28,7 +28,8 @@ $ mvn spring-boot:run
 - login with sa // 1 
 
 # Flyway Migrations
-- with extra mvn run config
+- automatic at mvn run
+- or with extra mvn run config
 
 ```
 mvn clean flyway:migrate
