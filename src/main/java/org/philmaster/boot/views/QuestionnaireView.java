@@ -74,7 +74,13 @@ public class QuestionnaireView implements Serializable {
 		detailObject.setAccount(session.getAccount(context));
 		detailObject.setClient(session.getClient(context));
 
-		context.commitChanges();
+		try {
+			context.commitChanges();
+		} catch (Exception e) {
+			Util.statusMessageError("Error", e.getMessage());
+			return;
+		}
+
 		Util.statusMessageInfo("Saved", "Saved");
 
 		System.err.println("quest in db name -> " + detailObject.getName());

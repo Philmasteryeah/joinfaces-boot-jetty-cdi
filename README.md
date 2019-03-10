@@ -16,6 +16,7 @@
 - javax.faces 2.3.0
 
 # How to start the Local Deployment
+- run compile flyway:migrate
 
 ```
 $ git clone https://github.com/Philmasteryeah/joinfaces-boot-jetty-cdi.git
@@ -28,8 +29,7 @@ $ mvn spring-boot:run
 - login with sa // 1 
 
 # Flyway Migrations
-- automatic at mvn run
-- or with extra mvn run config
+- with extra mvn run config
 
 ```
 mvn clean flyway:migrate

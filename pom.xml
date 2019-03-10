@@ -24,6 +24,10 @@
 		<maven-model.version>3.6.0</maven-model.version>
 		<cayenne.version>4.1.M2</cayenne.version>
 		<heroku.version>2.0.6</heroku.version>
+
+		<database.url>jdbc:postgresql://localhost:5432/database</database.url>
+		<database.user>postgres</database.user>
+		<databese.password>postgres</databese.password>
 	</properties>
 
 	<dependencyManagement>
@@ -86,10 +90,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.joinfaces</groupId>
@@ -191,6 +191,19 @@
 						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar
 							target/joinfaces-boot-jetty-cdi-1.0.0.jar</web>
 					</processTypes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<configuration>
+					<locations>
+						<location>classpath:/db/migration</location>
+					</locations>
+					<url>${database.url}</url>
+					<user>${database.user}</user>
+					<password>${databese.password}</password>
 				</configuration>
 			</plugin>
 		</plugins>
