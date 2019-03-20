@@ -9,9 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Adress;
-import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.session.SessionBean;
 import org.philmaster.boot.util.Util;
 import org.primefaces.event.SelectEvent;

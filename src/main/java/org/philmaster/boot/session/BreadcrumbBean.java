@@ -31,6 +31,7 @@ public class BreadcrumbBean implements Serializable {
 			String url = servletRequest.getRequestURL().toString();
 			String query = servletRequest.getQueryString();
 			String fullUrl = query != null && !query.trim().isEmpty() ? url + "?" + query : url;
+			
 			updatePageStack(fullUrl);
 		}
 	}
@@ -58,7 +59,9 @@ public class BreadcrumbBean implements Serializable {
 	private void updatePageStack(String navigationCase) {
 
 		Integer stackSize = pageStack.size();
-
+		// Special
+		// TODO empty stack on menu click
+		
 		// If stack is full, then make room by removing the oldest item
 		if (stackSize >= maxHistoryStackSize) {
 			pageStack.remove(0);

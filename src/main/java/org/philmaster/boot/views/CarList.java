@@ -18,5 +18,4 @@ public class CarList extends ContextListBean<Car> implements Serializable {
 	public Class<Car> initClass() {
 		return Car.class;
 	}
-
 }

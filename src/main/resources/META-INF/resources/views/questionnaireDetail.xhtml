@@ -8,6 +8,18 @@
     xmlns:pe="http://primefaces.org/ui/extensions"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     template="/includes/template.xhtml">
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam
+                name="id"
+                value="#{questionnaireDetail.detailId}" />
+            <f:viewAction action="#{questionnaireDetail.initDetail}" />
+            <c:set
+                var="detailObject"
+                value="#{questionnaireDetail.detailObject}" />
+            <!-- add validation msg here -->
+        </f:metadata>
+    </ui:define>
     <ui:define name="title">
 
     </ui:define>
@@ -19,15 +31,17 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 style="margin-top: 0">#{questionnaireView.questionnaire.name}</h3>
-                    <p:tabView
-                        value="#{questionnaireView.questions}"
+                    <p:accordionPanel
+                        widgetVar="tabPanelWidget"
+                        value="#{questionnaireDetail.questions}"
                         var="quest">
-                        <p:tab title="#{quest.rank}">
-                            <h3 style="margin-top: 0">#{quest.title}</h3>
+                        <p:tab
+                            title="#{quest.rank} - #{quest.title}"
+                            titleStyle="font-weight: bold;">
                             <h:panelGrid
                                 rendered="#{quest.type eq 'TEXT'}">
                                 <p:inputText
-                                    value="#{questionnaireView.detailObject[quest.attribute]}" />
+                                    value="#{questionnaireDetail.detailObject[quest.attribute]}" />
                             </h:panelGrid>
                             <h:panelGrid
                                 rendered="#{quest.type eq 'NUMBER'}"
@@ -35,7 +49,7 @@
                                 cellpadding="5">
                                 <p:inputNumber
                                     id="input3"
-                                    value="#{questionnaireView.detailObject[quest.attribute]}"
+                                    value="#{questionnaireDetail.detailObject[quest.attribute]}"
                                     decimalSeparator=","
                                     minValue="20"
                                     maxValue="50">
@@ -47,7 +61,7 @@
                                 cellpadding="5">
                                 <p:selectOneRadio
                                     id="answers"
-                                    value="#{questionnaireView.detailObject[quest.attribute]}">
+                                    value="#{questionnaireDetail.detailObject[quest.attribute]}">
                                     <f:selectItems
                                         value="#{quest.answer}"
                                         var="a"
@@ -56,18 +70,22 @@
                                 </p:selectOneRadio>
                             </h:panelGrid>
                         </p:tab>
-                    </p:tabView>
+                    </p:accordionPanel>
                 </div>
                 <div class="box-footer with-border">
+
                     <p:commandButton
                         value="Save"
-                        actionListener="#{questionnaireView.actionSave}" />
+                        actionListener="#{questionnaireDetail.actionSave}" />
+
                     <p:commandButton
-                        value="last"
-                        actionListener="#{buttonBean.doAction()}" />
+                        value="prev"
+                        onclick="PF('tabPanelWidget').select(1);" />
+
                     <p:commandButton
                         value="next"
-                        actionListener="#{buttonBean.doAction()}" />
+                        onclick="PF('tabPanelWidget').select(2);" />
+
                 </div>
             </div>
 

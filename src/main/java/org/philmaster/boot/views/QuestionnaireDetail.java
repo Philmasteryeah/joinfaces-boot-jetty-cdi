@@ -3,7 +3,6 @@ package org.philmaster.boot.views;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -15,7 +14,6 @@ import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Questionnaire;
 import org.philmaster.boot.model.questionnaire.QuestionJS;
 import org.philmaster.boot.model.questionnaire.QuestionnaireJS;
-import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.service.QuestionnaireService;
 import org.philmaster.boot.session.ContextDetailBean;
 import org.philmaster.boot.session.SessionBean;
@@ -23,12 +21,9 @@ import org.philmaster.boot.util.Util;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.event.TabCloseEvent;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Named
 @ViewScoped
-public class QuestionnaireView implements Serializable {
+public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,37 +37,21 @@ public class QuestionnaireView implements Serializable {
 
 	private ObjectContext context;
 
-	@Getter
-	private Questionnaire detailObject;
+	@Override
+	public Class<Questionnaire> initClass() {
 
-	@PostConstruct
-	public void init() {
 		questionnaireJS = questService.getQuestionnaire();
-		if (questionnaireJS == null) {
-			// TODO statusmessage error cant load template
-		}
 
-		context = session.getDb()
-				.newContext();
-
-		detailObject = DatabaseService.createNew(context, Questionnaire.class);
-
-		// local copy of the client from session context to this view context
-		// detailObject = session.getClient(context);
-
+		return Questionnaire.class;
 	}
 
-	public QuestionnaireJS getQuestionnaire() {
-		return questionnaireJS;
-	}
-
-	public List<QuestionJS> getQuestions() {
-		return questionnaireJS.getQuestion();
-	}
-
+	@Override
 	public void actionSave(ActionEvent actionEvent) {
-		detailObject.setAccount(session.getAccount(context));
-		detailObject.setClient(session.getClient(context));
+		super.actionSave(actionEvent);
+		getDetailObject().setAccount(session.getAccount(context));
+		getDetailObject().setClient(session.getClient(context));
+
+		System.err.println(context.uncommittedObjects());
 
 		try {
 			context.commitChanges();
@@ -82,9 +61,30 @@ public class QuestionnaireView implements Serializable {
 		}
 
 		Util.statusMessageInfo("Saved", "Saved");
+		System.err.println("quest in db name -> " + getDetailObject().getName());
 
-		System.err.println("quest in db name -> " + detailObject.getName());
+	}
 
+//	@PostConstruct
+//	public void init() {
+//		questionnaireJS = questService.getQuestionnaire();
+//
+//		context = session.getDb()
+//				.newContext();
+//
+//		detailObject = DatabaseService.createNew(context, Questionnaire.class);
+//
+//		// local copy of the client from session context to this view context
+//		// detailObject = session.getClient(context);
+//
+//	}
+
+	public QuestionnaireJS getQuestionnaire() {
+		return questionnaireJS;
+	}
+
+	public List<QuestionJS> getQuestions() {
+		return questionnaireJS.getQuestion();
 	}
 
 	///////////////

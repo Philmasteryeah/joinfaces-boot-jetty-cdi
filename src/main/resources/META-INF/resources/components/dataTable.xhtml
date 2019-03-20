@@ -21,16 +21,16 @@
 			<!-- first column is 'Id' for default, every db obj has it -->
 			<p:column
 				headerText="Id"
-				sortBy="#{detailObject.id}"
-				filterBy="#{detailObject.id}">
+				sortBy="#{detailObject.id()}"
+				filterBy="#{detailObject.id()}">
 				<!-- important = link without ajax here -->
 				<p:link
-					value="#{detailObject.id}"
+					value="#{detailObject.id()}"
 					outcome="#{cc.attrs.detailPage}"
 					includeViewParams="true">
 					<f:param
 						name="id"
-						value="#{detailObject.id}" />
+						value="#{detailObject.id()}" />
 				</p:link>
 			</p:column>
 			<p:columns
