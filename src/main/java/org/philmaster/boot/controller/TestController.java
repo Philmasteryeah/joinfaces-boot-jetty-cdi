@@ -52,5 +52,10 @@ public class TestController {
 	public ResponseEntity<String> getTest2() {
 		return new ResponseEntity<String>(fis.getFileAsString("test.json"), HttpStatus.OK);
 	}
+	
+	@RequestMapping(path = "/quest", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<String> getQuest() {
+		return new ResponseEntity<String>(fis.getFileAsString("questionnaire.json"), HttpStatus.OK);
+	}
 
 }

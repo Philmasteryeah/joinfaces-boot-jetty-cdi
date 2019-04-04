@@ -35,22 +35,22 @@ public class SecurityConfig {
 				.roles("ADMIN");
 
 	}
-
-	@Configuration
-	@Order(1)
-	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
-		protected void configure(HttpSecurity http) throws Exception {
-			// TODO something is not working here like its should be
-			http.csrf().disable();
-			http.antMatcher("/rest/**")
-					.authorizeRequests()
-					.anyRequest()
-					.hasRole("ADMIN")
-				.and()
-					.httpBasic();
-
-		}
-	}
+// temporary commented out under investigation
+//	@Configuration
+//	@Order(1)
+//	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+//		protected void configure(HttpSecurity http) throws Exception {
+//			// TODO something is not working here like its should be
+//			http.csrf().disable();
+//			http.antMatcher("/rest/**")
+//					.authorizeRequests()
+//					.anyRequest()
+//					.hasRole("ADMIN")
+//				.and()
+//					.httpBasic();
+//
+//		}
+//	}
 
 	@Configuration
 	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {

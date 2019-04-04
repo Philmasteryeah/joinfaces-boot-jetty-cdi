@@ -11,7 +11,7 @@ public class Account extends _Account implements UserDetails{
 
 	private static final long serialVersionUID = 1L;
 
-	public int getId() {
+	public int id() {
 		ObjectId oj = getObjectId();
 		return (oj == null || oj.isTemporary()) ? -1
 				: (int) oj.getIdSnapshot()

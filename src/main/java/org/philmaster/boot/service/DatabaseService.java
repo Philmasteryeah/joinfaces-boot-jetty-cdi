@@ -63,7 +63,7 @@ public class DatabaseService {
 	}
 
 	public static Client fetchClientByName(ObjectContext context, String name) {
-		if (name == null || name.isBlank() || "null".equals(name.trim()))
+		if (name == null || "null".equals(name.trim()))
 			return fetchDefaultClient(context);
 		return ObjectSelect.query(Client.class)
 				.where(Client.NAME.eq(name))
