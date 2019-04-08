@@ -6,11 +6,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.philmaster.boot.model.Adress;
-import org.philmaster.boot.session.SessionBean;
 import org.philmaster.boot.util.Util;
 import org.primefaces.event.SelectEvent;
 
@@ -31,8 +29,8 @@ public class AdressList implements Serializable {
 	@Setter
 	private Adress selectedItem;
 
-	@Inject
-	private SessionBean session;
+//	@Inject
+//	private SessionBean session;
 
 	@PostConstruct
 	public void init() {

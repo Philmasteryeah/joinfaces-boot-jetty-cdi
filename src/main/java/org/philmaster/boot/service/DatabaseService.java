@@ -62,6 +62,13 @@ public class DatabaseService {
 		return fetchClientByName(context, DEFAULT_CLIENT_NAME);
 	}
 
+	/**
+	 * fetch the default client if name is null
+	 * 
+	 * @param context
+	 * @param name
+	 * @return
+	 */
 	public static Client fetchClientByName(ObjectContext context, String name) {
 		if (name == null || "null".equals(name.trim()))
 			return fetchDefaultClient(context);

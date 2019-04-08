@@ -10,7 +10,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Questionnaire;
 import org.philmaster.boot.model.questionnaire.QuestionJS;
 import org.philmaster.boot.model.questionnaire.QuestionnaireJS;
@@ -35,7 +34,6 @@ public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> implem
 
 	private QuestionnaireJS questionnaireJS;
 
-	private ObjectContext context;
 
 	@Override
 	public Class<Questionnaire> initClass() {
@@ -48,19 +46,18 @@ public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> implem
 	@Override
 	public void actionSave(ActionEvent actionEvent) {
 		super.actionSave(actionEvent);
-		getDetailObject().setAccount(session.getAccount(context));
-		getDetailObject().setClient(session.getClient(context));
+		getDetailObject().setAccount(session.getLocalAccount(getContext()));
+		getDetailObject().setClient(session.getLocalClient(getContext()));
 
-		System.err.println(context.uncommittedObjects());
+		System.err.println(getContext().uncommittedObjects());
 
 		try {
-			context.commitChanges();
+			getContext().commitChanges();
 		} catch (Exception e) {
 			Util.statusMessageError("Error", e.getMessage());
 			return;
 		}
 
-		Util.statusMessageInfo("Saved", "Saved");
 		System.err.println("quest in db name -> " + getDetailObject().getName());
 
 	}

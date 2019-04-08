@@ -32,6 +32,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	@Setter
 	public String detailId;
 
+	// page context
 	@Getter
 	private ObjectContext context;
 
@@ -46,7 +47,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 		persistentClass = initClass();
 		context = session.getDb()
 				.newContext();
-		client = session.getClient(context);
+		client = session.getLocalClient(context);
 		detailPageName = persistentClass.getSimpleName()
 				.toLowerCase() + "Detail";
 	}

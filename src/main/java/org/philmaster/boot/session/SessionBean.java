@@ -68,14 +68,18 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	private String page, name;
 
 	// hold client and account in session
+	// getter returns the session client
+	@Getter
 	private Client client;
+	@Getter
 	private Account account;
 
 	// session context is only for client and account
 	// every context page has its own context
+	//
 	// private static ObjectContext sessionContext =
 	// BaseContext.getThreadObjectContext();
-	private ObjectContext context;
+	private ObjectContext sessionContext;
 
 	@Getter
 	@Inject
@@ -85,11 +89,10 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	@Override
 	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
-// 		alternative to autowired
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
 				.getRequest();
 		System.err.println(request);
-
+		// client from parameter
 		String clientname = request.getParameter("client");
 		System.err.println("client connected " + clientname);
 		String username = ((UserDetails) event.getAuthentication()
@@ -136,21 +139,21 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	}
 
 	private boolean isInitSession(String clientname, String username) {
-		context = db.newContext();
-		client = DatabaseService.fetchClientByName(context, clientname);
-		account = DatabaseService.fetchAccountByUsername(context, username, client.getName());
-		if (account == null)
-			return false; // LOGGING no accc
+		if (sessionContext == null)
+			sessionContext = db.newContext();
+		client = DatabaseService.fetchClientByName(sessionContext, clientname);
 		if (client == null)
 			return false; // LOGGING no client
+		account = DatabaseService.fetchAccountByUsername(sessionContext, username, client.getName());
+		if (account == null)
+			return false; // LOGGING no accc
 
 		System.err.println("init session client-> " + client.getName());
 		System.err.println("init session user-> " + account.getUsername());
 
-		// TODO load layout from client settings from db
 		String skin = client.getSkin();
-		System.err.println(skin + " skin loaded");
-		setLayoutSkin(skin);
+		System.err.println(skin + " skin loaded from client");
+		// setLayoutSkin(skin);
 		return true;
 	}
 
@@ -158,16 +161,16 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		System.err.println("fetchAccountByUsername " + username);
 		return ObjectSelect.query(Account.class)
 				.where(Account.USERNAME.eq(username))
-				.selectOne(context);
+				.selectOne(sessionContext);
 		// TODO client
 	}
 
-	public Client getClient(@NonNull ObjectContext context) {
-		return context.localObject(client);
+	public Client getLocalClient(@NonNull ObjectContext context) {
+		return context != null ? context.localObject(client) : null;
 	}
 
-	public Account getAccount(@NonNull ObjectContext context) {
-		return context.localObject(account);
+	public Account getLocalAccount(@NonNull ObjectContext context) {
+		return context != null ? context.localObject(account) : null;
 	}
 
 	public String getUsername() {

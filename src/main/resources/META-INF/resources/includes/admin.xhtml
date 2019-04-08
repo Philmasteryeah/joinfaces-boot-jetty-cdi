@@ -26,7 +26,7 @@
 </h:head>
 
 <h:body
-    styleClass="#{empty sessionBean.layoutSkin ? adm['adminConfig.skin'] : sessionBean.layoutSkin } ">
+    styleClass="#{empty sessionBean.client.skin ? adm['adminConfig.skin'] : sessionBean.client.skin } ">
     <ui:insert name="body-begin" />
     <p:ajaxStatus
         rendered="#{adm['adminConfig.renderAjaxStatus']}"

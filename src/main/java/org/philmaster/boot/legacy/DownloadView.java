@@ -14,6 +14,7 @@ import org.apache.cayenne.exp.ExpressionFactory;
 import org.philmaster.boot.model.Car;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
+import org.philmaster.boot.session.SessionBean;
 import org.philmaster.boot.util.Util;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
@@ -39,19 +40,21 @@ public class DownloadView implements Serializable {
 	@Setter
 	private int currentLevel = 1;
 
-	@Getter
 	private Client client;
-
+	
 	@Inject
 	private DatabaseService db;
 
 	private ObjectContext context;
 
+	@Inject
+	private SessionBean session;
+
 	@PostConstruct
 	public void init() {
 		context = db.newContext();
 
-		client = DatabaseService.fetchClientByName(context, "default");
+		client = session.getClient();
 
 		cars = DatabaseService.fetch(context, Car.class, ExpressionFactory.matchExp(client));
 
