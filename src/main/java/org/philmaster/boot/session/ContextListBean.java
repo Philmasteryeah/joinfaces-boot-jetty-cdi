@@ -1,5 +1,6 @@
 package org.philmaster.boot.session;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -28,6 +29,10 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 
 	@Getter
 	@Setter
+	private	Date date = new Date();
+
+	@Getter
+	@Setter
 	private T selectedItem;
 
 	private ObjectContext context;
@@ -38,7 +43,8 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 	@PostConstruct
 	public void init() {
 		persistentClass = initClass();
-		context = session.getDb().newContext();
+		context = session.getDb()
+				.newContext();
 		// client = session.getClient(context);
 		items = DatabaseService.fetchAll(context, persistentClass);
 	}

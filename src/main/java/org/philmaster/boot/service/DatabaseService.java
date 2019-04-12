@@ -1,5 +1,6 @@
 package org.philmaster.boot.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +10,7 @@ import javax.sql.DataSource;
 
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
+import org.apache.cayenne.configuration.CayenneRuntime;
 import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.exp.ExpressionFactory;
@@ -35,19 +37,21 @@ import org.philmaster.boot.model.Client;
 
 @Named
 @ApplicationScoped
-public class DatabaseService {
+public class DatabaseService implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private static final String CAYENNE_CONFIG = "cayenne-project.xml";
 
 	private static final String DEFAULT_CLIENT_NAME = "default";
 
-	private ServerRuntime runtime;
+	private static ServerRuntime runtime = ServerRuntime.builder()
+			.addConfig(CAYENNE_CONFIG)
+			.build();
 
 	@PostConstruct
 	void init() {
-		runtime = ServerRuntime.builder()
-				.addConfig(CAYENNE_CONFIG)
-				.build(); // db runntime
+
 	}
 
 	public ObjectContext newContext() {

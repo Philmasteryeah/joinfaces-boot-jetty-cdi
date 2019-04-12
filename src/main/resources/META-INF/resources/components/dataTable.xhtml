@@ -1,48 +1,83 @@
 <ui:composition
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:p="http://primefaces.org/ui">
-	<cc:interface>
-		<cc:attribute name="colTitles" />
-		<cc:attribute name="colAttributes" />
-		<cc:attribute name="listBean" />
-		<cc:attribute name="detailPage" />
-	</cc:interface>
-	<cc:implementation>
-		<p:dataTable
-			rows="20"
-			var="detailObject"
-			value="#{cc.attrs.listBean.items}"
-			filteredValue="#{cc.attrs.listBean.valuesFiltered}">
-			<!-- first column is 'Id' for default, every db obj has it -->
-			<p:column
-				headerText="Id"
-				sortBy="#{detailObject.id()}"
-				filterBy="#{detailObject.id()}">
-				<!-- important = link without ajax here -->
-				<p:link
-					value="#{detailObject.id()}"
-					outcome="#{cc.attrs.detailPage}"
-					includeViewParams="true">
-					<f:param
-						name="id"
-						value="#{detailObject.id()}" />
-				</p:link>
-			</p:column>
-			<p:columns
-				value="#{cc.attrs.colAttributes}"
-				var="attr"
-				columnIndexVar="colIndex"
-				sortBy="#{detailObject[attr]}"
-				filterBy="#{detailObject[attr]}"
-				headerText="#{cc.attrs.colTitles[colIndex]}">
-				<h:outputText value="#{detailObject[attr]}" />
-			</p:columns>
-			<cc:insertChildren />
-		</p:dataTable>
-	</cc:implementation>
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+        <cc:attribute name="colTitles" />
+        <cc:attribute name="colAttributes" />
+        <cc:attribute name="listBean" />
+        <cc:attribute name="detailPage" />
+    </cc:interface>
+    <cc:implementation>
+        <style type="text/css">
+.ui-datatable .ui-datatable-header {
+	text-align: right;
+}
+</style>
+        <p:dataTable
+            rows="20"
+            var="detailObject"
+            value="#{cc.attrs.listBean.items}"
+            filteredValue="#{cc.attrs.listBean.itemsFiltered}"
+            widgetVar="dataTableVar"
+            emptyMessage="nothing found">
+            <f:facet name="header">
+                <p:outputPanel>
+                    <h:outputText value="Search all fields:" />
+                    <p:inputText
+                        id="globalFilter"
+                        onkeyup="PF('dataTableVar').filter()"
+                        style="width:150px"
+                        placeholder="Enter keyword" />
+                </p:outputPanel>
+            </f:facet>
+
+            <!-- first column is 'Id' for default, every db obj has it -->
+            <p:column
+                headerText="Id"
+                sortBy="#{detailObject.id()}"
+                filterBy="#{detailObject.id()}">
+                <!-- important = link without ajax here -->
+                <p:link
+                    value="#{detailObject.id()}"
+                    outcome="#{cc.attrs.detailPage}"
+                    includeViewParams="true">
+                    <f:param
+                        name="id"
+                        value="#{detailObject.id()}" />
+                </p:link>
+            </p:column>
+            <p:column
+                id="date"
+                headerText="Date"
+                filterBy="#{cc.attrs.listBean.date}">
+                <f:facet name="filter">
+                    <p:calendar
+                        pattern="dd.MM.yyyy"
+                        onchange="PF('dataTableVar').filter()"
+                        onkeyup="PF('dataTableVar').filter()">
+                    </p:calendar>
+                </f:facet>
+                <p:outputLabel value="#{cc.attrs.listBean.date}">
+                    <f:convertDateTime pattern="dd.MM.yyyy" />
+                </p:outputLabel>
+            </p:column>
+
+            <p:columns
+                value="#{cc.attrs.colAttributes}"
+                var="attr"
+                columnIndexVar="colIndex"
+                sortBy="#{detailObject[attr]}"
+                filterBy="#{detailObject[attr]}"
+                headerText="#{cc.attrs.colTitles[colIndex]}">
+                <h:outputText value="#{detailObject[attr]}" />
+            </p:columns>
+            <cc:insertChildren />
+        </p:dataTable>
+    </cc:implementation>
 </ui:composition>
