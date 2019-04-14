@@ -9,6 +9,7 @@ import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.query.SelectById;
 import org.philmaster.boot.model.Client;
+import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
 
 import lombok.Getter;
@@ -45,17 +46,19 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	@PostConstruct
 	public void init() {
 		persistentClass = initClass();
-		context = session.getDb()
-				.newContext();
+		context = DatabaseService.newContext();
 		client = session.getLocalClient(context);
 		detailPageName = persistentClass.getSimpleName()
 				.toLowerCase() + "Detail";
 	}
 
 	public void initDetail() {
-		// TODO maybe by name too
 		if (detailId != null) {
 			// fetch by id
+			session.getAccount()
+					.getClient();
+			// TODO add account
+			// TODO add permissions
 			detailObject = SelectById.query(persistentClass, detailId)
 					.selectOne(context);
 		} else {
@@ -66,7 +69,13 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	}
 
 	public void actionSave(ActionEvent actionEvent) {
-		context.commitChanges();
+		try {
+			context.commitChanges();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			Util.statusMessageError("could not save");
+			return;
+		}
 		Util.statusMessageInfo("Saved", "Saved");
 	}
 }

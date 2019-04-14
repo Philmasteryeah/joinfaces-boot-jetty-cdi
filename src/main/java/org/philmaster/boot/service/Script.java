@@ -5,6 +5,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.script.ScriptEngine;
+import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 
 import lombok.Getter;
@@ -55,14 +56,14 @@ public class Script {
 	}
 
 	public void actionRunQuery(ActionEvent actionEvent) {
-
+		System.err.println(actionEvent);
 		try {
 			Object scriptResult = engine.eval(query);
 			result = scriptResult.toString();
 		} catch (Exception e) {
 			result = e.getMessage();
 		}
-		// System.err.println(result + "-------" + query);
+		System.err.println(result + "-------" + query);
 	}
 
 }

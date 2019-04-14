@@ -60,9 +60,14 @@ public class Util {
 
 	public static String randomAlphanumericString32() {
 		// 2d7428a6-b58c-4008-8575-f05549f16316 - 36
-		List<char[]> characters = Arrays.asList(UUID.randomUUID().toString().replaceAll("-", "").toCharArray());
+		List<char[]> characters = Arrays.asList(UUID.randomUUID()
+				.toString()
+				.replaceAll("-", "")
+				.toCharArray());
 		Collections.shuffle(characters);
-		return characters.stream().map(c -> String.valueOf(c)).collect(Collectors.joining());// alphanumeric - 32
+		return characters.stream()
+				.map(c -> String.valueOf(c))
+				.collect(Collectors.joining());// alphanumeric - 32
 	}
 
 	// status message
@@ -72,9 +77,17 @@ public class Util {
 		LOGGER.info(text);
 	}
 
+	public static void statusMessageWarn(@NonNull String text) {
+		statusMessageWarn("Warning", text);
+	}
+
 	public static void statusMessageWarn(@NonNull String title, @NonNull String text) {
 		statusMessage(FacesMessage.SEVERITY_WARN, title, text);
 		LOGGER.warn(text);
+	}
+
+	public static void statusMessageError(@NonNull String text) {
+		statusMessageError("Error", text);
 	}
 
 	public static void statusMessageError(@NonNull String title, @NonNull String text) {
@@ -84,7 +97,8 @@ public class Util {
 
 	private static void statusMessage(@NonNull Severity errorType, @NonNull String title, @NonNull String text) {
 		FacesMessage message = new FacesMessage(errorType, title, text);
-		FacesContext.getCurrentInstance().addMessage(null, message);
+		FacesContext.getCurrentInstance()
+				.addMessage(null, message);
 	}
 
 	// reflection
@@ -100,7 +114,9 @@ public class Util {
 		// field = java.lang.String org.philmaster.boot.model.auto._Car.name
 		// sortField = name
 		Field field = fields.stream()
-				.filter(f -> f.getName().replaceAll(".+\\.", "").equals(sortField))
+				.filter(f -> f.getName()
+						.replaceAll(".+\\.", "")
+						.equals(sortField))
 				.findFirst()
 				.orElse(null);
 		if (field == null) {

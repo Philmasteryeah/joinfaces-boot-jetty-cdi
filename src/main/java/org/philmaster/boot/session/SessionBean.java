@@ -44,8 +44,6 @@ import lombok.Setter;
 @SessionScoped
 public class SessionBean implements Serializable, ApplicationListener<InteractiveAuthenticationSuccessEvent> {
 
-	private static final long serialVersionUID = 1L;
-
 	private Locale locale;
 
 	@Getter
@@ -80,10 +78,6 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	// private static ObjectContext sessionContext =
 	// BaseContext.getThreadObjectContext();
 	private ObjectContext sessionContext;
-
-	@Getter
-	@Inject
-	private DatabaseService db;
 
 // 	@PostConstruct dont works here
 
@@ -140,11 +134,11 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	private boolean isInitSession(String clientname, String username) {
 		if (sessionContext == null)
-			sessionContext = db.newContext();
+			sessionContext = DatabaseService.newContext();
 		client = DatabaseService.fetchClientByName(sessionContext, clientname);
 		if (client == null)
 			return false; // LOGGING no client
-		account = DatabaseService.fetchAccountByUsername(sessionContext, username, client.getName());
+		account = DatabaseService.fetchAccountByUsername(sessionContext, username, client);
 		if (account == null)
 			return false; // LOGGING no accc
 
@@ -165,11 +159,11 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		// TODO client
 	}
 
-	public Client getLocalClient(@NonNull ObjectContext context) {
+	public Client getLocalClient(ObjectContext context) {
 		return context != null ? context.localObject(client) : null;
 	}
 
-	public Account getLocalAccount(@NonNull ObjectContext context) {
+	public Account getLocalAccount(ObjectContext context) {
 		return context != null ? context.localObject(account) : null;
 	}
 

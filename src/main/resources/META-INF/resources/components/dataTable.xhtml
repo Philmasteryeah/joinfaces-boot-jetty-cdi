@@ -20,13 +20,26 @@
 }
 </style>
         <p:dataTable
+            id="dataTable"
             rows="20"
             var="detailObject"
             value="#{cc.attrs.listBean.items}"
             filteredValue="#{cc.attrs.listBean.itemsFiltered}"
+            selectionMode="multiple"
+            selection="#{cc.attrs.listBean.itemsSelected}"
+            rowKey="#{detailObject.id()}"
             widgetVar="dataTableVar"
             emptyMessage="nothing found">
+            <p:ajax
+                event="rowSelect"
+                listener="#{cc.attrs.listBean.onRowSelect}"
+                />
+            <p:ajax
+                event="rowUnselect"
+                listener="#{cc.attrs.listBean.onRowUnselect}"
+                 />
             <f:facet name="header">
+
                 <p:outputPanel>
                     <h:outputText value="Search all fields:" />
                     <p:inputText
@@ -52,6 +65,7 @@
                         value="#{detailObject.id()}" />
                 </p:link>
             </p:column>
+
             <p:column
                 id="date"
                 headerText="Date"
@@ -77,6 +91,7 @@
                 headerText="#{cc.attrs.colTitles[colIndex]}">
                 <h:outputText value="#{detailObject[attr]}" />
             </p:columns>
+
             <cc:insertChildren />
         </p:dataTable>
     </cc:implementation>

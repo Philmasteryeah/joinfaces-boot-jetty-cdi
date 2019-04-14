@@ -25,9 +25,9 @@ public class QuestionnaireService implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Value("classpath:static/questionnaire.json")
-	private Resource qj;
+	private transient Resource qj;
 
-	private QuestionnaireJS questionnaire;
+	private transient QuestionnaireJS questionnaire;
 
 	@PostConstruct
 	void init() {

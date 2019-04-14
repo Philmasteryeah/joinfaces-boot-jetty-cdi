@@ -16,12 +16,13 @@
     <ui:define name="body">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h:form>
+                <h:form id="form">
                     <pm:dataTable
+                        id="accountDataTable"
                         detailPage="accountDetail"
                         listBean="#{accountList}"
-                        colTitles="#{['Username', 'Password']}"
-                        colAttributes="#{['username', 'password']}">
+                        colTitles="#{['Username', 'Birthdate']}"
+                        colAttributes="#{['username', 'dateBirth']}">
 
                     </pm:dataTable> ---
 					<h:outputLink

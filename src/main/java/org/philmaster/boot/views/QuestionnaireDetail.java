@@ -22,7 +22,7 @@ import org.primefaces.event.TabCloseEvent;
 
 @Named
 @ViewScoped
-public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> implements Serializable {
+public class QuestionnaireDetail extends ContextDetailBean<Questionnaire>  implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,7 +32,7 @@ public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> implem
 	@Inject
 	private QuestionnaireService questService;
 
-	private QuestionnaireJS questionnaireJS;
+	private transient QuestionnaireJS questionnaireJS;
 
 
 	@Override
@@ -45,19 +45,16 @@ public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> implem
 
 	@Override
 	public void actionSave(ActionEvent actionEvent) {
+		System.err.println(getContext().uncommittedObjects());
+		// before save
 		super.actionSave(actionEvent);
+		// after save
 		getDetailObject().setAccount(session.getLocalAccount(getContext()));
 		getDetailObject().setClient(session.getLocalClient(getContext()));
 
 		System.err.println(getContext().uncommittedObjects());
 
-		try {
-			getContext().commitChanges();
-		} catch (Exception e) {
-			Util.statusMessageError("Error", e.getMessage());
-			return;
-		}
-
+		
 		System.err.println("quest in db name -> " + getDetailObject().getName());
 
 	}

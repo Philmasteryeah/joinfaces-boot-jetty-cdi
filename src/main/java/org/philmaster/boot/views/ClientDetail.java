@@ -10,6 +10,7 @@ import javax.inject.Named;
 
 import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Client;
+import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.session.SessionBean;
 import org.philmaster.boot.util.Util;
 
@@ -34,8 +35,7 @@ public class ClientDetail implements Serializable {
 	@PostConstruct
 	void init() {
 		// local context
-		context = session.getDb()
-				.newContext();
+		context = DatabaseService.newContext();
 		// local copy of the client from session context to this view context
 		detailObject = session.getLocalClient(context);
 	}

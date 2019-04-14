@@ -6,12 +6,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import javax.inject.Singleton;
 import javax.sql.DataSource;
 
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.configuration.CayenneRuntime;
 import org.apache.cayenne.configuration.server.ServerRuntime;
+import org.apache.cayenne.di.Injector;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.exp.ExpressionFactory;
 import org.apache.cayenne.query.ObjectSelect;
@@ -35,9 +37,8 @@ import org.philmaster.boot.model.Client;
  *
  */
 
-@Named
-@ApplicationScoped
-public class DatabaseService implements Serializable {
+@Singleton
+public final class DatabaseService implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -45,20 +46,24 @@ public class DatabaseService implements Serializable {
 
 	private static final String DEFAULT_CLIENT_NAME = "default";
 
-	private static ServerRuntime runtime = ServerRuntime.builder()
+	private static final ServerRuntime runtime = ServerRuntime.builder()
 			.addConfig(CAYENNE_CONFIG)
 			.build();
 
 	@PostConstruct
 	void init() {
-
+		// Testing
+		Injector i = runtime.getInjector();
+		Injector threadInjector = CayenneRuntime.getThreadInjector();
+		CayenneRuntime.bindThreadInjector(i);
+		System.err.println(i.equals(threadInjector) + " " + threadInjector + " " + i);
 	}
 
-	public ObjectContext newContext() {
+	public static ObjectContext newContext() {
 		return runtime.newContext();
 	}
 
-	public DataSource getDataSource() {
+	public static DataSource getDataSource() {
 		return runtime.getDataSource();
 	}
 
@@ -79,6 +84,10 @@ public class DatabaseService implements Serializable {
 		return ObjectSelect.query(Client.class)
 				.where(Client.NAME.eq(name))
 				.selectOne(context);
+	}
+
+	public static Account fetchAccountByUsername(ObjectContext context, String username, Client client) {
+		return fetchAccountByUsername(context, username, client != null ? client.getName() : null);
 	}
 
 	@SuppressWarnings("unchecked")

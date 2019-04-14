@@ -1,5 +1,6 @@
 package org.philmaster.boot.session;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -12,46 +13,55 @@ import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Dependent
-public abstract class ContextListBean<T extends BaseDataObject> {
+public abstract class ContextListBean<T extends BaseDataObject> implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	public abstract Class<T> initClass();
 
-	private Class<T> persistentClass;
+	@Getter
+	@Setter
+	private List<T> items, itemsFiltered, itemsSelected;
 
 	@Getter
 	@Setter
-	private List<T> items, itemsFiltered;
-
-	@Getter
-	@Setter
-	private	Date date = new Date();
+	private Date date = new Date(); // Testing
 
 	@Getter
 	@Setter
 	private T selectedItem;
 
-	private ObjectContext context;
+	@Getter
+	private ObjectContext context = DatabaseService.newContext();
 
 	@Inject
+	@Getter
 	private SessionBean session;
 
 	@PostConstruct
 	public void init() {
-		persistentClass = initClass();
-		context = session.getDb()
-				.newContext();
-		// client = session.getClient(context);
-		items = DatabaseService.fetchAll(context, persistentClass);
+		items = DatabaseService.fetchAll(context, initClass());
+	}
+
+	// add CRUD
+
+	public void onCreateNew() {
+
 	}
 
 	public void onRowSelect(SelectEvent event) {
-		// TODO
-		Util.statusMessageInfo("Selected", "'" + selectedItem + "'");
+		Util.statusMessageInfo("onRowSelect", "onRowSelect");
+	}
+
+	public void onRowUnselect(UnselectEvent event) {
+		Util.statusMessageInfo("onRowUnselect", "onRowUnselect");
+
 	}
 
 }

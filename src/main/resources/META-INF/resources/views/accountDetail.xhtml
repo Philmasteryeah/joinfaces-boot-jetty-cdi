@@ -32,15 +32,25 @@
                 <div class="box-header with-border">
                     <h:panelGrid
                         columns="2"
-                        style="margin:10px 0">
-                        <h:outputText value="Username:" />
+                        cellpadding="5">
+                        <p:outputLabel value="Username:" />
                         <p:inputText value="#{detailObject.username}" />
-                        <h:outputText value="Password:" />
+                        <p:outputLabel value="Password:" />
                         <p:inputText value="#{detailObject.password}" />
+                        <p:outputLabel
+                            for="popup"
+                            value="Birthdate:" />
+                        <p:datePicker
+                            id="popup"
+                            value="#{detailObject.dateBirth}" />
                     </h:panelGrid>
+
+
+
+
+
                     <p:commandButton
                         actionListener="#{accountDetail.actionSave}"
-                        update="@form"
                         value="Save">
                     </p:commandButton>
                 </div>

@@ -18,4 +18,5 @@ public class AccountList extends ContextListBean<Account> implements Serializabl
 	public Class<Account> initClass() {
 		return Account.class;
 	}
+
 }

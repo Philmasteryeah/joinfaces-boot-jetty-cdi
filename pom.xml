@@ -20,6 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<joinfaces.version>4.0.3</joinfaces.version>
+		
 		<primefaces-theme.version>1.0.10</primefaces-theme.version>
 		<maven-model.version>3.6.0</maven-model.version>
 		<cayenne.version>4.1.M2</cayenne.version>
@@ -57,10 +58,12 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
+			<version>7.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces.extensions</groupId>
 			<artifactId>primefaces-extensions</artifactId>
+			<version>7.0</version>
 		</dependency>
 		<!-- Postgres -->
 		<dependency>
@@ -163,6 +166,8 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+			
 			<plugin>
 				<groupId>org.apache.cayenne.plugins</groupId>
 				<artifactId>cayenne-modeler-maven-plugin</artifactId>
@@ -172,6 +177,7 @@
 					<modelFile>>${basedir}/src/main/resources/cayenne-project.xml</modelFile>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<groupId>com.heroku.sdk</groupId>
 				<artifactId>heroku-maven-plugin</artifactId>
