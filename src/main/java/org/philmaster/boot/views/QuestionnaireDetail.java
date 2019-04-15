@@ -16,13 +16,12 @@ import org.philmaster.boot.model.questionnaire.QuestionnaireJS;
 import org.philmaster.boot.service.QuestionnaireService;
 import org.philmaster.boot.session.ContextDetailBean;
 import org.philmaster.boot.session.SessionBean;
-import org.philmaster.boot.util.Util;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.event.TabCloseEvent;
 
 @Named
 @ViewScoped
-public class QuestionnaireDetail extends ContextDetailBean<Questionnaire>  implements Serializable {
+public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +32,6 @@ public class QuestionnaireDetail extends ContextDetailBean<Questionnaire>  imple
 	private QuestionnaireService questService;
 
 	private transient QuestionnaireJS questionnaireJS;
-
 
 	@Override
 	public Class<Questionnaire> initClass() {
@@ -54,7 +52,6 @@ public class QuestionnaireDetail extends ContextDetailBean<Questionnaire>  imple
 
 		System.err.println(getContext().uncommittedObjects());
 
-		
 		System.err.println("quest in db name -> " + getDetailObject().getName());
 
 	}

@@ -1,4 +1,4 @@
-package org.philmaster.boot.service;
+package org.philmaster.boot.util;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.apache.cayenne.BaseDataObject;
-import org.philmaster.boot.util.Util;
 import org.primefaces.model.SortOrder;
 
 public class LazySorter<T extends BaseDataObject> implements Comparator<T> {

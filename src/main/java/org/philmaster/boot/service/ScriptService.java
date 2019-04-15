@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @Named
 @ApplicationScoped
-public class Script {
+public class ScriptService {
 
 	private ScriptEngine engine;
 	private String query, result;

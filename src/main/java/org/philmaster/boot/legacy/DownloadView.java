@@ -42,9 +42,6 @@ public class DownloadView implements Serializable {
 
 	private Client client;
 	
-	@Inject
-	private DatabaseService db;
-
 	private ObjectContext context;
 
 	@Inject

@@ -7,7 +7,6 @@ import java.util.Locale;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,7 +23,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -43,6 +41,8 @@ import lombok.Setter;
 @Named
 @SessionScoped
 public class SessionBean implements Serializable, ApplicationListener<InteractiveAuthenticationSuccessEvent> {
+
+	private static final long serialVersionUID = 1L;
 
 	private Locale locale;
 
@@ -77,7 +77,7 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	//
 	// private static ObjectContext sessionContext =
 	// BaseContext.getThreadObjectContext();
-	private ObjectContext sessionContext;
+	private transient ObjectContext sessionContext;
 
 // 	@PostConstruct dont works here
 

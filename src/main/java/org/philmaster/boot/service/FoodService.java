@@ -42,7 +42,8 @@ public class FoodService implements Serializable {
 
 	private Document parseUrlToDocument() {
 		try {
-			return Jsoup.connect(URL).get();
+			return Jsoup.connect(URL)
+					.get();
 		} catch (IOException e) {
 			System.err.println(e); // TODO
 		}
@@ -54,14 +55,18 @@ public class FoodService implements Serializable {
 		if (doc == null)
 			return null;
 
-		Elements menuRows = doc.getElementById("menu-table_KW").select("tbody").get(0).select("tr");
+		Elements menuRows = doc.getElementById("menu-table_KW")
+				.select("tbody")
+				.get(0)
+				.select("tr");
 
 		List<Meal> meals = new ArrayList<>();
 		// skip header
 		for (int i = 1; i < menuRows.size(); i++) {
 			Element menuRow = menuRows.get(i);
 
-			String type = menuRow.select("th").text();
+			String type = menuRow.select("th")
+					.text();
 
 			// skip weekend
 			if ("Wochenend-Eintopf".equals(type) || "Sonntagsbraten".equals(type))
@@ -71,7 +76,9 @@ public class FoodService implements Serializable {
 
 			// über tage iterieren rows.size() durch 5 ersetzt bis Freitag
 			for (int dayIndex = 0; dayIndex < 5; dayIndex++) {
-				String desc = rows.select("td").get(dayIndex).text();
+				String desc = rows.select("td")
+						.get(dayIndex)
+						.text();
 				String kcal = parseKcal(desc);
 				desc = desc.replaceAll(kcal, ""); // dont want it two times
 				DayOfWeek day = DayOfWeek.of(dayIndex + 1);

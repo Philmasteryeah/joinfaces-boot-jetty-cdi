@@ -1,4 +1,4 @@
-package org.philmaster.boot.service;
+package org.philmaster.boot.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
