@@ -18,6 +18,7 @@ import org.primefaces.event.UnselectEvent;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 @Dependent
 public abstract class ContextListBean<T extends BaseDataObject> implements Serializable {
 
@@ -25,23 +26,18 @@ public abstract class ContextListBean<T extends BaseDataObject> implements Seria
 
 	public abstract Class<T> initClass();
 
-	@Getter
 	@Setter
 	private List<T> items, itemsFiltered, itemsSelected;
 
-	@Getter
 	@Setter
 	private Date date = new Date(); // Testing
 
-	@Getter
 	@Setter
 	private T selectedItem;
 
-	@Getter
 	private ObjectContext context = DatabaseService.newContext();
 
 	@Inject
-	@Getter
 	private SessionBean session;
 
 	@PostConstruct
