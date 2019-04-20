@@ -30,32 +30,32 @@ public class TestController {
 
 	@RequestMapping(path = "/testMeal", method = RequestMethod.GET)
 	public ResponseEntity<Meal> getTestMeal() {
-		return new ResponseEntity<Meal>(Meal.getTestMeal(), HttpStatus.OK);
+		return new ResponseEntity<>(Meal.getTestMeal(), HttpStatus.OK);
 	}
 
 	@RequestMapping(path = "/testMeals", method = RequestMethod.GET)
 	public ResponseEntity<List<Meal>> getTestMeals() {
-		return new ResponseEntity<List<Meal>>(Arrays.asList(Meal.getTestMeal(), Meal.getTestMeal()), HttpStatus.OK);
+		return new ResponseEntity<>(Arrays.asList(Meal.getTestMeal(), Meal.getTestMeal()), HttpStatus.OK);
 	}
 
 	@RequestMapping(path = "/meals", method = RequestMethod.GET)
 	public ResponseEntity<List<Meal>> getMeals() {
-		return new ResponseEntity<List<Meal>>(fs.getParsedMeals(), HttpStatus.OK);
+		return new ResponseEntity<>(fs.getParsedMeals(), HttpStatus.OK);
 	}
 
 	@RequestMapping(path = "/test", method = RequestMethod.GET)
 	public ResponseEntity<String> getTest() {
-		return new ResponseEntity<String>(is.getTestImage(), HttpStatus.OK);
+		return new ResponseEntity<>(is.getTestImage(), HttpStatus.OK);
 	}
 
 	@RequestMapping(path = "/test2", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<String> getTest2() {
-		return new ResponseEntity<String>(fis.getFileAsString("test.json"), HttpStatus.OK);
+		return new ResponseEntity<>(fis.getFileAsString("test.json"), HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(path = "/quest", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<String> getQuest() {
-		return new ResponseEntity<String>(fis.getFileAsString("questionnaire.json"), HttpStatus.OK);
+		return new ResponseEntity<>(fis.getFileAsString("questionnaire.json"), HttpStatus.OK);
 	}
 
 }

@@ -1,9 +1,9 @@
 package org.philmaster.boot.service;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +26,7 @@ public class FileService {
 
 	public String getFileAsString(String fileName) {
 		// fileName = test.json
-		List<File> files = null;
+		List<Path> files = null;
 		try {
 			files = getSaticResourceFiles();
 		} catch (IOException e) {
@@ -35,33 +35,31 @@ public class FileService {
 		}
 		if (files == null)
 			return null;
-		File f = files.stream().filter(p -> p.getName().contains(fileName)).findFirst().orElse(null);
-		if (f == null)
+
+		Path path = files.stream()
+				.filter(p -> p.compareTo(Path.of(fileName)) == 0)
+				.findFirst()
+				.orElse(null);
+
+		if (path == null)
 			return null;
 
-		List<String> a = null;
 		try {
-			a = Files.readAllLines(f.toPath(), StandardCharsets.ISO_8859_1); // TODO
+			return Files.readAllLines(path, StandardCharsets.ISO_8859_1)
+					.stream()
+					.collect(Collectors.joining("\n\r"));
 		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
 		}
-		return a.stream().collect(Collectors.joining("\n\r"));
+		return null;
 	}
 
-	private List<File> getSaticResourceFiles() throws IOException {
+	private List<Path> getSaticResourceFiles() throws IOException {
 		// loading files from ressources inside jar
-		return Arrays
-				.stream(ResourcePatternUtils.getResourcePatternResolver(resourceLoader)
-						.getResources(RES_STATIC_PATTERN))
-				.map(p -> {
-					try {
-						return p.getFile();
-					} catch (IOException e) {
-						e.printStackTrace();
-						return null;
-					}
-				})
+		// only works with iput streams, not wit file !!!
+		return Arrays.stream(ResourcePatternUtils.getResourcePatternResolver(resourceLoader)
+				.getResources(RES_STATIC_PATTERN))
+				.map(p -> Path.of(p.getFilename()))
 				.filter(Objects::nonNull)
 				.sorted()
 				.collect(Collectors.toList());
