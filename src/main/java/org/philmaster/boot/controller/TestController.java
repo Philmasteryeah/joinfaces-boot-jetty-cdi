@@ -11,6 +11,7 @@ import org.philmaster.boot.service.FoodService;
 import org.philmaster.boot.service.ImageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,34 +29,34 @@ public class TestController {
 	@Inject
 	private FileService fis;
 
-	@RequestMapping(path = "/testMeal", method = RequestMethod.GET)
+	@GetMapping(path = "/testMeal")
 	public ResponseEntity<Meal> getTestMeal() {
 		return new ResponseEntity<>(Meal.getTestMeal(), HttpStatus.OK);
 	}
 
-	@RequestMapping(path = "/testMeals", method = RequestMethod.GET)
+	@GetMapping(path = "/testMeals")
 	public ResponseEntity<List<Meal>> getTestMeals() {
 		return new ResponseEntity<>(Arrays.asList(Meal.getTestMeal(), Meal.getTestMeal()), HttpStatus.OK);
 	}
 
-	@RequestMapping(path = "/meals", method = RequestMethod.GET)
+	@GetMapping(path = "/meals")
 	public ResponseEntity<List<Meal>> getMeals() {
 		return new ResponseEntity<>(fs.getParsedMeals(), HttpStatus.OK);
 	}
 
-	@RequestMapping(path = "/test", method = RequestMethod.GET)
+	@GetMapping(path = "/test")
 	public ResponseEntity<String> getTest() {
 		return new ResponseEntity<>(is.getTestImage(), HttpStatus.OK);
 	}
 
-	@RequestMapping(path = "/test2", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(path = "/test2", produces = "application/json")
 	public ResponseEntity<String> getTest2() {
-		return new ResponseEntity<>(fis.getFileAsString("test.json"), HttpStatus.OK);
+		return new ResponseEntity<>(fis.getStaticFileAsString("test.json"), HttpStatus.OK);
 	}
 
-	@RequestMapping(path = "/quest", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(path = "/quest", produces = "application/json")
 	public ResponseEntity<String> getQuest() {
-		return new ResponseEntity<>(fis.getFileAsString("questionnaire.json"), HttpStatus.OK);
+		return new ResponseEntity<>(fis.getStaticFileAsString("questionnaire.json"), HttpStatus.OK);
 	}
 
 }

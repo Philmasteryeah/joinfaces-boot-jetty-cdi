@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.philmaster.boot.service.DatabaseService;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,22 +32,23 @@ public class SecurityConfig {
 				.roles("ADMIN");
 
 	}
-// temporary commented out under investigation
-//	@Configuration
-//	@Order(1)
-//	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
-//		protected void configure(HttpSecurity http) throws Exception {
-//			// TODO something is not working here like its should be
-//			http.csrf().disable();
-//			http.antMatcher("/rest/**")
-//					.authorizeRequests()
-//					.anyRequest()
-//					.hasRole("ADMIN")
-//				.and()
-//					.httpBasic();
-//
-//		}
-//	}
+ 
+	@Configuration
+	@Order(1)
+	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+			// TODO something is not working here like its should be
+			http.csrf().disable();
+			http.antMatcher("/rest/**")
+					.authorizeRequests()
+					.anyRequest()
+					.authenticated()
+				.and()
+					.httpBasic();
+
+		}
+	}
 
 	@Configuration
 	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
