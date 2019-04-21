@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
+import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.service.DatabaseService;
@@ -35,13 +36,15 @@ public abstract class ContextListBean<T extends BaseDataObject> implements Seria
 	@Setter
 	private T selectedItem;
 
-	private ObjectContext context = DatabaseService.newContext();
+	private ObjectContext context;
 
 	@Inject
 	private SessionBean session;
 
 	@PostConstruct
 	public void init() {
+		context = DatabaseService.INSTANCE.newContext();
+		BaseContext.bindThreadObjectContext(context);
 		items = DatabaseService.fetchAll(context, initClass());
 	}
 

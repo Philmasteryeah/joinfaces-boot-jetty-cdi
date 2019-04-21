@@ -21,7 +21,7 @@ public class SecurityConfig {
 	@Inject
 	protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication()
-				.dataSource(DatabaseService.getDataSource())
+				.dataSource(DatabaseService.INSTANCE.getDataSource())
 				.passwordEncoder(plaintextPasswordEncoder())
 				.usersByUsernameQuery("SELECT username, password, enabled FROM account WHERE username=?")
 				.authoritiesByUsernameQuery("SELECT username, 'ADMIN' as authority FROM account WHERE username=?")

@@ -32,12 +32,15 @@
         <meta
             name="mobile-web-app-capable"
             content="yes" />
-        <f:loadBundle
-            var="adm"
-            basename="admin" />
         <h:outputStylesheet
             library="css"
             name="starter.css" />
+        <f:loadBundle
+            var="adm"
+            basename="admin" />
+        <f:event
+            listener="#{sessionBean.onRequest}"
+            type="preRenderView" />
         <f:event
             type="preRenderView"
             listener="#{breadcrumbBean.addPageUrl()}" />

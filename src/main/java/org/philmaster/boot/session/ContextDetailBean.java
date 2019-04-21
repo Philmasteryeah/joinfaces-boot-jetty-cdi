@@ -5,6 +5,7 @@ import javax.enterprise.context.Dependent;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
+import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.query.SelectById;
@@ -31,7 +32,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	@Getter
 	@Setter
-	public String detailId;
+	public String detailId; // f:param name="id" value="#{detailObject.id()}" from dataTable
 
 	// page context
 	@Getter
@@ -46,7 +47,8 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	@PostConstruct
 	public void init() {
 		persistentClass = initClass();
-		context = DatabaseService.newContext();
+		context = DatabaseService.INSTANCE.newContext();
+		BaseContext.bindThreadObjectContext(context);
 		client = session.getLocalClient(context);
 		detailPageName = persistentClass.getSimpleName()
 				.toLowerCase() + "Detail";

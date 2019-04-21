@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.ConfigurableNavigationHandler;
+import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,19 +49,6 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	private Locale locale;
 
-	@Getter
-	@Setter
-	private String layoutSkin;
-
-	@Getter
-	@Setter
-	private String layoutSkinSelected;
-
-	@Getter
-	private List<String> layoutSkins = Arrays.asList("skin-blue", "skin-blue-light", "skin-yellow", "skin-yellow-light",
-			"skin-green", "skin-green-light", "skin-purple", "skin-purple-light", "skin-red", "skin-red-light",
-			"skin-black", "skin-black-light");
-
 //	@Autowired
 //	private HttpServletRequest request;
 
@@ -74,12 +64,27 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	// session context is only for client and account
 	// every context page has its own context
-	//
-	// private static ObjectContext sessionContext =
-	// BaseContext.getThreadObjectContext();
-	private transient ObjectContext sessionContext;
+	private ObjectContext sessionContext;
 
 // 	@PostConstruct dont works here
+
+	public void onRequest(ComponentSystemEvent event) {
+		// TODO get every request for testing
+
+//		FacesContext fc = FacesContext.getCurrentInstance();
+//		System.err.println(fc.getExternalContext()
+//				.getRequestParameterMap() + " ");
+
+//		ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication()
+//				.getNavigationHandler();
+//		nav.performNavigation("includes/error");
+
+//		if (!"admin".equals(fc.getExternalContext()
+//				.getSessionMap()
+//				.get("role"))) {
+//			nav.performNavigation("error");
+//		}
+	}
 
 	@Override
 	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
@@ -134,7 +139,7 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	private boolean isInitSession(String clientname, String username) {
 		if (sessionContext == null)
-			sessionContext = DatabaseService.newContext();
+			sessionContext = DatabaseService.INSTANCE.newContext();
 		client = DatabaseService.fetchClientByName(sessionContext, clientname);
 		if (client == null)
 			return false; // LOGGING no client

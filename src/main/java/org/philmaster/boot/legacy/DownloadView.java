@@ -49,7 +49,7 @@ public class DownloadView implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		context = DatabaseService.newContext();
+		context = DatabaseService.INSTANCE.newContext();
 
 		client = session.getClient();
 

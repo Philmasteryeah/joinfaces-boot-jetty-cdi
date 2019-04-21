@@ -1,17 +1,12 @@
 package org.philmaster.boot.service;
 
-import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Singleton;
 import javax.sql.DataSource;
 
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.configuration.CayenneRuntime;
 import org.apache.cayenne.configuration.server.ServerRuntime;
-import org.apache.cayenne.di.Injector;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.exp.ExpressionFactory;
 import org.apache.cayenne.query.ObjectSelect;
@@ -34,34 +29,31 @@ import org.philmaster.boot.model.Client;
  *         ctx.commitChanges();
  *
  */
+// Joshua Blochs enum singleton cool stuff
+public enum DatabaseService {
 
-@Singleton
-public final class DatabaseService implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+	INSTANCE;
 
 	private static final String CAYENNE_CONFIG = "cayenne-project.xml";
-
 	private static final String DEFAULT_CLIENT_NAME = "default";
 
-	private static final ServerRuntime runtime = ServerRuntime.builder()
-			.addConfig(CAYENNE_CONFIG)
-			.build();
+	private final ServerRuntime runtime;
 
-	@PostConstruct
-	void init() {
-		// Testing
-		Injector i = runtime.getInjector();
-		Injector threadInjector = CayenneRuntime.getThreadInjector();
-		CayenneRuntime.bindThreadInjector(i);
-		System.err.println(i.equals(threadInjector) + " " + threadInjector + " " + i);
+	DatabaseService() {
+		runtime = ServerRuntime.builder()
+				.addConfig(CAYENNE_CONFIG)
+				.build();
+//		Injector i = runtime.getInjector();
+//		Injector threadInjector = CayenneRuntime.getThreadInjector();
+//		CayenneRuntime.bindThreadInjector(i);
+//		System.err.println(i.equals(threadInjector) + " " + threadInjector + " " + i);
 	}
 
-	public static ObjectContext newContext() {
+	public ObjectContext newContext() {
 		return runtime.newContext();
 	}
 
-	public static DataSource getDataSource() {
+	public DataSource getDataSource() {
 		return runtime.getDataSource();
 	}
 
@@ -71,13 +63,10 @@ public final class DatabaseService implements Serializable {
 
 	/**
 	 * fetch the default client if name is null
-	 * 
-	 * @param context
-	 * @param name
-	 * @return
 	 */
 	public static Client fetchClientByName(ObjectContext context, String name) {
-		if (name == null || "null".equals(name.trim()))
+		if (name == null || "null".equals(name.trim()) || name.trim()
+				.isEmpty())
 			return fetchDefaultClient(context);
 		return ObjectSelect.query(Client.class)
 				.where(Client.NAME.eq(name))
