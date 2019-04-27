@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import javax.enterprise.context.Initialized;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Observes;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
@@ -49,6 +51,10 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	private Locale locale;
 
+	public static void init(@Observes @Initialized(SessionScoped.class) Object event) {
+		System.err.println(event + " -------- ");
+	}
+
 //	@Autowired
 //	private HttpServletRequest request;
 
@@ -64,7 +70,7 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	// session context is only for client and account
 	// every context page has its own context
-	private ObjectContext sessionContext;
+	private transient ObjectContext sessionContext; // do not deserialize
 
 // 	@PostConstruct dont works here
 
