@@ -60,13 +60,14 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 			session.getAccount()
 					.getClient();
 			// TODO add account
-			// TODO add permissions
+			// TODO add permissions to prevent direct access to not permitted stuff
 			detailObject = SelectById.query(persistentClass, detailId)
 					.selectOne(context);
 		} else {
 			// or create new
 			detailObject = context.newObject(persistentClass);
-			detailObject.setToOneTarget("client", client, true); // TODO client out here
+			// every detail object has a client
+			detailObject.setToOneTarget("client", client, true);
 		}
 	}
 

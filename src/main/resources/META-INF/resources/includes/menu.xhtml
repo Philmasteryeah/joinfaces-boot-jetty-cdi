@@ -7,59 +7,38 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:p="http://primefaces.org/ui">
 
-    <style type="text/css">
-.ui-menu {
-	width: 100%;
-	padding: 0;
-	position: relative;
-	border: 0;
-}
+    <ul
+        class="sidebar-menu tree"
+        data-widget="tree">
+        <li>
+            <p:link href="/views/main.xhtml">
+                <i class="fa fa-home"></i>
+                <span>Home</span>
 
-li.ui-menuitem>a.ui-menuitem-link {
-	padding: 12px 5px 12px 15px;
-	background-color: #f9fafc;
-	margin: 0;
-	display: block;
-	border-radius: 0;
-	width: 100%;
-}
+            </p:link>
+        </li>
 
-li.ui-menuitem.ui-widget.ui-corner-all {
-	margin: 0;
-}
+        <li class="header">Administration</li>
+        <li>
+            <p:link href="/views/clientDetail.xhtml">
+                <i class="fa fa-globe"></i>
+                <span>Client </span>
+            </p:link>
+        </li>
+        <li class="header">Lists</li>
+        <li>
+            <p:link href="/views/accountList.xhtml">
+                <i class="fa fa-user-circle-o"></i>
+                <span>Accounts </span>
+            </p:link>
+        </li>
+        <li>
+            <p:link href="/views/questionnaireList.xhtml">
+                <i class="fa fa-question-circle-o"></i>
+                <span>Questions</span>
+            </p:link>
+        </li>
 
-body .ui-menu ul.ui-menu-list>li.ui-widget-header {
-	padding: 10px 25px 10px 15px;
-	background-color: #f9fafc;
-	color: #848484;
-	margin: 0;
-	width: 100%;
-}
-</style>
-
-    <p:menu id="adminTree">
-
-        <p:menuitem
-            value="Home"
-            url="/views/main.xhtml"
-            icon="fa fa-home" />
-
-        <p:submenu label="Administration">
-            <p:menuitem
-                value="Client"
-                url="/views/clientDetail.xhtml"
-                icon="fa fa-globe" />
-        </p:submenu>
-        <p:submenu label="Lists">
-            <p:menuitem
-                value="Accounts"
-                url="/views/accountList.xhtml"
-                icon="fa fa-user-circle-o" />
-            <p:menuitem
-                value="Questions"
-                url="/views/questionnaireList.xhtml"
-                icon="fa fa-question-circle-o" />
-        </p:submenu>
-    </p:menu>
+    </ul>
 
 </ui:composition>

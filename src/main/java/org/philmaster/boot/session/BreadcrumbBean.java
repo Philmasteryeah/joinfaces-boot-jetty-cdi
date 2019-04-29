@@ -1,11 +1,9 @@
 package org.philmaster.boot.session;
 
 import java.io.Serializable;
-import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.SessionScoped;
@@ -23,6 +21,8 @@ public class BreadcrumbBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static Integer maxHistoryStackSize = 20;
+
+	// TODO the order is wrong because stack and linked list use other item index
 
 	@Getter
 	@Setter
@@ -43,10 +43,10 @@ public class BreadcrumbBean implements Serializable {
 		}
 	}
 
-	public List<String> pageStackLabels(){
+	public List<String> pageStackLabels() {
 		return Arrays.asList(allPageStackUrls().split(" > "));
 	}
-	
+
 	public String allPageStackUrls() {
 		// History
 		return pageStack.stream()
@@ -57,9 +57,11 @@ public class BreadcrumbBean implements Serializable {
 
 	public String getBackUrl() {
 		Integer stackSize = pageStack.size();
+		if (stackSize == 0)
+			return null;
 		if (stackSize > 1)
 			return pageStack.get(stackSize - 2);
-		
+
 		return pageStack.get(stackSize - 1);
 	}
 
@@ -68,6 +70,8 @@ public class BreadcrumbBean implements Serializable {
 	}
 
 	private void updatePageStack(String navigationCase) {
+		if (navigationCase == null)
+			return;
 
 		Integer stackSize = pageStack.size();
 		// Special
@@ -75,7 +79,7 @@ public class BreadcrumbBean implements Serializable {
 
 		// If stack is full, then make room by removing the oldest item
 		if (stackSize >= maxHistoryStackSize) {
-			pageStack.remove(0);
+			pageStack.removeLast();
 			stackSize = pageStack.size();
 		}
 
