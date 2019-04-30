@@ -146,6 +146,9 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	private boolean isInitSession(String clientname, String username) {
 		if (sessionContext == null)
 			sessionContext = DatabaseService.INSTANCE.newContext();
+		if (clientname == null || clientname.trim()
+				.isEmpty())
+			System.err.println("using default client");
 		client = DatabaseService.fetchClientByName(sessionContext, clientname);
 		if (client == null)
 			return false; // LOGGING no client

@@ -20,9 +20,10 @@ public class BreadcrumbBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Integer maxHistoryStackSize = 20;
+	private static final Integer maxHistoryStackSize = 20;
 
-	// TODO the order is wrong because stack and linked list use other item index
+	private static final String URL_REGEX_PREFIX = ".*\\";
+	private static final String URL_REGEX_SUFFIX = "\\..*";
 
 	@Getter
 	@Setter
@@ -30,16 +31,14 @@ public class BreadcrumbBean implements Serializable {
 
 	public void addPageUrl() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
+
 		if (!facesContext.isPostback() && !facesContext.isValidationFailed()) {
 			HttpServletRequest servletRequest = (HttpServletRequest) facesContext.getExternalContext()
 					.getRequest();
-			String url = servletRequest.getRequestURL()
-					.toString();
-			String query = servletRequest.getQueryString();
-			String fullUrl = query != null && !query.trim()
-					.isEmpty() ? url + "?" + query : url;
 
-			updatePageStack(fullUrl);
+			String uri = servletRequest.getRequestURI();
+
+			updatePageStack(uri);
 		}
 	}
 
@@ -47,11 +46,16 @@ public class BreadcrumbBean implements Serializable {
 		return Arrays.asList(allPageStackUrls().split(" > "));
 	}
 
+	private String urlToName(String url) {
+		// /etc/index.xhtml -> index
+		return url.replaceAll(URL_REGEX_PREFIX, "")
+				.replaceAll(URL_REGEX_SUFFIX, "");
+	}
+
 	public String allPageStackUrls() {
 		// History
 		return pageStack.stream()
-				.map(s -> s.replaceAll("^.+\\/", "")
-						.replaceAll("[.].+$", ""))
+				.map(this::urlToName)
 				.collect(Collectors.joining(" > "));
 	}
 
@@ -85,7 +89,7 @@ public class BreadcrumbBean implements Serializable {
 
 		// If the first page visiting, add to stack
 		if (stackSize == 0) {
-			pageStack.push(navigationCase);
+			pageStack.add(navigationCase);
 			return;
 		}
 
@@ -106,7 +110,7 @@ public class BreadcrumbBean implements Serializable {
 
 		// In a normal case, we add the item to the stack
 		if (stackSize >= 1) {
-			pageStack.push(navigationCase);
+			pageStack.add(navigationCase);
 		}
 
 	}
