@@ -22,7 +22,7 @@ public class BreadcrumbBean implements Serializable {
 
 	private static final Integer maxHistoryStackSize = 20;
 
-	private static final String URL_REGEX_PREFIX = ".*\\";
+	private static final String URL_REGEX_PREFIX = ".*/";
 	private static final String URL_REGEX_SUFFIX = "\\..*";
 
 	@Getter
@@ -54,6 +54,7 @@ public class BreadcrumbBean implements Serializable {
 
 	public String allPageStackUrls() {
 		// History
+
 		return pageStack.stream()
 				.map(this::urlToName)
 				.collect(Collectors.joining(" > "));
