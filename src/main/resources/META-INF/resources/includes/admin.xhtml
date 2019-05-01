@@ -130,6 +130,7 @@
             class="content-wrapper">
             <ui:insert name="content-wrapper" />
             <section class="content-header">
+
                 <h1>
                     <ui:insert name="title">
                         <h:outputText
@@ -140,7 +141,28 @@
                         <ui:insert name="description" />
                     </small>
                 </h1>
+
+
+
                 <ui:insert name="content-header" />
+                <ol class="breadcrumb">
+                    <li>
+                        <p:link href="/views/main.xhtml">
+                            <i class="fa fa-home"></i>
+                            <span>Home</span>
+                        </p:link>
+                    </li>
+                    <p:repeat
+                        value="#{breadcrumbBean.pageStackUrlNames()}"
+                        var="page">
+                        <li>
+                            <p:link href="#{page}.xhtml">
+                                <!-- TODO label mapping -->
+                                <h:outputText value="#{page}" />
+                            </p:link>
+                        </li>
+                    </p:repeat>
+                </ol>
             </section>
             <section class="content">
                 <ui:insert name="content-begin" />

@@ -23,13 +23,8 @@
                         listBean="#{accountList}"
                         colTitles="#{['Username', 'Birthdate']}"
                         colAttributes="#{['username', 'dateBirth']}">
-
-                    </pm:dataTable> ---
-					<h:outputLink
-                        value="#{breadcrumbBean.backUrl}"
-                        rendered="#{breadcrumbBean.hasPageBack()}">Back</h:outputLink>
-						---
-				</h:form>
+                    </pm:dataTable>
+                </h:form>
             </div>
         </div>
     </ui:define>

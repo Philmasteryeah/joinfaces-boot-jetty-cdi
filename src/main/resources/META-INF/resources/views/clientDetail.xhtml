@@ -30,8 +30,7 @@
 
                     <h:panelGrid
                         columns="2"
-                        cellpadding="5"
-                        style="width: 250px;">
+                        cellpadding="5">
                         <h:outputText value="Name:" />
                         <h:outputText value="#{detailObject.name}" />
                         <h:outputText value="Color:" />
@@ -44,15 +43,15 @@
                     </h:panelGrid>
 
 
-                    <div class="box-footer with-border">
-                        <p:commandButton
-                            action="result"
-                            value="Save"
-                            actionListener="#{clientDetail.actionSave}"
-                            ajax="false">
-                        </p:commandButton>
+                    <hr />
+                    <p:commandButton
+                        action="result"
+                        value="Save"
+                        actionListener="#{clientDetail.actionSave}"
+                        ajax="false">
+                    </p:commandButton>
 
-                    </div>
+
                 </div>
 
             </div>

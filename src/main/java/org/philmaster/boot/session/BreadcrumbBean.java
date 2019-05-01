@@ -20,8 +20,7 @@ public class BreadcrumbBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Integer maxHistoryStackSize = 20;
-
+	private static final Integer MAX_STACK_SIZE = 10;
 	private static final String URL_REGEX_PREFIX = ".*/";
 	private static final String URL_REGEX_SUFFIX = "\\..*";
 
@@ -36,14 +35,8 @@ public class BreadcrumbBean implements Serializable {
 			HttpServletRequest servletRequest = (HttpServletRequest) facesContext.getExternalContext()
 					.getRequest();
 
-			String uri = servletRequest.getRequestURI();
-
-			updatePageStack(uri);
+			updatePageStack(servletRequest.getRequestURI());
 		}
-	}
-
-	public List<String> pageStackLabels() {
-		return Arrays.asList(allPageStackUrls().split(" > "));
 	}
 
 	private String urlToName(String url) {
@@ -52,22 +45,18 @@ public class BreadcrumbBean implements Serializable {
 				.replaceAll(URL_REGEX_SUFFIX, "");
 	}
 
-	public String allPageStackUrls() {
+	public List<String> pageStackUrlNames() {
 		// History
-
 		return pageStack.stream()
 				.map(this::urlToName)
-				.collect(Collectors.joining(" > "));
+				.collect(Collectors.toList());
 	}
 
 	public String getBackUrl() {
-		Integer stackSize = pageStack.size();
+		int stackSize = pageStack.size();
 		if (stackSize == 0)
 			return null;
-		if (stackSize > 1)
-			return pageStack.get(stackSize - 2);
-
-		return pageStack.get(stackSize - 1);
+		return (stackSize > 1) ? pageStack.get(stackSize - 2) : pageStack.get(stackSize - 1);
 	}
 
 	public boolean hasPageBack() {
@@ -78,12 +67,19 @@ public class BreadcrumbBean implements Serializable {
 		if (navigationCase == null)
 			return;
 
-		Integer stackSize = pageStack.size();
-		// Special
-		// TODO empty stack on menu click
+		int stackSize = pageStack.size();
+		// skip error
+		if (navigationCase.contains("error"))
+			return;
+
+		// clear on index
+		if (navigationCase.contains("index")) {
+			pageStack.clear();
+			return;
+		}
 
 		// If stack is full, then make room by removing the oldest item
-		if (stackSize >= maxHistoryStackSize) {
+		if (stackSize >= MAX_STACK_SIZE) {
 			pageStack.removeLast();
 			stackSize = pageStack.size();
 		}
@@ -110,9 +106,7 @@ public class BreadcrumbBean implements Serializable {
 		}
 
 		// In a normal case, we add the item to the stack
-		if (stackSize >= 1) {
+		if (stackSize >= 1)
 			pageStack.add(navigationCase);
-		}
-
 	}
 }

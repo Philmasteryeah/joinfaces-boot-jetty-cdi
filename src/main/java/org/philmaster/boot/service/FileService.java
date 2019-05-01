@@ -33,7 +33,7 @@ public class FileService implements ResourceLoaderAware {
 	public String getStaticFileAsString(String filename) {
 		Resource resource = getStaticResource(filename);
 		System.err.println("resource loaded " + resource);
-		
+
 		URI uri = resourceToUri(resource);
 		if (uri == null)
 			return null;
@@ -43,7 +43,7 @@ public class FileService implements ResourceLoaderAware {
 					.stream()
 					.collect(Collectors.joining("\n\r"));
 		} catch (IOException e) {
-			System.out.println(e);
+			System.err.println(e);
 		}
 		return null;
 	}
@@ -52,9 +52,9 @@ public class FileService implements ResourceLoaderAware {
 		try {
 			return resource.getURI();
 		} catch (FileNotFoundException e) {
-			System.out.println(e);
+			System.err.println("File not found " + e.getMessage());
 		} catch (IOException e) {
-			System.out.println(e);
+			System.err.println(e.getMessage());
 		}
 		return null;
 	}

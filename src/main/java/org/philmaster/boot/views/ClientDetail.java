@@ -26,6 +26,10 @@ public class ClientDetail implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private static final List<String> layoutSkins = Arrays.asList("skin-blue", "skin-blue-light", "skin-yellow",
+			"skin-yellow-light", "skin-green", "skin-green-light", "skin-purple", "skin-purple-light", "skin-red",
+			"skin-red-light", "skin-black", "skin-black-light");
+
 	private ObjectContext context;
 
 	@Getter
@@ -35,10 +39,6 @@ public class ClientDetail implements Serializable {
 	@Inject
 	private SessionBean session;
 
-	private static final List<String> layoutSkins = Arrays.asList("skin-blue", "skin-blue-light", "skin-yellow",
-			"skin-yellow-light", "skin-green", "skin-green-light", "skin-purple", "skin-purple-light", "skin-red",
-			"skin-red-light", "skin-black", "skin-black-light");
-
 	@PostConstruct
 	void init() {
 		// local context
@@ -46,10 +46,6 @@ public class ClientDetail implements Serializable {
 		BaseContext.bindThreadObjectContext(context);
 		// local copy of the client from session context to this view context
 		detailObject = session.getLocalClient(context);
-
-		System.err.println(context.getEntityResolver()
-				.getClassDescriptorMap());
-
 	}
 
 	public void actionSave(ActionEvent actionEvent) {
