@@ -39,17 +39,26 @@ public class BreadcrumbBean implements Serializable {
 		}
 	}
 
-	private String urlToName(String url) {
+	private static String urlToName(String url) {
 		// /etc/index.xhtml -> index
 		return url.replaceAll(URL_REGEX_PREFIX, "")
 				.replaceAll(URL_REGEX_SUFFIX, "");
 	}
 
+	public void execute(String page) {
+		System.err.println(page + " - ");
+	}
+
 	public List<String> pageStackUrlNames() {
 		// History
 		return pageStack.stream()
-				.map(this::urlToName)
+				.map(BreadcrumbBean::urlToName)
 				.collect(Collectors.toList());
+	}
+
+	public String pageName(String page) {
+		// TODO naming clientDetail -> Client, accountList -> Accounts from properties
+		return page;
 	}
 
 	public String getBackUrl() {

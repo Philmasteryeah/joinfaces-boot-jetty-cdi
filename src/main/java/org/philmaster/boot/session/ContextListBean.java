@@ -44,7 +44,7 @@ public abstract class ContextListBean<T extends BaseDataObject> implements Seria
 	@PostConstruct
 	public void init() {
 		context = DatabaseService.INSTANCE.newContext();
-		BaseContext.bindThreadObjectContext(context);
+		
 		items = DatabaseService.fetchAll(context, initClass());
 	}
 

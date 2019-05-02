@@ -34,6 +34,7 @@ public enum DatabaseService {
 
 	INSTANCE;
 
+	// private static final Logger LOGGER = LogManager.getLogger();
 	private static final String CAYENNE_CONFIG = "cayenne-project.xml";
 	private static final String DEFAULT_CLIENT_NAME = "default";
 
@@ -43,14 +44,12 @@ public enum DatabaseService {
 		runtime = ServerRuntime.builder()
 				.addConfig(CAYENNE_CONFIG)
 				.build();
-//		Injector i = runtime.getInjector();
-//		Injector threadInjector = CayenneRuntime.getThreadInjector();
-//		CayenneRuntime.bindThreadInjector(i);
-//		System.err.println(i.equals(threadInjector) + " " + threadInjector + " " + i);
 	}
 
 	public ObjectContext newContext() {
-		return runtime.newContext();
+		ObjectContext newContext = runtime.newContext();
+		//BaseContext.bindThreadObjectContext(newContext);
+		return newContext;
 	}
 
 	public DataSource getDataSource() {

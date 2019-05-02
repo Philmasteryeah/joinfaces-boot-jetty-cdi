@@ -2,20 +2,22 @@ package org.philmaster.boot.session;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 
-import javax.enterprise.context.Initialized;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.Destroyed;
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Observes;
-import javax.faces.application.ConfigurableNavigationHandler;
-import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.ObjectContext;
+import org.apache.cayenne.access.DataContext;
+import org.apache.cayenne.di.BeforeScopeEnd;
 import org.apache.cayenne.query.ObjectSelect;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
@@ -28,7 +30,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author Philmasteryeah
@@ -51,10 +52,6 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	private Locale locale;
 
-	public static void init(@Observes @Initialized(SessionScoped.class) Object event) {
-		System.err.println(event + " -------- ");
-	}
-
 //	@Autowired
 //	private HttpServletRequest request;
 
@@ -70,11 +67,26 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	// session context is only for client and account
 	// every context page has its own context
-	private transient ObjectContext sessionContext; // do not deserialize
+	private ObjectContext sessionContext = DatabaseService.INSTANCE.newContext();
 
-// 	@PostConstruct dont works here
+	@PostConstruct
+	private void init() {
+		System.err.println(sessionContext);
+
+		// BaseContext.bindThreadObjectContext(sessionContext);
+		System.err.println("--------@PostConstruct Session---------");
+		System.err.println(sessionContext);
+	}
+
+	@PreDestroy
+	private void destroy() {
+		System.err.println(sessionContext.getGraphManager());
+		System.err.println("--------@PreDestroy  Session---------");
+		System.err.println(sessionContext);
+	}
 
 	public void onRequest(ComponentSystemEvent event) {
+		System.err.println("req" + event);
 		// TODO get every request for testing
 
 //		FacesContext fc = FacesContext.getCurrentInstance();
@@ -94,6 +106,7 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	@Override
 	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
+		System.err.println(event + " onEvent " + event.getAuthentication());
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
 				.getRequest();
 		System.err.println(request);
@@ -131,21 +144,24 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	public String logout() {
 		// instance can be null here
-		// TODO redirect not working
 		// clear faces session
-//		ExternalContext ec = FacesContext.getCurrentInstance()
-//				.getExternalContext();
-//		ec.invalidateSession();
-
 		// clear spring session
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+				.getRequest();
+		HttpSession session = request.getSession();
+		System.err.println(session.getServletContext()
+				.getSessionCookieConfig());
+
+		session.invalidate();
 		SecurityContextHolder.clearContext();
+		FacesContext.getCurrentInstance()
+				.getExternalContext()
+				.invalidateSession();
 		return "/index.xhtml?faces-redirect=true";
 
 	}
 
 	private boolean isInitSession(String clientname, String username) {
-		if (sessionContext == null)
-			sessionContext = DatabaseService.INSTANCE.newContext();
 		if (clientname == null || clientname.trim()
 				.isEmpty())
 			System.err.println("using default client");

@@ -32,12 +32,12 @@
         <meta
             name="mobile-web-app-capable"
             content="yes" />
-        <h:outputStylesheet
-            library="css"
-            name="starter.css" />
         <f:loadBundle
             var="adm"
             basename="admin" />
+        <h:outputStylesheet
+            library="css"
+            name="starter.css" />
         <f:event
             listener="#{sessionBean.onRequest}"
             type="preRenderView" />
@@ -64,17 +64,12 @@
                 href="#control-sidebar-home-tab"
                 data-toggle="tab">
                 <i class="fa fa-home"></i>
-            </a>
-        </li>
-        <li>
-            <a
-                href="#control-sidebar-settings-tab"
-                data-toggle="tab">
-                <i class="fa fa-gears"></i>
+
             </a>
         </li>
     </ui:define>
     <ui:define name="controlsidebar-content">
+        <ui:include src="/includes/controlsidebar-tabs-content.xhtml" />
     </ui:define>
     <ui:define name="footer">
         <a

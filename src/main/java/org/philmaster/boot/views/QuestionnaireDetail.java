@@ -34,11 +34,9 @@ public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> implem
 	private transient QuestionnaireJS questionnaireJS;
 
 	@Override
-	public Class<Questionnaire> initClass() {
-
+	public void init() {
+		super.init();
 		questionnaireJS = questService.getQuestionnaire();
-
-		return Questionnaire.class;
 	}
 
 	@Override

@@ -43,7 +43,7 @@ public class ClientDetail implements Serializable {
 	void init() {
 		// local context
 		context = DatabaseService.INSTANCE.newContext();
-		BaseContext.bindThreadObjectContext(context);
+		
 		// local copy of the client from session context to this view context
 		detailObject = session.getLocalClient(context);
 	}

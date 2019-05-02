@@ -13,7 +13,6 @@
             <f:viewParam
                 name="id"
                 value="#{accountDetail.detailId}" />
-            <f:viewAction action="#{accountDetail.initDetail}" />
             <c:set
                 var="detailObject"
                 value="#{accountDetail.detailObject}" />
@@ -47,7 +46,7 @@
                     </h:panelGrid>
 
 
-                    <hr />
+                    <p:separator/>
 
 
                     <p:commandButton

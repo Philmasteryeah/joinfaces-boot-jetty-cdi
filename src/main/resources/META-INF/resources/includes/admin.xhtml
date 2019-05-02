@@ -142,8 +142,6 @@
                     </small>
                 </h1>
 
-
-
                 <ui:insert name="content-header" />
                 <ol class="breadcrumb">
                     <li>
@@ -156,9 +154,10 @@
                         value="#{breadcrumbBean.pageStackUrlNames()}"
                         var="page">
                         <li>
-                            <p:link href="#{page}.xhtml">
+                        <p:remoteCommand name="rc" action="#{breadcrumbBean.execute(page)}" />
+                            <p:link href="#{page}.xhtml" onclick="rc()" >
                                 <!-- TODO label mapping -->
-                                <h:outputText value="#{page}" />
+                                <h:outputText value="#{breadcrumbBean.pageName(page)}" />
                             </p:link>
                         </li>
                     </p:repeat>

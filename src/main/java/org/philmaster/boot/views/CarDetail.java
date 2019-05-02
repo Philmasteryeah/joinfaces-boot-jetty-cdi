@@ -15,11 +15,6 @@ public class CarDetail extends ContextDetailBean<Car> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Override
-	public Class<Car> initClass() {
-		return Car.class;
-	}
-
 	public void actionAdd(ActionEvent actionEvent) {
 //		for (int i = 0; i < 10; i++) {
 //			Car.createRandomTestCar(context, client);

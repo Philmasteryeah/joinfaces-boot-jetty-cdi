@@ -13,7 +13,6 @@
             <f:viewParam
                 name="id"
                 value="#{questionnaireDetail.detailId}" />
-            <f:viewAction action="#{questionnaireDetail.initDetail}" />
             <c:set
                 var="detailObject"
                 value="#{questionnaireDetail.detailObject}" />
@@ -71,8 +70,8 @@
                             </h:panelGrid>
                         </p:tab>
                     </p:accordionPanel>
-                </div>
-                <div class="box-footer with-border">
+
+                    <p:separator />
 
                     <p:commandButton
                         value="Save"

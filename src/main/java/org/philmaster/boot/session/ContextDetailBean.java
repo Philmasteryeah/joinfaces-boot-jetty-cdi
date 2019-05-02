@@ -1,11 +1,13 @@
 package org.philmaster.boot.session;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
-import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.query.SelectById;
@@ -14,12 +16,9 @@ import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.Util;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Dependent
 public abstract class ContextDetailBean<T extends BaseDataObject> {
-
-	public abstract Class<T> initClass();
 
 	private Class<T> persistentClass;
 
@@ -27,16 +26,13 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	private String detailPageName;
 
 	@Getter
-	@Setter
 	private T detailObject;
 
 	@Getter
-	@Setter
-	public String detailId; // f:param name="id" value="#{detailObject.id()}" from dataTable
+	private String detailId; // f:param name="id" value="#{detailObject.id()}" from dataTable
 
-	// page context
 	@Getter
-	private ObjectContext context;
+	private final ObjectContext context = DatabaseService.INSTANCE.newContext();
 
 	private Client client;
 
@@ -46,29 +42,56 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	@PostConstruct
 	public void init() {
-		persistentClass = initClass();
-		context = DatabaseService.INSTANCE.newContext();
-		BaseContext.bindThreadObjectContext(context);
+		persistentClass = getTypeOfT();
+		
+		System.err.println(context.getChannel() + " init");
+		
 		client = session.getLocalClient(context);
-		detailPageName = persistentClass.getSimpleName()
-				.toLowerCase() + "Detail";
+
+		// TODO not needed can be pure el
+		if (persistentClass != null)
+			detailPageName = "" + persistentClass.getSimpleName()
+					.toLowerCase() + "Detail";
 	}
 
-	public void initDetail() {
-		if (detailId != null) {
-			// fetch by id
-			session.getAccount()
-					.getClient();
-			// TODO add account
-			// TODO add permissions to prevent direct access to not permitted stuff
-			detailObject = SelectById.query(persistentClass, detailId)
-					.selectOne(context);
-		} else {
-			// or create new
-			detailObject = context.newObject(persistentClass);
-			// every detail object has a client
-			detailObject.setToOneTarget("client", client, true);
-		}
+	// will set on page navigation
+	public void setDetailId(String detailId) {
+		this.detailId = detailId;
+		setDetailObject();
+	}
+
+	public void setDetailObject() {
+		this.detailObject = detailId != null ? fetchDetailObjectById(detailId) : createDetailObject();
+	}
+
+	// evil but I like it
+	@SuppressWarnings("unchecked")
+	private Class<T> getTypeOfT() {
+		return (Class<T>) getParameterizedTypes(this)[0];
+	}
+
+	// UTIL
+	public static Type[] getParameterizedTypes(Object object) {
+		Type superclassType = object.getClass()
+				.getGenericSuperclass();
+//		if (!ParameterizedType.class.isAssignableFrom(superclassType.getClass())) {
+//			return null;
+//		}
+		return ((ParameterizedType) superclassType).getActualTypeArguments();
+	}
+
+	private T createDetailObject() {
+		detailObject = context.newObject(persistentClass);
+		// every detail object has a client
+		detailObject.setToOneTarget("client", client, true);
+		return detailObject;
+	}
+
+	private T fetchDetailObjectById(String detailId) {
+		// TODO add account
+		detailObject = SelectById.query(persistentClass, detailId)
+				.selectOne(context);
+		return detailObject;
 	}
 
 	public void actionSave(ActionEvent actionEvent) {
