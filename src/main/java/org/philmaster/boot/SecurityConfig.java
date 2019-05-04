@@ -71,7 +71,8 @@ public class SecurityConfig {
 					.permitAll()
 				.and()
 					.logout()
-					.logoutSuccessUrl("/login.xhtml");
+					.logoutSuccessUrl("/login.xhtml")
+					.deleteCookies("JSESSIONID");
 
 			http.headers()
 					.frameOptions()
