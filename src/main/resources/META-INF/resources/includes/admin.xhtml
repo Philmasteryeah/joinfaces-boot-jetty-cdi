@@ -24,9 +24,8 @@
     <ui:insert name="head" />
     <ui:insert name="head-end" />
 </h:head>
-
 <h:body
-    styleClass="#{empty sessionBean.client.skin ? adm['adminConfig.skin'] : sessionBean.client.skin } ">
+    styleClass="#{adm['adminConfig.skin']} ">
     <ui:insert name="body-begin" />
     <p:ajaxStatus
         rendered="#{adm['adminConfig.renderAjaxStatus']}"

@@ -69,21 +69,21 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	// every context page has its own context
 	private ObjectContext sessionContext = DatabaseService.INSTANCE.newContext();
 
-	@PostConstruct
-	private void init() {
-		System.err.println(sessionContext);
-
-		// BaseContext.bindThreadObjectContext(sessionContext);
-		System.err.println("--------@PostConstruct Session---------");
-		System.err.println(sessionContext);
-	}
-
-	@PreDestroy
-	private void destroy() {
-		System.err.println(sessionContext.getGraphManager());
-		System.err.println("--------@PreDestroy  Session---------");
-		System.err.println(sessionContext);
-	}
+//	@PostConstruct
+//	private void init() {
+//		System.err.println(sessionContext);
+//
+//		// BaseContext.bindThreadObjectContext(sessionContext);
+//		System.err.println("--------@PostConstruct Session---------");
+//		System.err.println(sessionContext);
+//	}
+//
+//	@PreDestroy
+//	private void destroy() {
+//		System.err.println(sessionContext.getGraphManager());
+//		System.err.println("--------@PreDestroy  Session---------");
+//		System.err.println(sessionContext);
+//	}
 
 	public void onRequest(ComponentSystemEvent event) {
 		System.err.println("req" + event);
@@ -175,8 +175,8 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		System.err.println("init session client-> " + client.getName());
 		System.err.println("init session user-> " + account.getUsername());
 
-		String skin = client.getSkin();
-		System.err.println(skin + " skin loaded from client");
+		//String skin = client.getSkin();
+		//System.err.println(skin + " skin loaded from client");
 		// setLayoutSkin(skin);
 		return true;
 	}

@@ -20,7 +20,7 @@ import lombok.Getter;
 @Dependent
 public abstract class ContextDetailBean<T extends BaseDataObject> {
 
-	private Class<T> persistentClass;
+//	private Class<T> persistentClass;
 
 	@Getter
 	private String detailPageName;
@@ -42,16 +42,16 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	@PostConstruct
 	public void init() {
-		persistentClass = getTypeOfT();
-		
+//		persistentClass = getTypeOfT();
+
 		System.err.println(context.getChannel() + " init");
-		
+
 		client = session.getLocalClient(context);
 
-		// TODO not needed can be pure el
-		if (persistentClass != null)
-			detailPageName = "" + persistentClass.getSimpleName()
-					.toLowerCase() + "Detail";
+//		// TODO not needed can be pure el
+//		if (persistentClass != null)
+//			detailPageName = "" + persistentClass.getSimpleName()
+//					.toLowerCase() + "Detail";
 	}
 
 	// will set on page navigation
@@ -61,6 +61,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	}
 
 	public void setDetailObject() {
+		System.err.println("---" + context);
 		this.detailObject = detailId != null ? fetchDetailObjectById(detailId) : createDetailObject();
 	}
 
@@ -81,7 +82,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	}
 
 	private T createDetailObject() {
-		detailObject = context.newObject(persistentClass);
+		detailObject = context.newObject(getTypeOfT());
 		// every detail object has a client
 		detailObject.setToOneTarget("client", client, true);
 		return detailObject;
@@ -89,7 +90,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	private T fetchDetailObjectById(String detailId) {
 		// TODO add account
-		detailObject = SelectById.query(persistentClass, detailId)
+		detailObject = SelectById.query(getTypeOfT(), detailId)
 				.selectOne(context);
 		return detailObject;
 	}

@@ -16,9 +16,13 @@ public class AccountDetail extends ContextDetailBean<Account> implements Seriali
 	private static final long serialVersionUID = 1L;
 
 	@Override
+	public void init() {
+		super.init();
+	}
+
+	@Override
 	public void actionSave(ActionEvent actionEvent) {
 		super.actionSave(actionEvent);
 	}
-
 
 }
