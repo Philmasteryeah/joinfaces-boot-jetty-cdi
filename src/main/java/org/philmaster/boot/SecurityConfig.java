@@ -25,12 +25,7 @@ public class SecurityConfig {
 				.dataSource(DatabaseService.INSTANCE.getDataSource())
 				.passwordEncoder(plaintextPasswordEncoder())
 				.usersByUsernameQuery("SELECT username, password, enabled FROM account WHERE username=?")
-				.authoritiesByUsernameQuery("SELECT username, 'ADMIN' as authority FROM account WHERE username=?")
-			.and()
-				.inMemoryAuthentication()
-				.withUser("sa")
-				.password("{noop}test")
-				.roles("ADMIN");
+				.authoritiesByUsernameQuery("SELECT username, 'ADMIN' as authority FROM account WHERE username=?");
 
 	}
  
@@ -56,7 +51,7 @@ public class SecurityConfig {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			
-			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+			//http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 			
 			http.csrf().disable();
 			http.authorizeRequests()

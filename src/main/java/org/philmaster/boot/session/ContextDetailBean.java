@@ -4,7 +4,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
@@ -17,7 +16,6 @@ import org.philmaster.boot.util.Util;
 
 import lombok.Getter;
 
-@Dependent
 public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 //	private Class<T> persistentClass;

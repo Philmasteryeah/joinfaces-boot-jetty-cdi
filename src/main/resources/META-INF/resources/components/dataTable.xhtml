@@ -52,14 +52,14 @@
                 sortBy="#{detailObject.id()}"
                 filterBy="#{detailObject.id()}">
                 <!-- important = link without ajax here -->
-                <p:link
-                    value="#{detailObject.id()}"
-                    outcome="#{cc.attrs.detailPage}"
-                    includeViewParams="true">
-                    <f:param
-                        name="id"
-                        value="#{detailObject.id()}" />
-                </p:link>
+                    <p:link
+                        value="#{detailObject.id()}"
+                        outcome="#{cc.attrs.detailPage}"
+                        includeViewParams="true">
+                        <f:param
+                            name="id"
+                            value="#{detailObject.id()}" />
+                    </p:link>
             </p:column>
 
             <p:column

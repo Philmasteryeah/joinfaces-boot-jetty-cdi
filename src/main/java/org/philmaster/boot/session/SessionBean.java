@@ -86,7 +86,7 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 //	}
 
 	public void onRequest(ComponentSystemEvent event) {
-		System.err.println("req" + event);
+		//System.err.println("req" + event);
 		// TODO get every request for testing
 
 //		FacesContext fc = FacesContext.getCurrentInstance();

@@ -49,7 +49,7 @@ public enum DatabaseService {
 
 	public ObjectContext newContext() {
 		ObjectContext newContext = runtime.newContext();
-		BaseContext.bindThreadObjectContext(newContext);
+		//BaseContext.bindThreadObjectContext(newContext);
 		return newContext;
 	}
 

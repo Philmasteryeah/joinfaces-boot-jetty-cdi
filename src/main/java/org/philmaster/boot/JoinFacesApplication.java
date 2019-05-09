@@ -9,6 +9,8 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 public class JoinFacesApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(JoinFacesApplication.class, args);
+
 	}
 }

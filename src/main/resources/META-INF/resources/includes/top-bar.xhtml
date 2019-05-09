@@ -2,6 +2,7 @@
 <ui:composition
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
     xmlns:pe="http://primefaces.org/ui/extensions">
@@ -33,12 +34,24 @@
                 </li>
                 <li class="user-footer">
                     <h:form prependId="false">
-                        <div class="pull-left">TODO</div>
+                        <div class="pull-left">
+
+                            <p:link
+                                value="Detail"
+                                outcome="/views/accountDetail.xhtml"
+                                includeViewParams="true"
+                                styleClass="btn btn-default">
+                                <f:param
+                                    name="id"
+                                    value="#{sessionBean.account.id()}" />
+                            </p:link>
+
+                        </div>
                         <div class="pull-right">
                             <p:commandLink
                                 action="#{sessionBean.logout}"
                                 ajax="false"
-                                value="#{msg['label.logout']}"
+                                value="#{adm['label.logout']}"
                                 styleClass="btn btn-danger">
                             </p:commandLink>
                         </div>
