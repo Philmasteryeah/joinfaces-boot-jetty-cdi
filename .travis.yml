@@ -7,6 +7,9 @@ cache:
   directories:
   - $HOME/.m2
 
+services:
+  - redis-server
+
 install: ./mvnw install -DskipTests=true -B 
 
 notifications:
