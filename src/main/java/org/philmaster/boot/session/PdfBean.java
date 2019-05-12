@@ -17,7 +17,9 @@ import com.lowagie.text.pdf.PdfWriter;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.java.Log;
 
+@Log
 @Named
 @SessionScoped
 public class PdfBean implements Serializable {
@@ -26,7 +28,7 @@ public class PdfBean implements Serializable {
 
 	@Getter
 	@Setter
-	private StreamedContent pdfViewerContent;
+	private transient StreamedContent pdfViewerContent;
 
 	public void onPrerender(ComponentSystemEvent event) {
 
@@ -45,7 +47,7 @@ public class PdfBean implements Serializable {
 			pdfViewerContent = new DefaultStreamedContent(new ByteArrayInputStream(out.toByteArray()),
 					"application/pdf");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.warning(e.getMessage());
 		}
 	}
 }

@@ -2,9 +2,11 @@ package org.philmaster.boot.util;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -15,44 +17,70 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.primefaces.model.UploadedFile;
 
 import lombok.NonNull;
+import lombok.extern.java.Log;
 
-public class Util {
+@Log
+public class PMUtil {
 
-	private static final Logger LOGGER = LogManager.getLogger();
+	private PMUtil() {
+		throw new IllegalStateException("This utility class cant be instantiated.");
+	}
 
 	// file
 
-	public static String textFromFile(@NonNull UploadedFile file) {
+	/**
+	 * With usage of temp file
+	 * 
+	 * @param file
+	 * @return
+	 */
+	public static String getTextFromFile(@NonNull UploadedFile file) {
+		return readTextUTF8(PMUtil.writeBytesToTempFile(file.getFileName(), file.getContents()));
+	}
+
+	public static String getTextFromFile(Path path, Charset charset) {
 		try {
-			Path tmpFile = Util.writeBytesToTempFile(file.getFileName(), file.getContents());
-			if (tmpFile == null)
-				return null;
-			String text = new String(Files.readAllBytes(tmpFile), StandardCharsets.UTF_8);
-			return text;
+			return Files.readAllLines(path, charset)
+					.stream()
+					.collect(Collectors.joining("\n\r"));
 		} catch (IOException e) {
-			System.err.println(e); // TODO
+			log.warning(e.getMessage());
 		}
 		return null;
 	}
 
-	public static Path writeBytesToTempFile(@NonNull String filename, @NonNull byte[] bytes) throws IOException {
-		if (filename.isEmpty() || !filename.contains("."))
+	public static String readTextUTF8(Path path) {
+		return getTextFromFile(path, StandardCharsets.UTF_8);
+	}
+
+	public static String readTextISO(Path path) {
+		return getTextFromFile(path, StandardCharsets.ISO_8859_1);
+	}
+
+	private static Path writeBytesToTempFile(@NonNull String filename, @NonNull byte[] bytes) {
+		if (filename.isEmpty() || !filename.contains(".")) {
+			log.warning(MessageFormat.format("filename not valid{0}", filename));
 			return null;
+		}
 		final String[] filenameParts = filename.split("\\.");
 		return createTempFile(filenameParts[0], filenameParts[1], bytes);
 	}
 
-	private static Path createTempFile(@NonNull String prefix, @NonNull String suffix, @NonNull byte[] bytes)
-			throws IOException {
-		Path path = Files.createTempFile(prefix, "." + suffix);
-		Files.write(path, bytes);
-		return path;
+	private static Path createTempFile(@NonNull String prefix, @NonNull String suffix, @NonNull byte[] bytes) {
+		try {
+			Path path = Files.createTempFile(prefix, "." + suffix);
+			Files.write(path, bytes);
+			return path;
+		} catch (IOException e) {
+			log.warning(e.getMessage());
+		}
+		return null;
 	}
+
+	// random
 
 	public static String randomAlphanumericString(int length) {
 		return randomAlphanumericString32().substring(0, length);
@@ -66,35 +94,46 @@ public class Util {
 				.toCharArray());
 		Collections.shuffle(characters);
 		return characters.stream()
-				.map(c -> String.valueOf(c))
+				.map(String::valueOf)
 				.collect(Collectors.joining());// alphanumeric - 32
 	}
 
 	// status message
 
+	public static void statusMessageInfo(@NonNull String text) {
+		statusMessageInfo("INFO", text);
+	}
+
 	public static void statusMessageInfo(@NonNull String title, @NonNull String text) {
 		statusMessage(FacesMessage.SEVERITY_INFO, title, text);
-		LOGGER.info(text);
+		log.info(text);
 	}
 
 	public static void statusMessageWarn(@NonNull String text) {
-		statusMessageWarn("Warning", text);
+		statusMessageWarn("WARN", text);
 	}
 
 	public static void statusMessageWarn(@NonNull String title, @NonNull String text) {
 		statusMessage(FacesMessage.SEVERITY_WARN, title, text);
-		LOGGER.warn(text);
+		log.warning(text);
 	}
 
 	public static void statusMessageError(@NonNull String text) {
-		statusMessageError("Error", text);
+		statusMessageError("ERROR", text);
 	}
 
 	public static void statusMessageError(@NonNull String title, @NonNull String text) {
 		statusMessage(FacesMessage.SEVERITY_ERROR, title, text);
-		LOGGER.error(text);
+		log.warning(text);
 	}
 
+	/**
+	 * displayed message in user gui
+	 * 
+	 * @param errorType
+	 * @param title
+	 * @param text
+	 */
 	private static void statusMessage(@NonNull Severity errorType, @NonNull String title, @NonNull String text) {
 		FacesMessage message = new FacesMessage(errorType, title, text);
 		FacesContext.getCurrentInstance()
@@ -120,14 +159,14 @@ public class Util {
 				.findFirst()
 				.orElse(null);
 		if (field == null) {
-			LOGGER.info("field " + field + " not found");
+			log.warning(MessageFormat.format("field {0} not found", sortField));
 			return null;
 		}
 		field.setAccessible(true); // cayennes fields are protected, so we need this hack
 		try {
 			return field.get(obj);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
-			System.err.println(e); // TODO
+			log.warning(e.getMessage());
 			return null;
 		}
 	}

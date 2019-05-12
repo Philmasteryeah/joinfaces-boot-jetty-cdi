@@ -6,7 +6,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.philmaster.boot.util.MyFileUploadWrapper;
-import org.philmaster.boot.util.Util;
+import org.philmaster.boot.util.PMUtil;
 import org.primefaces.model.UploadedFile;
 
 import lombok.Getter;
@@ -20,23 +20,23 @@ public class UploadView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private UploadedFile file;
+	private transient UploadedFile file;
 
 	private String editorText;
 
 	public void upload() {
 		if (file == null) {
-			Util.statusMessageError("Error", "File could not be uploaded.");
+			PMUtil.statusMessageError("Error", "File could not be uploaded.");
 			return;
 		}
 		MyFileUploadWrapper wrapper = new MyFileUploadWrapper(file);
 
 		String text = wrapper.getTextFromFile();
 		if (text == null) {
-			Util.statusMessageError("Error", "File could not be read.");
+			PMUtil.statusMessageError("Error", "File could not be read.");
 			return;
 		}
-		Util.statusMessageInfo("Succesful", file.getFileName() + " was uploaded.");
+		PMUtil.statusMessageInfo("Succesful", file.getFileName() + " was uploaded.");
 
 		setEditorText(text);
 	}

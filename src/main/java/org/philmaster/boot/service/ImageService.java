@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -23,11 +24,13 @@ import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONException;
 import org.primefaces.json.JSONObject;
 
+import lombok.extern.java.Log;
+
 /**
  * @author Philmasteryeah
  *
  */
-
+@Log
 @Named
 @ApplicationScoped
 public class ImageService implements Serializable {
@@ -44,6 +47,7 @@ public class ImageService implements Serializable {
 
 	@PostConstruct
 	void init() {
+		// TODO
 	}
 
 	public String getTestImage() {
@@ -59,15 +63,16 @@ public class ImageService implements Serializable {
 		if (m.find())
 			tagList.add(m.group(0));
 
-		String tags = tagList.stream().map(tag -> {
-			try {
-				return URLEncoder.encode(tag, StandardCharsets.UTF_8.name());
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return tag;
-		}).collect(Collectors.joining("+"));
+		String tags = tagList.stream()
+				.map(tag -> {
+					try {
+						return URLEncoder.encode(tag, StandardCharsets.UTF_8.name());
+					} catch (UnsupportedEncodingException e) {
+						log.warning(e.getMessage());
+					}
+					return tag;
+				})
+				.collect(Collectors.joining("+"));
 
 		// TODO
 		tags = tags.substring(0, tags.length() > API_QUERY_LIMIT ? API_QUERY_LIMIT : tags.length());
@@ -85,9 +90,11 @@ public class ImageService implements Serializable {
 			return null;
 		try {
 			JSONArray arr = jsonObject.getJSONArray("hits");
-			return arr != null && arr.length() > 0 ? arr.getJSONObject(0).get("previewURL").toString() : null;
+			return arr != null && arr.length() > 0 ? arr.getJSONObject(0)
+					.get("previewURL")
+					.toString() : null;
 		} catch (JSONException e) {
-			System.err.println(e);
+			log.warning(e.getMessage());
 		}
 		return null;
 	}
@@ -96,19 +103,20 @@ public class ImageService implements Serializable {
 		try {
 			return str != null ? new JSONObject(str) : null;
 		} catch (Exception e) {
-			System.err.println(e); // TODO
+			log.warning(e.getMessage());
 		}
 		return null;
 	}
 
 	private static String getUrlContent(String url) {
 		byte[] barry = urlToBarry(url);
-		System.err.println("--> " + url);
+		log.info(MessageFormat.format("--> {0}", url));
 		return barry != null ? new String(barry, StandardCharsets.UTF_8) : null;
 	}
 
 	private static String getUrlContentBase64(String url) {
-		return url != null ? Base64.getEncoder().encodeToString(urlToBarry(url)) : null;
+		return url != null ? Base64.getEncoder()
+				.encodeToString(urlToBarry(url)) : null;
 	}
 
 	private static JSONObject getUrlContentJSON(String url) {
@@ -116,12 +124,10 @@ public class ImageService implements Serializable {
 	}
 
 	private static byte[] urlToBarry(String url) {
-
 		try {
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
 			URLConnection conn = new URL(url).openConnection();
-			conn.setRequestProperty("User-Agent", "Firefox");
-
+			conn.setRequestProperty("User-Agent", "Firefox"); // fake a browser
 			try (InputStream inputStream = conn.getInputStream()) {
 				int n = 0;
 				byte[] buffer = new byte[1024];
@@ -131,9 +137,9 @@ public class ImageService implements Serializable {
 			}
 			return output.toByteArray();
 		} catch (Exception e) {
-			System.err.println(e); // TODO
-			return null;
+			log.warning(e.getMessage());
 		}
+		return new byte[0];
 	}
 
 }

@@ -1,7 +1,6 @@
 package org.philmaster.boot.session;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;

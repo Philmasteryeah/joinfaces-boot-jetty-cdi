@@ -15,7 +15,7 @@ import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.session.SessionBean;
-import org.philmaster.boot.util.Util;
+import org.philmaster.boot.util.PMUtil;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -52,10 +52,10 @@ public class ClientDetail implements Serializable {
 		try {
 			context.commitChanges();
 		} catch (Exception e) {
-			Util.statusMessageError(e.getMessage());
+			PMUtil.statusMessageError(e.getMessage());
 			return;
 		}
-		Util.statusMessageInfo("Saved", "Saved");
+		PMUtil.statusMessageInfo("Saved", "Saved");
 	}
 
 	public static List<String> getLayoutSkins() {

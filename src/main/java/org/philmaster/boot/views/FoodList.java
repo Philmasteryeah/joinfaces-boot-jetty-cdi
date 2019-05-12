@@ -13,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.philmaster.boot.model.Meal;
 import org.philmaster.boot.service.FoodService;
-import org.philmaster.boot.util.Util;
+import org.philmaster.boot.util.PMUtil;
 import org.primefaces.event.SelectEvent;
 
 import lombok.Getter;
@@ -52,7 +52,7 @@ public class FoodList implements Serializable {
 	}
 
 	public void onRowSelect(SelectEvent event) {
-		Util.statusMessageInfo("meal selected", selectedMeal + "");
+		PMUtil.statusMessageInfo("meal selected", selectedMeal + "");
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

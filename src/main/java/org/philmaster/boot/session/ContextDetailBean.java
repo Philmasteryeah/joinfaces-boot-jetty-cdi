@@ -12,7 +12,7 @@ import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.query.SelectById;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
-import org.philmaster.boot.util.Util;
+import org.philmaster.boot.util.PMUtil;
 
 import lombok.Getter;
 
@@ -98,9 +98,9 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 			context.commitChanges();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
-			Util.statusMessageError("could not save");
+			PMUtil.statusMessageError("could not save");
 			return;
 		}
-		Util.statusMessageInfo("Saved", "Saved");
+		PMUtil.statusMessageInfo("Saved", "Saved");
 	}
 }

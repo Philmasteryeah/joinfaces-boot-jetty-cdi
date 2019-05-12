@@ -17,7 +17,7 @@ public class LazySorter<T extends BaseDataObject> implements Comparator<T> {
 	public LazySorter(String sortField, SortOrder sortOrder, Class<T> type) {
 		this.sortField = sortField;
 		this.sortOrder = sortOrder;
-		this.fields = Util.getAllFields(new ArrayList<>(), type);
+		this.fields = PMUtil.getAllFields(new ArrayList<>(), type);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -35,7 +35,7 @@ public class LazySorter<T extends BaseDataObject> implements Comparator<T> {
 	}
 
 	private Object getAccessibleField(Object obj) {
-		return Util.getAccessibleField(this.fields, this.sortField, obj);
+		return PMUtil.getAccessibleField(this.fields, this.sortField, obj);
 	}
 
 }

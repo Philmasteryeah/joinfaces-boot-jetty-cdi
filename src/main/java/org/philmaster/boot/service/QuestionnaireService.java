@@ -13,11 +13,14 @@ import org.springframework.core.io.Resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.java.Log;
+
 /**
  * @author Philmasteryeah
  *
  */
 
+@Log
 @Named
 @ApplicationScoped
 public class QuestionnaireService implements Serializable {
@@ -33,11 +36,10 @@ public class QuestionnaireService implements Serializable {
 	void init() {
 
 		ObjectMapper objectMapper = new ObjectMapper();
-
 		try {
 			questionnaire = objectMapper.readValue(qj.getInputStream(), QuestionnaireJS.class);
 		} catch (IOException e) {
-			System.out.println(e.getMessage()); // TODO Logging
+			log.warning(e.getMessage());
 		}
 
 		if (questionnaire == null)

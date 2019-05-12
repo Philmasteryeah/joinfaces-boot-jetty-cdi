@@ -1,10 +1,10 @@
 package org.philmaster.boot.service;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.configuration.server.ServerRuntime;
@@ -15,6 +15,8 @@ import org.apache.cayenne.query.Ordering;
 import org.apache.cayenne.query.SelectQuery;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
+
+import lombok.extern.java.Log;
 
 /**
  * @author Philmasteryeah
@@ -31,11 +33,11 @@ import org.philmaster.boot.model.Client;
  *
  */
 // Joshua Blochs enum singleton cool stuff
+@Log
 public enum DatabaseService {
 
 	INSTANCE;
 
-	// private static final Logger LOGGER = LogManager.getLogger();
 	private static final String CAYENNE_CONFIG = "cayenne-project.xml";
 	private static final String DEFAULT_CLIENT_NAME = "default";
 
@@ -49,7 +51,7 @@ public enum DatabaseService {
 
 	public ObjectContext newContext() {
 		ObjectContext newContext = runtime.newContext();
-		//BaseContext.bindThreadObjectContext(newContext);
+		// BaseContext.bindThreadObjectContext(newContext);
 		return newContext;
 	}
 
@@ -87,10 +89,15 @@ public enum DatabaseService {
 		query.andQualifier(ExpressionFactory.matchExp("username", username));
 		query.andQualifier(ExpressionFactory.matchExp("client.name", clientname));
 		List<Account> accounts = context.performQuery(query);
-		if (accounts == null || accounts.isEmpty())
-			return null; // TODO logging not found
-		if (accounts.size() > 1)
-			return null; // TODO logging should not happend
+		if (accounts == null || accounts.isEmpty()) {
+			log.warning(MessageFormat.format("account not found for query: {0}", query));
+			return null;
+		}
+		if (accounts.size() > 1) {
+			log.warning(MessageFormat.format("multiple account found for query: {0}", query));
+			return null;
+		}
+
 		return accounts.get(0);
 	}
 

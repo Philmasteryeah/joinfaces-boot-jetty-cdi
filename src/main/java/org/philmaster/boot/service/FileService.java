@@ -3,24 +3,26 @@ package org.philmaster.boot.service;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
-import java.util.stream.Collectors;
+import java.text.MessageFormat;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
+import org.philmaster.boot.util.PMUtil;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
+import lombok.extern.java.Log;
+
+@Log
 @Named
 @ApplicationScoped
 public class FileService implements ResourceLoaderAware {
@@ -33,34 +35,25 @@ public class FileService implements ResourceLoaderAware {
 	}
 
 	private Resource getStaticResource(String filename) {
+		// or use it like @Value("classpath:static/questionnaire.json") private Resource res;
+		log.info(MessageFormat.format("loading file {0}", filename));
 		return resourceLoader.getResource(ResourceLoader.CLASSPATH_URL_PREFIX + "static/" + filename);
 	}
 
 	public String getStaticFileAsString(String filename) {
-		Resource resource = getStaticResource(filename);
-		System.err.println("resource loaded " + resource);
-
-		URI uri = resourceToUri(resource);
+		URI uri = resourceToUri(getStaticResource(filename));
 		if (uri == null)
 			return null;
-
-		try {
-			return Files.readAllLines(Path.of(uri), StandardCharsets.ISO_8859_1)
-					.stream()
-					.collect(Collectors.joining("\n\r"));
-		} catch (IOException e) {
-			System.err.println(e);
-		}
-		return null;
+		return PMUtil.readTextISO(Path.of(uri));
 	}
 
-	private URI resourceToUri(Resource resource) {
+	private static URI resourceToUri(Resource resource) {
 		try {
 			return resource.getURI();
 		} catch (FileNotFoundException e) {
-			System.err.println("File not found " + e.getMessage());
+			log.warning(MessageFormat.format("file not found {0}", e.getMessage()));
 		} catch (IOException e) {
-			System.err.println(e.getMessage());
+			log.warning(MessageFormat.format("cant load file {0}", e.getMessage()));
 		}
 		return null;
 	}
@@ -75,6 +68,7 @@ public class FileService implements ResourceLoaderAware {
 	public static void watchDir(String fullPath) throws IOException, InterruptedException {
 		WatchService watchService = FileSystems.getDefault()
 				.newWatchService();
+
 		// fullPath = "C:\\import"
 		Path path = Paths.get(fullPath);
 
@@ -84,6 +78,7 @@ public class FileService implements ResourceLoaderAware {
 		WatchKey key;
 		while ((key = watchService.take()) != null) {
 			for (WatchEvent<?> event : key.pollEvents()) {
+				// TODO
 				System.err.println("Event kind:" + event.kind() + ". File affected: " + event.context() + ".");
 			}
 			key.reset();

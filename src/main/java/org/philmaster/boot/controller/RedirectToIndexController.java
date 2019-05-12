@@ -15,7 +15,7 @@ public class RedirectToIndexController {
 
 	@GetMapping("/")
 	public String redirect() {
-		System.err.println("redirect");
+		System.err.println("redirect to index");
 		return "redirect:index.xhtml";
 	}
 

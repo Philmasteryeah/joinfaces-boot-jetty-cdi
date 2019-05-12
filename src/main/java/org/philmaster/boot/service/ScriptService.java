@@ -5,7 +5,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.script.ScriptEngine;
-import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 
 import lombok.Getter;

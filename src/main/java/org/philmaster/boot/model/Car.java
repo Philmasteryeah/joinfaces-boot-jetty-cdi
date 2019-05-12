@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.ObjectId;
 import org.philmaster.boot.model.auto._Car;
-import org.philmaster.boot.util.Util;
+import org.philmaster.boot.util.PMUtil;
 
 public class Car extends _Car {
 
@@ -24,7 +24,7 @@ public class Car extends _Car {
 	public static Car createRandomTestCar(ObjectContext context, Client client) {
 		Car car = context.newObject(Car.class);
 		car.setClient(client);
-		car.setName(Util.randomAlphanumericString(10));
+		car.setName(PMUtil.randomAlphanumericString(10));
 		return car;
 	}
 }

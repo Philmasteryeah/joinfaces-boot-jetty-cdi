@@ -1,12 +1,8 @@
 package org.philmaster.boot.session;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Locale;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.enterprise.context.Destroyed;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
@@ -14,10 +10,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.access.DataContext;
-import org.apache.cayenne.di.BeforeScopeEnd;
 import org.apache.cayenne.query.ObjectSelect;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
@@ -50,6 +43,7 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	private static final long serialVersionUID = 1L;
 
+	@Getter
 	private Locale locale;
 
 //	@Autowired
@@ -86,7 +80,7 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 //	}
 
 	public void onRequest(ComponentSystemEvent event) {
-		//System.err.println("req" + event);
+		// System.err.println("req" + event);
 		// TODO get every request for testing
 
 //		FacesContext fc = FacesContext.getCurrentInstance();
@@ -125,6 +119,7 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 			return;
 		}
 		// logged in now
+		System.err.println("logged in");
 
 	}
 
@@ -175,8 +170,8 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		System.err.println("init session client-> " + client.getName());
 		System.err.println("init session user-> " + account.getUsername());
 
-		//String skin = client.getSkin();
-		//System.err.println(skin + " skin loaded from client");
+		// String skin = client.getSkin();
+		// System.err.println(skin + " skin loaded from client");
 		// setLayoutSkin(skin);
 		return true;
 	}

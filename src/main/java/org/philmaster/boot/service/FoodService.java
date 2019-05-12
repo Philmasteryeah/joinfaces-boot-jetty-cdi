@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,11 +20,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.philmaster.boot.model.Meal;
 
+import lombok.extern.java.Log;
+
 /**
  * @author Philmasteryeah
  *
  */
 
+@Log
 @Named
 @ApplicationScoped
 public class FoodService implements Serializable {
@@ -38,6 +42,7 @@ public class FoodService implements Serializable {
 
 	@PostConstruct
 	void init() {
+		// TODO Testing
 	}
 
 	private Document parseUrlToDocument() {
@@ -45,7 +50,7 @@ public class FoodService implements Serializable {
 			return Jsoup.connect(URL)
 					.get();
 		} catch (IOException e) {
-			System.err.println(e); // TODO
+			log.warning(e.getMessage());
 		}
 		return null;
 	}
@@ -53,7 +58,7 @@ public class FoodService implements Serializable {
 	public List<Meal> getParsedMeals() {
 		Document doc = parseUrlToDocument();
 		if (doc == null)
-			return null;
+			return Collections.emptyList();
 
 		Elements menuRows = doc.getElementById("menu-table_KW")
 				.select("tbody")

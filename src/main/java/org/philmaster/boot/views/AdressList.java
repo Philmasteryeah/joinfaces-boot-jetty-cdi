@@ -9,7 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.philmaster.boot.model.Adress;
-import org.philmaster.boot.util.Util;
+import org.philmaster.boot.util.PMUtil;
 import org.primefaces.event.SelectEvent;
 
 import lombok.Getter;
@@ -41,7 +41,7 @@ public class AdressList implements Serializable {
 
 	public void onRowSelect(SelectEvent event) {
 		// TODO
-		Util.statusMessageInfo("Selected", "'" + selectedItem + "'");
+		PMUtil.statusMessageInfo("Selected", "'" + selectedItem + "'");
 	}
 
 }

@@ -15,7 +15,7 @@ import javax.inject.Named;
 
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.request.SelectLevelListener;
-import org.philmaster.boot.util.Util;
+import org.philmaster.boot.util.PMUtil;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -74,7 +74,7 @@ public class RolesAndRightsView implements Serializable {
 	public String saveSuccess(Account person) {
 		if (person == null)
 			return null;
-		Util.statusMessageInfo("Info", "Person " + person.getNameFirst() + " has been saved");
+		PMUtil.statusMessageInfo("Info", "Person " + person.getNameFirst() + " has been saved");
 		return null;
 	}
 
@@ -93,7 +93,7 @@ public class RolesAndRightsView implements Serializable {
 			throw new FacesException(e.getMessage(), e);
 		}
 
-		Util.statusMessageError("Error", "Person " + person.getNameFirst() + " could not be saved");
+		PMUtil.statusMessageError("Error", "Person " + person.getNameFirst() + " could not be saved");
 
 		return null;
 	}

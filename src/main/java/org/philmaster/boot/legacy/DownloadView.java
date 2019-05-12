@@ -15,7 +15,7 @@ import org.philmaster.boot.model.Car;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.session.SessionBean;
-import org.philmaster.boot.util.Util;
+import org.philmaster.boot.util.PMUtil;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 
@@ -58,7 +58,7 @@ public class DownloadView implements Serializable {
 	}
 
 	public void onRowSelect(SelectEvent event) {
-		Util.statusMessageInfo("Car Selected", selectedCar.getId() + "");
+		PMUtil.statusMessageInfo("Car Selected", selectedCar.getId() + "");
 	}
 
 	public void onRowUnselect(UnselectEvent event) {
@@ -71,12 +71,12 @@ public class DownloadView implements Serializable {
 		testCar.setClient(client);
 		// car.setName("test car");
 
-		Util.statusMessageInfo("Welcome", "test");
+		PMUtil.statusMessageInfo("Welcome", "test");
 	}
 
 	public void actionSave(ActionEvent actionEvent) {
 		context.commitChanges();
-		Util.statusMessageInfo("Welcome", "saved");
+		PMUtil.statusMessageInfo("Welcome", "saved");
 		currentLevel = 1;
 	}
 
