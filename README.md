@@ -4,16 +4,17 @@
 
  
 # Joinfaces-boot-jetty-cdi
-- Java 11
-- Spring Boot v2.1.1
+- Java 8 to 12
+- Spring Boot 2
 - Spring Security
 - Spring REST
-- PrimeFaces 6.2
+- PrimeFaces 7
 - Jetty 9 (embedded)
-- CDI 2.0.SP1 (weld)
+- CDI 2.0 (weld)
 - Postgres 42.2.0
 - Cayenne 4.1.M1
 - javax.faces 2.3.0
+- redis
 
 # How to start the Local Deployment
 - run compile flyway:migrate
@@ -77,9 +78,12 @@ mvn clean flyway:migrate
 # TODOs
 - Git WIKI with tutorials
 - kill all xml files
+- Docker with alpine
 - archetype for generic standard web application
 	- login, user, lists
 - more code examples for complete workflows
+- more work on the wiki
+- backported to http1 because of java8 on freebsd
 
 # HTTP2
 - connect to https://localhost:9090/
