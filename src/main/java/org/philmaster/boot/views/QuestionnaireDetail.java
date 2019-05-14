@@ -23,8 +23,6 @@ import org.primefaces.event.TabCloseEvent;
 @ViewScoped
 public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	@Inject
 	private SessionBean session;
 

@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class Account extends _Account implements UserDetails{
 
-	private static final long serialVersionUID = 1L;
+
 
 	public int id() {
 		ObjectId oj = getObjectId();

@@ -17,8 +17,8 @@ import lombok.Setter;
 @SessionScoped
 public class BreadcrumbBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
+	// TODO session scope is dangerous
+	
 	private static final Integer MAX_STACK_SIZE = 5;
 	private static final String URL_REGEX_PREFIX = ".*/";
 	private static final String URL_REGEX_SUFFIX = "\\..*";

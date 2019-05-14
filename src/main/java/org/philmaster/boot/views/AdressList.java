@@ -19,8 +19,6 @@ import lombok.Setter;
 @ViewScoped
 public class AdressList implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	@Getter
 	@Setter
 	private List<Adress> items, itemsFiltered;

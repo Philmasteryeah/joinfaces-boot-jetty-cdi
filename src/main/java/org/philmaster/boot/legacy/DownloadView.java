@@ -26,7 +26,7 @@ import lombok.Setter;
 @ViewScoped
 public class DownloadView implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+
 
 	@Getter
 	@Setter

@@ -26,11 +26,9 @@ import lombok.Setter;
 @ViewScoped
 public class RolesAndRightsView implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	private List<Account> accounts;
-	private List<SelectItem> availableLanguageSkills = null;
-	private List<String> selectedLanguageSkills = new ArrayList<String>();
+	private transient List<SelectItem> availableLanguageSkills = null;
+	private List<String> selectedLanguageSkills = new ArrayList<>();
 	private String languageSkillToAdd;
 	private int currentLevel = 1;
 
@@ -54,7 +52,7 @@ public class RolesAndRightsView implements Serializable {
 
 	public List<SelectItem> getAvailableLanguageSkills() {
 		if (availableLanguageSkills == null) {
-			availableLanguageSkills = new ArrayList<SelectItem>();
+			availableLanguageSkills = new ArrayList<>();
 			availableLanguageSkills.add(new SelectItem("English", "English"));
 			availableLanguageSkills.add(new SelectItem("German", "German"));
 			availableLanguageSkills.add(new SelectItem("Russian", "Russian"));
@@ -102,7 +100,8 @@ public class RolesAndRightsView implements Serializable {
 		if (acco == null)
 			return null;
 		for (Account acc : accounts) {
-			if (acc.getNameFirst().equals(acco.getNameFirst())) {
+			if (acc.getNameFirst()
+					.equals(acco.getNameFirst())) {
 				accounts.remove(acc);
 				break;
 			}

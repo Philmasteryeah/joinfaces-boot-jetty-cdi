@@ -140,7 +140,7 @@ public class PMUtil {
 				.addMessage(null, message);
 	}
 
-	// reflection
+	// reflection evil
 
 	public static List<Field> getAllFields(@NonNull List<Field> arrayList, @NonNull Class<?> type) {
 		arrayList.addAll(Arrays.asList(type.getDeclaredFields()));
@@ -162,7 +162,7 @@ public class PMUtil {
 			log.warning(MessageFormat.format("field {0} not found", sortField));
 			return null;
 		}
-		field.setAccessible(true); // cayennes fields are protected, so we need this hack
+		field.setAccessible(true); // cayennes fields are protected, so we need this ultra evil hack
 		try {
 			return field.get(obj);
 		} catch (IllegalArgumentException | IllegalAccessException e) {

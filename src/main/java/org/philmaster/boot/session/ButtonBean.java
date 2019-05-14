@@ -2,8 +2,8 @@ package org.philmaster.boot.session;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -15,10 +15,8 @@ import org.philmaster.boot.util.PMUtil;
  */
 
 @Named
-@SessionScoped
+@ViewScoped
 public class ButtonBean implements Serializable {
-
-	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private SessionBean session;

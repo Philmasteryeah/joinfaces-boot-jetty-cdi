@@ -18,8 +18,6 @@ import lombok.Setter;
 @ViewScoped
 public class UploadView implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	private transient UploadedFile file;
 
 	private String editorText;

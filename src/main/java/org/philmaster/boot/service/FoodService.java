@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jsoup.Jsoup;
@@ -32,13 +31,11 @@ import lombok.extern.java.Log;
 @ApplicationScoped
 public class FoodService implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	// TODO date dynamic
 	private static final String URL = "https://www.bestellung-rastenberger.de/menu/3/2019-01-07/2019-01-13/#speiseplan";
 
-	@Inject
-	private ImageService is; // testing
+//	@Inject
+//	private ImageService imgService; // testing
 
 	@PostConstruct
 	void init() {

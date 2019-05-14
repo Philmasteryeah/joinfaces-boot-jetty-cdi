@@ -4,8 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ComponentSystemEvent;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.primefaces.model.DefaultStreamedContent;
@@ -21,10 +21,8 @@ import lombok.extern.java.Log;
 
 @Log
 @Named
-@SessionScoped
+@ViewScoped
 public class PdfBean implements Serializable {
-
-	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Setter
@@ -34,9 +32,8 @@ public class PdfBean implements Serializable {
 
 		try {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
-
 			Document document = new Document();
-			PdfWriter.getInstance(document, out);
+			PdfWriter writer = PdfWriter.getInstance(document, out);
 			document.open();
 
 			for (int i = 0; i < 50; i++) {
@@ -44,6 +41,7 @@ public class PdfBean implements Serializable {
 			}
 
 			document.close();
+			writer.close();
 			pdfViewerContent = new DefaultStreamedContent(new ByteArrayInputStream(out.toByteArray()),
 					"application/pdf");
 		} catch (Exception e) {

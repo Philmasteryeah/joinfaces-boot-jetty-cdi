@@ -12,8 +12,6 @@ import org.philmaster.boot.session.ContextListBean;
 @ViewScoped
 public class CarList extends ContextListBean<Car> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	@Override
 	public Class<Car> initClass() {
 		return Car.class;

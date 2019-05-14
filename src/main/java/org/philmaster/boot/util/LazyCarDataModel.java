@@ -12,8 +12,6 @@ import org.primefaces.model.SortOrder;
 
 public class LazyCarDataModel extends LazyDataModel<Car> {
 
-	private static final long serialVersionUID = 1L;
-
 	private List<Car> datasource;
 
 	public LazyCarDataModel(List<Car> datasource) {
@@ -23,19 +21,22 @@ public class LazyCarDataModel extends LazyDataModel<Car> {
 	@Override
 	public Car getRowData(String rowKey) {
 		for (Car car : datasource)
-			if (car.getObjectId().toString().equals(rowKey))
+			if (car.getObjectId()
+					.toString()
+					.equals(rowKey))
 				return car;
 		return null;
 	}
 
 	@Override
 	public Object getRowKey(Car car) {
-		return car.getObjectId().toString();
+		return car.getObjectId()
+				.toString();
 	}
 
 	@Override
 	public List<Car> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-		List<Car> data = new ArrayList<Car>();
+		List<Car> data = new ArrayList<>();
 		// filter Object should be a predicate
 		// data = data.stream().filter(Car.isTest()).collect(Collectors.toList());
 
@@ -44,11 +45,14 @@ public class LazyCarDataModel extends LazyDataModel<Car> {
 			boolean match = true;
 
 			if (filters != null) {
-				for (Iterator<String> it = filters.keySet().iterator(); it.hasNext();) {
+				for (Iterator<String> it = filters.keySet()
+						.iterator(); it.hasNext();) {
 					try {
 						String filterProperty = it.next();
 						Object filterValue = filters.get(filterProperty);
-						String fieldValue = String.valueOf(car.getClass().getField(filterProperty).get(car));
+						String fieldValue = String.valueOf(car.getClass()
+								.getField(filterProperty)
+								.get(car));
 
 						if (filterValue == null || fieldValue.startsWith(filterValue.toString())) {
 							match = true;

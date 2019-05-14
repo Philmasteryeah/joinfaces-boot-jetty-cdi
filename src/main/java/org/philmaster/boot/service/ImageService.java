@@ -35,8 +35,6 @@ import lombok.extern.java.Log;
 @ApplicationScoped
 public class ImageService implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	private static final String API_KEY = "9791405-a7197fafe0a8ea969281cb9f5"; // this should be secret
 	private static final int API_QUERY_LIMIT = 100;
 

@@ -2,6 +2,7 @@ package org.philmaster.boot.service;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -20,6 +21,8 @@ import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.extern.java.Log;
 
 @Log
@@ -34,8 +37,29 @@ public class FileService implements ResourceLoaderAware {
 		this.resourceLoader = resourceLoader;
 	}
 
+	public static <T> T mapResourceToObject(Resource resource, Class<T> clazz) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			return objectMapper.readValue(resource.getInputStream(), clazz);
+		} catch (IOException e) {
+			log.warning(e.getMessage());
+		}
+		return null;
+	}
+
+	public static <T> T mapInputStreamToObject(InputStream is, Class<T> clazz) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			return objectMapper.readValue(is, clazz);
+		} catch (IOException e) {
+			log.warning(e.getMessage());
+		}
+		return null;
+	}
+
 	private Resource getStaticResource(String filename) {
-		// or use it like @Value("classpath:static/questionnaire.json") private Resource res;
+		// or use it like @Value("classpath:static/questionnaire.json") private Resource
+		// res;
 		log.info(MessageFormat.format("loading file {0}", filename));
 		return resourceLoader.getResource(ResourceLoader.CLASSPATH_URL_PREFIX + "static/" + filename);
 	}

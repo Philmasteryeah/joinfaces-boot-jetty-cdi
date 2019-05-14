@@ -14,7 +14,7 @@ import lombok.Setter;
 @RequestScoped
 public class CurrentLevelData implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+
 
 	private int currentLevel = 1;
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Locale;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
@@ -41,13 +42,10 @@ import lombok.Getter;
 @SessionScoped
 public class SessionBean implements Serializable, ApplicationListener<InteractiveAuthenticationSuccessEvent> {
 
-	private static final long serialVersionUID = 1L;
+	// TODO think about session scope
 
 	@Getter
 	private Locale locale;
-
-//	@Autowired
-//	private HttpServletRequest request;
 
 	@Getter
 	private String page, name;
@@ -62,6 +60,11 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	// session context is only for client and account
 	// every context page has its own context
 	private ObjectContext sessionContext = DatabaseService.INSTANCE.newContext();
+
+	public SessionBean() {
+		// Note that it is required that a session scoped class have a public no-args
+		System.err.println("iam not called constr");
+	}
 
 //	@PostConstruct
 //	private void init() {
@@ -80,6 +83,8 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 //	}
 
 	public void onRequest(ComponentSystemEvent event) {
+		System.err.println("this is new on every request :-( " + hashCode() + " " + sessionContext);
+
 		// System.err.println("req" + event);
 		// TODO get every request for testing
 
@@ -147,11 +152,16 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		System.err.println(session.getServletContext()
 				.getSessionCookieConfig());
 
+		ExternalContext externalContext = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		System.err.println("session" + externalContext.getSessionMap());
+		System.err.println("req" + externalContext.getRequestMap());
+		System.err.println("user" + externalContext.getRemoteUser());
+
 		session.invalidate();
 		SecurityContextHolder.clearContext();
-		FacesContext.getCurrentInstance()
-				.getExternalContext()
-				.invalidateSession();
+
+		externalContext.invalidateSession();
 		return "/index.xhtml?faces-redirect=true";
 
 	}

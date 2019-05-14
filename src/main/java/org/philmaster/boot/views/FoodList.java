@@ -23,8 +23,6 @@ import lombok.Setter;
 @ViewScoped
 public class FoodList implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	@Getter
@@ -57,7 +55,9 @@ public class FoodList implements Serializable {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public boolean filterByPrice(Object value, Object filter, Locale locale) {
-		String filterText = (filter == null) ? null : filter.toString().trim();
+		String filterText = (filter == null) ? null
+				: filter.toString()
+						.trim();
 		if (filterText == null || filterText.equals(""))
 			return true;
 		if (value == null)

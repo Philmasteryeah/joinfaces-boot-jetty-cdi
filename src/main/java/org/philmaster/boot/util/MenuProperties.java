@@ -15,6 +15,8 @@ import lombok.Setter;
 @ConfigurationProperties("menu")
 public class MenuProperties {
 
+	// TODO not needed anymore but maybe later
+	
 	@Getter
 	@Setter
 	private List<SubMenuItem> items = new ArrayList<>();

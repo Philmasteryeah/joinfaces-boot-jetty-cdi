@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class Meal implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+
 
 	public static enum TypePrice {
 		EINTOPF("Eintopf", 3.25f), TRADITIONELL_1("Traditionell 1", 3.30f), TRADITIONELL_2("Traditionell 2", 3.30f),
