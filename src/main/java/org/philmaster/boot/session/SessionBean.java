@@ -17,6 +17,8 @@ import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,7 +41,7 @@ import lombok.Getter;
  */
 
 @Named
-@SessionScoped
+@Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class SessionBean implements Serializable, ApplicationListener<InteractiveAuthenticationSuccessEvent> {
 
 	// TODO think about session scope
@@ -65,6 +67,8 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 		// Note that it is required that a session scoped class have a public no-args
 		System.err.println("iam not called constr");
 	}
+	
+	
 
 //	@PostConstruct
 //	private void init() {
