@@ -31,7 +31,8 @@ import lombok.extern.java.Log;
 @ApplicationScoped
 public class FoodService implements Serializable {
 
-	// TODO date dynamic
+	private static final long serialVersionUID = 1L;
+
 	private static final String URL = "https://www.bestellung-rastenberger.de/menu/3/2019-01-07/2019-01-13/#speiseplan";
 
 //	@Inject
@@ -39,7 +40,7 @@ public class FoodService implements Serializable {
 
 	@PostConstruct
 	void init() {
-		// TODO Testing
+	
 	}
 
 	private Document parseUrlToDocument() {
@@ -63,20 +64,20 @@ public class FoodService implements Serializable {
 				.select("tr");
 
 		List<Meal> meals = new ArrayList<>();
-		// skip header
+	
 		for (int i = 1; i < menuRows.size(); i++) {
 			Element menuRow = menuRows.get(i);
 
 			String type = menuRow.select("th")
 					.text();
 
-			// skip weekend
+		
 			if ("Wochenend-Eintopf".equals(type) || "Sonntagsbraten".equals(type))
 				continue;
 
 			Elements rows = menuRow.select("td");
 
-			// über tage iterieren rows.size() durch 5 ersetzt bis Freitag
+		
 			for (int dayIndex = 0; dayIndex < 5; dayIndex++) {
 				String desc = rows.select("td")
 						.get(dayIndex)
@@ -94,7 +95,7 @@ public class FoodService implements Serializable {
 				meals.add(meal);
 			}
 
-			// meals.forEach(System.err::println);
+		
 
 		}
 		return meals;

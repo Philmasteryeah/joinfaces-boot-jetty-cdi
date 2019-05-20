@@ -35,17 +35,19 @@ import lombok.extern.java.Log;
 @ApplicationScoped
 public class ImageService implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private static final String API_KEY = "9791405-a7197fafe0a8ea969281cb9f5"; // this should be secret
 	private static final int API_QUERY_LIMIT = 100;
 
 	private static final String URL = "https://pixabay.com/api/?key=" + API_KEY
 			+ "&image_type=photo&pretty=true&category=food";
 
-	// TODO Request per Second Limit to avoid 429 Error
+
 
 	@PostConstruct
 	void init() {
-		// TODO
+	
 	}
 
 	public String getTestImage() {
@@ -54,7 +56,7 @@ public class ImageService implements Serializable {
 
 	public String getBase64ImageFromTags(String desc) {
 
-		// TODO
+	
 		List<String> tagList = new ArrayList<>();
 		Pattern p = Pattern.compile("[a-zA-Z]{5,}");
 		Matcher m = p.matcher(desc);
@@ -72,7 +74,7 @@ public class ImageService implements Serializable {
 				})
 				.collect(Collectors.joining("+"));
 
-		// TODO
+	
 		tags = tags.substring(0, tags.length() > API_QUERY_LIMIT ? API_QUERY_LIMIT : tags.length());
 
 		String url = URL + "&q=" + tags; // add param
@@ -81,7 +83,7 @@ public class ImageService implements Serializable {
 		return getUrlContentBase64(imageUrl); // make picture to base64 string
 	}
 
-	//
+
 
 	private static String urlFromJsonObject(JSONObject jsonObject) {
 		if (jsonObject == null)

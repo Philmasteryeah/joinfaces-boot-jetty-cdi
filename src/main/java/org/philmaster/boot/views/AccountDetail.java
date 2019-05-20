@@ -12,4 +12,6 @@ import org.philmaster.boot.session.ContextDetailBean;
 @ViewScoped
 public class AccountDetail extends ContextDetailBean<Account> implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 }

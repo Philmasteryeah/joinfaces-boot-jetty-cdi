@@ -12,6 +12,8 @@ import org.primefaces.model.SortOrder;
 
 public class LazyCarDataModel extends LazyDataModel<Car> {
 
+	private static final long serialVersionUID = 1L;
+
 	private List<Car> datasource;
 
 	public LazyCarDataModel(List<Car> datasource) {
@@ -37,10 +39,7 @@ public class LazyCarDataModel extends LazyDataModel<Car> {
 	@Override
 	public List<Car> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
 		List<Car> data = new ArrayList<>();
-		// filter Object should be a predicate
-		// data = data.stream().filter(Car.isTest()).collect(Collectors.toList());
 
-		// filter
 		for (Car car : datasource) {
 			boolean match = true;
 
@@ -71,16 +70,13 @@ public class LazyCarDataModel extends LazyDataModel<Car> {
 			}
 		}
 
-		// sort
 		if (sortField != null) {
 			Collections.sort(data, new LazySorter<Car>(sortField, sortOrder, Car.class));
 		}
 
-		// rowCount
 		int dataSize = data.size();
 		this.setRowCount(dataSize);
 
-		// paginate
 		if (dataSize > pageSize) {
 			try {
 				return data.subList(first, first + pageSize);

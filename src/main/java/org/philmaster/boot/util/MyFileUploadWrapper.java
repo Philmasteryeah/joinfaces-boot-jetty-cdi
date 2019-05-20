@@ -5,7 +5,7 @@ import org.primefaces.model.UploadedFileWrapper;
 
 public class MyFileUploadWrapper extends UploadedFileWrapper {
 
-	// file.nio wrapper for file.io
+
 
 	public MyFileUploadWrapper(UploadedFile file) {
 		super(file);

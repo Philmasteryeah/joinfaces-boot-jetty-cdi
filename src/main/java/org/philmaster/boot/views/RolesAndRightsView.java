@@ -26,6 +26,8 @@ import lombok.Setter;
 @ViewScoped
 public class RolesAndRightsView implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private List<Account> accounts;
 	private transient List<SelectItem> availableLanguageSkills = null;
 	private List<String> selectedLanguageSkills = new ArrayList<>();
@@ -114,7 +116,7 @@ public class RolesAndRightsView implements Serializable {
 		if (person == null)
 			return;
 		if (languageSkillToAdd != null) {
-			// person.addLanguageSkill(languageSkillToAdd);
+		
 		}
 
 		languageSkillToAdd = null;

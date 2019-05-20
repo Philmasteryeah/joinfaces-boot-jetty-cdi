@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 public class Adress implements Serializable{
 
-
-	
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String street; // with housenumber
 	private String zip;

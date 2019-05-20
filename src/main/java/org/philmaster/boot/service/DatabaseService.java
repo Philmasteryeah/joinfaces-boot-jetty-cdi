@@ -51,7 +51,8 @@ public enum DatabaseService {
 
 	public ObjectContext newContext() {
 		ObjectContext newContext = runtime.newContext();
-		// BaseContext.bindThreadObjectContext(newContext);
+	
+		System.err.println("created new context " + newContext);
 		return newContext;
 	}
 
@@ -63,9 +64,6 @@ public enum DatabaseService {
 		return fetchClientByName(context, DEFAULT_CLIENT_NAME);
 	}
 
-	/**
-	 * fetch the default client if name is null
-	 */
 	public static Client fetchClientByName(ObjectContext context, String name) {
 		if (name == null || "null".equals(name.trim()) || name.trim()
 				.isEmpty())
@@ -81,10 +79,10 @@ public enum DatabaseService {
 
 	@SuppressWarnings("unchecked")
 	public static Account fetchAccountByUsername(ObjectContext context, String username, String clientname) {
-		// dont want to fetch all accounts from client like this
-		// Client client = fetchClientByName(context, clientname);
-		// client.getAccounts().stream().findFirst().orElse(null);
-		// wanted to use a join like raw sql
+	
+	
+	
+	
 		SelectQuery<Account> query = new SelectQuery<>(Account.class);
 		query.andQualifier(ExpressionFactory.matchExp("username", username));
 		query.andQualifier(ExpressionFactory.matchExp("client.name", clientname));
@@ -123,16 +121,16 @@ public enum DatabaseService {
 				.select(context);
 	}
 
-	//
-	// Example:
-	// Artist a = ObjectSelect
-	// .query(Artist.class)
-	// .where(Artist.ARTIST_NAME.eq("Picasso"))
-	// .selectOne(context);
 
-	// List<String> names = ObjectSelect
-	// .columnQuery(Artist.class, Artist.ARTIST_NAME)
-	// .where(Artist.ARTIST_NAME.length().gt(6))
-	// .select(context);
+
+
+
+
+
+
+
+
+
+
 
 }

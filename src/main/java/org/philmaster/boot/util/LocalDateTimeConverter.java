@@ -17,7 +17,7 @@ public class LocalDateTimeConverter implements Converter<Object> {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		// TODO check all possible formats
+	
 		return LocalDate.parse(value, fmt);
 
 	}

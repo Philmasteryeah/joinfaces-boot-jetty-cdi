@@ -24,6 +24,7 @@ import lombok.extern.java.Log;
 @ViewScoped
 public class PdfBean implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@Getter
 	@Setter
 	private transient StreamedContent pdfViewerContent;

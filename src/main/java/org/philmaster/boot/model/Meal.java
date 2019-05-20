@@ -13,14 +13,13 @@ import lombok.Setter;
 @Setter
 public class Meal implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 
-
-	public static enum TypePrice {
+	public enum TypePrice {
 		EINTOPF("Eintopf", 3.25f), TRADITIONELL_1("Traditionell 1", 3.30f), TRADITIONELL_2("Traditionell 2", 3.30f),
 		KLEINER_HUNGER("Kleiner Hunger", 2.80f), VITAL("Vital", 3.90f), FESTTAGSMENUE("Festtagsmenü", 4.0f),
 		SONDERMENUE("Sondermenü", 5.79f), DESSERT("Dessert", 1.2f), SALAT("Beilagensalat", 0.8f);
 
-		// Sondermenü is changing every week
 		@Getter
 		@Setter
 		private String name;

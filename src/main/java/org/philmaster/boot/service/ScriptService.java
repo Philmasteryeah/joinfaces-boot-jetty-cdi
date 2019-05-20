@@ -26,26 +26,6 @@ public class ScriptService {
 			+ "    while((line = bufferedReader.readLine()) != null)\r\n" + "    	inputLine += line;\r\n"
 			+ "bufferedReader.close();\r\n" + "print(String(inputLine));\r\n" + "";
 
-	private static String test2 = "var input = [\r\n"
-			+ "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
-			+ "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
-			+ "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
-			+ "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
-			+ "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
-			+ "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
-			+ "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
-			+ "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
-			+ "  {dbName:\"key1\", xPath:\"value1\", description:\"value1\"},\r\n"
-			+ "  {dbName:\"key2\", xPath:\"value2\", description:\"value1\"}\r\n" + "];\r\n" + "\r\n"
-			+ "for(var i = 0; i < input.length; i++)\r\n" + "{\r\n" + "   print(input[i].dbName);\r\n"
-			+ "   print(input[i].xPath);\r\n" + "   print(input[i].description);\r\n" + "}\r\n" + "\r\n"
-			+ "function xmlToForm(dbName, xPath, description){\r\n" + "	var xmlVal = xml.getValue(xPath);\r\n"
-			+ "  	// Handle date, boolean usw.\r\n" + "    print('handle '+description);\r\n"
-			+ "  	form.setValue(xmlVal, dbName);\r\n" + "}\r\n" + "\r\n"
-			+ "function formToXml(dbName, xPath, description){\r\n" + "	var formVal = form.getValue(dbName);\r\n"
-			+ "  	// Handle date, boolean usw.\r\n" + "  	print('handle '+description);\r\n"
-			+ "  	xml.setValue(formValue, xPath);\r\n" + "  \r\n" + "}\r\n" + "\r\n" + "";
-
 	private static String test3 = "var greeting='hello world';" + "print(greeting);";
 
 	@PostConstruct

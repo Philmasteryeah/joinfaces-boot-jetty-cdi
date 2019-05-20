@@ -6,10 +6,11 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
-import org.philmaster.boot.model.questionnaire.QuestionnaireJS;
+import org.philmaster.boot.model.questionnaire.QuestionnaireJSON;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 
+import lombok.Getter;
 import lombok.extern.java.Log;
 
 /**
@@ -22,20 +23,19 @@ import lombok.extern.java.Log;
 @ApplicationScoped
 public class QuestionnaireService implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Value("classpath:static/questionnaire.json")
 	private transient Resource qj;
 
-	private transient QuestionnaireJS questionnaire;
+	@Getter
+	private transient QuestionnaireJSON questionnaireJSON;
 
 	@PostConstruct
 	void init() {
-		questionnaire = FileService.mapResourceToObject(qj, QuestionnaireJS.class);
-		if (questionnaire == null)
+		questionnaireJSON = FileService.mapResourceToObject(qj, QuestionnaireJSON.class);
+		if (questionnaireJSON == null)
 			log.info("could not load questionnaire");
-	}
-
-	public QuestionnaireJS getQuestionnaire() {
-		return questionnaire;
 	}
 
 }

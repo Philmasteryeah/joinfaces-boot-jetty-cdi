@@ -20,6 +20,8 @@ import lombok.Setter;
 @Getter
 public abstract class ContextListBean<T extends BaseDataObject> implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	public abstract Class<T> initClass();
 
 	@Setter
@@ -43,7 +45,7 @@ public abstract class ContextListBean<T extends BaseDataObject> implements Seria
 		items = DatabaseService.fetchAll(context, initClass());
 	}
 
-	// add CRUD
+
 
 	public void onCreateNew() {
 

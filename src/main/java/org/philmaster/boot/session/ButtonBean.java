@@ -18,6 +18,7 @@ import org.philmaster.boot.util.PMUtil;
 @ViewScoped
 public class ButtonBean implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@Inject
 	private SessionBean session;
 
@@ -30,8 +31,8 @@ public class ButtonBean implements Serializable {
 		System.err.println(actionEvent + " ");
 		PMUtil.statusMessageInfo("Welcome", "test");
 
-		// Testing stuff here
-		// meals.forEach(System.err::println);
+	
+	
 	}
 
 	public void doAction() {

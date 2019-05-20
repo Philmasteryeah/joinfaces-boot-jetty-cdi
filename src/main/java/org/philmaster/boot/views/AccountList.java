@@ -12,6 +12,8 @@ import org.philmaster.boot.session.ContextListBean;
 @ViewScoped
 public class AccountList extends ContextListBean<Account> implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public Class<Account> initClass() {
 		return Account.class;

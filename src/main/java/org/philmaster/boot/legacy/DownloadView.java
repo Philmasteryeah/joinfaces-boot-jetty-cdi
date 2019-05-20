@@ -26,7 +26,7 @@ import lombok.Setter;
 @ViewScoped
 public class DownloadView implements Serializable {
 
-
+	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Setter
@@ -62,14 +62,14 @@ public class DownloadView implements Serializable {
 	}
 
 	public void onRowUnselect(UnselectEvent event) {
-		// Util.statusMessageInfo("Car Unselected", ((Cars)
-		// event.getObject()).getName());
+	
+	
 	}
 
 	public void actionAdd(ActionEvent actionEvent) {
 		testCar = context.newObject(Car.class);
 		testCar.setClient(client);
-		// car.setName("test car");
+	
 
 		PMUtil.statusMessageInfo("Welcome", "test");
 	}

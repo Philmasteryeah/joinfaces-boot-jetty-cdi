@@ -29,14 +29,6 @@ public class PMUtil {
 		throw new IllegalStateException("This utility class cant be instantiated.");
 	}
 
-	// file
-
-	/**
-	 * With usage of temp file
-	 * 
-	 * @param file
-	 * @return
-	 */
 	public static String getTextFromFile(@NonNull UploadedFile file) {
 		return readTextUTF8(PMUtil.writeBytesToTempFile(file.getFileName(), file.getContents()));
 	}
@@ -80,14 +72,12 @@ public class PMUtil {
 		return null;
 	}
 
-	// random
-
 	public static String randomAlphanumericString(int length) {
 		return randomAlphanumericString32().substring(0, length);
 	}
 
 	public static String randomAlphanumericString32() {
-		// 2d7428a6-b58c-4008-8575-f05549f16316 - 36
+
 		List<char[]> characters = Arrays.asList(UUID.randomUUID()
 				.toString()
 				.replaceAll("-", "")
@@ -97,8 +87,6 @@ public class PMUtil {
 				.map(String::valueOf)
 				.collect(Collectors.joining());// alphanumeric - 32
 	}
-
-	// status message
 
 	public static void statusMessageInfo(@NonNull String text) {
 		statusMessageInfo("INFO", text);
@@ -127,20 +115,11 @@ public class PMUtil {
 		log.warning(text);
 	}
 
-	/**
-	 * displayed message in user gui
-	 * 
-	 * @param errorType
-	 * @param title
-	 * @param text
-	 */
 	private static void statusMessage(@NonNull Severity errorType, @NonNull String title, @NonNull String text) {
 		FacesMessage message = new FacesMessage(errorType, title, text);
 		FacesContext.getCurrentInstance()
 				.addMessage(null, message);
 	}
-
-	// reflection evil
 
 	public static List<Field> getAllFields(@NonNull List<Field> arrayList, @NonNull Class<?> type) {
 		arrayList.addAll(Arrays.asList(type.getDeclaredFields()));
@@ -150,8 +129,7 @@ public class PMUtil {
 	}
 
 	public static Object getAccessibleField(@NonNull List<Field> fields, String sortField, Object obj) {
-		// field = java.lang.String org.philmaster.boot.model.auto._Car.name
-		// sortField = name
+
 		Field field = fields.stream()
 				.filter(f -> f.getName()
 						.replaceAll(".+\\.", "")

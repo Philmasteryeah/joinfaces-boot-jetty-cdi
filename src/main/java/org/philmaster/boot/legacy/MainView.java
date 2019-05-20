@@ -20,8 +20,8 @@ import org.primefaces.model.DefaultDashboardModel;
 @ViewScoped
 public class MainView implements Serializable {
 
-
-
+	private static final long serialVersionUID = 1L;
+	
 	private DashboardModel model;
 
 	@PostConstruct

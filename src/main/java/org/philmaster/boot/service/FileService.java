@@ -58,8 +58,7 @@ public class FileService implements ResourceLoaderAware {
 	}
 
 	private Resource getStaticResource(String filename) {
-		// or use it like @Value("classpath:static/questionnaire.json") private Resource
-		// res;
+
 		log.info(MessageFormat.format("loading file {0}", filename));
 		return resourceLoader.getResource(ResourceLoader.CLASSPATH_URL_PREFIX + "static/" + filename);
 	}
@@ -83,29 +82,26 @@ public class FileService implements ResourceLoaderAware {
 	}
 
 	/**
-	 * Observe a directory for changes
+	 * watch a directory for changes
 	 * 
 	 * @param fullPath
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
 	public static void watchDir(String fullPath) throws IOException, InterruptedException {
-		WatchService watchService = FileSystems.getDefault()
-				.newWatchService();
-
-		// fullPath = "C:\\import"
-		Path path = Paths.get(fullPath);
-
-		path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE,
-				StandardWatchEventKinds.ENTRY_MODIFY);
-
-		WatchKey key;
-		while ((key = watchService.take()) != null) {
-			for (WatchEvent<?> event : key.pollEvents()) {
-				// TODO
-				System.err.println("Event kind:" + event.kind() + ". File affected: " + event.context() + ".");
+		try (WatchService watchService = FileSystems.getDefault()
+				.newWatchService()) {
+			Path path = Paths.get(fullPath);
+			path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE,
+					StandardWatchEventKinds.ENTRY_MODIFY);
+			WatchKey key;
+			while ((key = watchService.take()) != null) {
+				for (WatchEvent<?> event : key.pollEvents()) {
+					System.err.println("Event kind:" + event.kind() + ". File affected: " + event.context() + ".");
+				}
+				key.reset();
 			}
-			key.reset();
+		} catch (Exception e) {
 		}
 	}
 

@@ -29,7 +29,7 @@ public class SecurityConfig {
 	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			// TODO something is not working here like its should be
+		
 			http.csrf().disable();
 			http.antMatcher("/rest/**")
 					.authorizeRequests()
@@ -46,7 +46,7 @@ public class SecurityConfig {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			
-			//http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+		
 			
 			http.csrf().disable();
 			http.authorizeRequests()
@@ -71,7 +71,7 @@ public class SecurityConfig {
 	}
 
 	private PasswordEncoder plaintextPasswordEncoder() {
-		// only for testing
+	
 		return new PasswordEncoder() {
 			@Override
 			public boolean matches(CharSequence rawPassword, String encodedPassword) {

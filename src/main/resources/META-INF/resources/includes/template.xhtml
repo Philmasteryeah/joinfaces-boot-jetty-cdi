@@ -38,9 +38,7 @@
         <h:outputStylesheet
             library="css"
             name="starter.css" />
-        <f:event
-            listener="#{sessionBean.onRequest}"
-            type="preRenderView" />
+
         <f:event
             type="preRenderView"
             listener="#{breadcrumbBean.addPageUrl()}" />

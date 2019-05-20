@@ -1,9 +1,9 @@
 package org.philmaster.boot.session;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
@@ -16,9 +16,11 @@ import org.philmaster.boot.util.PMUtil;
 
 import lombok.Getter;
 
-public abstract class ContextDetailBean<T extends BaseDataObject> {
+public abstract class ContextDetailBean<T extends BaseDataObject> implements Serializable{
 
 //	private Class<T> persistentClass;
+
+	private static final long serialVersionUID = 1L;
 
 	@Getter
 	private String detailPageName;
@@ -38,21 +40,25 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	@Getter
 	private SessionBean session;
 
-	@PostConstruct
-	public void init() {
-//		persistentClass = getTypeOfT();
-
+	public ContextDetailBean() {
 		System.err.println(context.getChannel() + " init");
 
-		client = session.getLocalClient(context);
+	
 
-//		// TODO not needed can be pure el
-//		if (persistentClass != null)
-//			detailPageName = "" + persistentClass.getSimpleName()
-//					.toLowerCase() + "Detail";
 	}
+	
+//	@PostConstruct
+//	public void init() {
+////		persistentClass = getTypeOfT();
+//
+//		
+////	
+////		if (persistentClass != null)
+////			detailPageName = "" + persistentClass.getSimpleName()
+////					.toLowerCase() + "Detail";
+//	}
 
-	// will set on page navigation
+
 	public void setDetailId(String detailId) {
 		this.detailId = detailId;
 		setDetailObject();
@@ -63,13 +69,13 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 		this.detailObject = detailId != null ? fetchDetailObjectById(detailId) : createDetailObject();
 	}
 
-	// evil but I like it
+
 	@SuppressWarnings("unchecked")
 	private Class<T> getTypeOfT() {
 		return (Class<T>) getParameterizedTypes(this)[0];
 	}
 
-	// UTIL
+
 	public static Type[] getParameterizedTypes(Object object) {
 		Type superclassType = object.getClass()
 				.getGenericSuperclass();
@@ -81,13 +87,13 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	private T createDetailObject() {
 		detailObject = context.newObject(getTypeOfT());
-		// every detail object has a client
+	
 		detailObject.setToOneTarget("client", client, true);
 		return detailObject;
 	}
 
 	private T fetchDetailObjectById(String detailId) {
-		// TODO add account
+	
 		detailObject = SelectById.query(getTypeOfT(), detailId)
 				.selectOne(context);
 		return detailObject;

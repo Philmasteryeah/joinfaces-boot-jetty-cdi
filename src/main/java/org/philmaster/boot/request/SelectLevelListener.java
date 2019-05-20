@@ -11,7 +11,7 @@ import org.primefaces.extensions.component.masterdetail.SelectLevelEvent;
 @RequestScoped
 public class SelectLevelListener implements Serializable {
 
-
+	private static final long serialVersionUID = 1L;
 
 	private boolean errorOccured = false;
 

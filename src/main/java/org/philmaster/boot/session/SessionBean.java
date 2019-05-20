@@ -6,22 +6,15 @@ import java.util.Locale;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.query.ObjectSelect;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -41,10 +34,10 @@ import lombok.Getter;
  */
 
 @Named
-@Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
-public class SessionBean implements Serializable, ApplicationListener<InteractiveAuthenticationSuccessEvent> {
+@SessionScoped
+public class SessionBean implements Serializable {
 
-	// TODO think about session scope
+	private static final long serialVersionUID = 1L;
 
 	@Getter
 	private Locale locale;
@@ -52,29 +45,22 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	@Getter
 	private String page, name;
 
-	// hold client and account in session
-	// getter returns the session client
 	@Getter
 	private Client client;
+
 	@Getter
 	private Account account;
 
-	// session context is only for client and account
-	// every context page has its own context
-	private ObjectContext sessionContext = DatabaseService.INSTANCE.newContext();
-
 	public SessionBean() {
-		// Note that it is required that a session scoped class have a public no-args
-		System.err.println("iam not called constr");
+		System.err.println("session bean created");
+
 	}
-	
-	
 
 //	@PostConstruct
 //	private void init() {
 //		System.err.println(sessionContext);
 //
-//		// BaseContext.bindThreadObjectContext(sessionContext);
+//	
 //		System.err.println("--------@PostConstruct Session---------");
 //		System.err.println(sessionContext);
 //	}
@@ -86,54 +72,56 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 //		System.err.println(sessionContext);
 //	}
 
-	public void onRequest(ComponentSystemEvent event) {
-		System.err.println("this is new on every request :-( " + hashCode() + " " + sessionContext);
+//	public void onRequest(ComponentSystemEvent event) {
+//	
+//	
+//
+//	
+//	
+//
+////		FacesContext fc = FacesContext.getCurrentInstance();
+////		System.err.println(fc.getExternalContext()
+////				.getRequestParameterMap() + " ");
+//
+////		ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication()
+////				.getNavigationHandler();
+////		nav.performNavigation("includes/error");
+//
+////		if (!"admin".equals(fc.getExternalContext()
+////				.getSessionMap()
+////				.get("role"))) {
+////			nav.performNavigation("error");
+////		}
+//	}
 
-		// System.err.println("req" + event);
-		// TODO get every request for testing
-
-//		FacesContext fc = FacesContext.getCurrentInstance();
-//		System.err.println(fc.getExternalContext()
-//				.getRequestParameterMap() + " ");
-
-//		ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication()
-//				.getNavigationHandler();
-//		nav.performNavigation("includes/error");
-
-//		if (!"admin".equals(fc.getExternalContext()
-//				.getSessionMap()
-//				.get("role"))) {
-//			nav.performNavigation("error");
+//	@Override
+//	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
+//
+//		System.err.println(event + " onEvent " + event.getAuthentication());
+//		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+//				.getRequest();
+//		System.err.println(request);
+//	
+//		String clientname = request.getParameter("client");
+//		System.err.println("client connected " + clientname);
+//		String username = ((UserDetails) event.getAuthentication()
+//				.getPrincipal()).getUsername();
+//		System.err.println("user connected " + username);
+//	
+//	
+//		boolean isLoggedIn = isInitSession(clientname, username);
+//		if (!isLoggedIn) {
+//			System.err.print("error could not login");
+//			logout();
+//			return;
 //		}
-	}
-
-	@Override
-	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
-		System.err.println(event + " onEvent " + event.getAuthentication());
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-				.getRequest();
-		System.err.println(request);
-		// client from parameter
-		String clientname = request.getParameter("client");
-		System.err.println("client connected " + clientname);
-		String username = ((UserDetails) event.getAuthentication()
-				.getPrincipal()).getUsername();
-		System.err.println("user connected " + username);
-		// this should never be false
-		// otherwise the sql in spring security is not correct
-		boolean isLoggedIn = isInitSession(clientname, username);
-		if (!isLoggedIn) {
-			System.err.print("error could not login");
-			logout();
-			return;
-		}
-		// logged in now
-		System.err.println("logged in");
-
-	}
+//	
+//		System.err.println("logged in");
+//
+//	}
 
 	public String pageNameReadable() {
-		// TODO
+
 		return page;
 	}
 
@@ -147,9 +135,7 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 	}
 
 	public String logout() {
-		// instance can be null here
-		// clear faces session
-		// clear spring session
+
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
 				.getRequest();
 		HttpSession session = request.getSession();
@@ -170,33 +156,31 @@ public class SessionBean implements Serializable, ApplicationListener<Interactiv
 
 	}
 
-	private boolean isInitSession(String clientname, String username) {
+	public boolean isInitSession(ObjectContext context, String clientname, String username) {
 		if (clientname == null || clientname.trim()
 				.isEmpty())
 			System.err.println("using default client");
-		client = DatabaseService.fetchClientByName(sessionContext, clientname);
+
+		client = DatabaseService.fetchClientByName(context, clientname);
 		if (client == null)
 			return false; // LOGGING no client
-		account = DatabaseService.fetchAccountByUsername(sessionContext, username, client);
+		account = DatabaseService.fetchAccountByUsername(context, username, client);
 		if (account == null)
 			return false; // LOGGING no accc
 
 		System.err.println("init session client-> " + client.getName());
 		System.err.println("init session user-> " + account.getUsername());
 
-		// String skin = client.getSkin();
-		// System.err.println(skin + " skin loaded from client");
-		// setLayoutSkin(skin);
 		return true;
 	}
 
-	public Account fetchAccountByUsername(String username) {
-		System.err.println("fetchAccountByUsername " + username);
-		return ObjectSelect.query(Account.class)
-				.where(Account.USERNAME.eq(username))
-				.selectOne(sessionContext);
-		// TODO client
-	}
+//	public Account fetchAccountByUsername(String username) {
+//		System.err.println("fetchAccountByUsername " + username);
+//		return ObjectSelect.query(Account.class)
+//				.where(Account.USERNAME.eq(username))
+//				.selectOne(sessionContext);
+//	
+//	}
 
 	public Client getLocalClient(ObjectContext context) {
 		return context != null ? context.localObject(client) : null;

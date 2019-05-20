@@ -23,6 +23,8 @@ import lombok.Setter;
 @ViewScoped
 public class FoodList implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	@Getter

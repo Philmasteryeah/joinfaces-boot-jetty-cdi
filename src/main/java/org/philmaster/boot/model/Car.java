@@ -9,8 +9,7 @@ import org.philmaster.boot.util.PMUtil;
 
 public class Car extends _Car {
 
-
-	// private static final Logger LOGGER = LogManager.getLogger();
+	private static final long serialVersionUID = 1L;
 
 	public static Predicate<Car> isTest() {
 		return c -> "test car".equals(c.getName());

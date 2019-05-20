@@ -23,11 +23,13 @@ import lombok.Setter;
 @ViewScoped
 public class ClientDetail implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	private static final List<String> layoutSkins = Arrays.asList("skin-blue", "skin-blue-light", "skin-yellow",
 			"skin-yellow-light", "skin-green", "skin-green-light", "skin-purple", "skin-purple-light", "skin-red",
 			"skin-red-light", "skin-black", "skin-black-light");
 
-	private ObjectContext context;
+	private ObjectContext context = DatabaseService.INSTANCE.newContext();
 
 	@Getter
 	@Setter
@@ -38,10 +40,10 @@ public class ClientDetail implements Serializable {
 
 	@PostConstruct
 	void init() {
-		// local context
-		context = DatabaseService.INSTANCE.newContext();
+	
 
-		// local copy of the client from session context to this view context
+	
+	
 		detailObject = session.getLocalClient(context);
 	}
 

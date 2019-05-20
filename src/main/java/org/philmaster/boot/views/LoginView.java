@@ -12,6 +12,8 @@ import org.philmaster.boot.util.PMUtil;
 @ViewScoped
 public class LoginView implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	public void actionLogin(ActionEvent actionEvent) {
 		System.err.println("login view action");
 		PMUtil.statusMessageInfo("Welcome", "saved");
