@@ -51,10 +51,6 @@ public class SessionBean implements Serializable {
 	@Getter
 	private Account account;
 
-	public SessionBean() {
-		System.err.println("session bean created");
-
-	}
 
 //	@PostConstruct
 //	private void init() {

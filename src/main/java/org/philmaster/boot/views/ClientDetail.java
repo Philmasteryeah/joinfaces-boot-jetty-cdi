@@ -29,9 +29,8 @@ public class ClientDetail implements Serializable {
 			"skin-yellow-light", "skin-green", "skin-green-light", "skin-purple", "skin-purple-light", "skin-red",
 			"skin-red-light", "skin-black", "skin-black-light");
 
-	private ObjectContext context = DatabaseService.INSTANCE.newContext();
+	private ObjectContext context;
 
-	@Getter
 	@Setter
 	private Client detailObject;
 
@@ -40,13 +39,10 @@ public class ClientDetail implements Serializable {
 
 	@PostConstruct
 	void init() {
-	
 
-	
-	
-		detailObject = session.getLocalClient(context);
 	}
-
+	// TODO fetch client new and save only name in session
+	
 	public void actionSave(ActionEvent actionEvent) {
 		try {
 			context.commitChanges();
@@ -59,5 +55,17 @@ public class ClientDetail implements Serializable {
 
 	public static List<String> getLayoutSkins() {
 		return layoutSkins;
+	}
+
+	public ObjectContext getContext() {
+		if (context == null)
+			context = DatabaseService.INSTANCE.newContext();
+		return context;
+	}
+
+	public Client getDetailObject() {
+		if (detailObject == null)
+			detailObject = session.getLocalClient(getContext());
+		return detailObject;
 	}
 }
