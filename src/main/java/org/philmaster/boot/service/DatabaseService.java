@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
+import org.apache.cayenne.configuration.CayenneRuntime;
 import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.exp.ExpressionFactory;
@@ -47,11 +49,13 @@ public enum DatabaseService {
 		runtime = ServerRuntime.builder()
 				.addConfig(CAYENNE_CONFIG)
 				.build();
+
 	}
 
 	public ObjectContext newContext() {
 		ObjectContext newContext = runtime.newContext();
-	
+		CayenneRuntime.bindThreadInjector(runtime.getInjector());
+		System.err.println("-------------->" + CayenneRuntime.getThreadInjector());
 		System.err.println("created new context " + newContext);
 		return newContext;
 	}
@@ -79,10 +83,7 @@ public enum DatabaseService {
 
 	@SuppressWarnings("unchecked")
 	public static Account fetchAccountByUsername(ObjectContext context, String username, String clientname) {
-	
-	
-	
-	
+
 		SelectQuery<Account> query = new SelectQuery<>(Account.class);
 		query.andQualifier(ExpressionFactory.matchExp("username", username));
 		query.andQualifier(ExpressionFactory.matchExp("client.name", clientname));
@@ -120,17 +121,5 @@ public enum DatabaseService {
 				.where(where)
 				.select(context);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

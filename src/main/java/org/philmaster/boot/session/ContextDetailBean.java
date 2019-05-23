@@ -16,7 +16,7 @@ import org.philmaster.boot.util.PMUtil;
 
 import lombok.Getter;
 
-public abstract class ContextDetailBean<T extends BaseDataObject> implements Serializable{
+public abstract class ContextDetailBean<T extends BaseDataObject> implements Serializable {
 
 //	private Class<T> persistentClass;
 
@@ -43,10 +43,10 @@ public abstract class ContextDetailBean<T extends BaseDataObject> implements Ser
 	public ContextDetailBean() {
 		System.err.println(context.getChannel() + " init");
 
-	
+		
 
 	}
-	
+
 //	@PostConstruct
 //	public void init() {
 ////		persistentClass = getTypeOfT();
@@ -58,7 +58,6 @@ public abstract class ContextDetailBean<T extends BaseDataObject> implements Ser
 ////					.toLowerCase() + "Detail";
 //	}
 
-
 	public void setDetailId(String detailId) {
 		this.detailId = detailId;
 		setDetailObject();
@@ -69,12 +68,10 @@ public abstract class ContextDetailBean<T extends BaseDataObject> implements Ser
 		this.detailObject = detailId != null ? fetchDetailObjectById(detailId) : createDetailObject();
 	}
 
-
 	@SuppressWarnings("unchecked")
 	private Class<T> getTypeOfT() {
 		return (Class<T>) getParameterizedTypes(this)[0];
 	}
-
 
 	public static Type[] getParameterizedTypes(Object object) {
 		Type superclassType = object.getClass()
@@ -87,13 +84,13 @@ public abstract class ContextDetailBean<T extends BaseDataObject> implements Ser
 
 	private T createDetailObject() {
 		detailObject = context.newObject(getTypeOfT());
-	
+
 		detailObject.setToOneTarget("client", client, true);
 		return detailObject;
 	}
 
 	private T fetchDetailObjectById(String detailId) {
-	
+
 		detailObject = SelectById.query(getTypeOfT(), detailId)
 				.selectOne(context);
 		return detailObject;
