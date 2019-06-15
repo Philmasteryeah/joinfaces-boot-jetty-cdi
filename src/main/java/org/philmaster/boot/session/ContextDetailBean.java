@@ -1,26 +1,26 @@
 package org.philmaster.boot.session;
 
-import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
-import javax.faces.event.ActionEvent;
-import javax.inject.Inject;
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.query.SelectById;
+import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.util.PMUtil;
+import org.primefaces.event.TabChangeEvent;
+import org.primefaces.event.TabCloseEvent;
 
 import lombok.Getter;
 
-public abstract class ContextDetailBean<T extends BaseDataObject> implements Serializable {
+public abstract class ContextDetailBean<T extends BaseDataObject> {
 
-//	private Class<T> persistentClass;
+	private SessionBean session;
 
-	private static final long serialVersionUID = 1L;
+	private ObjectContext context;
 
 	@Getter
 	private String detailPageName;
@@ -28,82 +28,90 @@ public abstract class ContextDetailBean<T extends BaseDataObject> implements Ser
 	@Getter
 	private T detailObject;
 
-	@Getter
-	private String detailId; // f:param name="id" value="#{detailObject.id()}" from dataTable
-
-	@Getter
-	private final ObjectContext context = DatabaseService.INSTANCE.newContext();
-
 	private Client client;
+	private Account account;
 
-	@Inject
-	@Getter
-	private SessionBean session;
-
-	public ContextDetailBean() {
-		System.err.println(context.getChannel() + " init");
-
-		
-
+	@PostConstruct
+	public void init() {
+		context = getContext();
+		initSession();
+		initDetailObject(context);
 	}
 
-//	@PostConstruct
-//	public void init() {
-////		persistentClass = getTypeOfT();
-//
-//		
-////	
-////		if (persistentClass != null)
-////			detailPageName = "" + persistentClass.getSimpleName()
-////					.toLowerCase() + "Detail";
-//	}
-
-	public void setDetailId(String detailId) {
-		this.detailId = detailId;
-		setDetailObject();
+	public ObjectContext getContext() {
+		if (context == null)
+			context = DatabaseService.getContext();
+		return context;
 	}
 
-	public void setDetailObject() {
-		System.err.println("---" + context);
-		this.detailObject = detailId != null ? fetchDetailObjectById(detailId) : createDetailObject();
+	private String getRequestId() {
+		return FacesContext.getCurrentInstance()
+				.getExternalContext()
+				.getRequestParameterMap()
+				.get("id");
 	}
 
-	@SuppressWarnings("unchecked")
-	private Class<T> getTypeOfT() {
-		return (Class<T>) getParameterizedTypes(this)[0];
+	private SessionBean getSession() {
+		if (session == null) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			session = ctx.getApplication()
+					.evaluateExpressionGet(ctx, "#{sessionBean}", SessionBean.class);
+		}
+		return session;
 	}
 
-	public static Type[] getParameterizedTypes(Object object) {
-		Type superclassType = object.getClass()
-				.getGenericSuperclass();
-//		if (!ParameterizedType.class.isAssignableFrom(superclassType.getClass())) {
-//			return null;
-//		}
-		return ((ParameterizedType) superclassType).getActualTypeArguments();
+	public void initDetailObject(ObjectContext ctx) {
+		initDetailObject(ctx, getRequestId());
 	}
 
-	private T createDetailObject() {
-		detailObject = context.newObject(getTypeOfT());
-
+	public void initDetailObject(ObjectContext ctx, String id) {
+		detailObject = (id != null) ? fetchDetailObjectById(ctx, id) : createDetailObject(ctx);
+		detailObject.setToOneTarget("account", account, true);
 		detailObject.setToOneTarget("client", client, true);
-		return detailObject;
 	}
 
-	private T fetchDetailObjectById(String detailId) {
+	private void initSession() {
+		session = getSession();
+		client = session.getLocalClient(context);
+		account = session.getLocalAccount(context);
+	}
 
-		detailObject = SelectById.query(getTypeOfT(), detailId)
+	private T createDetailObject(ObjectContext ctx) {
+		return ctx.newObject(getTypeOfT());
+	}
+
+	private T fetchDetailObjectById(ObjectContext context, String detailId) {
+		return SelectById.query(getTypeOfT(), detailId)
 				.selectOne(context);
-		return detailObject;
 	}
 
-	public void actionSave(ActionEvent actionEvent) {
+	public void actionSave() {
 		try {
-			context.commitChanges();
+			getContext().commitChanges();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
-			PMUtil.statusMessageError("could not save");
+			PMUtil.statusMessageError(e.getMessage());
 			return;
 		}
 		PMUtil.statusMessageInfo("Saved", "Saved");
 	}
+
+	public void onTabChange(TabChangeEvent event) {
+		FacesMessage msg = new FacesMessage("Tab Changed", "Active Tab: " + event.getTab()
+				.getTitle());
+		FacesContext.getCurrentInstance()
+				.addMessage(null, msg);
+	}
+
+	public void onTabClose(TabCloseEvent event) {
+		FacesMessage msg = new FacesMessage("Tab Closed", "Closed tab: " + event.getTab()
+				.getTitle());
+		FacesContext.getCurrentInstance()
+				.addMessage(null, msg);
+	}
+
+	@SuppressWarnings("unchecked")
+	private Class<T> getTypeOfT() {
+		return (Class<T>) PMUtil.getParameterizedTypes(this)[0];
+	}
+
 }

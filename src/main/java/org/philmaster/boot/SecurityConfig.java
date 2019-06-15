@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
@@ -23,19 +24,20 @@ public class SecurityConfig {
 				.authoritiesByUsernameQuery("SELECT username, 'ADMIN' as authority FROM account WHERE username=?");
 
 	}
- 
+
 	@Configuration
 	@Order(1)
 	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-		
-			http.csrf().disable();
+
+			http.csrf()
+					.disable();
 			http.antMatcher("/rest/**")
 					.authorizeRequests()
 					.anyRequest()
 					.authenticated()
-				.and()
+					.and()
 					.httpBasic();
 
 		}
@@ -45,23 +47,31 @@ public class SecurityConfig {
 	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
+
+			http.csrf()
+					.disable();
 			
-		
-			
-			http.csrf().disable();
+			http.sessionManagement()
+					.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+
 			http.authorizeRequests()
-					.antMatchers("/").permitAll()
-					.antMatchers("/javax.faces.resource/**").permitAll()
-					.anyRequest().authenticated()
-				.and()
+					.antMatchers("/")
+					.permitAll()
+					.antMatchers("/javax.faces.resource/**")
+					.permitAll()
+					.anyRequest()
+					.authenticated()
+					.and()
 					.formLogin()
 					.loginPage("/login.xhtml")
 					.defaultSuccessUrl("/index.xhtml", true)
 					.failureUrl("/login.xhtml?error")
 					.permitAll()
-				.and()
+					.and()
 					.logout()
 					.logoutSuccessUrl("/login.xhtml")
+					.clearAuthentication(true)
+					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID");
 
 			http.headers()
@@ -71,7 +81,7 @@ public class SecurityConfig {
 	}
 
 	private PasswordEncoder plaintextPasswordEncoder() {
-	
+
 		return new PasswordEncoder() {
 			@Override
 			public boolean matches(CharSequence rawPassword, String encodedPassword) {

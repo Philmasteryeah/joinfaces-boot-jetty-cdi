@@ -1,20 +1,17 @@
 package org.philmaster.boot.views;
 
-import javax.faces.view.ViewScoped;
+import java.io.Serializable;
+
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import org.philmaster.boot.model.Questionnaire;
 import org.philmaster.boot.session.ContextListBean;
 
 @Named
-@ViewScoped
-public class QuestionnaireList extends ContextListBean<Questionnaire> {
+@RequestScoped
+public class QuestionnaireList extends ContextListBean<Questionnaire> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Override
-	public Class<Questionnaire> initClass() {
-		return Questionnaire.class;
-	}
 
 }

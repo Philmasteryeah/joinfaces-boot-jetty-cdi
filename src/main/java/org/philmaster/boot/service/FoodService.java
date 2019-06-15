@@ -1,7 +1,6 @@
 package org.philmaster.boot.service;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,51 +8,41 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.philmaster.boot.model.Meal;
 
-import lombok.extern.java.Log;
-
 /**
  * @author Philmasteryeah
  *
  */
 
-@Log
-@Named
-@ApplicationScoped
-public class FoodService implements Serializable {
+public enum FoodService {
 
-	private static final long serialVersionUID = 1L;
+	INSTANCE;
+
+	private static final Logger LOGGER = LogManager.getLogger(FoodService.class);
 
 	private static final String URL = "https://www.bestellung-rastenberger.de/menu/3/2019-01-07/2019-01-13/#speiseplan";
 
 //	@Inject
 //	private ImageService imgService; // testing
 
-	@PostConstruct
-	void init() {
-	
-	}
-
-	private Document parseUrlToDocument() {
+	private static Document parseUrlToDocument() {
 		try {
 			return Jsoup.connect(URL)
 					.get();
 		} catch (IOException e) {
-			log.warning(e.getMessage());
+			LOGGER.warn(e.getMessage());
 		}
 		return null;
 	}
 
-	public List<Meal> getParsedMeals() {
+	public static List<Meal> getParsedMeals() {
 		Document doc = parseUrlToDocument();
 		if (doc == null)
 			return Collections.emptyList();
@@ -64,20 +53,18 @@ public class FoodService implements Serializable {
 				.select("tr");
 
 		List<Meal> meals = new ArrayList<>();
-	
+
 		for (int i = 1; i < menuRows.size(); i++) {
 			Element menuRow = menuRows.get(i);
 
 			String type = menuRow.select("th")
 					.text();
 
-		
 			if ("Wochenend-Eintopf".equals(type) || "Sonntagsbraten".equals(type))
 				continue;
 
 			Elements rows = menuRow.select("td");
 
-		
 			for (int dayIndex = 0; dayIndex < 5; dayIndex++) {
 				String desc = rows.select("td")
 						.get(dayIndex)
@@ -94,8 +81,6 @@ public class FoodService implements Serializable {
 
 				meals.add(meal);
 			}
-
-		
 
 		}
 		return meals;

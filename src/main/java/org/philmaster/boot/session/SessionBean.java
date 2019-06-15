@@ -3,13 +3,17 @@ package org.philmaster.boot.session;
 import java.io.Serializable;
 import java.util.Locale;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.SessionMap;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
@@ -50,45 +54,6 @@ public class SessionBean implements Serializable {
 
 	@Getter
 	private Account account;
-
-
-//	@PostConstruct
-//	private void init() {
-//		System.err.println(sessionContext);
-//
-//	
-//		System.err.println("--------@PostConstruct Session---------");
-//		System.err.println(sessionContext);
-//	}
-//
-//	@PreDestroy
-//	private void destroy() {
-//		System.err.println(sessionContext.getGraphManager());
-//		System.err.println("--------@PreDestroy  Session---------");
-//		System.err.println(sessionContext);
-//	}
-
-//	public void onRequest(ComponentSystemEvent event) {
-//	
-//	
-//
-//	
-//	
-//
-////		FacesContext fc = FacesContext.getCurrentInstance();
-////		System.err.println(fc.getExternalContext()
-////				.getRequestParameterMap() + " ");
-//
-////		ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication()
-////				.getNavigationHandler();
-////		nav.performNavigation("includes/error");
-//
-////		if (!"admin".equals(fc.getExternalContext()
-////				.getSessionMap()
-////				.get("role"))) {
-////			nav.performNavigation("error");
-////		}
-//	}
 
 //	@Override
 //	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
@@ -157,6 +122,9 @@ public class SessionBean implements Serializable {
 				.isEmpty())
 			System.err.println("using default client");
 
+		if (context == null)
+			context = DatabaseService.getContext();
+
 		client = DatabaseService.fetchClientByName(context, clientname);
 		if (client == null)
 			return false; // LOGGING no client
@@ -168,6 +136,10 @@ public class SessionBean implements Serializable {
 		System.err.println("init session user-> " + account.getUsername());
 
 		return true;
+	}
+
+	public boolean isInitSession(String clientname, String username) {
+		return isInitSession(null, clientname, username);
 	}
 
 //	public Account fetchAccountByUsername(String username) {

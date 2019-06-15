@@ -13,7 +13,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Named
-@ApplicationScoped
 public class ScriptService {
 
 	private ScriptEngine engine;

@@ -32,8 +32,7 @@
             emptyMessage="nothing found">
             <p:ajax
                 event="rowSelect"
-                listener="#{cc.attrs.listBean.onRowSelect}"
-                />
+                listener="#{cc.attrs.listBean.onRowSelect}" />
             <f:facet name="header">
 
                 <p:outputPanel>
@@ -48,18 +47,19 @@
 
             <!-- first column is 'Id' for default, every db obj has it -->
             <p:column
+                id="detailLinkCol"
                 headerText="Id"
                 sortBy="#{detailObject.id()}"
                 filterBy="#{detailObject.id()}">
                 <!-- important = link without ajax here -->
-                    <p:link
-                        value="#{detailObject.id()}"
-                        outcome="#{cc.attrs.detailPage}"
-                        includeViewParams="true">
-                        <f:param
-                            name="id"
-                            value="#{detailObject.id()}" />
-                    </p:link>
+                <p:link
+                    value="#{detailObject.id()}"
+                    outcome="#{cc.attrs.detailPage}"
+                    includeViewParams="true">
+                    <f:param
+                        name="id"
+                        value="#{detailObject.id()}" />
+                </p:link>
             </p:column>
 
             <p:column
@@ -68,6 +68,7 @@
                 filterBy="#{cc.attrs.listBean.date}">
                 <f:facet name="filter">
                     <p:calendar
+                        id="cal"
                         pattern="dd.MM.yyyy"
                         onchange="PF('dataTableVar').filter()"
                         onkeyup="PF('dataTableVar').filter()">

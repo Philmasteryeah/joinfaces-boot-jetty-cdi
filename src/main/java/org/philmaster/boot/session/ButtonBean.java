@@ -19,8 +19,8 @@ import org.philmaster.boot.util.PMUtil;
 public class ButtonBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	@Inject
-	private SessionBean session;
+//	@Inject
+//	private SessionBean session;
 
 	public void buttonAction(ActionEvent actionEvent) {
 		System.err.println(actionEvent + " ");
@@ -34,23 +34,23 @@ public class ButtonBean implements Serializable {
 	
 	
 	}
-
-	public void doAction() {
-		PMUtil.statusMessageInfo("Welcome", "'" + session.getUsername() + "'");
-//		Messages.create("Welcome to AdminBoot " + session.getUsername() + "!")
-//				.detail("<b>AdminFaces</b> and <b>SpringBoot</b> integration via <b>JoinFaces.</b>").add();
-
-	}
-
-	public void doAction2() {
-		PMUtil.statusMessageWarn("Welcome", "'" + session.getUsername() + "'");
-
-	}
-
-	public void doAction3() {
-		PMUtil.statusMessageError("Welcome", "'" + session.getUsername() + "'");
-
-	}
+//
+//	public void doAction() {
+//		PMUtil.statusMessageInfo("Welcome", "'" + session.getUsername() + "'");
+////		Messages.create("Welcome to AdminBoot " + session.getUsername() + "!")
+////				.detail("<b>AdminFaces</b> and <b>SpringBoot</b> integration via <b>JoinFaces.</b>").add();
+//
+//	}
+//
+//	public void doAction2() {
+//		PMUtil.statusMessageWarn("Welcome", "'" + session.getUsername() + "'");
+//
+//	}
+//
+//	public void doAction3() {
+//		PMUtil.statusMessageError("Welcome", "'" + session.getUsername() + "'");
+//
+//	}
 
 	public void addMessage(String summary) {
 		PMUtil.statusMessageError("add", "'" + summary + "'");

@@ -1,6 +1,5 @@
 package org.philmaster.boot.service;
 
-import java.text.MessageFormat;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -8,17 +7,24 @@ import javax.sql.DataSource;
 import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.configuration.CayenneRuntime;
+import org.apache.cayenne.configuration.Constants;
+import org.apache.cayenne.configuration.ObjectContextFactory;
+import org.apache.cayenne.configuration.server.ServerModule;
 import org.apache.cayenne.configuration.server.ServerRuntime;
+import org.apache.cayenne.dbsync.reverse.configuration.ToolsModule;
+import org.apache.cayenne.di.DIBootstrap;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.exp.ExpressionFactory;
 import org.apache.cayenne.query.ObjectSelect;
 import org.apache.cayenne.query.Ordering;
 import org.apache.cayenne.query.SelectQuery;
+import org.eclipse.jetty.http.HttpParser.RequestHandler;
+import org.eclipse.jetty.io.ssl.ALPNProcessor.Server;
+import org.philmaster.boot.cayenne.ExtBaseContext;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
-
-import lombok.extern.java.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Philmasteryeah
@@ -35,34 +41,42 @@ import lombok.extern.java.Log;
  *
  */
 // Joshua Blochs enum singleton cool stuff
-@Log
 public enum DatabaseService {
 
 	INSTANCE;
 
+	final Logger logger = LoggerFactory.getLogger(DatabaseService.class);
+
 	private static final String CAYENNE_CONFIG = "cayenne-project.xml";
 	private static final String DEFAULT_CLIENT_NAME = "default";
 
-	private final ServerRuntime runtime;
-
-	DatabaseService() {
-		runtime = ServerRuntime.builder()
-				.addConfig(CAYENNE_CONFIG)
-				.build();
-
-	}
-
-	public ObjectContext newContext() {
-		ObjectContext newContext = runtime.newContext();
-		CayenneRuntime.bindThreadInjector(runtime.getInjector());
-		System.err.println("-------------->" + CayenneRuntime.getThreadInjector());
-		System.err.println("created new context " + newContext);
-		return newContext;
-	}
+	private static ServerRuntime runtime = ServerRuntime.builder()
+			.addConfig(CAYENNE_CONFIG)
+			.addModule(new ServerModule())
+			.build();
 
 	public DataSource getDataSource() {
+
 		return runtime.getDataSource();
 	}
+//
+//	public ServerRuntime getRuntime() {
+//		return runtime;
+//	}
+
+	public static ObjectContext getContext() {
+		System.err.println("get context");
+		ObjectContext octx = ExtBaseContext.getThreadObjectContextNull();
+		if (octx != null) {
+			return octx;
+		}
+		System.err.println("new context");
+		octx = runtime.newContext();
+		ExtBaseContext.bindThreadObjectContext(octx);
+		return octx;
+	}
+
+	///////
 
 	public static Client fetchDefaultClient(ObjectContext context) {
 		return fetchClientByName(context, DEFAULT_CLIENT_NAME);
@@ -89,11 +103,12 @@ public enum DatabaseService {
 		query.andQualifier(ExpressionFactory.matchExp("client.name", clientname));
 		List<Account> accounts = context.performQuery(query);
 		if (accounts == null || accounts.isEmpty()) {
-			log.warning(MessageFormat.format("account not found for query: {0}", query));
+			// log.warning(MessageFormat.format("account not found for query: {0}", query));
 			return null;
 		}
 		if (accounts.size() > 1) {
-			log.warning(MessageFormat.format("multiple account found for query: {0}", query));
+			// log.warning(MessageFormat.format("multiple account found for query: {0}",
+			// query));
 			return null;
 		}
 

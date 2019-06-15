@@ -16,17 +16,18 @@
     <ui:define name="body">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h:form>
+                <f:view transient="true" />
+                <h:form id="form">
                     <pm:dataTable
                         detailPage="questionnaireDetail"
                         listBean="#{questionnaireList}"
                         colTitles="#{['Name']}"
                         colAttributes="#{['name']}">
 
-
                     </pm:dataTable>
 
                 </h:form>
+
             </div>
         </div>
     </ui:define>

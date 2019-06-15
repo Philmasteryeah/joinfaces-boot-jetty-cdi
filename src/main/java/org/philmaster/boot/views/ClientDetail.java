@@ -5,11 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
@@ -20,10 +22,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Named
-@ViewScoped
-public class ClientDetail implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+@RequestScoped
+public class ClientDetail {
 
 	private static final List<String> layoutSkins = Arrays.asList("skin-blue", "skin-blue-light", "skin-yellow",
 			"skin-yellow-light", "skin-green", "skin-green-light", "skin-purple", "skin-purple-light", "skin-red",
@@ -31,18 +31,20 @@ public class ClientDetail implements Serializable {
 
 	private ObjectContext context;
 
-	@Setter
+	@Getter
 	private Client detailObject;
 
-	@Inject
-	private SessionBean session;
+//	@Inject
+//	private SessionBean session;
 
 	@PostConstruct
 	void init() {
+		System.err.println("init client detail");
+//		context = DatabaseService.newContext();
+//		detailObject = session.getLocalClient(context);
 
 	}
-	// TODO fetch client new and save only name in session
-	
+
 	public void actionSave(ActionEvent actionEvent) {
 		try {
 			context.commitChanges();
@@ -57,15 +59,4 @@ public class ClientDetail implements Serializable {
 		return layoutSkins;
 	}
 
-	public ObjectContext getContext() {
-		if (context == null)
-			context = DatabaseService.INSTANCE.newContext();
-		return context;
-	}
-
-	public Client getDetailObject() {
-		if (detailObject == null)
-			detailObject = session.getLocalClient(getContext());
-		return detailObject;
-	}
 }

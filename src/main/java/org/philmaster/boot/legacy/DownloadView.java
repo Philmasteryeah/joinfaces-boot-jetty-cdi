@@ -44,16 +44,16 @@ public class DownloadView implements Serializable {
 	
 	private ObjectContext context;
 
-	@Inject
-	private SessionBean session;
+//	@Inject
+//	private SessionBean session;
 
 	@PostConstruct
 	public void init() {
-		context = DatabaseService.INSTANCE.newContext();
-
-		client = session.getClient();
-
-		cars = DatabaseService.fetch(context, Car.class, ExpressionFactory.matchExp(client));
+//		context = DatabaseService.newContext();
+//
+//		client = session.getClient();
+//
+//		cars = DatabaseService.fetch(context, Car.class, ExpressionFactory.matchExp(client));
 
 	}
 

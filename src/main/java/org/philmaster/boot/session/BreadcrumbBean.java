@@ -44,10 +44,6 @@ public class BreadcrumbBean implements Serializable {
 				.replaceAll(URL_REGEX_SUFFIX, "");
 	}
 
-	public void execute(String page) {
-		System.err.println(page + " - ");
-	}
-
 	public List<String> pageStackUrlNames() {
 	
 		return pageStack.stream()

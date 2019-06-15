@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.el.ELContext;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -23,11 +24,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Named
-@ViewScoped
-public class RolesAndRightsView implements Serializable {
+@RequestScoped
+public class RolesAndRightsView {
 
-	private static final long serialVersionUID = 1L;
-	
 	private List<Account> accounts;
 	private transient List<SelectItem> availableLanguageSkills = null;
 	private List<String> selectedLanguageSkills = new ArrayList<>();

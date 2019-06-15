@@ -10,13 +10,8 @@
     template="/includes/template.xhtml">
     <ui:define name="metadata">
         <f:metadata>
-            <f:viewParam
-                name="id"
-                value="#{questionnaireDetail.detailId}" />
-            <c:set
-                var="detailObject"
-                value="#{questionnaireDetail.detailObject}" />
-            <!-- add validation msg here -->
+
+
         </f:metadata>
     </ui:define>
     <ui:define name="title">
@@ -26,11 +21,13 @@
 
     </ui:define>
     <ui:define name="body">
-        <h:form>
+
+        <h:form id="form">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 style="margin-top: 0">#{questionnaireView.questionnaire.name}</h3>
                     <p:accordionPanel
+                        id="accordion"
                         widgetVar="tabPanelWidget"
                         value="#{questionnaireDetail.questions}"
                         var="quest">
@@ -72,24 +69,22 @@
                     </p:accordionPanel>
 
                     <p:separator />
-
                     <p:commandButton
                         value="Save"
-                        actionListener="#{questionnaireDetail.actionSave}" />
+                        ajax="true"
+                        actionListener="#{questionnaireDetail.actionSave}">
+                        <f:param
+                            name="id"
+                            value="#{param.id}" />
+                    </p:commandButton>
 
-                    <p:commandButton
-                        value="prev"
-                        onclick="PF('tabPanelWidget').select(1);" />
-
-                    <p:commandButton
-                        value="next"
-                        onclick="PF('tabPanelWidget').select(2);" />
 
                 </div>
             </div>
 
 
         </h:form>
+
 
     </ui:define>
 </ui:composition>

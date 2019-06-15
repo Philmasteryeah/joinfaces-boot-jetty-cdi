@@ -20,12 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class PMRestController {
 
 	@Inject
-	private FoodService fs;
-
-	@Inject
-	private ImageService is; // testing
-
-	@Inject
 	private FileService fis;
 
 	@GetMapping(path = "/testMeal")
@@ -40,12 +34,12 @@ public class PMRestController {
 
 	@GetMapping(path = "/meals")
 	public ResponseEntity<List<Meal>> getMeals() {
-		return new ResponseEntity<>(fs.getParsedMeals(), HttpStatus.OK);
+		return new ResponseEntity<>(FoodService.getParsedMeals(), HttpStatus.OK);
 	}
 
 	@GetMapping(path = "/test")
 	public ResponseEntity<String> getTest() {
-		return new ResponseEntity<>(is.getTestImage(), HttpStatus.OK);
+		return new ResponseEntity<>(ImageService.getTestImage(), HttpStatus.OK);
 	}
 
 	@GetMapping(path = "/test2", produces = "application/json")

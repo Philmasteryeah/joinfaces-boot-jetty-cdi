@@ -2,6 +2,8 @@ package org.philmaster.boot.util;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -17,13 +19,15 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.primefaces.model.UploadedFile;
 
 import lombok.NonNull;
-import lombok.extern.java.Log;
 
-@Log
 public class PMUtil {
+
+	private static final Logger LOGGER = LogManager.getLogger(PMUtil.class);
 
 	private PMUtil() {
 		throw new IllegalStateException("This utility class cant be instantiated.");
@@ -39,7 +43,7 @@ public class PMUtil {
 					.stream()
 					.collect(Collectors.joining("\n\r"));
 		} catch (IOException e) {
-			log.warning(e.getMessage());
+			LOGGER.warn(e.getMessage());
 		}
 		return null;
 	}
@@ -54,7 +58,7 @@ public class PMUtil {
 
 	private static Path writeBytesToTempFile(@NonNull String filename, @NonNull byte[] bytes) {
 		if (filename.isEmpty() || !filename.contains(".")) {
-			log.warning(MessageFormat.format("filename not valid{0}", filename));
+			LOGGER.warn(MessageFormat.format("filename not valid{0}", filename));
 			return null;
 		}
 		final String[] filenameParts = filename.split("\\.");
@@ -67,7 +71,7 @@ public class PMUtil {
 			Files.write(path, bytes);
 			return path;
 		} catch (IOException e) {
-			log.warning(e.getMessage());
+			LOGGER.warn(e.getMessage());
 		}
 		return null;
 	}
@@ -94,7 +98,7 @@ public class PMUtil {
 
 	public static void statusMessageInfo(@NonNull String title, @NonNull String text) {
 		statusMessage(FacesMessage.SEVERITY_INFO, title, text);
-		log.info(text);
+		LOGGER.info(text);
 	}
 
 	public static void statusMessageWarn(@NonNull String text) {
@@ -103,7 +107,7 @@ public class PMUtil {
 
 	public static void statusMessageWarn(@NonNull String title, @NonNull String text) {
 		statusMessage(FacesMessage.SEVERITY_WARN, title, text);
-		log.warning(text);
+		LOGGER.warn(text);
 	}
 
 	public static void statusMessageError(@NonNull String text) {
@@ -112,7 +116,7 @@ public class PMUtil {
 
 	public static void statusMessageError(@NonNull String title, @NonNull String text) {
 		statusMessage(FacesMessage.SEVERITY_ERROR, title, text);
-		log.warning(text);
+		LOGGER.warn(text);
 	}
 
 	private static void statusMessage(@NonNull Severity errorType, @NonNull String title, @NonNull String text) {
@@ -128,6 +132,15 @@ public class PMUtil {
 		return arrayList;
 	}
 
+	public static Type[] getParameterizedTypes(Object object) {
+		Type superclassType = object.getClass()
+				.getGenericSuperclass();
+//		if (!ParameterizedType.class.isAssignableFrom(superclassType.getClass())) {
+//			return null;
+//		}
+		return ((ParameterizedType) superclassType).getActualTypeArguments();
+	}
+
 	public static Object getAccessibleField(@NonNull List<Field> fields, String sortField, Object obj) {
 
 		Field field = fields.stream()
@@ -137,14 +150,14 @@ public class PMUtil {
 				.findFirst()
 				.orElse(null);
 		if (field == null) {
-			log.warning(MessageFormat.format("field {0} not found", sortField));
+			LOGGER.warn(MessageFormat.format("field {0} not found", sortField));
 			return null;
 		}
 		field.setAccessible(true); // cayennes fields are protected, so we need this ultra evil hack
 		try {
 			return field.get(obj);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
-			log.warning(e.getMessage());
+			LOGGER.warn(e.getMessage());
 			return null;
 		}
 	}

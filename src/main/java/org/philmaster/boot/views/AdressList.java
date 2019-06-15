@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -16,10 +17,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Named
-@ViewScoped
-public class AdressList implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+@RequestScoped
+public class AdressList {
 
 	@Getter
 	@Setter

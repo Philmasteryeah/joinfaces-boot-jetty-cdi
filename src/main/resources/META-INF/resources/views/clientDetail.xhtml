@@ -25,10 +25,11 @@
                         columns="2"
                         cellpadding="5">
                         <h:outputText value="Name:" />
-                        <h:outputText value="#{clientDetail.detailObject.name}" />
+                        <h:outputText
+                            value="#{clientDetail.detailObject.name}" />
                         <h:outputText value="Color:" />
                         <p:selectOneMenu
-                            value="#{detailObject.skin}"
+                            value="#{clientDetail.detailObject.skin}"
                             style="width:150px">
                             <f:selectItems
                                 value="#{clientDetail.getLayoutSkins()}" />
@@ -40,8 +41,7 @@
                     <p:commandButton
                         action="result"
                         value="Save"
-                        actionListener="#{clientDetail.actionSave}"
-                        ajax="false">
+                        actionListener="#{clientDetail.actionSave}">
                     </p:commandButton>
 
 

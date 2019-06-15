@@ -1,12 +1,11 @@
 package org.philmaster.boot.views;
 
-import java.io.Serializable;
-
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.session.ContextDetailBean;
+import java.io.Serializable;
 
 @Named
 @ViewScoped

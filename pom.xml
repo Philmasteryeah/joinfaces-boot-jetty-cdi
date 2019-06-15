@@ -1,14 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.4.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath />
 	</parent>
+
 	<groupId>org.philmaster</groupId>
 	<artifactId>boot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -19,17 +22,21 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<joinfaces.version>4.0.3</joinfaces.version>
+
+		<joinfaces.version>4.0.4</joinfaces.version>
+
 		<primefaces-theme.version>1.0.10</primefaces-theme.version>
-		<maven-model.version>3.6.0</maven-model.version>
+
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 		<heroku.version>2.0.7</heroku.version>
 
 		<cayenne.version>4.1.M2</cayenne.version>
 		<cayenne.modeler.version>4.1.M1</cayenne.modeler.version>
 
+		<database.driver>org.postgresql.Driver</database.driver>
 		<database.url>jdbc:postgresql://localhost:5432/database</database.url>
 		<database.user>postgres</database.user>
-		<databese.password>postgres</databese.password>
+		<database.password>postgres</database.password>
 	</properties>
 
 	<dependencyManagement>
@@ -48,8 +55,8 @@
 	<!-- Redis Client -->
 
 		<dependency>
-    		<groupId>redis.clients</groupId>
-    		<artifactId>jedis</artifactId>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
 		</dependency>
 	
 		<!-- Spring -->
@@ -65,12 +72,12 @@
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-core</artifactId>
 		</dependency>
-		<!-- 
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
-		 -->
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
@@ -103,12 +110,12 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>7.0</version>
+			 <version>7.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces.extensions</groupId>
 			<artifactId>primefaces-extensions</artifactId>
-			<version>7.0</version>
+			 <version>7.0</version>
 		</dependency>
 		<!-- Postgres -->
 		<dependency>
@@ -138,7 +145,7 @@
 		</dependency>
 
 
-				<!-- Primefaces -->
+		<!-- Primefaces -->
 		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>primefaces-spring-boot-starter</artifactId>
@@ -155,6 +162,7 @@
 			<artifactId>cayenne-modeler</artifactId>
 			<version>${cayenne.version}</version>
 		</dependency>
+		
 		<!-- Misc -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -163,7 +171,7 @@
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
-			<version>1.11.3</version>
+			<version>1.12.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.lowagie</groupId>
@@ -192,12 +200,21 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.joinfaces</groupId>
+					<artifactId>joinfaces-maven-plugin</artifactId>
+					<version>${joinfaces.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.joinfaces</groupId>
+				<artifactId>joinfaces-maven-plugin</artifactId>
 			</plugin>
-
 
 			<plugin>
 				<groupId>org.apache.cayenne.plugins</groupId>
@@ -206,6 +223,13 @@
 				<configuration>
 					<map>${basedir}/src/main/resources/datamap.map.xml</map>
 					<modelFile>>${basedir}/src/main/resources/cayenne-project.xml</modelFile>
+					<adapter>org.apache.cayenne.dba.postgres.PostgresAdapter</adapter>
+					<dataSource>
+						<driver>${database.driver}</driver>
+						<url>${database.url}</url>
+						<username>${database.user}</username>
+						<password>${database.password}</password>
+					</dataSource>
 				</configuration>
 			</plugin>
 
@@ -234,9 +258,10 @@
 					<locations>
 						<location>classpath:/db/migration</location>
 					</locations>
+					<driver>${database.driver}</driver>
 					<url>${database.url}</url>
 					<user>${database.user}</user>
-					<password>${databese.password}</password>
+					<password>${database.password}</password>
 				</configuration>
 			</plugin>
 		</plugins>

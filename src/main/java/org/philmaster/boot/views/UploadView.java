@@ -2,6 +2,7 @@ package org.philmaster.boot.views;
 
 import java.io.Serializable;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -15,12 +16,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Named
-@ViewScoped
-public class UploadView implements Serializable {
+@RequestScoped
+public class UploadView {
 
-	private static final long serialVersionUID = 1L;
-	
-	private transient UploadedFile file;
+	private UploadedFile file;
 
 	private String editorText;
 

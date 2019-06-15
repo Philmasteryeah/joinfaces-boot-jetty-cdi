@@ -1,6 +1,7 @@
 
 package org.philmaster.boot.model.questionnaire;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -12,7 +13,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "key", "title" })
-public class AnswerJS {
+public class AnswerJS implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@JsonProperty("key")
 	private String key;

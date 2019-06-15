@@ -1,12 +1,10 @@
 package org.philmaster.boot.views;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import org.apache.logging.log4j.LogManager;
@@ -20,12 +18,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Named
-@ViewScoped
-public class FoodList implements Serializable {
+@RequestScoped
+public class FoodList {
 
-	private static final long serialVersionUID = 1L;
-
-	private static final Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LogManager.getLogger(FoodList.class);
 
 	@Getter
 	@Setter
@@ -39,15 +35,12 @@ public class FoodList implements Serializable {
 	@Setter
 	private Meal selectedMeal;
 
-	@Inject
-	private FoodService fs;
-
 	@PostConstruct
 	public void init() {
 		try {
-			meals = fs.getParsedMeals();
+			meals = FoodService.getParsedMeals();
 		} catch (Exception e) {
-			LOGGER.error(e);
+			LOGGER.warn(e.getMessage());
 		}
 	}
 
@@ -56,7 +49,7 @@ public class FoodList implements Serializable {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public boolean filterByPrice(Object value, Object filter, Locale locale) {
+	public static boolean filterByPrice(Object value, Object filter, Locale locale) {
 		String filterText = (filter == null) ? null
 				: filter.toString()
 						.trim();

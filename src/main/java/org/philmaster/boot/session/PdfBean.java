@@ -8,6 +8,8 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -17,14 +19,15 @@ import com.lowagie.text.pdf.PdfWriter;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.java.Log;
 
-@Log
 @Named
 @ViewScoped
 public class PdfBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	private static final Logger LOGGER = LogManager.getLogger(PdfBean.class);
+
 	@Getter
 	@Setter
 	private transient StreamedContent pdfViewerContent;
@@ -46,7 +49,7 @@ public class PdfBean implements Serializable {
 			pdfViewerContent = new DefaultStreamedContent(new ByteArrayInputStream(out.toByteArray()),
 					"application/pdf");
 		} catch (Exception e) {
-			log.warning(e.getMessage());
+			LOGGER.warn(e.getMessage());
 		}
 	}
 }

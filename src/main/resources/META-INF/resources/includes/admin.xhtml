@@ -24,8 +24,7 @@
     <ui:insert name="head" />
     <ui:insert name="head-end" />
 </h:head>
-<h:body
-    styleClass="#{adm['adminConfig.skin']} ">
+<h:body styleClass="#{adm['adminConfig.skin']} ">
     <ui:insert name="body-begin" />
     <p:ajaxStatus
         rendered="#{adm['adminConfig.renderAjaxStatus']}"
@@ -142,6 +141,7 @@
                 </h1>
 
                 <ui:insert name="content-header" />
+                <!-- 
                 <ol class="breadcrumb">
                     <li>
                         <p:link href="/views/main.xhtml">
@@ -153,14 +153,15 @@
                         value="#{breadcrumbBean.pageStackUrlNames()}"
                         var="page">
                         <li>
-                        <p:remoteCommand name="rc" action="#{breadcrumbBean.execute(page)}" />
-                            <p:link href="#{page}.xhtml" onclick="rc()" >
-                                <!-- TODO label mapping -->
-                                <h:outputText value="#{breadcrumbBean.pageName(page)}" />
+                            <p:link href="#{page}.xhtml">
+                               
+                                <h:outputText
+                                    value="#{breadcrumbBean.pageName(page)}" />
                             </p:link>
                         </li>
                     </p:repeat>
                 </ol>
+ -->
             </section>
             <section class="content">
                 <ui:insert name="content-begin" />

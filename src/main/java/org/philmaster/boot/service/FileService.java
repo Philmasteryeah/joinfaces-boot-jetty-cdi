@@ -3,6 +3,7 @@ package org.philmaster.boot.service;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.URI;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -16,6 +17,8 @@ import java.text.MessageFormat;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.philmaster.boot.util.PMUtil;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;
@@ -23,14 +26,15 @@ import org.springframework.core.io.ResourceLoader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.extern.java.Log;
-
-@Log
 @Named
 @ApplicationScoped
-public class FileService implements ResourceLoaderAware {
+public class FileService implements ResourceLoaderAware, Serializable {
 
-	private ResourceLoader resourceLoader;
+	private static final long serialVersionUID = 1L;
+
+	private static final Logger LOGGER = LogManager.getLogger(FileService.class);
+
+	private transient ResourceLoader resourceLoader;
 
 	@Override
 	public void setResourceLoader(ResourceLoader resourceLoader) {
@@ -42,7 +46,7 @@ public class FileService implements ResourceLoaderAware {
 		try {
 			return objectMapper.readValue(resource.getInputStream(), clazz);
 		} catch (IOException e) {
-			log.warning(e.getMessage());
+			LOGGER.warn(e.getMessage());
 		}
 		return null;
 	}
@@ -52,14 +56,14 @@ public class FileService implements ResourceLoaderAware {
 		try {
 			return objectMapper.readValue(is, clazz);
 		} catch (IOException e) {
-			log.warning(e.getMessage());
+			LOGGER.warn(e.getMessage());
 		}
 		return null;
 	}
 
 	private Resource getStaticResource(String filename) {
 
-		log.info(MessageFormat.format("loading file {0}", filename));
+		LOGGER.info(MessageFormat.format("loading file {0}", filename));
 		return resourceLoader.getResource(ResourceLoader.CLASSPATH_URL_PREFIX + "static/" + filename);
 	}
 
@@ -74,9 +78,9 @@ public class FileService implements ResourceLoaderAware {
 		try {
 			return resource.getURI();
 		} catch (FileNotFoundException e) {
-			log.warning(MessageFormat.format("file not found {0}", e.getMessage()));
+			LOGGER.warn(MessageFormat.format("file not found {0}", e.getMessage()));
 		} catch (IOException e) {
-			log.warning(MessageFormat.format("cant load file {0}", e.getMessage()));
+			LOGGER.warn(MessageFormat.format("cant load file {0}", e.getMessage()));
 		}
 		return null;
 	}

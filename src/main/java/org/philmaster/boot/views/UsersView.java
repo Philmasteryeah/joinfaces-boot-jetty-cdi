@@ -1,8 +1,6 @@
 package org.philmaster.boot.views;
 
-import java.io.Serializable;
-
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import lombok.Getter;
@@ -11,11 +9,9 @@ import lombok.Setter;
 @Setter
 @Getter
 @Named
-@ViewScoped
-public class UsersView implements Serializable {
+@RequestScoped
+public class UsersView {
 
-	private static final long serialVersionUID = 1L;
-	
 	private String signatureValue;
 
 }
