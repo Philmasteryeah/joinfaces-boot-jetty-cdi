@@ -14,11 +14,11 @@
         <cc:attribute name="detailPage" />
     </cc:interface>
     <cc:implementation>
-        <style type="text/css">
-.ui-datatable .ui-datatable-header {
-	text-align: right;
-}
-</style>
+        <!-- get the id its always the first value-->
+        <c:set
+            var="id"
+            value="#{detailObject.objectId.getIdSnapshot().values().iterator().next()}" />
+
         <p:dataTable
             id="dataTable"
             rows="20"
@@ -27,7 +27,7 @@
             filteredValue="#{cc.attrs.listBean.itemsFiltered}"
             selectionMode="multiple"
             selection="#{cc.attrs.listBean.itemsSelected}"
-            rowKey="#{detailObject.id()}"
+            rowKey="#{id}"
             widgetVar="dataTableVar"
             emptyMessage="nothing found">
             <p:ajax
@@ -49,16 +49,16 @@
             <p:column
                 id="detailLinkCol"
                 headerText="Id"
-                sortBy="#{detailObject.id()}"
-                filterBy="#{detailObject.id()}">
+                sortBy="#{id}"
+                filterBy="#{id}">
                 <!-- important = link without ajax here -->
                 <p:link
-                    value="#{detailObject.id()}"
+                    value="#{id}"
                     outcome="#{cc.attrs.detailPage}"
                     includeViewParams="true">
                     <f:param
                         name="id"
-                        value="#{detailObject.id()}" />
+                        value="#{id}" />
                 </p:link>
             </p:column>
 

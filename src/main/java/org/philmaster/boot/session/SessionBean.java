@@ -3,22 +3,21 @@ package org.philmaster.boot.session;
 import java.io.Serializable;
 import java.util.Locale;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.SessionMap;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
+import org.springframework.context.ApplicationListener;
+import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -27,19 +26,14 @@ import lombok.Getter;
 /**
  * @author Philmasteryeah
  * 
- *         switch the content pages with this bean
- * 
- *         its very important to use SessionScope here otherwise it will be
- *         reset to 'main 'after menu click
- * 
- *         getPage() will return the name of the current page pageNameReadable()
- *         user readable printed for info messages
+ *         do not inject this bean into a other session scope or view sope, it
+ *         will copy the session
  *
  */
 
 @Named
 @SessionScoped
-public class SessionBean implements Serializable {
+public class SessionBean implements ApplicationListener<InteractiveAuthenticationSuccessEvent>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -55,34 +49,7 @@ public class SessionBean implements Serializable {
 	@Getter
 	private Account account;
 
-//	@Override
-//	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
-//
-//		System.err.println(event + " onEvent " + event.getAuthentication());
-//		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-//				.getRequest();
-//		System.err.println(request);
-//	
-//		String clientname = request.getParameter("client");
-//		System.err.println("client connected " + clientname);
-//		String username = ((UserDetails) event.getAuthentication()
-//				.getPrincipal()).getUsername();
-//		System.err.println("user connected " + username);
-//	
-//	
-//		boolean isLoggedIn = isInitSession(clientname, username);
-//		if (!isLoggedIn) {
-//			System.err.print("error could not login");
-//			logout();
-//			return;
-//		}
-//	
-//		System.err.println("logged in");
-//
-//	}
-
 	public String pageNameReadable() {
-
 		return page;
 	}
 
@@ -92,6 +59,30 @@ public class SessionBean implements Serializable {
 				.getViewRoot()
 				.setLocale(this.locale);
 		return locale;
+
+	}
+
+	@Override
+	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
+		System.err.println(event + " onEvent " + event.getAuthentication());
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+				.getRequest();
+		System.err.println(request);
+
+		String clientname = request.getParameter("client");
+		System.err.println("client connected " + clientname);
+		String username = ((UserDetails) event.getAuthentication()
+				.getPrincipal()).getUsername();
+		System.err.println("user connected " + username);
+
+		boolean isLoggedIn = isInitSession(clientname, username);
+		if (!isLoggedIn) {
+			System.err.print("error could not login");
+			logout();
+			return;
+		}
+
+		System.err.println("logged in");
 
 	}
 

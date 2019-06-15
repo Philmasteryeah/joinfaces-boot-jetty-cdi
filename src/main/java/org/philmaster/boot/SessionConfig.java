@@ -1,30 +1,7 @@
 package org.philmaster.boot;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletRequestEvent;
-import javax.servlet.ServletRequestListener;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.sql.DataSource;
-
-import org.apache.cayenne.BaseContext;
-import org.apache.cayenne.Cayenne;
-import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.configuration.CayenneRuntime;
-import org.apache.cayenne.configuration.server.ServerRuntime;
-import org.apache.cayenne.configuration.server.ServerRuntimeBuilder;
-import org.apache.cayenne.di.DIBootstrap;
-import org.eclipse.jetty.http.HttpParser.RequestHandler;
-import org.philmaster.boot.cayenne.ExtBaseContext;
-import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
@@ -32,7 +9,6 @@ import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
-import org.springframework.stereotype.Component;
 
 @Configuration
 @EnableRedisHttpSession

@@ -7,10 +7,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.philmaster.boot.framework.ContextDetailBean;
 import org.philmaster.boot.model.Questionnaire;
 import org.philmaster.boot.model.questionnaire.QuestionJS;
 import org.philmaster.boot.service.QuestionnaireService;
-import org.philmaster.boot.session.ContextDetailBean;
 
 @Named
 @RequestScoped

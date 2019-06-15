@@ -1,4 +1,4 @@
-package org.philmaster.boot.session;
+package org.philmaster.boot.framework;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -10,6 +10,7 @@ import org.apache.cayenne.query.SelectById;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
+import org.philmaster.boot.session.SessionBean;
 import org.philmaster.boot.util.PMUtil;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.event.TabCloseEvent;
@@ -66,8 +67,10 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	public void initDetailObject(ObjectContext ctx, String id) {
 		detailObject = (id != null) ? fetchDetailObjectById(ctx, id) : createDetailObject(ctx);
-		detailObject.setToOneTarget("account", account, true);
-		detailObject.setToOneTarget("client", client, true);
+		if (detailObject.getClass() != account.getClass())
+			detailObject.setToOneTarget("account", account, true);
+		if (detailObject.getClass() != client.getClass())
+			detailObject.setToOneTarget("client", client, true);
 	}
 
 	private void initSession() {

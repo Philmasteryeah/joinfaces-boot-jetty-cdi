@@ -20,7 +20,6 @@ import org.philmaster.boot.model.Meal;
  * @author Philmasteryeah
  *
  */
-
 public enum FoodService {
 
 	INSTANCE;

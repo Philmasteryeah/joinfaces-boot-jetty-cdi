@@ -1,12 +1,10 @@
 package org.philmaster.boot.views;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.philmaster.boot.model.Adress;
@@ -39,7 +37,7 @@ public class AdressList {
 	}
 
 	public void onRowSelect(SelectEvent event) {
-	
+
 		PMUtil.statusMessageInfo("Selected", "'" + selectedItem + "'");
 	}
 

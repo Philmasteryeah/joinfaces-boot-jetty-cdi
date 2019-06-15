@@ -3,7 +3,6 @@ package org.philmaster.boot.service;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.net.URI;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -28,9 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Named
 @ApplicationScoped
-public class FileService implements ResourceLoaderAware, Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class FileService implements ResourceLoaderAware {
 
 	private static final Logger LOGGER = LogManager.getLogger(FileService.class);
 

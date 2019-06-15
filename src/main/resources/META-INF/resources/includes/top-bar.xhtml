@@ -43,7 +43,7 @@
                                 styleClass="btn btn-default">
                                 <f:param
                                     name="id"
-                                    value="#{sessionBean.account.id()}" />
+                                    value="#{sessionBean.account.objectId.getIdSnapshot().values().iterator().next()}" />
                             </p:link>
 
                         </div>

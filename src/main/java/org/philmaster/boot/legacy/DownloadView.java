@@ -1,20 +1,15 @@
 package org.philmaster.boot.legacy;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.event.ActionEvent;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.exp.ExpressionFactory;
 import org.philmaster.boot.model.Car;
 import org.philmaster.boot.model.Client;
-import org.philmaster.boot.service.DatabaseService;
-import org.philmaster.boot.session.SessionBean;
 import org.philmaster.boot.util.PMUtil;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
@@ -23,10 +18,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Named
-@ViewScoped
-public class DownloadView implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+@RequestScoped
+public class DownloadView {
 
 	@Getter
 	@Setter
@@ -41,7 +34,7 @@ public class DownloadView implements Serializable {
 	private int currentLevel = 1;
 
 	private Client client;
-	
+
 	private ObjectContext context;
 
 //	@Inject
@@ -58,18 +51,16 @@ public class DownloadView implements Serializable {
 	}
 
 	public void onRowSelect(SelectEvent event) {
-		PMUtil.statusMessageInfo("Car Selected", selectedCar.getId() + "");
+		PMUtil.statusMessageInfo("Car Selected", selectedCar + "");
 	}
 
 	public void onRowUnselect(UnselectEvent event) {
-	
-	
+
 	}
 
 	public void actionAdd(ActionEvent actionEvent) {
 		testCar = context.newObject(Car.class);
 		testCar.setClient(client);
-	
 
 		PMUtil.statusMessageInfo("Welcome", "test");
 	}

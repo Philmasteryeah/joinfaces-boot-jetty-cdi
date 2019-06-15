@@ -1,6 +1,5 @@
 package org.philmaster.boot.model;
 
-import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Arrays;
@@ -11,9 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Meal implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Meal {
 
 	public enum TypePrice {
 		EINTOPF("Eintopf", 3.25f), TRADITIONELL_1("Traditionell 1", 3.30f), TRADITIONELL_2("Traditionell 2", 3.30f),

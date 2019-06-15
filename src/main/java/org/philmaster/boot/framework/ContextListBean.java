@@ -1,4 +1,4 @@
-package org.philmaster.boot.session;
+package org.philmaster.boot.framework;
 
 import java.util.Date;
 import java.util.List;
@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.service.DatabaseService;
+import org.philmaster.boot.session.SessionBean;
 import org.philmaster.boot.util.PMUtil;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;

@@ -1,7 +1,6 @@
 package org.philmaster.boot.service;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.script.ScriptEngine;

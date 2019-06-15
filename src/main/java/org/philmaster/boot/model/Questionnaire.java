@@ -6,8 +6,8 @@ public class Questionnaire extends _Questionnaire {
 
 	private static final long serialVersionUID = 1L;
 
-	public Object id() {
-		return objectId.getIdSnapshot()
-				.get("questionnaire_id");
-	}
+//	public Object id() {
+//		return objectId.getIdSnapshot()
+//				.get(_Questionnaire.QUESTIONNAIRE_ID_PK_COLUMN);
+//	}
 }

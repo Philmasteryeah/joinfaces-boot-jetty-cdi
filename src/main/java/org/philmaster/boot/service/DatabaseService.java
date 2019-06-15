@@ -2,25 +2,20 @@ package org.philmaster.boot.service;
 
 import java.util.List;
 
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
 import javax.sql.DataSource;
 
 import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.configuration.Constants;
-import org.apache.cayenne.configuration.ObjectContextFactory;
 import org.apache.cayenne.configuration.server.ServerModule;
 import org.apache.cayenne.configuration.server.ServerRuntime;
-import org.apache.cayenne.dbsync.reverse.configuration.ToolsModule;
-import org.apache.cayenne.di.DIBootstrap;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.exp.ExpressionFactory;
 import org.apache.cayenne.query.ObjectSelect;
 import org.apache.cayenne.query.Ordering;
 import org.apache.cayenne.query.SelectQuery;
-import org.eclipse.jetty.http.HttpParser.RequestHandler;
-import org.eclipse.jetty.io.ssl.ALPNProcessor.Server;
-import org.philmaster.boot.cayenne.ExtBaseContext;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.slf4j.Logger;
@@ -41,6 +36,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 // Joshua Blochs enum singleton cool stuff
+@ApplicationScoped
 public enum DatabaseService {
 
 	INSTANCE;
@@ -56,26 +52,27 @@ public enum DatabaseService {
 			.build();
 
 	public DataSource getDataSource() {
-
 		return runtime.getDataSource();
 	}
-//
-//	public ServerRuntime getRuntime() {
-//		return runtime;
-//	}
 
 	public static ObjectContext getContext() {
 		System.err.println("get context");
-		ObjectContext octx = ExtBaseContext.getThreadObjectContextNull();
-		if (octx != null) {
+		
+		try {
+			return BaseContext.getThreadObjectContext();
+		} catch (Exception e) {
+			System.err.println("new context");
+			ObjectContext octx = runtime.newContext();
+			BaseContext.bindThreadObjectContext(octx);
 			return octx;
 		}
-		System.err.println("new context");
-		octx = runtime.newContext();
-		ExtBaseContext.bindThreadObjectContext(octx);
-		return octx;
 	}
 
+	@PreDestroy
+	private void dispose() {
+		System.err.println("dispose runtime");
+		runtime.shutdown();
+	}
 	///////
 
 	public static Client fetchDefaultClient(ObjectContext context) {

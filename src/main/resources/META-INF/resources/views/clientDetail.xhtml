@@ -39,9 +39,12 @@
 
                     <p:separator />
                     <p:commandButton
-                        action="result"
                         value="Save"
+                        ajax="true"
                         actionListener="#{clientDetail.actionSave}">
+                        <f:param
+                            name="id"
+                            value="#{param.id}" />
                     </p:commandButton>
 
 

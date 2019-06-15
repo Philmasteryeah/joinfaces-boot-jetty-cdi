@@ -1,6 +1,5 @@
 package org.philmaster.boot.model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import lombok.Getter;
@@ -8,9 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Person implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Person {
 	
 	private String id;
 	private String name;

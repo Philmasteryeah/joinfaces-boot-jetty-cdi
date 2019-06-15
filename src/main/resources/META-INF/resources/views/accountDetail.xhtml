@@ -10,9 +10,6 @@
     template="/includes/template.xhtml">
     <ui:define name="metadata">
         <f:metadata>
-            <f:viewParam
-                name="id"
-                value="#{accountDetail.detailId}" />
             <c:set
                 var="detailObject"
                 value="#{accountDetail.detailObject}" />
@@ -46,12 +43,16 @@
                     </h:panelGrid>
 
 
-                    <p:separator/>
+                    <p:separator />
 
 
                     <p:commandButton
-                        actionListener="#{accountDetail.actionSave}"
-                        value="Save">
+                        value="Save"
+                        ajax="true"
+                        actionListener="#{accountDetail.actionSave}">
+                        <f:param
+                            name="id"
+                            value="#{param.id}" />
                     </p:commandButton>
                 </div>
             </div>

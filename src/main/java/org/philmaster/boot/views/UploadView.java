@@ -1,9 +1,6 @@
 package org.philmaster.boot.views;
 
-import java.io.Serializable;
-
 import javax.enterprise.context.RequestScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.philmaster.boot.util.MyFileUploadWrapper;

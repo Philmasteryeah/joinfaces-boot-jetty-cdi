@@ -10,9 +10,6 @@
     template="/includes/template.xhtml">
     <ui:define name="metadata">
         <f:metadata>
-            <f:viewParam
-                name="id"
-                value="#{carDetail.detailId}" />
             <c:set
                 var="detailObject"
                 value="#{carDetail.detailObject}" />
@@ -71,9 +68,12 @@
                         </p:tab>
                     </p:tabView>
                     <p:commandButton
-                        actionListener="#{carDetail.actionSave}"
-                        update="@form"
-                        value="Save">
+                        value="Save"
+                        ajax="true"
+                        actionListener="#{carDetail.actionSave}">
+                        <f:param
+                            name="id"
+                            value="#{param.id}" />
                     </p:commandButton>
                 </div>
             </div>

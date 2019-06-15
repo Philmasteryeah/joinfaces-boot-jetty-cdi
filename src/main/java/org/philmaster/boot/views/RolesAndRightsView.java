@@ -1,6 +1,5 @@
 package org.philmaster.boot.views;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -11,7 +10,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.philmaster.boot.model.Account;

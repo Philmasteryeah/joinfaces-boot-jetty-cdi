@@ -1,7 +1,5 @@
 package org.philmaster.boot.service;
 
-import java.io.Serializable;
-
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -17,12 +15,10 @@ import org.springframework.core.io.Resource;
 
 @Named
 @ApplicationScoped
-public class QuestionnaireService implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class QuestionnaireService {
 
 	@Value("classpath:static/questionnaire.json")
-	private transient Resource qj;
+	private Resource qj;
 
 	private QuestionnaireJSON questionnaireJSON;
 
