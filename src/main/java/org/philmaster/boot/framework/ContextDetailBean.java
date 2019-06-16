@@ -28,8 +28,9 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	@Getter
 	private T detailObject;
-
+	@Getter
 	private Client client;
+	@Getter
 	private Account account;
 
 	@PostConstruct
@@ -37,6 +38,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 		context = getContext();
 		initSession();
 		initDetailObject(context);
+		
 	}
 
 	public ObjectContext getContext() {
@@ -67,10 +69,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	public void initDetailObject(ObjectContext ctx, String id) {
 		detailObject = (id != null) ? fetchDetailObjectById(ctx, id) : createDetailObject(ctx);
-		if (detailObject.getClass() != account.getClass())
-			detailObject.setToOneTarget("account", account, true);
-		if (detailObject.getClass() != client.getClass())
-			detailObject.setToOneTarget("client", client, true);
+		detailObject.setToOneTarget("client", client, true);
 	}
 
 	private void initSession() {

@@ -21,7 +21,7 @@ public class SecurityConfig {
 				.dataSource(DatabaseService.INSTANCE.getDataSource())
 				.passwordEncoder(plaintextPasswordEncoder())
 				.usersByUsernameQuery("SELECT username, password, enabled FROM account WHERE username=?")
-				.authoritiesByUsernameQuery("SELECT username, 'ADMIN' as authority FROM account WHERE username=?");
+				.authoritiesByUsernameQuery("SELECT username, 'ROLE_ADMIN' as authority FROM account WHERE username=?");
 
 	}
 

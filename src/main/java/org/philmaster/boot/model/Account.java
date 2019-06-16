@@ -2,8 +2,10 @@ package org.philmaster.boot.model;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.philmaster.boot.model.auto._Account;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,7 +21,16 @@ public class Account extends _Account implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 
-		return Collections.emptyList();
+		GrantedAuthority grantedAuthority = new GrantedAuthority() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String getAuthority() {
+				return "ROLE_ADMIN";
+			}
+		};
+
+		return List.of(grantedAuthority);
 	}
 
 	@Override
@@ -43,7 +54,7 @@ public class Account extends _Account implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 
-		return false;
+		return true;
 	}
 
 }

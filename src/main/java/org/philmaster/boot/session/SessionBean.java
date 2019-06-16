@@ -16,6 +16,7 @@ import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -49,6 +50,9 @@ public class SessionBean implements ApplicationListener<InteractiveAuthenticatio
 	@Getter
 	private Account account;
 
+	@Getter
+	private Authentication auth;
+
 	public String pageNameReadable() {
 		return page;
 	}
@@ -71,8 +75,8 @@ public class SessionBean implements ApplicationListener<InteractiveAuthenticatio
 
 		String clientname = request.getParameter("client");
 		System.err.println("client connected " + clientname);
-		String username = ((UserDetails) event.getAuthentication()
-				.getPrincipal()).getUsername();
+		auth = event.getAuthentication();
+		String username = ((UserDetails) auth.getPrincipal()).getUsername();
 		System.err.println("user connected " + username);
 
 		boolean isLoggedIn = isInitSession(clientname, username);

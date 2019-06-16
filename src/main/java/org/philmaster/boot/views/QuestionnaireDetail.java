@@ -32,6 +32,7 @@ public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> implem
 
 	@Override
 	public void actionSave() {
+		getDetailObject().setAccount(getAccount());
 		System.err.println("save before");
 		super.actionSave();
 		System.err.println("save after");

@@ -52,7 +52,7 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 		return context;
 	}
 
-	private SessionBean getSession() {
+	public SessionBean getSession() {
 		if (session == null) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			session = ctx.getApplication()

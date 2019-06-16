@@ -10,4 +10,11 @@ import org.philmaster.boot.model.Questionnaire;
 @RequestScoped
 public class QuestionnaireList extends ContextListBean<Questionnaire> {
 
+	public void initView() {
+
+		System.err.println("testing auth - " + getSession().getAuth()
+				.getAuthorities());
+
+	}
+
 }
