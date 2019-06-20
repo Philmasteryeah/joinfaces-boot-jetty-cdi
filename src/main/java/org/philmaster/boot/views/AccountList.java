@@ -10,4 +10,12 @@ import org.philmaster.boot.model.Account;
 @RequestScoped
 public class AccountList extends ContextListBean<Account> {
 
+	@Override
+	public void init() {
+		super.init();
+		// do your init stuff
+		System.err.println("-> " + getItems());
+		
+	}
+
 }

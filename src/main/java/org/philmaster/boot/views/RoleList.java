@@ -1,35 +1,36 @@
-package org.philmaster.boot.framework;
+package org.philmaster.boot.views;
 
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
-import org.apache.cayenne.BaseContext;
-import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
+import org.philmaster.boot.model.Role;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.session.SessionBean;
 import org.philmaster.boot.util.PMUtil;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public abstract class ContextListBean<T extends BaseDataObject> {
+@Named
+@RequestScoped
+public class RoleList {
 
 	private SessionBean session;
 
 	@Setter
 	@Getter
-	private List<T> items, itemsFiltered, itemsSelected;
+	private List<Role> items, itemsFiltered, itemsSelected;
 
 	@Setter
 	@Getter
-	private T selectedItem;
+	private Role selectedItem;
 
 	@Setter
 	@Getter
@@ -41,13 +42,12 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 	public void init() {
 		context = getContext();
 		session = getSession();
-		System.err.println(context);
 		// TODO copy account in local context if needed
 
 		// TODO add client
 
 		try {
-			items = DatabaseService.fetchAll(context, getTypeOfT());
+			items = DatabaseService.fetchAll(context, Role.class);
 		} catch (Exception e) {
 			System.err.println(e);
 			PMUtil.statusMessageError(e.getMessage());
@@ -75,20 +75,6 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 					.evaluateExpressionGet(ctx, "#{sessionBean}", SessionBean.class);
 		}
 		return session;
-	}
-
-	@SuppressWarnings("unchecked")
-	private Class<T> getTypeOfT() {
-		return (Class<T>) PMUtil.getParameterizedTypes(this)[0];
-	}
-
-	public void onRowSelect(SelectEvent event) {
-		PMUtil.statusMessageInfo("onRowSelect", "onRowSelect");
-	}
-
-	public void onRowUnselect(UnselectEvent event) {
-		PMUtil.statusMessageInfo("onRowUnselect", "onRowUnselect");
-
 	}
 
 }

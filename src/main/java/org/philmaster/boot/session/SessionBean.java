@@ -19,6 +19,7 @@ import org.springframework.security.authentication.event.InteractiveAuthenticati
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -85,6 +86,13 @@ public class SessionBean implements ApplicationListener<InteractiveAuthenticatio
 			logout();
 			return;
 		}
+//		JdbcDaoImpl jdbcDaoImpl = new JdbcDaoImpl();
+//		jdbcDaoImpl.setDataSource(DatabaseService.INSTANCE.getDataSource());
+//		jdbcDaoImpl.setUsersByUsernameQuery("SELECT username, password, enabled FROM account WHERE username=?");
+//		System.err.println(jdbcDaoImpl.getUsersByUsernameQuery());
+//		
+//
+//		System.err.println(jdbcDaoImpl.loadUserByUsername("sa"));
 
 		System.err.println("logged in");
 

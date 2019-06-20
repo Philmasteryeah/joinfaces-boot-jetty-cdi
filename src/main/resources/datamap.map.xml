@@ -27,6 +27,10 @@
 		<db-attribute name="pictureRight" type="VARBINARY"/>
 		<db-attribute name="skin" type="VARCHAR" length="50"/>
 	</db-entity>
+	<db-entity name="privilege">
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="privilege_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
+	</db-entity>
 	<db-entity name="questionnaire">
 		<db-attribute name="account_id" type="INTEGER" isMandatory="true"/>
 		<db-attribute name="age" type="NUMERIC"/>
@@ -37,6 +41,13 @@
 		<db-attribute name="programming" type="BOOLEAN"/>
 		<db-attribute name="questionnaire_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
 		<db-attribute name="version" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="role">
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="role_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
+	</db-entity>
+	<db-entity name="role_privilege">
+		<db-attribute name="role_privilege_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
 	</db-entity>
 	<obj-entity name="Account" className="org.philmaster.boot.model.Account" dbEntityName="account">
 		<obj-attribute name="dateBirth" type="java.time.LocalDate" db-attribute-path="dateBirth"/>
@@ -56,6 +67,9 @@
 		<obj-attribute name="pictureRight" type="byte[]" db-attribute-path="pictureRight"/>
 		<obj-attribute name="skin" type="java.lang.String" db-attribute-path="skin"/>
 	</obj-entity>
+	<obj-entity name="Privilege" className="org.philmaster.boot.model.Privilege" dbEntityName="privilege">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+	</obj-entity>
 	<obj-entity name="Questionnaire" className="org.philmaster.boot.model.Questionnaire" dbEntityName="questionnaire">
 		<obj-attribute name="age" type="java.math.BigDecimal" db-attribute-path="age"/>
 		<obj-attribute name="feeling" type="boolean" db-attribute-path="feeling"/>
@@ -64,11 +78,18 @@
 		<obj-attribute name="programming" type="boolean" db-attribute-path="programming"/>
 		<obj-attribute name="version" type="int" db-attribute-path="version"/>
 	</obj-entity>
+	<obj-entity name="Role" className="org.philmaster.boot.model.Role" dbEntityName="role">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+	</obj-entity>
+	<obj-entity name="RolePrivilege" className="org.philmaster.boot.model.RolePrivilege" dbEntityName="role_privilege"/>
 	<db-relationship name="client" source="account" target="client">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
 	<db-relationship name="questionnaires" source="account" target="questionnaire" toMany="true">
 		<db-attribute-pair source="account_id" target="account_id"/>
+	</db-relationship>
+	<db-relationship name="roles" source="account" target="role" toMany="true">
+		<db-attribute-pair source="account_id" target="role_id"/>
 	</db-relationship>
 	<db-relationship name="client" source="car" target="client">
 		<db-attribute-pair source="client_id" target="client_id"/>
@@ -82,18 +103,35 @@
 	<db-relationship name="questionnaires" source="client" target="questionnaire" toMany="true">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
+	<db-relationship name="roles" source="privilege" target="role_privilege" toMany="true">
+		<db-attribute-pair source="privilege_id" target="role_privilege_id"/>
+	</db-relationship>
 	<db-relationship name="account" source="questionnaire" target="account">
 		<db-attribute-pair source="account_id" target="account_id"/>
 	</db-relationship>
 	<db-relationship name="client" source="questionnaire" target="client">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
+	<db-relationship name="privileges" source="role" target="role_privilege" toMany="true">
+		<db-attribute-pair source="role_id" target="role_privilege_id"/>
+	</db-relationship>
+	<db-relationship name="privilege" source="role_privilege" target="privilege">
+		<db-attribute-pair source="role_privilege_id" target="privilege_id"/>
+	</db-relationship>
+	<db-relationship name="role" source="role_privilege" target="role">
+		<db-attribute-pair source="role_privilege_id" target="role_id"/>
+	</db-relationship>
 	<obj-relationship name="client" source="Account" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
 	<obj-relationship name="questionnaires" source="Account" target="Questionnaire" deleteRule="Deny" db-relationship-path="questionnaires"/>
+	<obj-relationship name="roles" source="Account" target="Role" deleteRule="Nullify" db-relationship-path="roles"/>
 	<obj-relationship name="client" source="Car" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
 	<obj-relationship name="accounts" source="Client" target="Account" deleteRule="Deny" db-relationship-path="accounts"/>
 	<obj-relationship name="cars" source="Client" target="Car" deleteRule="Deny" db-relationship-path="cars"/>
 	<obj-relationship name="questionnaires" source="Client" target="Questionnaire" deleteRule="Deny" db-relationship-path="questionnaires"/>
+	<obj-relationship name="roles" source="Privilege" target="RolePrivilege" deleteRule="Deny" db-relationship-path="roles"/>
 	<obj-relationship name="account" source="Questionnaire" target="Account" deleteRule="Nullify" db-relationship-path="account"/>
 	<obj-relationship name="client" source="Questionnaire" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
+	<obj-relationship name="privileges" source="Role" target="RolePrivilege" deleteRule="Deny" db-relationship-path="privileges"/>
+	<obj-relationship name="privilege" source="RolePrivilege" target="Privilege" deleteRule="Nullify" db-relationship-path="privilege"/>
+	<obj-relationship name="role" source="RolePrivilege" target="Role" deleteRule="Nullify" db-relationship-path="role"/>
 </data-map>
