@@ -1,8 +1,8 @@
 package org.philmaster.boot.views;
 
-import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,14 +14,19 @@ import org.philmaster.boot.service.QuestionnaireService;
 
 @Named
 @RequestScoped
-public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> {
 
 	@Inject
 	private QuestionnaireService questService;
 
 	private List<QuestionJS> questions;
+
+	@PostConstruct
+	@Override
+	public void init() {
+		// TODO
+		super.init();
+	}
 
 	public List<QuestionJS> getQuestions() {
 		if (questions == null)

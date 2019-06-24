@@ -2,21 +2,17 @@ package org.philmaster.boot.views;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.query.SelectById;
-import org.philmaster.boot.framework.ContextDetailBean;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.model.Role;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.session.SessionBean;
 import org.philmaster.boot.util.PMUtil;
-import org.primefaces.event.TabChangeEvent;
-import org.primefaces.event.TabCloseEvent;
 
 import lombok.Getter;
 
@@ -74,7 +70,7 @@ public class RoleDetail {
 
 	public void initDetailObject(ObjectContext ctx, String id) {
 		detailObject = (id != null) ? fetchDetailObjectById(ctx, id) : createDetailObject(ctx);
-		
+
 	}
 
 	private void initSession() {

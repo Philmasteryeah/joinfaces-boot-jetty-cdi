@@ -1,15 +1,10 @@
 package org.philmaster.boot.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.philmaster.boot.model.auto._Account;
-
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class Account extends _Account implements UserDetails {

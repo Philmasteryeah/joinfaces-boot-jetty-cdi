@@ -1,6 +1,6 @@
 package org.philmaster.boot.framework;
 
-import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -17,6 +17,7 @@ import org.primefaces.event.TabCloseEvent;
 
 import lombok.Getter;
 
+@Dependent
 public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	private SessionBean session;
@@ -33,18 +34,11 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	@Getter
 	private Account account;
 
-	@PostConstruct
 	public void init() {
-		context = getContext();
+		context = DatabaseService.getContext();
 		initSession();
-		initDetailObject(context);
-		
-	}
 
-	public ObjectContext getContext() {
-		if (context == null)
-			context = DatabaseService.getContext();
-		return context;
+		initDetailObject(context);
 	}
 
 	private String getRequestId() {
@@ -89,7 +83,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	public void actionSave() {
 		try {
-			getContext().commitChanges();
+			context.commitChanges();
 		} catch (Exception e) {
 			PMUtil.statusMessageError(e.getMessage());
 			return;

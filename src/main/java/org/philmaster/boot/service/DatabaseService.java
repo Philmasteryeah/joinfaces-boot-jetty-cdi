@@ -68,11 +68,11 @@ public enum DatabaseService {
 		}
 	}
 
-	@PreDestroy
-	private void dispose() {
-		System.err.println("dispose runtime");
-		runtime.shutdown();
-	}
+//	@PreDestroy
+//	private void dispose() {
+//		System.err.println("dispose runtime");
+//		runtime.shutdown();
+//	}
 	///////
 
 	public static Client fetchDefaultClient(ObjectContext context) {

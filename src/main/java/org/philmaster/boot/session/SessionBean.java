@@ -1,8 +1,10 @@
 package org.philmaster.boot.session;
 
 import java.io.Serializable;
+import java.util.Enumeration;
 import java.util.Locale;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -14,16 +16,14 @@ import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
-import org.springframework.context.ApplicationListener;
-import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Philmasteryeah
@@ -35,7 +35,7 @@ import lombok.Getter;
 
 @Named
 @SessionScoped
-public class SessionBean implements ApplicationListener<InteractiveAuthenticationSuccessEvent>, Serializable {
+public class SessionBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,7 +43,8 @@ public class SessionBean implements ApplicationListener<InteractiveAuthenticatio
 	private Locale locale;
 
 	@Getter
-	private String page, name;
+	@Setter
+	private String page, name, clientname;
 
 	@Getter
 	private Client client;
@@ -51,8 +52,27 @@ public class SessionBean implements ApplicationListener<InteractiveAuthenticatio
 	@Getter
 	private Account account;
 
-	@Getter
-	private Authentication auth;
+	@PostConstruct
+	void init() {
+//		System.err.println("session created");
+//		ServletRequestAttributes sra = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes());
+//		HttpServletRequest request = sra.getRequest();
+//
+//		System.err.println("req " + request.getRequestURI());
+//		System.err.println(SecurityContextHolder.getContext()
+//				.getAuthentication());
+//
+//		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+//				.getRequest();
+//		HttpSession session = request.getSession();
+//		System.err.println(session == this);
+//
+//		for (Enumeration<String> attributeNames = session.getAttributeNames(); attributeNames.hasMoreElements();)
+//			System.out.println(attributeNames.nextElement());
+//
+//		System.err.println("asd " + session.getAttribute("client"));
+
+	}
 
 	public String pageNameReadable() {
 		return page;
@@ -64,104 +84,44 @@ public class SessionBean implements ApplicationListener<InteractiveAuthenticatio
 				.getViewRoot()
 				.setLocale(this.locale);
 		return locale;
-
 	}
 
-	@Override
-	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
-		System.err.println(event + " onEvent " + event.getAuthentication());
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-				.getRequest();
-		System.err.println(request);
+	public String getUsernameFromAuth() {
 
-		String clientname = request.getParameter("client");
-		System.err.println("client connected " + clientname);
-		auth = event.getAuthentication();
-		String username = ((UserDetails) auth.getPrincipal()).getUsername();
-		System.err.println("user connected " + username);
+		Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
 
-		boolean isLoggedIn = isInitSession(clientname, username);
-		if (!isLoggedIn) {
-			System.err.print("error could not login");
-			logout();
-			return;
-		}
-//		JdbcDaoImpl jdbcDaoImpl = new JdbcDaoImpl();
-//		jdbcDaoImpl.setDataSource(DatabaseService.INSTANCE.getDataSource());
-//		jdbcDaoImpl.setUsersByUsernameQuery("SELECT username, password, enabled FROM account WHERE username=?");
-//		System.err.println(jdbcDaoImpl.getUsersByUsernameQuery());
-//		
-//
-//		System.err.println(jdbcDaoImpl.loadUserByUsername("sa"));
+		Object details = authentication.getDetails();
+		System.err.println(details);
 
-		System.err.println("logged in");
+		Object principal = authentication.getPrincipal();
 
+		return principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : null;
 	}
 
 	public String logout() {
-
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
 				.getRequest();
 		HttpSession session = request.getSession();
-		System.err.println(session.getServletContext()
-				.getSessionCookieConfig());
-
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
 				.getExternalContext();
-		System.err.println("session" + externalContext.getSessionMap());
-		System.err.println("req" + externalContext.getRequestMap());
-		System.err.println("user" + externalContext.getRemoteUser());
-
 		session.invalidate();
 		SecurityContextHolder.clearContext();
-
 		externalContext.invalidateSession();
 		return "/index.xhtml?faces-redirect=true";
 
 	}
 
-	public boolean isInitSession(ObjectContext context, String clientname, String username) {
-		if (clientname == null || clientname.trim()
-				.isEmpty())
-			System.err.println("using default client");
-
-		if (context == null)
-			context = DatabaseService.getContext();
-
-		client = DatabaseService.fetchClientByName(context, clientname);
-		if (client == null)
-			return false; // LOGGING no client
-		account = DatabaseService.fetchAccountByUsername(context, username, client);
-		if (account == null)
-			return false; // LOGGING no accc
-
-		System.err.println("init session client-> " + client.getName());
-		System.err.println("init session user-> " + account.getUsername());
-
-		return true;
-	}
-
-	public boolean isInitSession(String clientname, String username) {
-		return isInitSession(null, clientname, username);
-	}
-
-//	public Account fetchAccountByUsername(String username) {
-//		System.err.println("fetchAccountByUsername " + username);
-//		return ObjectSelect.query(Account.class)
-//				.where(Account.USERNAME.eq(username))
-//				.selectOne(sessionContext);
-//	
-//	}
-
 	public Client getLocalClient(ObjectContext context) {
-		return context != null ? context.localObject(client) : null;
+		if (client == null)
+			client = DatabaseService.fetchClientByName(context, null);
+		return client;
 	}
 
 	public Account getLocalAccount(ObjectContext context) {
-		return context != null ? context.localObject(account) : null;
+		if (account == null)
+			account = DatabaseService.fetchAccountByUsername(context, getUsernameFromAuth(), getLocalClient(context));
+		return account;
 	}
 
-	public String getUsername() {
-		return account != null ? account.getUsername() : null;
-	}
 }

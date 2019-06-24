@@ -8,8 +8,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.4.RELEASE</version>
-		<relativePath />
+		<version>2.1.6.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>org.philmaster</groupId>
@@ -23,11 +23,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 
-		<joinfaces.version>4.0.4</joinfaces.version>
+		<joinfaces.version>4.0.5</joinfaces.version>
 
 		<primefaces-theme.version>1.0.10</primefaces-theme.version>
 
-		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 		<heroku.version>2.0.7</heroku.version>
 
 		<cayenne.version>4.1.M2</cayenne.version>
@@ -48,18 +47,58 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
-	<!-- Redis Client -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.joinfaces</groupId>
+			<artifactId>jetty-spring-boot-starter</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.joinfaces</groupId>
+			<artifactId>weld-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.interceptor</groupId>
+			<artifactId>javax.interceptor-api</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.joinfaces</groupId>
+			<artifactId>primefaces-spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.joinfaces</groupId>
+					<artifactId>tomcat-spring-boot-starter</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.joinfaces</groupId>
+			<artifactId>security-spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.joinfaces</groupId>
+					<artifactId>tomcat-spring-boot-starter</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 		</dependency>
-	
-		<!-- Spring -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
@@ -105,66 +144,43 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
-    	<!-- AdminLTE Layout -->
+    	<!-- AdminLTE Layout 
 		<dependency>
 			<groupId>com.github.adminfaces</groupId>
 			<artifactId>admin-theme</artifactId>
 		</dependency>
-		<!-- Primefaces -->
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>7.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.primefaces.extensions</groupId>
-			<artifactId>primefaces-extensions</artifactId>
-			<version>7.0</version>
-		</dependency>
+		 -->
+
 		<!-- Postgres -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
-		<!-- JSF -->
+		<!-- JSF
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.faces</artifactId>
 		</dependency>
-
-		<!-- Joinfaces -->
+ -->
+		<!-- Joinfaces 
 		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>jetty-spring-boot-starter</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.joinfaces</groupId>
-			<artifactId>security-spring-boot-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.joinfaces</groupId>
-					<artifactId>tomcat-spring-boot-starter</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 
 
-		<!-- Primefaces -->
-		<dependency>
-			<groupId>org.joinfaces</groupId>
-			<artifactId>primefaces-spring-boot-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.joinfaces</groupId>
-					<artifactId>tomcat-spring-boot-starter</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+-->
+
 		<!-- Cayenne -->
+		<dependency>
+			<groupId>org.apache.cayenne</groupId>
+			<artifactId>cayenne-server</artifactId>
+			<version>${cayenne.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.cayenne.modeler</groupId>
 			<artifactId>cayenne-modeler</artifactId>
-			<version>${cayenne.version}</version>
+			<version>${cayenne.modeler.version}</version>
 		</dependency>
 		
 		<!-- Misc -->
@@ -203,6 +219,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -218,6 +235,7 @@
 			<plugin>
 				<groupId>org.joinfaces</groupId>
 				<artifactId>joinfaces-maven-plugin</artifactId>
+
 			</plugin>
 
 			<plugin>
@@ -249,7 +267,8 @@
 					<appName>ancient-gorge-66249</appName>
 					<jdkVersion>10</jdkVersion>
 					<processTypes>
-						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/joinfaces-boot-jetty-cdi-1.0.0.jar</web>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar
+							target/joinfaces-boot-jetty-cdi-1.0.0.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>

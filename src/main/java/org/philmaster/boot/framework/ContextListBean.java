@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.Dependent;
 import javax.faces.context.FacesContext;
 
 import org.apache.cayenne.BaseContext;
@@ -19,6 +20,8 @@ import org.primefaces.event.UnselectEvent;
 import lombok.Getter;
 import lombok.Setter;
 
+
+@Dependent
 public abstract class ContextListBean<T extends BaseDataObject> {
 
 	private SessionBean session;
@@ -37,11 +40,12 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 
 	private ObjectContext context;
 
-	@PostConstruct
+	
 	public void init() {
 		context = getContext();
 		session = getSession();
-		System.err.println(context);
+		System.err.println(context + " " + session);
+
 		// TODO copy account in local context if needed
 
 		// TODO add client

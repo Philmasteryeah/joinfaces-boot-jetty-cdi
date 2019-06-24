@@ -40,6 +40,7 @@ public class ClientDetail {
 
 	@PostConstruct
 	public void init() {
+		System.err.println("init client");
 		context = getContext();
 		session = getSession();
 		detailObject = session.getLocalClient(context);
@@ -53,10 +54,12 @@ public class ClientDetail {
 	}
 
 	private SessionBean getSession() {
+		System.err.println("get Session");
 		if (session == null) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			session = ctx.getApplication()
 					.evaluateExpressionGet(ctx, "#{sessionBean}", SessionBean.class);
+			System.err.println("->" + session);
 		}
 		return session;
 	}
