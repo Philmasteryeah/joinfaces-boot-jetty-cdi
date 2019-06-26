@@ -94,7 +94,8 @@ public enum DatabaseService {
 
 	@SuppressWarnings("unchecked")
 	public static Account fetchAccountByUsername(ObjectContext context, String username, String clientname) {
-
+		System.err.println("fetchacc" + username + " " + clientname);
+		
 		SelectQuery<Account> query = new SelectQuery<>(Account.class);
 		query.andQualifier(ExpressionFactory.matchExp("username", username));
 		query.andQualifier(ExpressionFactory.matchExp("client.name", clientname));

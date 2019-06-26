@@ -2,7 +2,6 @@ package org.philmaster.boot.views;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,13 +20,6 @@ public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> {
 
 	private List<QuestionJS> questions;
 
-	@PostConstruct
-	@Override
-	public void init() {
-		// TODO
-		super.init();
-	}
-
 	public List<QuestionJS> getQuestions() {
 		if (questions == null)
 			questions = questService.getQuestionnaireJSON()
@@ -38,6 +30,7 @@ public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> {
 	@Override
 	public void actionSave() {
 		getDetailObject().setAccount(getAccount());
+		System.err.println(getClient());
 		System.err.println("save before");
 		super.actionSave();
 		System.err.println("save after");

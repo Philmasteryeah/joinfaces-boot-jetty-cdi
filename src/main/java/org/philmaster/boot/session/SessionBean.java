@@ -54,7 +54,7 @@ public class SessionBean implements Serializable {
 
 	@PostConstruct
 	void init() {
-//		System.err.println("session created");
+		System.err.println("session created");
 //		ServletRequestAttributes sra = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes());
 //		HttpServletRequest request = sra.getRequest();
 //
@@ -115,12 +115,16 @@ public class SessionBean implements Serializable {
 	public Client getLocalClient(ObjectContext context) {
 		if (client == null)
 			client = DatabaseService.fetchClientByName(context, null);
+		if (client != null)
+			client.setObjectContext(context);
 		return client;
 	}
 
 	public Account getLocalAccount(ObjectContext context) {
 		if (account == null)
 			account = DatabaseService.fetchAccountByUsername(context, getUsernameFromAuth(), getLocalClient(context));
+		if (account != null)
+			account.setObjectContext(context);
 		return account;
 	}
 

@@ -6,7 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.Dependent;
-import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
 import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
@@ -20,11 +20,14 @@ import org.primefaces.event.UnselectEvent;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Dependent
 public abstract class ContextListBean<T extends BaseDataObject> {
 
+	@Inject
+	@Getter
 	private SessionBean session;
+
+	private ObjectContext context;
 
 	@Setter
 	@Getter
@@ -38,18 +41,12 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 	@Getter
 	private Date date = new Date(); // Testing
 
-	private ObjectContext context;
-
-	
+	@PostConstruct
 	public void init() {
 		context = getContext();
-		session = getSession();
-		System.err.println(context + " " + session);
 
-		// TODO copy account in local context if needed
-
-		// TODO add client
-
+		// TODO init account and client if needed
+		// TODO add client in fetch
 		try {
 			items = DatabaseService.fetchAll(context, getTypeOfT());
 		} catch (Exception e) {
@@ -59,26 +56,10 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 
 	}
 
-	@PreDestroy
-	public void dispose() {
-		// System.err.println("dispose");
-	}
-
 	public ObjectContext getContext() {
 		if (context == null)
 			context = DatabaseService.getContext();
 		return context;
-	}
-
-	public SessionBean getSession() {
-		if (session == null) {
-			// get session out of the faces context
-			// TODO need to test this vs inject because it seems to be copied on inject
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			session = ctx.getApplication()
-					.evaluateExpressionGet(ctx, "#{sessionBean}", SessionBean.class);
-		}
-		return session;
 	}
 
 	@SuppressWarnings("unchecked")

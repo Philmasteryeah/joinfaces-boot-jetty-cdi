@@ -10,4 +10,11 @@ import org.philmaster.boot.model.Account;
 @RequestScoped
 public class AccountDetail extends ContextDetailBean<Account> {
 
+	@Override
+	public void init() {
+		super.init();
+		// do your init stuff
+
+	}
+
 }

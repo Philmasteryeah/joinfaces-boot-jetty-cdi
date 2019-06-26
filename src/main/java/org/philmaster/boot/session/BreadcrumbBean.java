@@ -45,7 +45,6 @@ public class BreadcrumbBean implements Serializable {
 	}
 
 	public List<String> pageStackUrlNames() {
-	
 		return pageStack.stream()
 				.map(BreadcrumbBean::urlToName)
 				.collect(Collectors.toList());
