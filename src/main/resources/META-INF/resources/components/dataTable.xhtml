@@ -25,16 +25,63 @@
             var="detailObject"
             value="#{cc.attrs.listBean.items}"
             filteredValue="#{cc.attrs.listBean.itemsFiltered}"
-            selectionMode="multiple"
+            rowSelectMode="checkbox"
             selection="#{cc.attrs.listBean.itemsSelected}"
             rowKey="#{id}"
             widgetVar="dataTableVar"
-            emptyMessage="nothing found">
+            emptyMessage="nothing found"
+            paginator="true"
+            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+            rowsPerPageTemplate="5,10,15">
+            <f:facet name="{Exporters}">
+                <!-- 
+                    <h:commandLink>
+                        <p:graphicImage
+                            name="/images/xls.png"
+                            width="24" />
+                        <p:dataExporter
+                            type="xls"
+                            target="dataTable"
+                            fileName="datas" />
+                    </h:commandLink>
+ -->
+                <h:commandLink>
+                    <p:graphicImage
+                        name="/images/pdf.png"
+                        width="24" />
+                    <p:dataExporter
+                        type="pdf"
+                        target="dataTable"
+                        fileName="datas" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage
+                        name="/images/csv.png"
+                        width="24" />
+                    <p:dataExporter
+                        type="csv"
+                        target="dataTable"
+                        fileName="datas" />
+                </h:commandLink>
+                <!-- 
+                    <h:commandLink>
+                        <p:graphicImage
+                            name="/images/xml.png"
+                            width="24" />
+                        <p:dataExporter
+                            type="xml"
+                            target="dataTable"
+                            fileName="datas" />
+                    </h:commandLink>
+                     -->
+
+            </f:facet>
             <p:ajax
                 event="rowSelect"
+                update="dataTable"
                 listener="#{cc.attrs.listBean.onRowSelect}" />
             <f:facet name="header">
-
                 <p:outputPanel>
                     <h:outputText value="Search all fields:" />
                     <p:inputText
@@ -47,11 +94,14 @@
 
             <!-- first column is 'Id' for default, every db obj has it -->
             <p:column
+                selectionMode="multiple"
+                style="width:42px;text-align:center" />
+            <!-- important = link without ajax here -->
+            <p:column
                 id="detailLinkCol"
                 headerText="Id"
                 sortBy="#{id}"
                 filterBy="#{id}">
-                <!-- important = link without ajax here -->
                 <p:link
                     value="#{id}"
                     outcome="#{cc.attrs.detailPage}"
@@ -88,8 +138,24 @@
                 headerText="#{cc.attrs.colTitles[colIndex]}">
                 <h:outputText value="#{detailObject[attr]}" />
             </p:columns>
+            <f:facet name="footer">
 
+            </f:facet>
+            <f:facet name="paginatorBottomLeft">
+                <p:linkButton icon="fa fa-minus">
+                </p:linkButton>
+            </f:facet>
+
+            <f:facet name="paginatorBottomRight">
+                <p:linkButton
+                    icon="fa fa-plus"
+                    outcome="#{cc.attrs.detailPage}">
+                </p:linkButton>
+            </f:facet>
             <cc:insertChildren />
         </p:dataTable>
+
+
+
     </cc:implementation>
 </ui:composition>

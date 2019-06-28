@@ -2,7 +2,6 @@ package org.philmaster.boot.service;
 
 import java.util.List;
 
-import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.sql.DataSource;
 
@@ -57,7 +56,7 @@ public enum DatabaseService {
 
 	public static ObjectContext getContext() {
 		System.err.println("get context");
-		
+
 		try {
 			return BaseContext.getThreadObjectContext();
 		} catch (Exception e) {
@@ -95,7 +94,7 @@ public enum DatabaseService {
 	@SuppressWarnings("unchecked")
 	public static Account fetchAccountByUsername(ObjectContext context, String username, String clientname) {
 		System.err.println("fetchacc" + username + " " + clientname);
-		
+
 		SelectQuery<Account> query = new SelectQuery<>(Account.class);
 		query.andQualifier(ExpressionFactory.matchExp("username", username));
 		query.andQualifier(ExpressionFactory.matchExp("client.name", clientname));

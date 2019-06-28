@@ -4,11 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.service.DatabaseService;
@@ -24,7 +22,6 @@ import lombok.Setter;
 public abstract class ContextListBean<T extends BaseDataObject> {
 
 	@Inject
-	@Getter
 	private SessionBean session;
 
 	private ObjectContext context;
@@ -68,12 +65,13 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 	}
 
 	public void onRowSelect(SelectEvent event) {
+		Object object = event.getObject();
+		System.err.println(object);
 		PMUtil.statusMessageInfo("onRowSelect", "onRowSelect");
 	}
 
 	public void onRowUnselect(UnselectEvent event) {
 		PMUtil.statusMessageInfo("onRowUnselect", "onRowUnselect");
-
 	}
 
 }

@@ -12,8 +12,8 @@ public class QuestionnaireList extends ContextListBean<Questionnaire> {
 
 
 	public void initView() {
+		System.err.println("init quest list called from xhtml <f:viewAction action=\"#{questionnaireList.initView}\" />");
 
-		System.err.println("testing auth - " + getSession());
 
 	}
 
