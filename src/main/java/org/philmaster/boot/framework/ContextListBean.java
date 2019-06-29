@@ -44,13 +44,17 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 
 		// TODO init account and client if needed
 		// TODO add client in fetch
+		initItems();
+
+	}
+
+	private void initItems() {
 		try {
 			items = DatabaseService.fetchAll(context, getTypeOfT());
 		} catch (Exception e) {
 			System.err.println(e);
 			PMUtil.statusMessageError(e.getMessage());
 		}
-
 	}
 
 	public ObjectContext getContext() {
@@ -72,6 +76,15 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 
 	public void onRowUnselect(UnselectEvent event) {
 		PMUtil.statusMessageInfo("onRowUnselect", "onRowUnselect");
+	}
+
+	public String deleteSelected() {
+		if (itemsSelected == null || itemsSelected.isEmpty())
+			return null;
+		context.deleteObjects(itemsSelected);
+		context.commitChanges();
+		initItems();
+		return null;
 	}
 
 }
