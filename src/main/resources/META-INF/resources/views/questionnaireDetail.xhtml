@@ -68,16 +68,17 @@
                     </p:accordionPanel>
 
                     <p:separator />
+                    <p:button
+                        value="Back"
+                        outcome="questionnaireList" />
+
                     <p:commandButton
                         value="Save"
-                        ajax="true"
                         actionListener="#{questionnaireDetail.actionSave}">
                         <f:param
                             name="id"
                             value="#{param.id}" />
                     </p:commandButton>
-
-
                 </div>
             </div>
 

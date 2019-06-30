@@ -171,35 +171,6 @@
                     sticky="true">
                     <p:autoUpdate />
                 </p:growl>
-                <!--  
-				<ui:fragment
-					rendered="#{adm['adminConfig.renderMessages'] and (empty renderMessages or renderMessages)}">
-					<div class="row">
-						<div class="col-sm-12">
-							<p:messages
-								id="messages"
-								closable="true"
-								globalOnly="true"
-								showDetail="true"
-								severity="error,fatal"
-								escape="false">
-								<p:autoUpdate />
-							</p:messages>
-
-							<p:messages
-								id="info-messages"
-								closable="true"
-								showDetail="true"
-								severity="info,warn"
-								escape="false">
-								<p:autoUpdate />
-							</p:messages>
-							<p:tooltip />
-
-						</div>
-					</div>
-				</ui:fragment>
- -->
                 <ui:insert name="body" />
             </section>
             <ui:insert name="content-end" />

@@ -144,7 +144,7 @@
             <f:facet name="paginatorBottomLeft">
                 <p:commandButton
                     icon="fa fa-minus" update="dataTable"
-                    action="#{cc.attrs.listBean.deleteSelected}">
+                    actionListener="#{cc.attrs.listBean.deleteSelected}">
                     <p:confirm
                         header="Delete Confirmation"
                         message="Are you sure?"
