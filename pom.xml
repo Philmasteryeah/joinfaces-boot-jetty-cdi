@@ -58,10 +58,16 @@
 			<version>7.0</version>
 		</dependency>
 		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>7.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>jetty-spring-boot-starter</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>weld-spring-boot-starter</artifactId>
@@ -71,7 +77,7 @@
 			<artifactId>javax.interceptor-api</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>primefaces-spring-boot-starter</artifactId>

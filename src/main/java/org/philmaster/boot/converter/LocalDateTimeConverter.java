@@ -1,4 +1,4 @@
-package org.philmaster.boot.util;
+package org.philmaster.boot.converter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +17,7 @@ public class LocalDateTimeConverter implements Converter<Object> {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-	
+
 		return LocalDate.parse(value, fmt);
 
 	}

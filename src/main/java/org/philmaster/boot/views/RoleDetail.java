@@ -1,8 +1,12 @@
 package org.philmaster.boot.views;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.cayenne.ObjectContext;
@@ -13,6 +17,7 @@ import org.philmaster.boot.model.Role;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.session.SessionBean;
 import org.philmaster.boot.util.PMUtil;
+import org.primefaces.model.DualListModel;
 
 import lombok.Getter;
 
@@ -20,6 +25,7 @@ import lombok.Getter;
 @RequestScoped
 public class RoleDetail {
 
+	@Inject
 	private SessionBean session;
 
 	private ObjectContext context;
@@ -34,11 +40,30 @@ public class RoleDetail {
 	@Getter
 	private Account account;
 
+	@Getter
+	private DualListModel<String> privileges;
+
+	@Getter
+	private List<String> privilegesSource, privilegesTarget;
+
 	@PostConstruct
 	public void init() {
 		context = getContext();
 		initSession();
 		initDetailObject(context);
+
+		privilegesSource = new ArrayList<>();
+		privilegesTarget = new ArrayList<>();
+
+		privilegesSource.add("San Francisco");
+		privilegesSource.add("London");
+		privilegesSource.add("Paris");
+		privilegesSource.add("Istanbul");
+		privilegesSource.add("Berlin");
+		privilegesSource.add("Barcelona");
+		privilegesSource.add("Rome");
+
+		privileges = new DualListModel<>(privilegesSource, privilegesTarget);
 
 	}
 
@@ -55,15 +80,6 @@ public class RoleDetail {
 				.get("id");
 	}
 
-	private SessionBean getSession() {
-		if (session == null) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			session = ctx.getApplication()
-					.evaluateExpressionGet(ctx, "#{sessionBean}", SessionBean.class);
-		}
-		return session;
-	}
-
 	public void initDetailObject(ObjectContext ctx) {
 		initDetailObject(ctx, getRequestId());
 	}
@@ -74,7 +90,6 @@ public class RoleDetail {
 	}
 
 	private void initSession() {
-		session = getSession();
 		client = session.getLocalClient(context);
 		account = session.getLocalAccount(context);
 	}
@@ -97,5 +112,6 @@ public class RoleDetail {
 		}
 		PMUtil.statusMessageInfo("Saved", "Saved");
 	}
+///////////////
 
 }

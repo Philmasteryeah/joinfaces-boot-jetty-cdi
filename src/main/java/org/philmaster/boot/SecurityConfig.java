@@ -3,6 +3,7 @@ package org.philmaster.boot;
 import javax.inject.Inject;
 
 import org.philmaster.boot.service.DatabaseService;
+import org.philmaster.boot.session.SessionBean;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -20,9 +21,10 @@ public class SecurityConfig {
 
 	@Inject
 	private ApplicationEventPublisher applicationEventPublisher;
-
+	
 	@Inject
 	protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		// TODO add client with post processor
 		auth.authenticationEventPublisher(new DefaultAuthenticationEventPublisher(applicationEventPublisher))
 				.jdbcAuthentication()
 				.dataSource(DatabaseService.INSTANCE.getDataSource())

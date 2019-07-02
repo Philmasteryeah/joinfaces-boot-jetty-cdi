@@ -50,8 +50,6 @@ html {
 
         </div>
 
-
-
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
             <c:if test="${param.error ne null}">
@@ -93,8 +91,8 @@ html {
                         class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 
-                ${session.setAttribute('client', 'bla')}
-                
+                ${session.setAttribute('client', param.client)}
+          
                 <div class="row">
                     <div class="col-xs-12">
                         <p:commandButton
@@ -102,9 +100,6 @@ html {
                             styleClass="btn btn-success btn-block btn-flat"
                             value="Login"
                             ajax="false">
-                            <f:param
-                                id="client"
-                                value="${param.client}" />
                         </p:commandButton>
                     </div>
                 </div>

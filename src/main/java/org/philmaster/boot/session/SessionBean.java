@@ -1,7 +1,6 @@
 package org.philmaster.boot.session;
 
 import java.io.Serializable;
-import java.util.Enumeration;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
@@ -16,7 +15,6 @@ import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.service.DatabaseService;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -55,23 +53,17 @@ public class SessionBean implements Serializable {
 	@PostConstruct
 	void init() {
 		System.err.println("session created");
-//		ServletRequestAttributes sra = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes());
-//		HttpServletRequest request = sra.getRequest();
-//
-//		System.err.println("req " + request.getRequestURI());
-//		System.err.println(SecurityContextHolder.getContext()
-//				.getAuthentication());
-//
-//		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-//				.getRequest();
-//		HttpSession session = request.getSession();
-//		System.err.println(session == this);
-//
-//		for (Enumeration<String> attributeNames = session.getAttributeNames(); attributeNames.hasMoreElements();)
-//			System.out.println(attributeNames.nextElement());
-//
-//		System.err.println("asd " + session.getAttribute("client"));
+		clientname = getClientNameFromSession();
+	}
 
+	public String getClientNameFromSession() {
+		return String.valueOf(getHttpSession().getAttribute("client"));
+	}
+
+	public HttpSession getHttpSession() {
+		ServletRequestAttributes sra = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes());
+		HttpServletRequest request = sra.getRequest();
+		return request.getSession();
 	}
 
 	public String pageNameReadable() {
@@ -87,25 +79,16 @@ public class SessionBean implements Serializable {
 	}
 
 	public String getUsernameFromAuth() {
-
-		Authentication authentication = SecurityContextHolder.getContext()
-				.getAuthentication();
-
-		Object details = authentication.getDetails();
-		System.err.println(details);
-
-		Object principal = authentication.getPrincipal();
-
+		Object principal = SecurityContextHolder.getContext()
+				.getAuthentication()
+				.getPrincipal();
 		return principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : null;
 	}
 
 	public String logout() {
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-				.getRequest();
-		HttpSession session = request.getSession();
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
 				.getExternalContext();
-		session.invalidate();
+		getHttpSession().invalidate();
 		SecurityContextHolder.clearContext();
 		externalContext.invalidateSession();
 		return "/index.xhtml?faces-redirect=true";
@@ -113,6 +96,7 @@ public class SessionBean implements Serializable {
 	}
 
 	public Client getLocalClient(ObjectContext context) {
+		// TODO add clientname
 		if (client == null)
 			client = DatabaseService.fetchClientByName(context, null);
 		ObjectContext objectContext = client.getObjectContext();
