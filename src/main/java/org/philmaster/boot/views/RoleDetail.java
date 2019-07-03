@@ -13,6 +13,7 @@ import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.query.SelectById;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
+import org.philmaster.boot.model.Privilege;
 import org.philmaster.boot.model.Role;
 import org.philmaster.boot.service.DatabaseService;
 import org.philmaster.boot.session.SessionBean;
@@ -41,27 +42,23 @@ public class RoleDetail {
 	private Account account;
 
 	@Getter
-	private DualListModel<String> privileges;
+	private DualListModel<Privilege> privileges;
 
 	@Getter
-	private List<String> privilegesSource, privilegesTarget;
+	private List<Privilege> privilegesSource, privilegesTarget;
 
 	@PostConstruct
 	public void init() {
 		context = getContext();
 		initSession();
 		initDetailObject(context);
-
+		
 		privilegesSource = new ArrayList<>();
 		privilegesTarget = new ArrayList<>();
 
-		privilegesSource.add("San Francisco");
-		privilegesSource.add("London");
-		privilegesSource.add("Paris");
-		privilegesSource.add("Istanbul");
-		privilegesSource.add("Berlin");
-		privilegesSource.add("Barcelona");
-		privilegesSource.add("Rome");
+		Privilege privilege = new Privilege();
+		privilege.setName("Read");
+		privilegesSource.add(privilege);
 
 		privileges = new DualListModel<>(privilegesSource, privilegesTarget);
 
@@ -104,6 +101,7 @@ public class RoleDetail {
 	}
 
 	public void actionSave() {
+		detailObject.setClient(client);
 		try {
 			getContext().commitChanges();
 		} catch (Exception e) {

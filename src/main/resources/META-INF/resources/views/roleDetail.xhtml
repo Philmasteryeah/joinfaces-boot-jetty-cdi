@@ -36,13 +36,10 @@
 
                     <p:pickList
                         id="pickList"
-                        
-                        value="#{detailObject.privileges}"
-                        var="cities"
-                        itemLabel="#{cities}"
-                        itemValue="#{cities}" />
-
-
+                        value="#{roleDetail.privileges}"
+                        var="priv"
+                        itemLabel="#{priv.name}"
+                        itemValue="#{priv.name}" />
                     <p:separator />
 
 

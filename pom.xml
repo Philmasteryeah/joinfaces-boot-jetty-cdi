@@ -21,7 +21,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
+		<java.version>12</java.version>
 
 		<joinfaces.version>4.0.5</joinfaces.version>
 
