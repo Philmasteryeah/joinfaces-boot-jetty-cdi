@@ -21,6 +21,7 @@ import org.philmaster.boot.util.PMUtil;
 import org.primefaces.model.DualListModel;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Named
 @RequestScoped
@@ -42,6 +43,7 @@ public class RoleDetail {
 	private Account account;
 
 	@Getter
+	@Setter
 	private DualListModel<Privilege> privileges;
 
 	@Getter

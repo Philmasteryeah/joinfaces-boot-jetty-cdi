@@ -21,7 +21,7 @@ public class Car extends _Car {
 
 	public static Car createRandomTestCar(ObjectContext context, Client client) {
 		Car car = context.newObject(Car.class);
-		car.setClient(client);
+		//car.setClient(client);
 		car.setName(PMUtil.randomAlphanumericString(10));
 		return car;
 	}

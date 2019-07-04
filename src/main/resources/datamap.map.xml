@@ -4,6 +4,12 @@
 	 xsi:schemaLocation="http://cayenne.apache.org/schema/10/modelMap http://cayenne.apache.org/schema/10/modelMap.xsd"
 	 project-version="10">
 	<property name="defaultPackage" value="org.philmaster.boot.model"/>
+	<db-entity name="access">
+		<db-attribute name="access_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
+		<db-attribute name="flags" type="INTEGER"/>
+		<db-attribute name="privilege_id" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="role_id" type="INTEGER" isMandatory="true"/>
+	</db-entity>
 	<db-entity name="account">
 		<db-attribute name="account_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
 		<db-attribute name="client_id" type="INTEGER" isMandatory="true"/>
@@ -17,11 +23,6 @@
 	<db-entity name="account_role">
 		<db-attribute name="account_id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
 		<db-attribute name="role_id" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
-	</db-entity>
-	<db-entity name="car">
-		<db-attribute name="car_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
-		<db-attribute name="client_id" type="INTEGER" isMandatory="true"/>
-		<db-attribute name="name" type="VARCHAR" length="255"/>
 	</db-entity>
 	<db-entity name="client">
 		<db-attribute name="client_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
@@ -51,11 +52,9 @@
 		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="role_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
 	</db-entity>
-	<db-entity name="role_privilege">
-		<db-attribute name="privilege_id" type="INTEGER" isMandatory="true"/>
-		<db-attribute name="role_id" type="INTEGER" isMandatory="true"/>
-		<db-attribute name="role_privilege_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
-	</db-entity>
+	<obj-entity name="Access" serverOnly="true" className="org.philmaster.boot.model.Access" dbEntityName="access">
+		<obj-attribute name="flags" type="int" db-attribute-path="flags"/>
+	</obj-entity>
 	<obj-entity name="Account" className="org.philmaster.boot.model.Account" dbEntityName="account">
 		<obj-attribute name="dateBirth" type="java.time.LocalDate" db-attribute-path="dateBirth"/>
 		<obj-attribute name="enabled" type="java.lang.Boolean" db-attribute-path="enabled"/>
@@ -63,9 +62,6 @@
 		<obj-attribute name="nameLast" type="java.lang.String" db-attribute-path="name_last"/>
 		<obj-attribute name="password" type="java.lang.String" db-attribute-path="password"/>
 		<obj-attribute name="username" type="java.lang.String" db-attribute-path="username"/>
-	</obj-entity>
-	<obj-entity name="Car" className="org.philmaster.boot.model.Car" dbEntityName="car">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
 	<obj-entity name="Client" className="org.philmaster.boot.model.Client" dbEntityName="client">
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
@@ -79,6 +75,7 @@
 	</obj-entity>
 	<obj-entity name="Questionnaire" className="org.philmaster.boot.model.Questionnaire" dbEntityName="questionnaire">
 		<obj-attribute name="age" type="java.math.BigDecimal" db-attribute-path="age"/>
+		<obj-attribute name="clientId" type="int" db-attribute-path="client_id"/>
 		<obj-attribute name="feeling" type="boolean" db-attribute-path="feeling"/>
 		<obj-attribute name="hobby" type="boolean" db-attribute-path="hobby"/>
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
@@ -88,71 +85,58 @@
 	<obj-entity name="Role" className="org.philmaster.boot.model.Role" dbEntityName="role">
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
+	<db-relationship name="privilege" source="access" target="privilege">
+		<db-attribute-pair source="privilege_id" target="privilege_id"/>
+	</db-relationship>
+	<db-relationship name="role" source="access" target="role">
+		<db-attribute-pair source="role_id" target="role_id"/>
+	</db-relationship>
+	<db-relationship name="accountRoles" source="account" target="account_role" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="account_id" target="account_id"/>
+	</db-relationship>
 	<db-relationship name="client" source="account" target="client">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
-	<db-relationship name="questionnaires" source="account" target="questionnaire" toMany="true">
+	<db-relationship name="questionnaire" source="account" target="questionnaire" toMany="true">
 		<db-attribute-pair source="account_id" target="account_id"/>
 	</db-relationship>
-	<db-relationship name="roles" source="account" target="account_role" toMany="true">
+	<db-relationship name="account" source="account_role" target="account">
 		<db-attribute-pair source="account_id" target="account_id"/>
 	</db-relationship>
-	<db-relationship name="accounts" source="account_role" target="account">
-		<db-attribute-pair source="account_id" target="account_id"/>
-	</db-relationship>
-	<db-relationship name="roles" source="account_role" target="role">
+	<db-relationship name="role" source="account_role" target="role">
 		<db-attribute-pair source="role_id" target="role_id"/>
 	</db-relationship>
-	<db-relationship name="client" source="car" target="client">
-		<db-attribute-pair source="client_id" target="client_id"/>
-	</db-relationship>
 	<db-relationship name="accounts" source="client" target="account" toMany="true">
-		<db-attribute-pair source="client_id" target="client_id"/>
-	</db-relationship>
-	<db-relationship name="cars" source="client" target="car" toMany="true">
-		<db-attribute-pair source="client_id" target="client_id"/>
-	</db-relationship>
-	<db-relationship name="questionnaires" source="client" target="questionnaire" toMany="true">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
 	<db-relationship name="roles" source="client" target="role" toMany="true">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
-	<db-relationship name="roles" source="privilege" target="role_privilege" toMany="true">
-		<db-attribute-pair source="privilege_id" target="role_privilege_id"/>
+	<db-relationship name="accesses" source="privilege" target="access" toMany="true">
+		<db-attribute-pair source="privilege_id" target="privilege_id"/>
 	</db-relationship>
 	<db-relationship name="account" source="questionnaire" target="account">
 		<db-attribute-pair source="account_id" target="account_id"/>
 	</db-relationship>
-	<db-relationship name="client" source="questionnaire" target="client">
-		<db-attribute-pair source="client_id" target="client_id"/>
+	<db-relationship name="accesses" source="role" target="access" toMany="true">
+		<db-attribute-pair source="role_id" target="role_id"/>
+	</db-relationship>
+	<db-relationship name="accountRoles" source="role" target="account_role" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="role_id" target="role_id"/>
 	</db-relationship>
 	<db-relationship name="client" source="role" target="client">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
-	<db-relationship name="privileges" source="role" target="role_privilege" toMany="true">
-		<db-attribute-pair source="role_id" target="role_privilege_id"/>
-	</db-relationship>
-	<db-relationship name="untitledRel" source="role" target="account_role" toDependentPK="true" toMany="true">
-		<db-attribute-pair source="role_id" target="role_id"/>
-	</db-relationship>
-	<db-relationship name="privilege" source="role_privilege" target="privilege">
-		<db-attribute-pair source="privilege_id" target="privilege_id"/>
-	</db-relationship>
-	<db-relationship name="role" source="role_privilege" target="role">
-		<db-attribute-pair source="role_id" target="role_id"/>
-	</db-relationship>
-	<obj-relationship name="client" source="Account" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
-	<obj-relationship name="questionnaires" source="Account" target="Questionnaire" deleteRule="Deny" db-relationship-path="questionnaires"/>
-	<obj-relationship name="roles" source="Account" target="Role" deleteRule="Deny" db-relationship-path="roles.roles"/>
-	<obj-relationship name="client" source="Car" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
-	<obj-relationship name="accounts" source="Client" target="Account" deleteRule="Deny" db-relationship-path="accounts"/>
-	<obj-relationship name="cars" source="Client" target="Car" deleteRule="Deny" db-relationship-path="cars"/>
-	<obj-relationship name="questionnaires" source="Client" target="Questionnaire" deleteRule="Deny" db-relationship-path="questionnaires"/>
-	<obj-relationship name="roles" source="Client" target="Role" deleteRule="Deny" db-relationship-path="roles"/>
-	<obj-relationship name="roles" source="Privilege" target="Privilege" deleteRule="Deny" db-relationship-path="roles.privilege"/>
-	<obj-relationship name="account" source="Questionnaire" target="Account" deleteRule="Nullify" db-relationship-path="account"/>
-	<obj-relationship name="client" source="Questionnaire" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
-	<obj-relationship name="client" source="Role" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
-	<obj-relationship name="privileges" source="Role" target="Role" deleteRule="Deny" db-relationship-path="privileges.role"/>
+	<obj-relationship name="privilege" source="Access" target="Privilege" db-relationship-path="privilege"/>
+	<obj-relationship name="role" source="Access" target="Role" db-relationship-path="role"/>
+	<obj-relationship name="client" source="Account" target="Client" db-relationship-path="client"/>
+	<obj-relationship name="questionnaire" source="Account" target="Questionnaire" db-relationship-path="questionnaire"/>
+	<obj-relationship name="roles" source="Account" target="Role" db-relationship-path="accountRoles.role"/>
+	<obj-relationship name="accounts" source="Client" target="Account" db-relationship-path="accounts"/>
+	<obj-relationship name="roles" source="Client" target="Role" db-relationship-path="roles"/>
+	<obj-relationship name="accesses" source="Privilege" target="Access" db-relationship-path="accesses"/>
+	<obj-relationship name="account" source="Questionnaire" target="Account" db-relationship-path="account"/>
+	<obj-relationship name="accesses" source="Role" target="Access" db-relationship-path="accesses"/>
+	<obj-relationship name="accounts" source="Role" target="Account" db-relationship-path="accountRoles.account"/>
+	<obj-relationship name="client" source="Role" target="Client" db-relationship-path="client"/>
 </data-map>

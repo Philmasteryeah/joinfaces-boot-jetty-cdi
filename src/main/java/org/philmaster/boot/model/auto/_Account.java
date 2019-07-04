@@ -31,7 +31,7 @@ public abstract class _Account extends BaseDataObject {
     public static final Property<String> PASSWORD = Property.create("password", String.class);
     public static final Property<String> USERNAME = Property.create("username", String.class);
     public static final Property<Client> CLIENT = Property.create("client", Client.class);
-    public static final Property<List<Questionnaire>> QUESTIONNAIRES = Property.create("questionnaires", List.class);
+    public static final Property<List<Questionnaire>> QUESTIONNAIRE = Property.create("questionnaire", List.class);
     public static final Property<List<Role>> ROLES = Property.create("roles", List.class);
 
     protected LocalDate dateBirth;
@@ -42,7 +42,7 @@ public abstract class _Account extends BaseDataObject {
     protected String username;
 
     protected Object client;
-    protected Object questionnaires;
+    protected Object questionnaire;
     protected Object roles;
 
     public void setDateBirth(LocalDate dateBirth) {
@@ -113,17 +113,17 @@ public abstract class _Account extends BaseDataObject {
         return (Client)readProperty("client");
     }
 
-    public void addToQuestionnaires(Questionnaire obj) {
-        addToManyTarget("questionnaires", obj, true);
+    public void addToQuestionnaire(Questionnaire obj) {
+        addToManyTarget("questionnaire", obj, true);
     }
 
-    public void removeFromQuestionnaires(Questionnaire obj) {
-        removeToManyTarget("questionnaires", obj, true);
+    public void removeFromQuestionnaire(Questionnaire obj) {
+        removeToManyTarget("questionnaire", obj, true);
     }
 
     @SuppressWarnings("unchecked")
-    public List<Questionnaire> getQuestionnaires() {
-        return (List<Questionnaire>)readProperty("questionnaires");
+    public List<Questionnaire> getQuestionnaire() {
+        return (List<Questionnaire>)readProperty("questionnaire");
     }
 
     public void addToRoles(Role obj) {
@@ -160,8 +160,8 @@ public abstract class _Account extends BaseDataObject {
                 return this.username;
             case "client":
                 return this.client;
-            case "questionnaires":
-                return this.questionnaires;
+            case "questionnaire":
+                return this.questionnaire;
             case "roles":
                 return this.roles;
             default:
@@ -197,8 +197,8 @@ public abstract class _Account extends BaseDataObject {
             case "client":
                 this.client = val;
                 break;
-            case "questionnaires":
-                this.questionnaires = val;
+            case "questionnaire":
+                this.questionnaire = val;
                 break;
             case "roles":
                 this.roles = val;
@@ -226,7 +226,7 @@ public abstract class _Account extends BaseDataObject {
         out.writeObject(this.password);
         out.writeObject(this.username);
         out.writeObject(this.client);
-        out.writeObject(this.questionnaires);
+        out.writeObject(this.questionnaire);
         out.writeObject(this.roles);
     }
 
@@ -240,7 +240,7 @@ public abstract class _Account extends BaseDataObject {
         this.password = (String)in.readObject();
         this.username = (String)in.readObject();
         this.client = in.readObject();
-        this.questionnaires = in.readObject();
+        this.questionnaire = in.readObject();
         this.roles = in.readObject();
     }
 

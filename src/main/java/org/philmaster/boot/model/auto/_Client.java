@@ -8,8 +8,6 @@ import java.util.List;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.exp.Property;
 import org.philmaster.boot.model.Account;
-import org.philmaster.boot.model.Car;
-import org.philmaster.boot.model.Questionnaire;
 import org.philmaster.boot.model.Role;
 
 /**
@@ -30,8 +28,6 @@ public abstract class _Client extends BaseDataObject {
     public static final Property<byte[]> PICTURE_RIGHT = Property.create("pictureRight", byte[].class);
     public static final Property<String> SKIN = Property.create("skin", String.class);
     public static final Property<List<Account>> ACCOUNTS = Property.create("accounts", List.class);
-    public static final Property<List<Car>> CARS = Property.create("cars", List.class);
-    public static final Property<List<Questionnaire>> QUESTIONNAIRES = Property.create("questionnaires", List.class);
     public static final Property<List<Role>> ROLES = Property.create("roles", List.class);
 
     protected String name;
@@ -41,8 +37,6 @@ public abstract class _Client extends BaseDataObject {
     protected String skin;
 
     protected Object accounts;
-    protected Object cars;
-    protected Object questionnaires;
     protected Object roles;
 
     public void setName(String name) {
@@ -108,32 +102,6 @@ public abstract class _Client extends BaseDataObject {
         return (List<Account>)readProperty("accounts");
     }
 
-    public void addToCars(Car obj) {
-        addToManyTarget("cars", obj, true);
-    }
-
-    public void removeFromCars(Car obj) {
-        removeToManyTarget("cars", obj, true);
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<Car> getCars() {
-        return (List<Car>)readProperty("cars");
-    }
-
-    public void addToQuestionnaires(Questionnaire obj) {
-        addToManyTarget("questionnaires", obj, true);
-    }
-
-    public void removeFromQuestionnaires(Questionnaire obj) {
-        removeToManyTarget("questionnaires", obj, true);
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<Questionnaire> getQuestionnaires() {
-        return (List<Questionnaire>)readProperty("questionnaires");
-    }
-
     public void addToRoles(Role obj) {
         addToManyTarget("roles", obj, true);
     }
@@ -166,10 +134,6 @@ public abstract class _Client extends BaseDataObject {
                 return this.skin;
             case "accounts":
                 return this.accounts;
-            case "cars":
-                return this.cars;
-            case "questionnaires":
-                return this.questionnaires;
             case "roles":
                 return this.roles;
             default:
@@ -202,12 +166,6 @@ public abstract class _Client extends BaseDataObject {
             case "accounts":
                 this.accounts = val;
                 break;
-            case "cars":
-                this.cars = val;
-                break;
-            case "questionnaires":
-                this.questionnaires = val;
-                break;
             case "roles":
                 this.roles = val;
                 break;
@@ -233,8 +191,6 @@ public abstract class _Client extends BaseDataObject {
         out.writeObject(this.pictureRight);
         out.writeObject(this.skin);
         out.writeObject(this.accounts);
-        out.writeObject(this.cars);
-        out.writeObject(this.questionnaires);
         out.writeObject(this.roles);
     }
 
@@ -247,8 +203,6 @@ public abstract class _Client extends BaseDataObject {
         this.pictureRight = (byte[])in.readObject();
         this.skin = (String)in.readObject();
         this.accounts = in.readObject();
-        this.cars = in.readObject();
-        this.questionnaires = in.readObject();
         this.roles = in.readObject();
     }
 

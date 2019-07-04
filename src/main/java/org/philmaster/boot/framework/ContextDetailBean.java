@@ -74,7 +74,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 			System.err.println("client not initialized");
 			return;
 		}
-		detailObject.setToOneTarget("client", client, true);
+		//detailObject.setToOneTarget("client", client, true);
 	}
 
 	public void initClient() {

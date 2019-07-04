@@ -60,7 +60,7 @@ public class DownloadView {
 
 	public void actionAdd(ActionEvent actionEvent) {
 		testCar = context.newObject(Car.class);
-		testCar.setClient(client);
+		//testCar.setClient(client);
 
 		PMUtil.statusMessageInfo("Welcome", "test");
 	}
