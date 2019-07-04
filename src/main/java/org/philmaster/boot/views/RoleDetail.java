@@ -54,7 +54,7 @@ public class RoleDetail {
 		context = getContext();
 		initSession();
 		initDetailObject(context);
-		
+
 		privilegesSource = new ArrayList<>();
 		privilegesTarget = new ArrayList<>();
 
