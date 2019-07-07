@@ -33,19 +33,18 @@
                         <p:inputText value="#{detailObject.name}" />
 
                     </h:panelGrid>
-
                     <p:pickList
                         id="pickList"
                         value="#{roleDetail.privileges}"
+                        converter="pickListConverter"
                         var="priv"
                         itemLabel="#{priv.name}"
-                        itemValue="#{priv.name}" />
+                        itemValue="#{priv}" />
                     <p:separator />
 
 
                     <p:commandButton
                         value="Save"
-                        ajax="true"
                         actionListener="#{roleDetail.actionSave}">
                         <f:param
                             name="id"

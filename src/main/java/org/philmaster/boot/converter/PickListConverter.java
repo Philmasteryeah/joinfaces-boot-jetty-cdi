@@ -1,14 +1,12 @@
 package org.philmaster.boot.converter;
 
-import java.util.List;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 import org.philmaster.boot.model.Privilege;
+import org.philmaster.boot.model.auto._Privilege;
 import org.primefaces.component.picklist.PickList;
 import org.primefaces.model.DualListModel;
 
@@ -16,64 +14,39 @@ import org.primefaces.model.DualListModel;
 public class PickListConverter implements Converter<Object> {
 
 	@Override
-	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		// TODO Auto-generated method stub
-		System.err.println("get "+context + " " + component + " " + value);
+	public Object getAsObject(FacesContext fc, UIComponent comp, String value) {
+		System.err.println("-> " + value);
+		DualListModel<Privilege> model = (DualListModel<Privilege>) ((PickList) comp).getValue();
+		System.err.println(model.getSource());
+		System.err.println(model.getTarget());
+		if (model == null || value == null)
+			return null;
+
+		for (Privilege employee : model.getSource()) {
+			if (value.equals(getId(employee))) {
+				return employee;
+			}
+		}
+		for (Privilege employee : model.getTarget()) {
+			if (value.equals(getId(employee))) {
+				return employee;
+			}
+		}
 		return null;
 	}
 
 	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		System.err.println("gets "+context + " " + component + " " + value);
-		// TODO Auto-generated method stub
+	public String getAsString(FacesContext fc, UIComponent comp, Object value) {
+		System.err.println("--> " + value);
+		if (value instanceof Privilege)
+			return getId((Privilege) value);
 		return null;
 	}
 
-//	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-//		return getObjectFromUIPickListComponent(component, value);
-//	}
-//
-//	public String getAsString(FacesContext context, UIComponent component, Object object) {
-//		String string;
-//		if (object == null) {
-//			string = "";
-//		} else {
-//			try {
-//				string = String.valueOf(((Privilege) object).getName());
-//			} catch (ClassCastException cce) {
-//				throw new ConverterException();
-//			}
-//		}
-//		return string;
-//	}
-//
-//	@SuppressWarnings("unchecked")
-//	private Privilege getObjectFromUIPickListComponent(UIComponent component, String value) {
-//		final DualListModel<Privilege> dualList;
-//		try {
-//			dualList = (DualListModel<Privilege>) ((PickList) component).getValue();
-//			Privilege resource = getObjectFromList(dualList.getSource(), Long.valueOf(value));
-//			if (resource == null) {
-//				resource = getObjectFromList(dualList.getTarget(), Long.valueOf(value));
-//			}
-//
-//			return resource;
-//		} catch (ClassCastException cce) {
-//			throw new ConverterException();
-//		} catch (NumberFormatException nfe) {
-//			throw new ConverterException();
-//		}
-//	}
-//
-//	private Privilege getObjectFromList(final List<?> list, final Long identifier) {
-//		for (final Object object : list) {
-//			final Privilege resource = (Privilege) object;
-//			return resource;
-////			if (resource.getId().equals(identifier)) {
-////				return resource;
-////			}
-//		}
-//		return null;
-//	}
+	private String getId(Privilege priv) {
+		if (priv == null)
+			return null;
+		return priv.id();
+	}
 
 }

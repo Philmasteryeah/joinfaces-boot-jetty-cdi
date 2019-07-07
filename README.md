@@ -17,15 +17,15 @@
 - redis
 
 # How to start the Local Deployment
-- run compile flyway:migrate
-
 ```
 $ git clone https://github.com/Philmasteryeah/joinfaces-boot-jetty-cdi.git
 $ cd joinfaces-boot-jetty-cdi
 $
 $ mvn spring-boot:run
 ```
-
+- create database
+- run compile flyway:migrate
+- start redis with "cmd redis-server.exe" or disable redis with the property "spring.session.store-type=none"
 - open your browser on [https://localhost:9090/index.xhtml](https://localhost:9090/index.xhtml)
 - login with sa // 1 
 

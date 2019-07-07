@@ -2,6 +2,7 @@ package org.philmaster.boot.views;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -11,6 +12,7 @@ import javax.inject.Named;
 
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.query.SelectById;
+import org.philmaster.boot.model.Access;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
 import org.philmaster.boot.model.Privilege;
@@ -47,6 +49,7 @@ public class RoleDetail {
 	private DualListModel<Privilege> privileges;
 
 	@Getter
+	@Setter
 	private List<Privilege> privilegesSource, privilegesTarget;
 
 	@PostConstruct
@@ -56,10 +59,14 @@ public class RoleDetail {
 		initDetailObject(context);
 
 		privilegesSource = new ArrayList<>();
-		privilegesTarget = new ArrayList<>();
+		privilegesTarget = detailObject.getPrivileges();
 
-		Privilege privilege = new Privilege();
-		privilege.setName("Read");
+		// TODO change this
+		Privilege privilege = context.newObject(Privilege.class);
+		
+		privilege.setName("MenuRole");
+
+		
 		privilegesSource.add(privilege);
 
 		privileges = new DualListModel<>(privilegesSource, privilegesTarget);
@@ -85,7 +92,6 @@ public class RoleDetail {
 
 	public void initDetailObject(ObjectContext ctx, String id) {
 		detailObject = (id != null) ? fetchDetailObjectById(ctx, id) : createDetailObject(ctx);
-
 	}
 
 	private void initSession() {
@@ -103,9 +109,20 @@ public class RoleDetail {
 	}
 
 	public void actionSave() {
+		List<Privilege> privilegesToSet = getPrivileges().getTarget();
+		if (privilegesToSet == null || privilegesToSet.isEmpty())
+			return;
+		privilegesToSet.stream()
+		.filter(p -> !detailObject.getPrivileges().contains(p)) // filter out all already attached privilges
+		.forEach(p -> {
+			Access access = DatabaseService.createNew(context, Access.class);
+			access.setPrivilege(p);
+			access.setRole(detailObject);
+		});
 		detailObject.setClient(client);
+
 		try {
-			getContext().commitChanges();
+			context.commitChanges();
 		} catch (Exception e) {
 			PMUtil.statusMessageError(e.getMessage());
 			return;
