@@ -123,6 +123,9 @@ $ heroku open
 - this example App: https://ancient-gorge-66249.herokuapp.com/login.xhtml
 - sa // 1
 
+# ERD
+![alt text](https://abload.de/img/erdmcjp1.png)
+
 # Start Apache Cayenne Modeler
 - add a new maven run config
 - click Workspace and set this project

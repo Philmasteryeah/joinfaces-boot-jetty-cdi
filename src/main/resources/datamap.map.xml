@@ -91,13 +91,13 @@
 	<db-relationship name="role" source="access" target="role">
 		<db-attribute-pair source="role_id" target="role_id"/>
 	</db-relationship>
-	<db-relationship name="accountRoles" source="account" target="account_role" toDependentPK="true" toMany="true">
-		<db-attribute-pair source="account_id" target="account_id"/>
-	</db-relationship>
 	<db-relationship name="client" source="account" target="client">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
 	<db-relationship name="questionnaire" source="account" target="questionnaire" toMany="true">
+		<db-attribute-pair source="account_id" target="account_id"/>
+	</db-relationship>
+	<db-relationship name="role_accounts" source="account" target="account_role" toMany="true">
 		<db-attribute-pair source="account_id" target="account_id"/>
 	</db-relationship>
 	<db-relationship name="account" source="account_role" target="account">
@@ -112,31 +112,38 @@
 	<db-relationship name="roles" source="client" target="role" toMany="true">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
-	<db-relationship name="accesses" source="privilege" target="access" toMany="true">
+	<db-relationship name="untitledRel" source="client" target="questionnaire" toMany="true">
+		<db-attribute-pair source="client_id" target="client_id"/>
+	</db-relationship>
+	<db-relationship name="role_privileges" source="privilege" target="access" toMany="true">
 		<db-attribute-pair source="privilege_id" target="privilege_id"/>
 	</db-relationship>
 	<db-relationship name="account" source="questionnaire" target="account">
 		<db-attribute-pair source="account_id" target="account_id"/>
 	</db-relationship>
-	<db-relationship name="accesses" source="role" target="access" toMany="true">
-		<db-attribute-pair source="role_id" target="role_id"/>
+	<db-relationship name="client" source="questionnaire" target="client">
+		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
-	<db-relationship name="accountRoles" source="role" target="account_role" toDependentPK="true" toMany="true">
+	<db-relationship name="account_roles" source="role" target="account_role" toMany="true">
 		<db-attribute-pair source="role_id" target="role_id"/>
 	</db-relationship>
 	<db-relationship name="client" source="role" target="client">
 		<db-attribute-pair source="client_id" target="client_id"/>
 	</db-relationship>
+	<db-relationship name="privilege_roles" source="role" target="access" toMany="true">
+		<db-attribute-pair source="role_id" target="role_id"/>
+	</db-relationship>
 	<obj-relationship name="privilege" source="Access" target="Privilege" db-relationship-path="privilege"/>
 	<obj-relationship name="role" source="Access" target="Role" db-relationship-path="role"/>
 	<obj-relationship name="client" source="Account" target="Client" db-relationship-path="client"/>
 	<obj-relationship name="questionnaire" source="Account" target="Questionnaire" db-relationship-path="questionnaire"/>
-	<obj-relationship name="roles" source="Account" target="Role" db-relationship-path="accountRoles.role"/>
+	<obj-relationship name="roles" source="Account" target="Role" db-relationship-path="role_accounts.role"/>
 	<obj-relationship name="accounts" source="Client" target="Account" db-relationship-path="accounts"/>
 	<obj-relationship name="roles" source="Client" target="Role" db-relationship-path="roles"/>
-	<obj-relationship name="accesses" source="Privilege" target="Access" db-relationship-path="accesses"/>
+	<obj-relationship name="roles" source="Privilege" target="Role" db-relationship-path="role_privileges.role"/>
 	<obj-relationship name="account" source="Questionnaire" target="Account" db-relationship-path="account"/>
-	<obj-relationship name="accesses" source="Role" target="Access" db-relationship-path="accesses"/>
-	<obj-relationship name="accounts" source="Role" target="Account" db-relationship-path="accountRoles.account"/>
+	<obj-relationship name="client" source="Questionnaire" target="Client" deleteRule="Nullify" db-relationship-path="client"/>
+	<obj-relationship name="accounts" source="Role" target="Account" db-relationship-path="account_roles.account"/>
 	<obj-relationship name="client" source="Role" target="Client" db-relationship-path="client"/>
+	<obj-relationship name="privileges" source="Role" target="Privilege" db-relationship-path="privilege_roles.privilege"/>
 </data-map>

@@ -12,6 +12,7 @@ import javax.inject.Named;
 
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.query.SelectById;
+import org.flywaydb.core.internal.database.base.Database;
 import org.philmaster.boot.model.Access;
 import org.philmaster.boot.model.Account;
 import org.philmaster.boot.model.Client;
@@ -48,29 +49,32 @@ public class RoleDetail {
 	@Setter
 	private DualListModel<Privilege> privileges;
 
-	@Getter
-	@Setter
-	private List<Privilege> privilegesSource, privilegesTarget;
-
 	@PostConstruct
 	public void init() {
 		context = getContext();
 		initSession();
 		initDetailObject(context);
+		initPrivileges();
+	}
 
-		privilegesSource = new ArrayList<>();
-		privilegesTarget = detailObject.getPrivileges();
+	private void initSession() {
+		client = session.getLocalClient(context);
+		account = session.getLocalAccount(context);
+	}
 
-		// TODO change this
-		Privilege privilege = context.newObject(Privilege.class);
-		
-		privilege.setName("MenuRole");
+	public void initDetailObject(ObjectContext ctx) {
+		initDetailObject(ctx, getRequestId());
+	}
 
-		
-		privilegesSource.add(privilege);
+	public void initDetailObject(ObjectContext ctx, String id) {
+		detailObject = (id != null) ? fetchDetailObjectById(ctx, id) : createDetailObject(ctx);
+	}
 
+	private void initPrivileges() {
+		List<Privilege> privilegesSource = DatabaseService.fetchAll(context, Privilege.class);
+		List<Privilege> privilegesTarget = detailObject.getPrivileges();
+		privilegesSource.removeAll(privilegesTarget); // remove all already assigned privileges from source
 		privileges = new DualListModel<>(privilegesSource, privilegesTarget);
-
 	}
 
 	public ObjectContext getContext() {
@@ -86,19 +90,6 @@ public class RoleDetail {
 				.get("id");
 	}
 
-	public void initDetailObject(ObjectContext ctx) {
-		initDetailObject(ctx, getRequestId());
-	}
-
-	public void initDetailObject(ObjectContext ctx, String id) {
-		detailObject = (id != null) ? fetchDetailObjectById(ctx, id) : createDetailObject(ctx);
-	}
-
-	private void initSession() {
-		client = session.getLocalClient(context);
-		account = session.getLocalAccount(context);
-	}
-
 	private Role createDetailObject(ObjectContext ctx) {
 		return ctx.newObject(Role.class);
 	}
@@ -109,16 +100,19 @@ public class RoleDetail {
 	}
 
 	public void actionSave() {
-		List<Privilege> privilegesToSet = getPrivileges().getTarget();
-		if (privilegesToSet == null || privilegesToSet.isEmpty())
-			return;
-		privilegesToSet.stream()
-		.filter(p -> !detailObject.getPrivileges().contains(p)) // filter out all already attached privilges
-		.forEach(p -> {
-			Access access = DatabaseService.createNew(context, Access.class);
-			access.setPrivilege(p);
-			access.setRole(detailObject);
-		});
+		List<Privilege> privilegesAssigned = detailObject.getPrivileges();
+		List<Privilege> source = privileges.getSource();
+		List<Privilege> target = privileges.getTarget();
+
+		// delete only old assigned privileges who are now not assigned
+		source.stream()
+				.filter(privilegesAssigned::contains)
+				.forEach(detailObject::removeFromPrivileges);
+		// add only new not assigned privileges
+		target.stream()
+				.filter(p -> !privilegesAssigned.contains(p))
+				.forEach(detailObject::addToPrivileges);
+
 		detailObject.setClient(client);
 
 		try {
