@@ -10,7 +10,7 @@ public class Privilege extends _Privilege {
 		if (objectId == null) {
 			System.err.println("object is transient, need to be created with context for id");
 			return null;
-		}
+		}		
 		return String.valueOf(objectId.getIdSnapshot()
 				.get(_Privilege.PRIVILEGE_ID_PK_COLUMN));
 	}

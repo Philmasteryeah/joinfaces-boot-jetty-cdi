@@ -46,6 +46,16 @@
                     <p:separator />
 
 
+
+                    <p:pickList
+                        id="pickList"
+                        value="#{accountDetail.roles}"
+                        converter="pickListConverter"
+                        var="role"
+                        itemLabel="#{role.name}"
+                        itemValue="#{role}" />
+                    <p:separator />
+
                     <p:commandButton
                         value="Save"
                         ajax="true"

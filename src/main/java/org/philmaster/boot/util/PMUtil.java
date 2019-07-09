@@ -19,6 +19,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
+import org.apache.cayenne.BaseDataObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.primefaces.model.UploadedFile;
@@ -160,5 +161,13 @@ public class PMUtil {
 			LOGGER.warn(e.getMessage());
 			return null;
 		}
+	}
+
+	public static String getObjectId(BaseDataObject bda) {
+		return String.valueOf(bda.getObjectId()
+				.getIdSnapshot()
+				.values()
+				.iterator()
+				.next());
 	}
 }
