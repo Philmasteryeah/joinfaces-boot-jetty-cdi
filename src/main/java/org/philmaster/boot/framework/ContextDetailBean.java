@@ -66,15 +66,15 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	public void initDetailObject(ObjectContext ctx, String id) {
 		detailObject = (id != null) ? fetchDetailObjectById(ctx, id) : createDetailObject(ctx);
-		if(detailObject == null) {
+		if (detailObject == null) {
 			System.err.println("detail not found but requested");
 			return;
 		}
-		if(client == null){
+		if (client == null) {
 			System.err.println("client not initialized");
 			return;
 		}
-		//detailObject.setToOneTarget("client", client, true);
+		// detailObject.setToOneTarget("client", client, true);
 	}
 
 	public void initClient() {
@@ -95,6 +95,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	}
 
 	public void actionSave() {
+
 		try {
 			context.commitChanges();
 		} catch (Exception e) {
