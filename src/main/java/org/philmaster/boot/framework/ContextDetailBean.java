@@ -1,7 +1,6 @@
 package org.philmaster.boot.framework;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -19,7 +18,6 @@ import org.primefaces.event.TabCloseEvent;
 
 import lombok.Getter;
 
-@Dependent
 public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	@Inject
@@ -30,10 +28,8 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	@Getter
 	private T detailObject;
 
-	@Getter
 	private Client client;
 
-	@Getter
 	private Account account;
 
 	@Getter
@@ -61,7 +57,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	}
 
 	public void initDetailObject() {
-		initDetailObject(context, getRequestId());
+		initDetailObject(getContext(), getRequestId());
 	}
 
 	public void initDetailObject(ObjectContext ctx, String id) {
@@ -77,12 +73,24 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 		// detailObject.setToOneTarget("client", client, true);
 	}
 
+	public Client getClient() {
+		if (client == null)
+			initClient();
+		return client;
+	}
+
+	public Account getAccount() {
+		if (account == null)
+			initAccount();
+		return account;
+	}
+
 	public void initClient() {
-		client = session.getLocalClient(context);
+		client = session.getLocalClient(getContext());
 	}
 
 	public void initAccount() {
-		account = session.getLocalAccount(context);
+		account = session.getLocalAccount(getContext());
 	}
 
 	private T createDetailObject(ObjectContext ctx) {
@@ -97,7 +105,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	public void actionSave() {
 
 		try {
-			context.commitChanges();
+			getContext().commitChanges();
 		} catch (Exception e) {
 			PMUtil.statusMessageError(e.getMessage());
 			return;

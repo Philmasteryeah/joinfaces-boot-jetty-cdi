@@ -29,8 +29,11 @@ public class QuestionnaireDetail extends ContextDetailBean<Questionnaire> {
 
 	@Override
 	public void actionSave() {
-		getDetailObject().setAccount(getAccount());
-		System.err.println(getClient());
+		Questionnaire detailObject = getDetailObject();
+		System.err.println(getAccount()+" "+getClient());
+		detailObject.setAccount(getAccount());
+		detailObject.setClient(getClient());
+ 
 		System.err.println("save before");
 		super.actionSave();
 		System.err.println("save after");

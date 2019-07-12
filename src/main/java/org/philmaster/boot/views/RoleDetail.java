@@ -37,8 +37,9 @@ public class RoleDetail extends ContextDetailBean<Role> {
 
 	@Override
 	public void actionSave() {
-		getDetailObject().setClient(getClient());
-		getDetailObject().setToManyTarget(Role.PRIVILEGES.getName(), privileges.getTarget(), true);
+		Role detailObject = getDetailObject();
+		detailObject.setClient(getClient());
+		detailObject.setToManyTarget(Role.PRIVILEGES.getName(), privileges.getTarget(), true);
 		super.actionSave();
 	}
 

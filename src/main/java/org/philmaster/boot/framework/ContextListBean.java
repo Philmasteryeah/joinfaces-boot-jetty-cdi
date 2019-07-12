@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 import org.apache.cayenne.BaseDataObject;
@@ -18,7 +17,6 @@ import org.primefaces.event.UnselectEvent;
 import lombok.Getter;
 import lombok.Setter;
 
-@Dependent
 public abstract class ContextListBean<T extends BaseDataObject> {
 
 	@Inject
