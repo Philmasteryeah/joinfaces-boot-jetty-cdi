@@ -51,13 +51,8 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 	
 	@PreDestroy
 	public void dispose() {
-		context.getGraphManager()
-				.registeredNodes()
-				.forEach(p -> System.out.println("---->" + p));
-
 		context.rollbackChanges();
 		BaseContext.bindThreadObjectContext(null);
-
 	}
 
 	private void initItems() {
