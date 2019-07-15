@@ -97,6 +97,7 @@ public class SessionBean implements Serializable {
 
 	public Client getLocalClient(ObjectContext context) {
 		// TODO add clientname
+		System.err.println("getLocalClient " + client);
 		if (client == null)
 			client = DatabaseService.fetchClientByName(context, null);
 		ObjectContext objectContext = client.getObjectContext();

@@ -1,10 +1,12 @@
 package org.philmaster.boot.framework;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.query.SelectById;
@@ -28,8 +30,10 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	@Getter
 	private T detailObject;
 
+	@Getter
 	private Client client;
 
+	@Getter
 	private Account account;
 
 	@Getter
@@ -37,10 +41,22 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 
 	@PostConstruct
 	public void init() {
-		context = getContext();
+		context = DatabaseService.getContext();
+		System.err.println("init context detail bean for context" + context);
 		initClient();
 		initAccount();
 		initDetailObject();
+	}
+
+	@PreDestroy
+	public void dispose() {
+		context.getGraphManager()
+				.registeredNodes()
+				.forEach(p -> System.out.println("---->" + p));
+
+		context.rollbackChanges();
+		BaseContext.bindThreadObjectContext(null);
+
 	}
 
 	public ObjectContext getContext() {
@@ -57,7 +73,7 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 	}
 
 	public void initDetailObject() {
-		initDetailObject(getContext(), getRequestId());
+		initDetailObject(context, getRequestId());
 	}
 
 	public void initDetailObject(ObjectContext ctx, String id) {
@@ -73,39 +89,46 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 		// detailObject.setToOneTarget("client", client, true);
 	}
 
-	public Client getClient() {
-		if (client == null)
-			initClient();
-		return client;
-	}
-
-	public Account getAccount() {
-		if (account == null)
-			initAccount();
-		return account;
-	}
+//	public Client getClient() {
+//		System.err.println("get client "+client);
+//		if (client == null)
+//			initClient();
+//		return client;
+//	}
+//
+//	public Account getAccount() {
+//		System.err.println("get acc "+account);
+//		if (account == null)
+//			initAccount();
+//		return account;
+//	}
 
 	public void initClient() {
-		client = session.getLocalClient(getContext());
+		client = session.getLocalClient(context);
+		System.err.println("init client " + client);
 	}
 
 	public void initAccount() {
-		account = session.getLocalAccount(getContext());
+		account = session.getLocalAccount(context);
+		System.err.println("init account " + account);
 	}
 
-	private T createDetailObject(ObjectContext ctx) {
-		return ctx.newObject(getTypeOfT());
+	private T createDetailObject(ObjectContext context) {
+		System.err.println("create detail object for context" + context);
+		return context.newObject(getTypeOfT());
 	}
 
 	private T fetchDetailObjectById(ObjectContext context, String detailId) {
+		System.err.println("fetcg detail object for context" + context);
 		return SelectById.query(getTypeOfT(), detailId)
 				.selectOne(context);
 	}
 
 	public void actionSave() {
 
+		System.err.println("save detail context " + context);
 		try {
-			getContext().commitChanges();
+			context.commitChanges();
 		} catch (Exception e) {
 			PMUtil.statusMessageError(e.getMessage());
 			return;

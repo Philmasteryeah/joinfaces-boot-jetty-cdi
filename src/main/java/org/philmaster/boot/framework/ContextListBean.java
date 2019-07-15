@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.ObjectContext;
 import org.philmaster.boot.service.DatabaseService;
@@ -38,15 +40,28 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 
 	@PostConstruct
 	public void init() {
-		context = getContext();
 
+		context = DatabaseService.getContext();
+		System.err.println("init context list bean for context" + context);
 		// TODO init account and client if needed
 		// TODO add client in fetch
 		initItems();
 
 	}
+	
+	@PreDestroy
+	public void dispose() {
+		context.getGraphManager()
+				.registeredNodes()
+				.forEach(p -> System.out.println("---->" + p));
+
+		context.rollbackChanges();
+		BaseContext.bindThreadObjectContext(null);
+
+	}
 
 	private void initItems() {
+		System.err.println("fetch all");
 		try {
 			items = DatabaseService.fetchAll(context, getTypeOfT());
 		} catch (Exception e) {
@@ -56,6 +71,7 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 	}
 
 	public ObjectContext getContext() {
+
 		if (context == null)
 			context = DatabaseService.getContext();
 		return context;
@@ -76,13 +92,22 @@ public abstract class ContextListBean<T extends BaseDataObject> {
 		PMUtil.statusMessageInfo("onRowUnselect", "onRowUnselect");
 	}
 
-	public String deleteSelected() {
+	public void deleteSelected() {
 		if (itemsSelected == null || itemsSelected.isEmpty())
-			return null;
-		context.deleteObjects(itemsSelected);
-		context.commitChanges();
+			return;
+
+		try {
+			context.deleteObjects(itemsSelected);
+			context.commitChanges();
+		} catch (Exception e) {
+			System.out.println(e);
+			PMUtil.statusMessageError(e.getMessage());
+			return;
+		}
+
 		initItems();
-		return null;
+		PMUtil.statusMessageInfo("saved");
+
 	}
 
 }
