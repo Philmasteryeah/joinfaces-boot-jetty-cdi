@@ -1,5 +1,7 @@
 package org.philmaster.boot.views;
 
+import java.util.stream.Collectors;
+
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -16,27 +18,29 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class QuestionnaireList extends ContextListBean<Questionnaire> {
 
 	@Autowired
-	private RedisTemplate<String, Object> template;
-	@Resource(name = "redisTemplate")
-	private ListOperations<String, String> listOps;
+	private RedisTemplate<String, Object> redisTemplate;
 
-	public Object getValue(final String key) {
-		return template.opsForValue()
-				.get(key);
-	}
+//	private static final String KEY = "spring:session:index:org.springframework.session.FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME";
 
-	public void setValue(final String key, final String value) {
-		template.opsForValue()
-				.set(key, value);
-	}
+//
+//	public Object getAtIndex(Integer index) {
+//		return redisTemplate.opsForList()
+//	}
 
 	public void initView() {
 		// Testing
 		System.err
 				.println("init quest list called from xhtml <f:viewAction action=\"#{questionnaireList.initView}\" />");
-		
-		System.err.println(template.getClientList());
-		
+		// spring:session:index:org.springframework.session.FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME:sa
+
+		String object = redisTemplate.opsForHash()
+				.getOperations()
+				.keys("spring*")
+				.stream()
+				.collect(Collectors.joining(", "));
+		// all keYS with spring in it
+		System.err.println(object);
+
 //
 //		Jedis jedis = fac.getConnection()..getResource();
 //	    jedis.select(1);
