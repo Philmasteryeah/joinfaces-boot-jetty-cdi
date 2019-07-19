@@ -1,5 +1,6 @@
 package org.philmaster.boot.views;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 @RequestScoped
 public class QuestionnaireList extends ContextListBean<Questionnaire> {
 
+	// TODO in Session?!
 	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
 
@@ -31,15 +33,9 @@ public class QuestionnaireList extends ContextListBean<Questionnaire> {
 		// Testing
 		System.err
 				.println("init quest list called from xhtml <f:viewAction action=\"#{questionnaireList.initView}\" />");
-		// spring:session:index:org.springframework.session.FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME:sa
+		List<String> users = getActiveUsernames();
 
-		String object = redisTemplate.opsForHash()
-				.getOperations()
-				.keys("spring*")
-				.stream()
-				.collect(Collectors.joining(", "));
-		// all keYS with spring in it
-		System.err.println(object);
+		System.err.println(users);
 
 //
 //		Jedis jedis = fac.getConnection()..getResource();
@@ -47,6 +43,16 @@ public class QuestionnaireList extends ContextListBean<Questionnaire> {
 //	    String attributeName = jedis.get("client");
 //	    jedis.select(0);
 
+	}
+
+	private List<String> getActiveUsernames() {
+		// spring:session:index:org.springframework.session.FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME:sa
+		return redisTemplate.opsForHash()
+				.getOperations()
+				.keys("*PRINCIPAL_NAME_INDEX_NAME*")
+				.stream()
+				.map(p -> p.replaceAll(".+:", ""))
+				.collect(Collectors.toList());
 	}
 
 }

@@ -37,8 +37,10 @@ public class AccountDetail extends ContextDetailBean<Account> {
 
 	@Override
 	public void actionSave() {
-		getDetailObject().setClient(getClient());
-		getDetailObject().setToManyTarget(Account.ROLES.getName(), roles.getTarget(), true);
+		Account detailObject = getDetailObject();
+		detailObject.setEnabled(true);
+		detailObject.setClient(getClient());
+		detailObject.setToManyTarget(Account.ROLES.getName(), roles.getTarget(), true);
 		super.actionSave();
 
 	}
