@@ -22,6 +22,7 @@ import lombok.Setter;
 public abstract class ContextListBean<T extends BaseDataObject> {
 
 	@Inject
+	@Getter
 	private SessionBean session;
 
 	private ObjectContext context;

@@ -6,6 +6,7 @@
     xmlns:pm="http://xmlns.jcp.org/jsf/composite/components"
     xmlns:p="http://primefaces.org/ui"
     xmlns:pe="http://primefaces.org/ui/extensions"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     template="/includes/template.xhtml">
     <ui:define name="title">
         account list
@@ -17,13 +18,25 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h:form id="form">
+
                     <pm:dataTable
                         id="accountDataTable"
                         detailPage="accountDetail"
                         listBean="#{accountList}"
                         colTitles="#{['Username', 'Birthdate']}"
                         colAttributes="#{['username', 'dateBirth']}">
+                        <p:column
+                            id="loggedIn"
+                            headerText="LoggedIn">
+                            <h:outputText
+                                styleClass="fa fa-circle-o text-green"
+                                rendered="#{accountList.isLoggedIn(detailObject.username)}" />
+                            <h:outputText
+                                styleClass="fa fa-circle-o text-red"
+                                rendered="#{!accountList.isLoggedIn(detailObject.username)}" />
+                        </p:column>
                     </pm:dataTable>
+
                 </h:form>
             </div>
         </div>
