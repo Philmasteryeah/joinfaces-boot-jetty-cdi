@@ -3,6 +3,8 @@ package org.philmaster.boot.service;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Singleton;
+import javax.inject.Singleton;
 import javax.sql.DataSource;
 
 import org.apache.cayenne.BaseContext;
@@ -45,6 +47,7 @@ public enum DatabaseService {
 	private static final String CAYENNE_CONFIG = "cayenne-project.xml";
 	private static final String DEFAULT_CLIENT_NAME = "default";
 
+	// TODO use spring datasource annotation and autoconfig
 	private static ServerRuntime runtime = ServerRuntime.builder()
 			.addConfig(CAYENNE_CONFIG)
 			.addModule(new ServerModule())
