@@ -31,11 +31,11 @@
                             <h:outputText
                                 value="nline"
                                 styleClass="fa fa-circle-o text-green"
-                                rendered="#{accountList.activeUsernames.contains(detailObject.username)}" />
+                                rendered="#{accountList.sessionUsernames.contains(detailObject.username)}" />
                             <h:outputText
                                 value="ffline"
                                 styleClass="fa fa-circle-o text-red"
-                                rendered="#{!accountList.activeUsernames.contains(detailObject.username)}" />
+                                rendered="#{!accountList.sessionUsernames.contains(detailObject.username)}" />
                         </p:column>
                     </pm:dataTable>
 

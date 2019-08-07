@@ -13,6 +13,7 @@ import org.philmaster.boot.framework.ContextListBean;
 import org.philmaster.boot.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 
@@ -23,7 +24,10 @@ public class AccountList extends ContextListBean<Account> {
 	@Autowired
 	private StringRedisTemplate redisTemplate;
 
-	private List<String> activeUsernames;
+	@Autowired
+	FindByIndexNameSessionRepository<? extends Session> redisSession;
+
+	private List<String> sessionUsernames;
 
 	@Override
 	@PostConstruct
@@ -32,31 +36,56 @@ public class AccountList extends ContextListBean<Account> {
 		// do your init stuff
 		System.err.println("-> " + getItems());
 		// TODO
-		List<String> collect = redisTemplate.opsForHash()
-				.getOperations()
-				.keys("spring:session:sessions:*")
-				.stream()
-				.filter(key -> !key.contains("expires"))
-				.collect(Collectors.toList());
+		sessionUsernames = initSessionUsernames();
 
-		collect.forEach(System.out::println);
+		getSessionUsernamesActive();
+
+	}
+	///// Redis stuff
+	// TODO server push notification if user logged off
+	////// Redis stuff
+
+	public List<String> getSessionUsernamesActive() {
+		// actual logged in users
+		return sessionUsernames.stream()
+				.filter(p -> redisSession.findByPrincipalName(p)
+						.size() != 0)
+				.collect(Collectors.toList());
 	}
 
-	//////
+	public String getMOTD() {
+		// test motd = message of the day
+		return redisTemplate.opsForValue()
+				.get("motd");
+	}
 
-	public List<String> getActiveUsernames() {
+	public List<String> getSessionUsernames() {
+		// only for view usage
+		return getSessionUsernamesActive();
+
+	}
+
+	private List<String> initSessionUsernames() {
 		// all saved user sessions
 		// spring:session:index:org.springframework.session.FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME:sa
-		if (activeUsernames != null)
-			return activeUsernames;
-		activeUsernames = redisTemplate.opsForHash()
+		// hold the usernames of all users who ever logged in
+		return redisTemplate.opsForHash()
 				.getOperations()
 				.keys("*PRINCIPAL_NAME_INDEX_NAME*")
 				.stream()
 				.map(p -> p.replaceAll(".+:", ""))
 				.collect(Collectors.toList());
-		return activeUsernames;
 	}
+
+//	List<String> collect = redisTemplate.opsForHash()
+//	.getOperations()
+//	.keys("spring:session:sessions:*")
+//	.stream()
+//	.map(key -> key.replaceAll(".+:", ""))
+//
+//	.collect(Collectors.toList());
+//
+//collect.forEach(System.out::println);
 
 //	public boolean isLoggedIn(String username) {
 //		if (username == null || activeUsernames == null || activeUsernames.isEmpty())
