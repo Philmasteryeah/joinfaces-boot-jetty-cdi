@@ -20,12 +20,12 @@ import org.springframework.session.Session;
 @Named
 @RequestScoped
 public class AccountList extends ContextListBean<Account> {
+//
+//	@Autowired
+//	private StringRedisTemplate redisTemplate;
 
-	@Autowired
-	private StringRedisTemplate redisTemplate;
-
-	@Autowired
-	FindByIndexNameSessionRepository<? extends Session> redisSession;
+//	@Autowired
+//	FindByIndexNameSessionRepository<? extends Session> redisSession;
 
 	private List<String> sessionUsernames;
 
@@ -36,7 +36,7 @@ public class AccountList extends ContextListBean<Account> {
 		// do your init stuff
 		System.err.println("-> " + getItems());
 		// TODO
-		sessionUsernames = initSessionUsernames();
+		//sessionUsernames = initSessionUsernames();
 
 		getSessionUsernamesActive();
 
@@ -46,18 +46,19 @@ public class AccountList extends ContextListBean<Account> {
 	////// Redis stuff
 
 	public List<String> getSessionUsernamesActive() {
-		// actual logged in users
-		return sessionUsernames.stream()
-				.filter(p -> redisSession.findByPrincipalName(p)
-						.size() != 0)
-				.collect(Collectors.toList());
+		return null;
+//		// actual logged in users
+//		return sessionUsernames.stream()
+//				.filter(p -> redisSession.findByPrincipalName(p)
+//						.size() != 0)
+//				.collect(Collectors.toList());
 	}
 
-	public String getMOTD() {
-		// test motd = message of the day
-		return redisTemplate.opsForValue()
-				.get("motd");
-	}
+//	public String getMOTD() {
+//		// test motd = message of the day
+//		return redisTemplate.opsForValue()
+//				.get("motd");
+//	}
 
 	public List<String> getSessionUsernames() {
 		// only for view usage
@@ -65,17 +66,17 @@ public class AccountList extends ContextListBean<Account> {
 
 	}
 
-	private List<String> initSessionUsernames() {
-		// all saved user sessions
-		// spring:session:index:org.springframework.session.FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME:sa
-		// hold the usernames of all users who ever logged in
-		return redisTemplate.opsForHash()
-				.getOperations()
-				.keys("*PRINCIPAL_NAME_INDEX_NAME*")
-				.stream()
-				.map(p -> p.replaceAll(".+:", ""))
-				.collect(Collectors.toList());
-	}
+//	private List<String> initSessionUsernames() {
+//		// all saved user sessions
+//		// spring:session:index:org.springframework.session.FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME:sa
+//		// hold the usernames of all users who ever logged in
+//		return redisTemplate.opsForHash()
+//				.getOperations()
+//				.keys("*PRINCIPAL_NAME_INDEX_NAME*")
+//				.stream()
+//				.map(p -> p.replaceAll(".+:", ""))
+//				.collect(Collectors.toList());
+//	}
 
 //	List<String> collect = redisTemplate.opsForHash()
 //	.getOperations()
