@@ -14,8 +14,8 @@
 	</parent>
 
 	<groupId>org.philmaster</groupId>
-	<artifactId>boot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>joinfaces-boot-jetty-cdi</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<name>joinfaces-boot-jetty-cdi</name>
 	<description>Demo project for Spring Boot</description>
