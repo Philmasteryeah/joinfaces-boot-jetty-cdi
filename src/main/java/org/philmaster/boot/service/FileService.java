@@ -68,7 +68,7 @@ public class FileService implements ResourceLoaderAware {
 		URI uri = resourceToUri(getStaticResource(filename));
 		if (uri == null)
 			return null;
-		return PMUtil.readTextISO(Path.of(uri));
+		return PMUtil.readTextISO(Paths.get(uri));
 	}
 
 	private static URI resourceToUri(Resource resource) {

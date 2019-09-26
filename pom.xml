@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.7.RELEASE</version>
+		<version>2.1.8.RELEASE</version>
 
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
@@ -238,10 +238,14 @@
 		</pluginManagement>
 
 		<plugins>
-			<plugin>
-				<groupId>org.joinfaces</groupId>
-				<artifactId>joinfaces-maven-plugin</artifactId>
-			</plugin>
+           <plugin>
+                <groupId>org.joinfaces</groupId>
+                <artifactId>joinfaces-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
 
 			<plugin>
 				<groupId>org.apache.cayenne.plugins</groupId>
@@ -270,7 +274,6 @@
 						<include>target/joinfaces-boot-jetty-cdi-1.0.0.jar</include>
 					</includes>
 					<appName>ancient-gorge-66249</appName>
-					<jdkVersion>10</jdkVersion>
 					<processTypes>
 						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/joinfaces-boot-jetty-cdi-1.0.0.jar</web>
 					</processTypes>
@@ -292,9 +295,39 @@
 
 	<repositories>
 		<repository>
-			<id>repository.spring.milestone</id>
-			<name>Spring Milestone Repository</name>
+			<id>primefaces-maven-repository</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
 			<url>http://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<url>http://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 </project>

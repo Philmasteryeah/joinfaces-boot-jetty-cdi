@@ -1,7 +1,7 @@
 package org.philmaster.boot.model;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import org.philmaster.boot.model.auto._Account;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,8 +27,7 @@ public class Account extends _Account implements UserDetails {
 				return "ROLE_ADMIN";
 			}
 		};
-
-		return List.of(grantedAuthority);
+		return Arrays.asList(grantedAuthority);
 	}
 //
 //	private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
