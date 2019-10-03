@@ -99,12 +99,14 @@ public abstract class ContextDetailBean<T extends BaseDataObject> {
 //	}
 
 	public void initClient() {
-		client = session.getLocalClient(context);
+		client = DatabaseService.fetchClientByName(context, null);
+		// client = session.getLocalClient(context);
 		System.err.println("init client " + client);
 	}
 
 	public void initAccount() {
-		account = session.getLocalAccount(context);
+		account = DatabaseService.fetchAccountByUsername(context, session.getUsernameFromAuth(), getClient());
+		// account = session.getLocalAccount(context);
 		System.err.println("init account " + account);
 	}
 

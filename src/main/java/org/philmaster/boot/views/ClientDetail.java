@@ -43,7 +43,7 @@ public class ClientDetail {
 		System.err.println("init client");
 		context = getContext();
 		session = getSession();
-		detailObject = session.getLocalClient(context);
+		detailObject = DatabaseService.fetchClientByName(context, null);
 
 	}
 

@@ -98,23 +98,26 @@ public class SessionBean implements Serializable {
 
 	}
 
-	public Client getLocalClient(ObjectContext context) {
-		// TODO add clientname
-		System.err.println("getLocalClient " + client);
-		if (client == null)
-			client = DatabaseService.fetchClientByName(context, null);
-		ObjectContext objectContext = client.getObjectContext();
-		if (objectContext != null && objectContext.equals(context))
-			return client;
-		return context.localObject(client);
-	}
-
-	public Account getLocalAccount(ObjectContext context) {
-		if (account == null)
-			account = DatabaseService.fetchAccountByUsername(context, getUsernameFromAuth(), getLocalClient(context));
-		if (account != null)
-			account.setObjectContext(context);
-		return account;
-	}
+//	public Client getLocalClient(ObjectContext context) {
+//		// TODO add clientname
+//		System.err.println("getLocalClient " + client);
+//		if (client == null)
+//			client = DatabaseService.fetchClientByName(context, null);
+////		ObjectContext objectContext = client.getObjectContext();
+////		if (objectContext != null && objectContext.equals(context))
+////			return client;
+////		return context.localObject(client);
+//		if (client != null)
+//			client.setObjectContext(context);
+//		return client;
+//	}
+//
+//	public Account getLocalAccount(ObjectContext context) {
+//		if (account == null)
+//			account = DatabaseService.fetchAccountByUsername(context, getUsernameFromAuth(), getLocalClient(context));
+//		if (account != null)
+//			account.setObjectContext(context);
+//		return account;
+//	}
 
 }
