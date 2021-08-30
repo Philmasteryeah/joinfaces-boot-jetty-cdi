@@ -10,7 +10,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.8.RELEASE</version>
 
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>org.philmaster</groupId>
@@ -31,7 +31,7 @@
 		<heroku.version>2.0.7</heroku.version>
 
 		<cayenne.version>4.1.M2</cayenne.version>
-		<cayenne.modeler.version>4.1.M1</cayenne.modeler.version>
+		<cayenne.modeler.version>4.1</cayenne.modeler.version>
 
 		<database.driver>org.postgresql.Driver</database.driver>
 		<database.url>jdbc:postgresql://localhost:5432/database</database.url>
@@ -54,12 +54,12 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>7.0</version>
+			<version>8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces.extensions</groupId>
 			<artifactId>primefaces-extensions</artifactId>
-			<version>7.0</version>
+			<version>8.0</version>
 		</dependency>
 
 		<dependency>
